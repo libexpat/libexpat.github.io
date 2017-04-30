@@ -26,7 +26,7 @@ Please continue reading with:
  * [Common Pitfalls](pages/common-pitfalls.html)
 
 If you have found a bug,
-please [report it](https://github.com/libexpat/libexpat) so it gets fixed.
+please [report it](https://github.com/libexpat/libexpat/issues) so it gets fixed.
 Thank you!
 
 The Expat development team
