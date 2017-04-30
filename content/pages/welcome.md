@@ -22,7 +22,7 @@ check out [libxml2](http://xmlsoft.org/).
 Please continue reading with:
 
  * [Getting Started](pages/getting-started.html)
- * [XML Security](pages/getting-started.html)
+ * [XML Security](pages/xml-security.html)
  * [Common Pitfalls](pages/common-pitfalls.html)
 
 If you have found a bug,
