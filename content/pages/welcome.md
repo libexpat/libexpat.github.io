@@ -21,9 +21,9 @@ check out [libxml2](http://xmlsoft.org/).
 
 Please continue reading with:
 
- * [Getting Started](getting-started.html)
- * [XML Security](getting-started.html)
- * [Common Pitfalls](common-ptifalls.html)
+ * [Getting Started](pages/getting-started.html)
+ * [XML Security](pages/getting-started.html)
+ * [Common Pitfalls](pages/common-pitfalls.html)
 
 If you have found a bug,
 please [report it](https://github.com/libexpat/libexpat) so it gets fixed.
