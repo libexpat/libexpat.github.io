@@ -3,7 +3,7 @@
 
 PELICAN = pelican
 
-GENERATED = '*.html' feeds/ theme/ 'pages/*.html'
+GENERATED = '*.html' theme/
 
 .PHONY: all
 all:
