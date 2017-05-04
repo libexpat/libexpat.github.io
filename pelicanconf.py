@@ -18,7 +18,7 @@ DISPLAY_PAGES_ON_MENU = False
 MENUITEMS = (
     ('Changelog', _github('/blob/master/expat/Changes')),
     ('Download', 'https://sourceforge.net/projects/expat/files/?source=navbar'),
-    ('Documentation', '%s/' % _DOC_MASTER),
+    ('Documentation', SITEURL + '/%s/' % _DOC_MASTER),
     ('Git Repository', _github()),
     ('Report a Bug', _github('/issues')),
 )
