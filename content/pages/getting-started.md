@@ -12,5 +12,5 @@ on using Expat is available on
 
 For further reading, please consider:
 
-* [XML Security](doc/xml-security/)
-* [Common Pitfalls](doc/common-pitfalls/)
+* [XML Security](../xml-security/)
+* [Common Pitfalls](../common-pitfalls/)
