@@ -25,7 +25,7 @@ MENUITEMS = (
 
 TIMEZONE = 'UTC'
 RELATIVE_URLS = True
-THEME = 'notmyidea'
+THEME = './theme-notmyidea-3.7.1'
 
 FEED_ALL_ATOM = None
 FEED_ALL_RSS = None
