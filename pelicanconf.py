@@ -23,8 +23,6 @@ MENUITEMS = (
     ('Report a Bug', _github('/issues')),
 )
 
-INDEX_SAVE_AS = '%s/index.html' % _DOC_MASTER
-
 TIMEZONE = 'UTC'
 RELATIVE_URLS = True
 THEME = 'notmyidea'
