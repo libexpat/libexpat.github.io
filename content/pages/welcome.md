@@ -6,10 +6,10 @@ url:
 
 Welcome to Expat, a stream-oriented XML parser library written in C.
 
-Please note, **this website is work-in-progress**.
-For now, [www.libexpat.org](http://www.libexpat.org/) may be of more help.
-Be encouraged to join the transition with
+> Please note, **this website is work-in-progress**.<br />
+Be encouraged to join improving this website with
 [your own pull requests](https://github.com/libexpat/libexpat.github.io/pulls).
+Thank you!
 
 Expat excels
 
