@@ -20,6 +20,7 @@ MENUITEMS = (
     ('Download', 'https://sourceforge.net/projects/expat/files/?source=navbar'),
     ('Documentation', SITEURL + '/%s/' % _DOC_MASTER),
     ('Git Repository', _github()),
+    ('Users', SITEURL + '/' + PAGE_URL.format(slug='users')),
     ('Report a Bug', _github('/issues')),
 )
 
