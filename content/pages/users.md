@@ -18,7 +18,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [ACOVEA](https://github.com/Acovea/libacovea)
 * [AdvanceMAME](http://www.advancemame.it/)
 * [afflib](https://github.com/sshock/AFFLIBv3/)
-* [alephone](http://source.bungie.org/)
+* [Aleph One](http://source.bungie.org/)
 * [AmphetaDesk](http://www.disobey.com/amphetadesk/)
 * [Android Studio](http://developer.android.com/sdk/installing/studio.html)
 * [Apache httpd tools](https://httpd.apache.org/)
