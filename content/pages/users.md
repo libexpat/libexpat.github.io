@@ -120,6 +120,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [pyxml](http://pyxml.sourceforge.net/)
 * [QGIS](http://www.qgis.org/)
 * [QtWebEngine](https://www.qt.io/)
+* [Raptor RDF Syntax Library](http://librdf.org/raptor/) (prior to version 2.0.7)
 * [RATS](https://code.google.com/p/rough-auditing-tool-for-security/)
 * [RawTherapee](http://www.rawtherapee.com/)
 * [readosm](https://www.gaia-gis.it/spatialite)
