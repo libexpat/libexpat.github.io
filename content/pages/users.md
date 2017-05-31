@@ -94,7 +94,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [libxspf](http://libspiff.sourceforge.net/)
 * [Liquid War 6](https://www.gnu.org/software/liquidwar6/)
 * [litmus](http://www.webdav.org/neon/litmus/)
-* [luaexpat](http://www.keplerproject.org/luaexpat/)
+* [luaexpat](https://matthewwild.co.uk/projects/luaexpat/)
 * [MakeMKV](http://www.makemkv.com/)
 * [mamory](https://sourceforge.net/projects/mamory/)
 * [MapServer](http://mapserver.org/)
