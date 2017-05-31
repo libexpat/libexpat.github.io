@@ -90,6 +90,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [libsolv/libzypp](http://doc.opensuse.org/projects/libzypp/HEAD/)
 * [libwbxml](https://github.com/libwbxml/libwbxml)
 * [libwmf](http://wvware.sourceforge.net/)
+* [libwww](https://www.w3.org/Library/)
 * [libxspf](http://libspiff.sourceforge.net/)
 * [Liquid War 6](https://www.gnu.org/software/liquidwar6/)
 * [litmus](http://www.webdav.org/neon/litmus)
