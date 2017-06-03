@@ -5,8 +5,7 @@ save_as: index.html
 url:
 
 > Please note, **this website is work-in-progress**.<br />
-Be encouraged to join improving this website with
-[your own pull requests](https://github.com/libexpat/libexpat.github.io/pulls).
+Be encouraged to [join improving this website](doc/contribute-website/).
 Thank you!
 
 # Latest News

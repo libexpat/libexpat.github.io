@@ -4,8 +4,7 @@ License: MIT
 slug: users
 
 > Please note, **this website is work-in-progress**.<br />
-Be encouraged to join improving this website with
-[your own pull requests](https://github.com/libexpat/libexpat.github.io/pulls).
+Be encouraged to [join improving this website](doc/contribute-website/).
 Thank you!
 
 To be included in this list, the related piece of software needs to be
