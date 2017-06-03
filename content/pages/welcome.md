@@ -10,13 +10,8 @@ Be encouraged to join improving this website with
 Thank you!
 
 Welcome to Expat, a stream-oriented XML parser library written in C.<br/>
-Expat excels
-
- * with files that do not fit RAM, and
- * where performance and flexibility are crucial.
-
-If you would rather use a DOM parser, you may want to
-check out [libxml2](http://xmlsoft.org/).
+Expat excels with files too large to fit RAM, and
+where performance and flexibility are crucial.
 
 Please continue reading with:
 
