@@ -9,6 +9,20 @@ Be encouraged to join improving this website with
 [your own pull requests](https://github.com/libexpat/libexpat.github.io/pulls).
 Thank you!
 
+# Latest News
+
+* 2016-06-21 —
+  [Expat 2.2.0](https://github.com/libexpat/libexpat/blob/master/expat/Changes)
+  has been released
+* 2016-03-12 —
+  [Expat 2.1.1](https://github.com/libexpat/libexpat/blob/master/expat/Changes)
+  has been released
+
+[Past news entries](doc/news/)
+
+
+# What is Expat?
+
 Welcome to Expat, a stream-oriented XML parser library written in C.<br/>
 Expat excels with files too large to fit RAM, and
 where performance and flexibility are crucial.
