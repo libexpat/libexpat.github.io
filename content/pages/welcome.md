@@ -4,13 +4,12 @@ License: MIT
 save_as: index.html
 url:
 
-Welcome to Expat, a stream-oriented XML parser library written in C.
-
 > Please note, **this website is work-in-progress**.<br />
 Be encouraged to join improving this website with
 [your own pull requests](https://github.com/libexpat/libexpat.github.io/pulls).
 Thank you!
 
+Welcome to Expat, a stream-oriented XML parser library written in C.<br/>
 Expat excels
 
  * with files that do not fit RAM, and
