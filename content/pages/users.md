@@ -7,6 +7,9 @@ slug: users
 Be encouraged to [join improving this website](../contribute-website/).
 Thank you!
 
+__NOTE__: For [bindings and 3rd-party wrappers](../references/), please check
+the [dedicated page](../references/).
+
 To be included in this list, the related piece of software needs to be
 [Open Source](https://opensource.org/osd-annotated)
 (so that users can study its use of Expat)

@@ -1,22 +1,15 @@
-Title: References &amp; 3rd-party Wrappers
+Title: Expat Bindings &amp; 3rd-party Wrappers
 Date: 2005-01-10
 slug: references
 
-If you know of any additional articles or resources which should be linked to
+If you know of any additional resources which should be linked to
 from this page, please
 [open a bug](https://github.com/libexpat/libexpat.github.io/issues)
 for this website or
 [provide a pull request](https://github.com/libexpat/libexpat.github.io/pulls).
-We're especially interested in links to tutorial information and open source
+We're especially interested in links open source
 interfaces to Expat from languages other than C.
 
-# References
-
-  * [James Clark's original Expat page](http://www.jclark.com/xml/expat.html), for Expat 1.2 and earlier
-  * [Introductory article](http://www.xml.com/pub/1999/09/expat/index.html) on using Expat on [xml.com](http://www.xml.com/)
-
-
-# Wrappers and bindings (by language)
 
 * __AppleScript__
     * [XML Tools 2](http://www.latenightsw.com/freeware/XMLTools2/) is an AppleScript scripting addition that allows AppleScript applications to work with XML data; it is based on Expat.
