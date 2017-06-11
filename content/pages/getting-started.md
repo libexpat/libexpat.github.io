@@ -1,6 +1,7 @@
-Title: Getting Started
+Title: Getting Started With Expat
 Date: 2017-04-30
 License: MIT
+slug: getting-started
 
 Expat is a stream-oriented parser in which an application registers handlers
 for things the parser might find in the XML document (like start tags).
