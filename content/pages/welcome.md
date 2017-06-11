@@ -27,7 +27,7 @@ Expat excels with files too large to fit RAM, and
 where performance and flexibility are crucial.
 
 There are a number of [applications and libaries using Expat](doc/users/),
-as well as [bindings and 3rd-party wrappers](doc/references/).
+as well as [bindings and 3rd-party wrappers](doc/bindings/).
 
 Please continue reading with:
 

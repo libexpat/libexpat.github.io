@@ -7,8 +7,8 @@ slug: users
 Be encouraged to [join improving this website](../contribute-website/).
 Thank you!
 
-__NOTE__: For [bindings and 3rd-party wrappers](../references/), please check
-the [dedicated page](../references/).
+__NOTE__: For [bindings and 3rd-party wrappers](../bindings/), please check
+the [dedicated page](../bindings/).
 
 To be included in this list, the related piece of software needs to be
 [Open Source](https://opensource.org/osd-annotated)

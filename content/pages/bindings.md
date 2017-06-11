@@ -1,6 +1,6 @@
 Title: Expat Bindings &amp; 3rd-party Wrappers
 Date: 2005-01-10
-slug: references
+slug: bindings
 
 If you know of any additional resources which should be linked to
 from this page, please

@@ -16,7 +16,7 @@ Please read:
 # Other Resources
 
 * [Software using Expat](users/)
-* [Bindings & 3rd-party Wrappers](references/)
+* [Bindings & 3rd-party Wrappers](bindings/)
 
 
 # External Articles and References
