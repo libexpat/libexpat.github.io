@@ -41,6 +41,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [D-Bus](https://www.freedesktop.org/wiki/Software/dbus/)
 * [digiKam](https://www.digikam.org/)
 * [Dovecot](http://www.dovecot.org/)
+* [EasySoap++](http://easysoap.sourceforge.net/)
 * [EKG2](http://www.ekg2.org)
 * [Electron](https://electron.atom.io/)
 * [ELinks](http://elinks.or.cz/)
