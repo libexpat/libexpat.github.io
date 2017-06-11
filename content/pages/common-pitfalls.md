@@ -9,11 +9,11 @@ Thank you!
 
 # Overview
 
-* [Character data is split accross multiple handler calls](#split-character-data)
+* [Character data is split across multiple handler calls](#split-character-data)
 * [External entity sub-parsers must be created after parsing has started](#nested-parser-creation-time)
 
 
-# <a name="split-character-data"></a> Character data may be split accross multiple handler calls
+# <a name="split-character-data"></a> Character data may be split across multiple handler calls
 
 TODO
 
