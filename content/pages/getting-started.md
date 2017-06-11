@@ -9,6 +9,12 @@ An [introductory article](https://www.xml.com/pub/1999/09/expat/index.html)
 on using Expat is available on
 [xml.com](https://www.xml.com/pub/1999/09/expat/index.html).
 
+There are also two examples coming with Expat
+(but they provide little background):
+
+* [`elements.c`](https://github.com/libexpat/libexpat/blob/master/expat/examples/elements.c)
+* [`outline.c`](https://github.com/libexpat/libexpat/blob/master/expat/examples/outline.c)
+
 
 For further reading, please consider:
 
