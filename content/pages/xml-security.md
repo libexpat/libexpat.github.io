@@ -2,6 +2,11 @@ Title: XML Security
 Date: 2017-04-30
 License: MIT
 
+> Please note, **this website is work-in-progress**.<br />
+Be encouraged to [join improving this website](doc/contribute-website/).
+Thank you!
+
+
 # Overview
 
 * [Billion laughs attack](#billion-laughs)
