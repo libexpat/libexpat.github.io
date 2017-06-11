@@ -132,6 +132,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [RNV](https://github.com/hartwork/rnv)
 * [s3backer](https://github.com/archiecobbs/s3backer)
 * [Sablotron](https://sourceforge.net/projects/sablotron/)
+* [sblg](https://kristaps.bsd.lv/sblg/)
 * [Scorched3D](http://www.scorched3d.co.uk/)
 * [SDLmame](http://mamedev.org/)
 * [SeaMonkey](http://www.seamonkey-project.org)
