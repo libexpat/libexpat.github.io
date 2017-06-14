@@ -10,11 +10,11 @@ Thank you!
 
 # Latest News
 
+* 2017-06-17 —
+  __CVE-2017-9233__:
+  [External Entity Vulnerability in Expat 2.2.0 And Earlier](doc/cve-2017-9233/)
 * 2016-06-21 —
   [Expat 2.2.0](https://github.com/libexpat/libexpat/blob/master/expat/Changes)
-  has been released
-* 2016-03-12 —
-  [Expat 2.1.1](https://github.com/libexpat/libexpat/blob/master/expat/Changes)
   has been released
 
 [Past news entries](doc/news/)
