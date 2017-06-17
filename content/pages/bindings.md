@@ -34,7 +34,7 @@ interfaces to Expat from languages other than C.
 * __Julia__
     * [LibExpat.jl](https://github.com/JuliaIO/LibExpat.jl) — Julia interface to the Expat XML parser library
 * __Lua__
-    * [LuaExpat](http://www.keplerproject.org/luaexpat/) is a wrapper around Expat for the [Lua](http://www.lua.org/) programming language. The [LuaSOAP](http://www.keplerproject.org/luasoap/) library is a [SOAP](http://xml.coverpages.org/soap.html) implementation built on top of [LuaExpat](http://www.keplerproject.org/luaexpat/).
+    * [LuaExpat](https://github.com/LuaDist/luaexpat) is a wrapper around Expat for the [Lua](http://www.lua.org/) programming language. The [LuaSOAP](http://www.keplerproject.org/luasoap/) library is a [SOAP](http://xml.coverpages.org/soap.html) implementation built on top of [LuaExpat](http://www.keplerproject.org/luaexpat/).
     * [luapower/expat](https://github.com/luapower/expat) — expat Lua+ffi binding
 * __ML__ (Standard ML)
     * [expat-sml](http://www.enyo.de/fw/notes/sml-expat.html) — Experimental Expat binding for Standard ML
@@ -51,10 +51,15 @@ interfaces to Expat from languages other than C.
     * [OCaml Expat](http://www.xs4all.nl/~mmzeeman/ocaml/) is a wrapper around Expat for the [Objective Caml](http://www.ocaml.org) language.
 * __Perl__
     * Perl's `XML::Parser` module is a wrapper built around a binding to Expat in the `XML::Parser::Expat` module.
+    * [XML-Generator](http://search.cpan.org/dist/XML-Generator/) — Perl extension for generating XML
+    * [XML-Parser](http://search.cpan.org/dist/XML-Parser/) — Perl module for parsing XML documents
+    * [XML-SAX-ExpatXS](http://search.cpan.org/dist/XML-SAX-ExpatXS/) — Perl SAX 2 XS extension to Expat parser
+    * [XML-Twig](http://search.cpan.org/dist/XML-Twig/) — Perl module for processing huge XML documents in tree mode
 * __PHP__
     * [Article on using Expat from PHP](http://www.phpbuilder.com/columns/justin20000428.php3) on [&lt;?PHPBuilder?&gt;](http://www.phpbuilder.com/)
 * __Python__
     * [Documentation for the Python interface to Expat](http://www.python.org/doc/current/lib/module-xml.parsers.expat.html), part of the standard documentation for Python.
+    * [cElementTree](http://effbot.org/zone/celementtree.htm)
 * __R__
     * [rdyncall demo for Expat](https://rdrr.io/rforge/rdyncall/src/demo/expat.R)
 * __Ruby__
