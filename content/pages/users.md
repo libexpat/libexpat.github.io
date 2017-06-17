@@ -162,7 +162,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [VOTCA](http://www.votca.org)
 * [VTK](http://www.vtk.org/)
 * [Wayland](https://wayland.freedesktop.org/)
-* [wxGTK](http://wxwidgets.org/)
+* [wxWidgets](http://wxwidgets.org/)
 * [wxSVG](http://wxsvg.sourceforge.net/)
 * [xkbd](http://trac.hackable1.org/trac/wiki/Xkbd)
 * [XML-Generator](http://search.cpan.org/dist/XML-Generator/)
