@@ -36,11 +36,16 @@ for this website or
 We're especially interested in links open source
 interfaces to Expat from languages other than C.</p>
 <ul>
+<li><strong>Ada</strong><ul>
+<li><a href="https://github.com/xlq/ada-expat">xlq/ada-expat</a></li>
+</ul>
+</li>
 <li><strong>AppleScript</strong><ul>
 <li><a href="http://www.latenightsw.com/freeware/XMLTools2/">XML Tools 2</a> is an AppleScript scripting addition that allows AppleScript applications to work with XML data; it is based on Expat.</li>
 </ul>
 </li>
 <li><strong>C</strong><ul>
+<li><a href="https://github.com/kolotsey/expat-dom">expat-dom</a> — Easy-to-use DOM interface written in C</li>
 <li>The <a href="http://www.nongnu.org/scew/">Simple C Expat Wrapper</a> is a wrapper around Expat that provides a light-weight object model somewhat like a DOM.</li>
 </ul>
 </li>
@@ -48,6 +53,7 @@ interfaces to Expat from languages other than C.</p>
 <li><a href="http://devzone.intellitree.com/projects/expatmm/">ExpatMM -- C++ interface to Expat</a></li>
 <li><em><a href="http://www.codeproject.com/soap/expatimpl.asp" title="C++ Wrappers for the Expat XML Parser">C++ Wrappers for the Expat XML Parser</a></em>, an article by Tim Smith providing object-oriented wrappers for Expat. The wrappers use some MFC-biased naming, but look interesting.</li>
 <li><a href="http://www.jezuk.co.uk/cgi-bin/view/arabica" title="Arabica">Arabica</a> -- an XML Parser toolkit for C++ programmers, with SAX2 implementations based on several parsers, including Expat.</li>
+<li><a href="https://sourceforge.net/projects/expatpp/">expatpp</a> c++ layer for expat</li>
 </ul>
 </li>
 <li><strong>C#</strong><ul>
@@ -58,8 +64,33 @@ interfaces to Expat from languages other than C.</p>
 <li>The <a href="http://sourceforge.net/projects/gobo-eiffel/">GOBO project</a> is working on an Eiffel binding for Expat. Development is active and the package is fully supported in GOBO 3.0 and 3.1, though there isn't much status information about the Expat bindings on the website. (Most activity is reportedly on the relevant mailing lists.)</li>
 </ul>
 </li>
+<li><strong>Erlang</strong><ul>
+<li><a href="https://github.com/processone/fast_xml">fast_xml</a> — Fast Expat based Erlang XML parsing library</li>
+</ul>
+</li>
+<li><strong>Haskell</strong><ul>
+<li><a href="https://hackage.haskell.org/package/hexpat">hexpat</a> — General purpose Haskell XML library using Expat to do its parsing</li>
+</ul>
+</li>
+<li><strong>Julia</strong><ul>
+<li><a href="https://github.com/JuliaIO/LibExpat.jl">LibExpat.jl</a> — Julia interface to the Expat XML parser library</li>
+</ul>
+</li>
 <li><strong>Lua</strong><ul>
-<li><a href="http://www.keplerproject.org/luaexpat/">LuaExpat</a> is a wrapper around Expat for the <a href="http://www.lua.org/">Lua</a> programming language. The <a href="http://www.keplerproject.org/luasoap/">LuaSOAP</a> library is a <a href="http://xml.coverpages.org/soap.html">SOAP</a> implementation built on top of <a href="http://www.keplerproject.org/luaexpat/">LuaExpat</a>.</li>
+<li><a href="https://github.com/LuaDist/luaexpat">LuaExpat</a> is a wrapper around Expat for the <a href="http://www.lua.org/">Lua</a> programming language. The <a href="http://www.keplerproject.org/luasoap/">LuaSOAP</a> library is a <a href="http://xml.coverpages.org/soap.html">SOAP</a> implementation built on top of <a href="http://www.keplerproject.org/luaexpat/">LuaExpat</a>.</li>
+<li><a href="https://github.com/luapower/expat">luapower/expat</a> — expat Lua+ffi binding</li>
+</ul>
+</li>
+<li><strong>ML</strong> (Standard ML)<ul>
+<li><a href="http://www.enyo.de/fw/notes/sml-expat.html">expat-sml</a> — Experimental Expat binding for Standard ML</li>
+</ul>
+</li>
+<li><strong>Nim</strong><ul>
+<li><a href="https://github.com/nim-lang/expat">nim-lang/expat</a></li>
+</ul>
+</li>
+<li><strong>node.js</strong><ul>
+<li><a href="https://github.com/astro/node-expat">node-expat</a> — libexpat XML SAX parser binding for node.js</li>
 </ul>
 </li>
 <li><strong>Objective-C</strong><ul>
@@ -71,11 +102,16 @@ interfaces to Expat from languages other than C.</p>
 </ul>
 </li>
 <li><strong>OCaml</strong><ul>
+<li><a href="https://github.com/whitequark/ocaml-expat">whitequark/ocaml-expat</a></li>
 <li><a href="http://www.xs4all.nl/~mmzeeman/ocaml/">OCaml Expat</a> is a wrapper around Expat for the <a href="http://www.ocaml.org">Objective Caml</a> language.</li>
 </ul>
 </li>
 <li><strong>Perl</strong><ul>
 <li>Perl's <code>XML::Parser</code> module is a wrapper built around a binding to Expat in the <code>XML::Parser::Expat</code> module.</li>
+<li><a href="http://search.cpan.org/dist/XML-Generator/">XML-Generator</a> — Perl extension for generating XML</li>
+<li><a href="http://search.cpan.org/dist/XML-Parser/">XML-Parser</a> — Perl module for parsing XML documents</li>
+<li><a href="http://search.cpan.org/dist/XML-SAX-ExpatXS/">XML-SAX-ExpatXS</a> — Perl SAX 2 XS extension to Expat parser</li>
+<li><a href="http://search.cpan.org/dist/XML-Twig/">XML-Twig</a> — Perl module for processing huge XML documents in tree mode</li>
 </ul>
 </li>
 <li><strong>PHP</strong><ul>
@@ -84,19 +120,41 @@ interfaces to Expat from languages other than C.</p>
 </li>
 <li><strong>Python</strong><ul>
 <li><a href="http://www.python.org/doc/current/lib/module-xml.parsers.expat.html">Documentation for the Python interface to Expat</a>, part of the standard documentation for Python.</li>
+<li><a href="http://effbot.org/zone/celementtree.htm">cElementTree</a></li>
+</ul>
+</li>
+<li><strong>R</strong><ul>
+<li><a href="https://rdrr.io/rforge/rdyncall/src/demo/expat.R">rdyncall demo for Expat</a></li>
 </ul>
 </li>
 <li><strong>Ruby</strong><ul>
 <li><a href="http://www.yoshidam.net/Ruby.html#xmlparser">Ruby interface to Expat</a></li>
+<li><a href="https://rubygems.org/gems/ffi-expat/">ffi-expat</a> — Very thin wrapper around expat using the Ruby FFI library</li>
+</ul>
+</li>
+<li><strong>Rust</strong><ul>
+<li><a href="https://crates.io/crates/expat-sys/versions">expat-sys CARGO package</a></li>
 </ul>
 </li>
 <li><strong>Simkin</strong><ul>
 <li><a href="http://www.simkin.co.uk/">Simkin</a> is an open source scripting language available under the GNU LGPL. It can be embedded in XML and supports a DOM-like API backed by Expat.</li>
 </ul>
 </li>
+<li><strong>Swift</strong><ul>
+<li><a href="https://github.com/AlwaysRightInstitute/SwiftyExpat">SwiftyExpat</a></li>
+</ul>
+</li>
 <li><strong>TCL</strong><ul>
 <li>The <a href="http://tclxml.sourceforge.net/">TclXML project</a> includes a <a href="http://tcl.activestate.com/">Tcl</a> binding for Expat</li>
 <li><a href="http://www.tdom.org/">tDOM</a> is an alternate package providing XML support for <a href="http://tcl.activestate.com/">Tcl</a>, based in part on Expat.</li>
+</ul>
+</li>
+<li><strong>Xojo</strong><ul>
+<li><a href="http://docs.xojo.com/index.php/XMLReader">XMLReader class</a></li>
+</ul>
+</li>
+<li><strong>Vicare Scheme</strong><ul>
+<li><a href="https://github.com/marcomaggi/vicare-expat">vicare-expat</a> — Expat binding for Vicare Scheme</li>
 </ul>
 </li>
 </ul>
