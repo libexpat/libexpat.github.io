@@ -37,6 +37,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __B__
     * [Battle Tanks](http://btanks.sourceforge.net/)
 * __C__
+    * [cairo tool xml-to-trace](https://cgit.freedesktop.org/cairo/tree/util/xml-to-trace.c) (not cairo itself)
     * [Calf Studio Gear](http://calf-studio-gear.org/)
     * [CEGUI](http://cegui.org.uk/)
     * [CenterIM](http://www.centerim.org/index.php/Main_Page)
@@ -46,6 +47,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [cobex](http://cobex.sourceforge.net/)
     * [Coin3D](https://bitbucket.org/Coin3D/coin/wiki/Home)
     * [CSVfix](https://bitbucket.org/neilb/csvfix)
+    * [CURL example code](https://github.com/curl/curl/blob/HEAD/docs/examples/xmlstream.c) (not CURL itself)
 * __D__
     * [D-Bus](https://www.freedesktop.org/wiki/Software/dbus/)
     * [digiKam](https://www.digikam.org/)
@@ -74,6 +76,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Gnash](https://www.gnu.org/software/gnash/)
     * [Godot](https://godotengine.org/)
     * [Goggles Music Manager](https://gogglesmm.github.io/)
+    * [Google Earth Enterprise / libsgl](https://github.com/google/earthenterprise/blob/HEAD/earth_enterprise/src/third_party/sgl/v0_8_6/src/SkXMLParser_expat.cpp)
     * [GPSBabel](http://www.gpsbabel.org/)
     * [graph-tool](https://graph-tool.skewed.de/)
     * [Graphviz](http://www.graphviz.org/)
@@ -99,9 +102,11 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [LibDOM](http://www.netsurf-browser.org/projects/libdom/)
     * [libgadu](http://libgadu.net/)
     * [libisds](http://xpisar.wz.cz/libisds/)
+    * [libkml](https://github.com/google/libkml/blob/8609edf7c8d13ae2ddb6eac2bca7c8e49c67a5f8/src/kml/base/expat_parser.cc)
     * [libmetalink](https://launchpad.net/libmetalink)
     * [libnih](https://launchpad.net/libnih)
     * [LibOFA](https://code.google.com/p/musicip-libofa/)
+    * [libprotobuf-mutator](https://github.com/google/libprotobuf-mutator/blob/HEAD/examples/expat/expat_example.cc)
     * [LibreOffice](http://www.libreoffice.org)
     * [libsolv/libzypp](http://doc.opensuse.org/projects/libzypp/HEAD/)
     * [libwbxml](https://github.com/libwbxml/libwbxml)
@@ -127,6 +132,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __O__
     * [OGDI](http://ogdi.sourceforge.net/)
     * [OpenCOLLADA](http://www.opencollada.org/)
+    * [OpenVanilla](https://github.com/openvanilla/openvanilla/commit/bac11c8a818c53e020c903c6f32f220e5c48af91) (prior to version 0.7.1)
     * [Osm2pgsql](http://wiki.openstreetmap.org/wiki/Osm2pgsql)
 * __P__
     * [ParaView](https://www.paraview.org/)
@@ -155,7 +161,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [SDLmame](http://mamedev.org/)
     * [SeaMonkey](http://www.seamonkey-project.org)
     * [simgear](http://simgear.org/)
-    * [Skia Graphics Library](https://skia.org/)
+    * [Skia Graphics Library](https://github.com/google/skia/blob/HEAD/src/ports/SkFontMgr_android_parser.cpp)
     * [Soulseek](http://www.soulseekqt.net/)
     * [spatialite-tools](https://www.gaia-gis.it/spatialite)
     * [Sphinx](http://www.sphinxsearch.com/)
@@ -189,4 +195,5 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [xkbd](http://trac.hackable1.org/trac/wiki/Xkbd)
     * [xmlrpc-epi](http://xmlrpc-epi.sourceforge.net/)
 * __Y__
+    * [Ymagine](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c)
 * __Z__
