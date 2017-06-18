@@ -61,6 +61,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [ExactImage](http://exactcode.com/opensource/exactimage/)
     * [Exempi](https://libopenraw.freedesktop.org/wiki/Exempi/)
     * [Exiv2](http://www.exiv2.org/)
+    * [ExternData](https://github.com/tbeu/ExternData)
 * __F__
     * [FBReader](https://fbreader.org/)
     * [Firefox](https://www.mozilla.org/en-US/firefox/)
