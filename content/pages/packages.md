@@ -36,7 +36,7 @@ Wherever you go, Expat is already waiting for you:
     * [FreeBSD](https://svnweb.freebsd.org/ports/head/textproc/expat2/)
     * [NetBSD](http://pkgsrc.se/textproc/expat)
     * [OpenBSD](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libexpat/)
-* __Haiko__
+* __Haiku__
     * [HaikuPorts](https://github.com/haikuports/haikuports/tree/master/dev-libs/expat)
 * __macOS__
     * [Fink](http://pdb.finkproject.org/pdb/package.php/expat1)
