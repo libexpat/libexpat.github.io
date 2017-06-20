@@ -27,6 +27,7 @@ Wherever you go, Expat is already waiting for you:
     * [NixOS](https://github.com/NixOS/nixpkgs/commits/master/pkgs/development/libraries/expat/default.nix)
     * [openSUSE](https://build.opensuse.org/package/show/devel:libraries:c_c++/expat)
     * [Parabola](https://www.parabola.nu/packages/testing/x86_64/expat/)
+    * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
     * [T2](https://www.t2-project.org/packages/expat.html)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/voidlinux/void-packages/tree/master/srcpkgs/expat)
