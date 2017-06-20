@@ -69,6 +69,10 @@ interfaces to Expat from languages other than C.
     * [expat-sys CARGO package](https://crates.io/crates/expat-sys/versions)
 * __Simkin__
     * [Simkin](http://www.simkin.co.uk/) is an open source scripting language available under the GNU LGPL. It can be embedded in XML and supports a DOM-like API backed by Expat.
+* __S-Lang__
+    * [slang-expat / slexpat](http://www.cheesit.com/downloads/slang/slexpat.html)
+* __Smalltalk__
+    * [libexpat-gst](https://packages.debian.org/sid/libexpat-gst)
 * __Swift__
     * [SwiftyExpat](https://github.com/AlwaysRightInstitute/SwiftyExpat)
 * __TCL__
