@@ -28,6 +28,7 @@ where performance and flexibility are crucial.
 
 There are a number of [applications and libaries using Expat](doc/users/),
 as well as [bindings and 3rd-party wrappers](doc/bindings/).
+Expat is [packaged everywhere](doc/packages/).
 
 Please continue reading with:
 
