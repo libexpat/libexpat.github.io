@@ -14,6 +14,7 @@ Please read:
 
 # Other Resources
 
+* [Expat Packages](packages/)
 * [Software using Expat](users/)
 * [Bindings & 3rd-party Wrappers](bindings/)
 
