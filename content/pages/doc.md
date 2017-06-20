@@ -7,7 +7,6 @@ This page is meant to serve as an index of Documentation on Expat.
 
 Please read:
 
- 1. [Welcome to Expat!](../)
  1. [Getting Started](getting-started/)
  1. [XML Security](xml-security/)
  1. [Common Pitfalls](common-pitfalls/)
