@@ -170,7 +170,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Skia Graphics Library](https://github.com/google/skia/blob/HEAD/src/ports/SkFontMgr_android_parser.cpp)
     * [Soulseek](http://www.soulseekqt.net/)
     * [spatialite-tools](https://www.gaia-gis.it/spatialite)
-    * [Speed Dreams](http://www.speed-dreams.org/)
+    * [Speed Dreams](http://www.speed-dreams.org/) (uses modified Expat fork "txml")
     * [Sphinx](http://www.sphinxsearch.com/)
     * [Squid](http://www.squid-cache.org/)
     * [StarDict](http://stardict-4.sourceforge.net/)
@@ -182,7 +182,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [thin-provisioning-tools](https://github.com/jthornber/thin-provisioning-tools)
     * [Thunderbird](https://www.mozilla.org/en-US/thunderbird/)
     * [Tivoli Storage Manager](https://www.ibm.com/cloud-computing/products/devops/it-operations-management/)
-    * [TORCS](http://torcs.sourceforge.net/)
+    * [TORCS](http://torcs.sourceforge.net/) (uses modified Expat fork "txml")
 * __U__
     * [UDUNITS](https://www.unidata.ucar.edu/software/udunits/)
     * [uim](https://github.com/uim/uim/)
