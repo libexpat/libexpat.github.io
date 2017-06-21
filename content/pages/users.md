@@ -27,6 +27,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [AmphetaDesk](http://www.disobey.com/amphetadesk/)
     * [Android/core-libart](https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java)
     * [Android Studio](https://developer.android.com/studio/index.html)
+    * [Apache httpd/mod_dav](https://httpd.apache.org/) (prior to 2.0.12)
     * [Apache httpd tools](https://httpd.apache.org/)
     * [Apache OpenOffice](https://www.openoffice.org/)
     * [Apache Portable Runtime (apr-util)](http://apr.apache.org/)
@@ -95,6 +96,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __K__
     * [K-3D](http://www.k-3d.org/)
     * [Kodi](https://kodi.tv/)
+    * [KomodoEdit](https://github.com/Komodo/KomodoEdit)
     * [Kopete](https://userbase.kde.org/Kopete)
 * __L__
     * [LFTP](http://lftp.tech/)
@@ -126,11 +128,12 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Memphis](http://trac.openstreetmap.ch/trac/memphis/)
     * [Mesa 3D Graphics Library](https://www.mesa3d.org/)
     * [MIRA](http://www.chevreux.org/projects_mira.html)
+    * [mod_dav](http://www.webdav.org/mod_dav/)
     * [Music Player Daemon](https://www.musicpd.org)
     * [mu-conference](https://gna.org/projects/mu-conference/)
 * __N__
     * [neon](http://www.webdav.org/neon/)
-    * [nginx](https://nginx.org)
+    * [nginx-dav-ext-module](https://github.com/arut/nginx-dav-ext-module)
     * [NuSMV](http://nusmv.fbk.eu/)
 * __O__
     * [OGDI](http://ogdi.sourceforge.net/)
@@ -167,6 +170,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Skia Graphics Library](https://github.com/google/skia/blob/HEAD/src/ports/SkFontMgr_android_parser.cpp)
     * [Soulseek](http://www.soulseekqt.net/)
     * [spatialite-tools](https://www.gaia-gis.it/spatialite)
+    * [Speed Dreams](http://www.speed-dreams.org/)
     * [Sphinx](http://www.sphinxsearch.com/)
     * [Squid](http://www.squid-cache.org/)
     * [StarDict](http://stardict-4.sourceforge.net/)
@@ -178,6 +182,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [thin-provisioning-tools](https://github.com/jthornber/thin-provisioning-tools)
     * [Thunderbird](https://www.mozilla.org/en-US/thunderbird/)
     * [Tivoli Storage Manager](https://www.ibm.com/cloud-computing/products/devops/it-operations-management/)
+    * [TORCS](http://torcs.sourceforge.net/)
 * __U__
     * [UDUNITS](https://www.unidata.ucar.edu/software/udunits/)
     * [uim](https://github.com/uim/uim/)
@@ -189,9 +194,13 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [VirtualBox](https://www.virtualbox.org/)
     * [VMD](http://www.ks.uiuc.edu/Research/vmd/)
     * [VOTCA](http://www.votca.org)
+    * [vstgui](https://github.com/steinbergmedia/vstgui)
     * [VTK](http://www.vtk.org/)
 * __W__
     * [Wayland](https://wayland.freedesktop.org/)
+    * [WebKit/libwebrtc](https://github.com/WebKit/webkit/blob/master/Source/ThirdParty/libwebrtc/Source/third_party/expat/files/lib)
+    * [WinMerge 2](http://winmerge.org/)
+    * [WinSCP](https://winscp.net/eng/index.php)
     * [wxWidgets](http://wxwidgets.org/)
     * [wxSVG](http://wxsvg.sourceforge.net/)
 * __X__
