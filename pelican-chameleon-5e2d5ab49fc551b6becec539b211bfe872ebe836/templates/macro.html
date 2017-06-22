@@ -9,8 +9,7 @@
 {% endmacro %}
 
 {% macro newtab(string, force=False) %}
-  {% if ( string.startswith('http://') or
-          string.startswith('https://')) %}
+  {% if force %}
     target="_blank"
   {% endif %}
 {% endmacro %}

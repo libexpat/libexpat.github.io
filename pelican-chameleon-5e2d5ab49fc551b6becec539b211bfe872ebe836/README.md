@@ -86,11 +86,6 @@ wrong, to nest too much items in the menu. Here's a example.
 inserted at the head to work around the redirection issue when hosting under
 non-root domain like 'http://stoic.edu/~maurelinus/'.
 
-**NOTE**: Domains starting with `http://` and `https://`, are generated to
-`<a>` tag with a `target='_blank'` attribute. For links within your site, use
-absolute domain like '/foo/bar/baz', they will be converted to the http style.
-Wish this will help to trap more readers. ;)
-
 ## Google Custom Search
 
 Put following in your MENUITEMS to have a Google custom search box on top
