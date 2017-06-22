@@ -26,7 +26,31 @@ MENUITEMS = (
 
 TIMEZONE = 'UTC'
 RELATIVE_URLS = True
-THEME = './theme-notmyidea-3.7.1'
+THEME = './pelican-chameleon-5e2d5ab49fc551b6becec539b211bfe872ebe836'
+
+if 'pelican-chameleon' in THEME:
+    _BS3_THEME_NAME = (
+        # 'cerulean'
+        # 'cosmo'
+        # 'cyborg'
+        # 'darkly'
+        # 'flatly'
+        # 'journal'
+        # 'lumen'
+        'paper'
+        # 'simplex'
+        # 'slate'
+        # 'solar'
+        # 'spacelab'
+        # 'superhero'
+        # 'united'
+        # 'yeti'
+    )
+
+    if _BS3_THEME_NAME:
+        BS3_THEME = ('https://bootswatch.com/%s/bootstrap.min.css'
+                     % _BS3_THEME_NAME)
+
 
 FEED_ALL_ATOM = None
 FEED_ALL_RSS = None
