@@ -1116,6 +1116,6 @@ this are:
 I plan to write more articles of this type in the future, including
 in-depth looks at some of the more complex mechanisms in the parser
 such as hash tables, and walkthroughs of more complex XML. Please let
-me know if you would like an explaination of anything in particular.
+me know if you would like an explanation of anything in particular.
 
 &mdash;Rhodri James, 23rd June 2017
