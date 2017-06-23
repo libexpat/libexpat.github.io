@@ -19,6 +19,11 @@ Please read:
 * [Bindings & 3rd-party Wrappers](bindings/)
 
 
+# In Depth
+
+* [Expat Internals: A Simple Parse](expat-internals-a-simple-parse/)
+
+
 # External Articles and References
 
 * [James Clark's original Expat page](http://www.jclark.com/xml/expat.html), for Expat 1.2 and earlier
