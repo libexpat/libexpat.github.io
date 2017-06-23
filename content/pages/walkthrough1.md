@@ -47,7 +47,6 @@ it.
     $ examples/outline < ~/test/simple.xml
     doc
       element
-    $
 
 Let's assume that we've created our parser, registered all the
 handlers we want to use, and read in the file.  We pick up the story
