@@ -10,6 +10,9 @@ Thank you!
 
 # Latest News
 
+* 2017-06-23 —
+  New article:
+  [Expat Internals: A Simple Parse](doc/expat-internals-a-simple-parse/)
 * 2017-06-17 —
   [Expat 2.2.**1**](https://github.com/libexpat/libexpat/blob/R_2_2_1/expat/Changes)
   has been released, includes **security fixes**
