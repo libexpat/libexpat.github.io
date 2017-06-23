@@ -4,6 +4,7 @@ License: MIT
 slug: news
 
 * 2017-06-23 —
+  New article
   [Expat Internals: A Simple Parse](../expat-internals-a-simple-parse/)
   walks you through the parsing of a short piece of XML
 * 2017-06-17 —
