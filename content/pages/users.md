@@ -199,6 +199,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __W__
     * [Wayland](https://wayland.freedesktop.org/)
     * [WebKit/libwebrtc](https://github.com/WebKit/webkit/blob/master/Source/ThirdParty/libwebrtc/Source/third_party/expat/files/lib)
+      (prior to [this commit](https://github.com/WebKit/webkit/commit/7c6bc1c04c2c64c95f0adfcdc504d94c5beee927))
     * [WinMerge 2](http://winmerge.org/)
     * [WinSCP](https://winscp.net/eng/index.php)
     * [wxWidgets](http://wxwidgets.org/)

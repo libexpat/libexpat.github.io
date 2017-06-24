@@ -11,6 +11,7 @@ Thank you!
 Wherever you go, Expat is already waiting for you:
 
 * __GNU/Linux__
+    * [Alpine Linux](https://git.alpinelinux.org/cgit/aports/tree/main/expat)
     * [ALT Linux](https://packages.altlinux.org/en/Sisyphus/srpms/expat)
     * [Arch Linux](https://git.archlinux.org/svntogit/packages.git/log/trunk?h=packages/expat)
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
@@ -20,7 +21,7 @@ Wherever you go, Expat is already waiting for you:
     * [Fedora](https://apps.fedoraproject.org/packages/expat-devel/overview/)
     * [Gentoo](https://packages.gentoo.org/packages/dev-libs/expat)
     * [Gobo Linux](https://github.com/gobolinux/Recipes/tree/master/revisions/Expat)
-    * [GuixSD](https://www.gnu.org/software/guix/packages/)
+    * [GuixSD](https://www.gnu.org/software/guix/packages/e.html)
     * [Linuxbrew](http://braumeister.org/formula/expat)
     * [Mageia](https://madb.mageia.org/package/show/name/expat/release/cauldron/application/0/arch/x86_64)
     * [meta-debian](https://github.com/meta-debian/meta-debian/blob/master/recipes-debian/expat/expat_debian.bb)
