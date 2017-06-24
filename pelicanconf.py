@@ -48,9 +48,13 @@ if 'pelican-chameleon' in THEME:
     )
 
     if _BS3_THEME_NAME:
-        BS3_THEME = ('https://bootswatch.com/%s/bootstrap.min.css'
+        BS3_THEME = ('/3rdparty/bootswatch/%s/bootstrap.min.css'
                      % _BS3_THEME_NAME)
 
+    BS3_JS = '/3rdparty/bootstrap/3.0.0/js/bootstrap.min.js'
+    BS3_URL = '/3rdparty/bootstrap/3.0.0/css/bootstrap.min.css'
+    JQUERY_JS = '/3rdparty/jquery/jquery-1.10.1.min.js'
+    JQUERY_MIGRATE_JS = '/3rdparty/jquery/jquery-migrate-1.2.1.min.js'
 
 FEED_ALL_ATOM = None
 FEED_ALL_RSS = None
