@@ -202,6 +202,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
       (prior to [this commit](https://github.com/WebKit/webkit/commit/7c6bc1c04c2c64c95f0adfcdc504d94c5beee927))
     * [WinMerge 2](http://winmerge.org/)
     * [WinSCP](https://winscp.net/eng/index.php)
+    * [WinSparkle](https://github.com/vslavik/winsparkle/tree/master/3rdparty)
     * [wxWidgets](http://wxwidgets.org/)
     * [wxSVG](http://wxsvg.sourceforge.net/)
 * __X__
