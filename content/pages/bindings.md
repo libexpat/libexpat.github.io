@@ -29,6 +29,8 @@ interfaces to Expat from languages other than C.
     * The [GOBO project](http://sourceforge.net/projects/gobo-eiffel/) is working on an Eiffel binding for Expat. Development is active and the package is fully supported in GOBO 3.0 and 3.1, though there isn't much status information about the Expat bindings on the website. (Most activity is reportedly on the relevant mailing lists.)
 * __Erlang__
     * [fast_xml](https://github.com/processone/fast_xml) — Fast Expat based Erlang XML parsing library
+* __Harbour__
+    * [hbexpat](https://github.com/harbour/core/tree/master/contrib/hbexpat/3rd/expat)
 * __Haskell__
     * [hexpat](https://hackage.haskell.org/package/hexpat) — General purpose Haskell XML library using Expat to do its parsing
 * __Julia__
