@@ -211,3 +211,4 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __Y__
     * [Ymagine](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c)
 * __Z__
+    * [ZeroC Ice](https://github.com/zeroc-ice/ice/blob/master/cpp/src/IceXML/Parser.cpp)
