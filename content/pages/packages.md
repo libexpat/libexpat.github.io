@@ -50,3 +50,4 @@ Wherever you go, Expat is already waiting for you:
 * __Windows__
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
     * [Native installer](https://sourceforge.net/projects/expat/files/expat_win32/)
+    * [NuGet](https://www.nuget.org/packages?q=expat)
