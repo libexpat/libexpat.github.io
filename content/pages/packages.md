@@ -30,7 +30,7 @@ Wherever you go, Expat is already waiting for you:
     * [Parabola](https://www.parabola.nu/packages/testing/x86_64/expat/)
     * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
     * [Solus Project](https://dev.solus-project.com/source/expat/)
-    * [T2](https://www.t2-project.org/packages/expat.html)
+    * [T2](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/voidlinux/void-packages/tree/master/srcpkgs/expat)
 * __BSD__
