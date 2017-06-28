@@ -33,6 +33,7 @@ Wherever you go, Expat is already waiting for you:
     * [T2](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/voidlinux/void-packages/tree/master/srcpkgs/expat)
+    * [Yocto Project](https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-core/expat)
 * __BSD__
     * [DragonFlyBSD](https://github.com/DragonFlyBSD/DPorts/tree/master/textproc/expat2)
     * [FreeBSD](https://svnweb.freebsd.org/ports/head/textproc/expat2/)
