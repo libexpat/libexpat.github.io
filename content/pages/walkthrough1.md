@@ -1,5 +1,5 @@
 Title: Expat Internals: A Simple Parse
-Date: 23 June 2014
+Date: 23 June 2017
 License: MIT
 Category: Maintenance
 Tags: internal, walkthrough
