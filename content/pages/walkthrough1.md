@@ -827,7 +827,10 @@ parameter passed to `lookup()` is zero, it returns NULL as mentioned
 above if it doesn't find the name.  If instead a non-zero number is
 passed, `sizeof(ELEMENT_TYPE)` in this case, it will create a new
 entry in the hash table for that name if necessary, and will allocate,
-zero and return that many bytes of memory as the entry.
+zero and return that many bytes of memory as the entry.  The first
+field in the memory is presumed to be a pointer, and will point to the
+key name when the memory is returned.  **DO NOT FIDDLE WITH THIS**, it
+is important to the way the hash tables work.
 
     :::c
     /* get the attributes from the tokenizer */
