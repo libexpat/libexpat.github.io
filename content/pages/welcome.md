@@ -15,8 +15,7 @@ url:
 * 2017-06-17 —
   __CVE-2017-9233__:
   [External Entity Vulnerability in Expat 2.2.0 And Earlier](doc/cve-2017-9233/)
-
-[Past news entries](doc/news/)
+* [Past news entries](doc/news/)
 
 
 # What is Expat?
