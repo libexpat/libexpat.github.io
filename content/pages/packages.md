@@ -45,7 +45,7 @@ Wherever you go, Expat is already waiting for you:
     * [Fink](http://pdb.finkproject.org/pdb/package.php/expat1)
     * [Gentoo Prefix](https://packages.gentoo.org/packages/dev-libs/expat)
     * [Homebrew](http://brewformulas.org/Expat)
-    * [MacPorts](https://trac.macports.org/browser/trunk/dports/textproc/expat?order=name#files)
+    * [MacPorts](https://github.com/macports/macports-ports/tree/master/textproc/expat)
 * __Solaris__
     * [OpenCSW](https://www.opencsw.org/package/expat/)
 * __Windows__
