@@ -44,6 +44,7 @@ interfaces to Expat from languages other than C.
     * [nim-lang/expat](https://github.com/nim-lang/expat)
 * __node.js__
     * [node-expat](https://github.com/astro/node-expat) — libexpat XML SAX parser binding for node.js
+    * [xml-stream](https://github.com/assistunion/xml-stream)
 * __Objective-C__
     * [Objective-C interface to Expat](http://expatobjc.sourceforge.net/)
 * __Object Pascal__ (Delphi)
