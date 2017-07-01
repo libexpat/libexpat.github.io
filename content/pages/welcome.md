@@ -4,10 +4,6 @@ License: MIT
 save_as: index.html
 url:
 
-> Please note, **this website is work-in-progress**.<br />
-Be encouraged to [join improving this website](doc/contribute-website/).
-Thank you!
-
 # Latest News
 
 * 2017-06-23 —
