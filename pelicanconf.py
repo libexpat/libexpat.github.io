@@ -38,6 +38,8 @@ if 'pelican-chameleon' in THEME:
         # 'journal'
         # 'lumen'
         'paper'
+        # 'readable'
+        # 'sandstone'
         # 'simplex'
         # 'slate'
         # 'solar'
