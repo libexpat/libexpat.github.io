@@ -440,7 +440,8 @@ calls `contentProcessor()` directly from here.
       *eventEndPP = next;
       switch (tok) {
 
-`contentProcessor()` immediately palms the hard work off on
+`contentProcessor()` immediately
+palms<sup>[3](#palm)</sup> the hard work off on
 `doContent()`, the main workhorse function of the parser.  Like
 `doProlog()`, it starts by fiddling with the event pointers.  In
 content processing the tokenizer has not been called in advance, so
