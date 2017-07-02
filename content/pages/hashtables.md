@@ -10,7 +10,7 @@ _Written by Rhodri James_
 
 # Expat Internals: The Hash Tables
 
-In the [first walkthrough](../expat-internal-a-simple-parse), I
+In the [first walkthrough](../expat-internals-a-simple-parse/), I
 mentioned the parser's hash tables without giving much detail.  In
 this article I'm going to give you some of that detail.  I'm not going
 to look too closely at the hashing algorithm itself
