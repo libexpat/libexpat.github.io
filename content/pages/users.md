@@ -25,9 +25,9 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [afflib](https://github.com/sshock/AFFLIBv3/)
     * [Aleph One](https://alephone.lhowon.org/)
     * [AmphetaDesk](http://www.disobey.com/amphetadesk/)
-    * [Android/core-libart](https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java)
+    * [Android / core-libart](https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java)
     * [Android Studio](https://developer.android.com/studio/index.html)
-    * [Apache httpd/mod_dav](https://httpd.apache.org/) (prior to 2.0.12)
+    * [Apache httpd / mod_dav](https://httpd.apache.org/) (prior to 2.0.12)
     * [Apache httpd tools](https://httpd.apache.org/)
     * [Apache OpenOffice](https://www.openoffice.org/)
     * [Apache Portable Runtime (apr-util)](http://apr.apache.org/)
@@ -113,7 +113,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [libprotobuf-mutator](https://github.com/google/libprotobuf-mutator/blob/HEAD/examples/expat/expat_example.cc)
     * [LibreOffice](http://www.libreoffice.org)
     * [libstrophe](https://github.com/strophe/libstrophe)
-    * [libsolv/libzypp](http://doc.opensuse.org/projects/libzypp/HEAD/)
+    * [libsolv / libzypp](http://doc.opensuse.org/projects/libzypp/HEAD/)
     * [libwbxml](https://github.com/libwbxml/libwbxml)
     * [libwmf](http://wvware.sourceforge.net/)
     * [libwww](https://www.w3.org/Library/)
@@ -199,7 +199,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [VTK](http://www.vtk.org/)
 * __W__
     * [Wayland](https://wayland.freedesktop.org/)
-    * [WebKit/libwebrtc](https://github.com/WebKit/webkit/blob/master/Source/ThirdParty/libwebrtc/Source/third_party/expat/files/lib)
+    * [WebKit / libwebrtc](https://github.com/WebKit/webkit/blob/master/Source/ThirdParty/libwebrtc/Source/third_party/expat/files/lib)
       (prior to [this commit](https://github.com/WebKit/webkit/commit/7c6bc1c04c2c64c95f0adfcdc504d94c5beee927))
     * [WinMerge 2](http://winmerge.org/)
     * [WinSCP](https://winscp.net/eng/index.php)
@@ -212,5 +212,5 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __Y__
     * [Ymagine](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c)
 * __Z__
-    * [Zebra/idzebra](http://www.indexdata.com/zebra)
+    * [Zebra / idzebra](http://www.indexdata.com/zebra)
     * [ZeroC Ice](https://github.com/zeroc-ice/ice/blob/master/cpp/src/IceXML/Parser.cpp)
