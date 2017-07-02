@@ -135,6 +135,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [neon](http://www.webdav.org/neon/)
     * [nginx-dav-ext-module](https://github.com/arut/nginx-dav-ext-module)
     * [NuSMV](http://nusmv.fbk.eu/)
+    * [NXLog Community Edition](https://nxlog.co/products/nxlog-community-edition)
 * __O__
     * [OGDI](http://ogdi.sourceforge.net/)
     * [OpenCOLLADA](http://www.opencollada.org/)
