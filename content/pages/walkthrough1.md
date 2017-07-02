@@ -1,5 +1,5 @@
 Title: Expat Internals: A Simple Parse
-Date: 23 June 2014
+Date: 23 June 2017
 License: MIT
 Category: Maintenance
 Tags: internal, walkthrough
@@ -28,6 +28,15 @@ This article assumes that you already know how to use Expat to parse
 XML.  If you don't, I recommend you at least read the [introductory
 article](https://www.xml.com/pub/1999/09/expat/index.html) mentioned
 on the [Getting Started page](../getting-started/).
+
+First, a warning.  I am British, and so is my spelling.  I bend the
+knee<sup>[1](#bendknee)</sup> for words like "program" where the US
+spelling is considered appropriate in IT, but I insist on the right
+spelling of "prologue" and the like.  I also tend to write in mildly
+whimsical idiomatic English.  Fortunately for you lot, Sebastian (the
+maintainer, bug-fixer and Grand Poobah<sup>[2](#poobah)</sup> of
+Expat) is German, and has this distressing habit of asking me what I
+actually mean.  Expect footnotes.
 
 ## The Setup
 
@@ -118,7 +127,7 @@ you might ask, are we wasting time and memory copying perfectly good
 text into a new buffer?
 
 What's actually going on is a little more complicated.
-`XML_GetBuffer()` actually extends the parser's internal buffer so
+`XML_GetBuffer()` in fact extends the parser's internal buffer so
 that it has enough space for the text to be parsed _as well as anything
 that is already in the buffer,_ and returns a pointer to this new
 space.  In our case we have no previous text, but this really comes
@@ -149,22 +158,24 @@ structure.  Can you tell why I love this code yet?
 There are in fact several processor functions, which provide the
 high-level syntax handling for different situations during parsing.
 We start off with `prologInitProcessor()`, the processor that handles
-the start-up of parsing and allows for an XML prologue to be present.
-This does some more initialisation, this time setting up the character
-encoding to use before palming the rest of the work onto
-`prologProcessor()`.  We will discuss encodings in another article;
-for now, all we need to know is that we haven't told the parser in
-advance what encoding will be used, so it will try to deduce the
-answer as it starts to parse.
+the start-up of parsing and allows for an
+[XML prologue](https://www.w3.org/TR/2000/REC-xml-20001006#sec-prolog-dtd)
+to be present.  This does some more initialisation, this time setting
+up the character encoding to use before palming<sup>[3](#palm)</sup>
+the rest of the work onto `prologProcessor()`.  We will discuss
+encodings in another article; for now, all we need to know is that we
+haven't told the parser in advance what encoding will be used, so it
+will try to deduce the answer from the input text.  The default
+assumption is that the input will be
+[UTF-8 encoded](https://en.wikipedia.org/wiki/UTF-8).
 
 `prologProcessor()` starts off by calling `XmlPrologTok()`.  Again you
 will look long and hard for a function by that name; it's actually a
 macro hiding one of several function pointers held in the encoding
 structure that invokes an appropriate tokenizer.  The tokenizer's job
 is to split the input into its lexical units and convert it to an
-internal character format.  In this example, the internal format is
-UTF-8.  If the library had been compiled with `XML_UNICODE` defined,
-it would be UTF-16.
+internal character format, in this case UTF-8.  If the library had
+been compiled with `XML_UNICODE` defined, it would be UTF-16.
 
 At the start of parse, we don't know exactly what character encoding
 we have, so we _scan_ the input for clues rather than consuming it and
@@ -180,13 +191,13 @@ something that looks a little odd.  The definition actually says
 `NS(initScanProlog)`, which looks like the function name is being
 wrapped by a macro for no particular reason.
 
-There is in fact a good reason for this.  `xmltok_ns.c` isn't actually
-passed directly to the compiler.  Instead it is included in `xmltok.c`
-twice, with different definitions of the `NS()` and `ns()` macros, to
-provide appropriate functions depending on whether or not the parser
-was told to expect XML namespaces when it was created.  Namespaces are
-a can of worms for another day, so we'll assume for now that we
-created a parser without them.
+There is in fact a good reason for this; `xmltok_ns.c` isn't passed
+directly to the compiler.  Instead it is included in `xmltok.c` twice,
+with different definitions of the `NS()` and `ns()` macros, to provide
+appropriate functions depending on whether or not the parser was told
+to expect XML namespaces when it was created.  Namespaces are a can of
+worms for another day, so we'll assume for now that we created a
+parser without them.
 
 There is a good reason for this somewhat confusing behaviour.  The
 biggest benefit is that if you discover a bug in your code, you only
@@ -195,29 +206,30 @@ non-namespace versions of the code getting out of step, because they
 are the _same_ code template.  On the minus side, it becomes harder to
 read the code and be sure what is going to happen.
 
-Hang on to your hats, it's about to become a lot more confusing.
+Hang on to your hats<sup>[4](#hats)</sup>, it's about to become a lot
+more confusing.
 
 The same thing happens with the tokenizer functions in
 `xmltok_impl.c`, except that they are included three times for the
 three different types of encodings; "normal" (8-bit, including UTF-8,
-ASCII, Latin-1 and user-defined encodings), "big2" (big-endian UTF-16)
-and "little2" (UTF-16).  A huge number of macros get defined to make
-this work, some of them redirecting to dedicated functions and some to
-other macros, sometimes via function tables and sometimes not.  It's
-horribly confusing and hard to follow, even using breakpoint
-debugging.
+ASCII, and Latin-1), "big2" (big-endian UTF-16) and "little2"
+(UTF-16).  A huge number of macros get defined to make this work, some
+of them redirecting to dedicated functions and some to other macros,
+sometimes via function tables and sometimes not.  It's horribly
+confusing and hard to follow, even using breakpoint debugging.
 
-Follow me down the rabbit-hole.  I won't mind if you lie down and
-whimper every now and then.  I did.
+Follow me down the rabbit-hole<sup>[5](#rabbit)</sup>.  I won't mind
+if you lie down and whimper every now and then.  I did.
 
 ## Scanning for the encoding
 
 Back to our parse.  `initScanProlog()` throws us to `initScan()`,
 which mercifully is just a normal function.  This looks through the
 first few bytes of the input for a clue as to what encoding is being
-used.  Putting the first two bytes together doesn't give us a byte
-order mark or anything else recognisable, so we conclude that we
-probably have UTF-8 input, the parser's default guess.
+used.  We start by assembling the first two bytes into a sixteen-bit
+value to see if we get a byte order mark or a UTF-16 encoding of "<",
+which we don't.  We conclude that we probably have UTF-8 input, the
+parser's default guess.
 
 Once that is done, we get passed to the real tokenizer, `XmlTok()`.
 Sad to say, this is another macro, this time passing us to
@@ -245,20 +257,35 @@ the input `ptr` hasn't reached the end of the input at `end`.
     }
 
 Then it makes sure that it only deals with whole character units; the
-macro `MINBPC` returns the minimum number of bytes required for a
-single character, 2 for UTF-16 and 1 for everything else.  The length
-of the input is rounded down to be an integer number of `MINBPC`
-"units", and the `end` pointer adjusted accordingly.  For our simple
-ASCII input this makes no difference at all, but it matters a great
-deal for UTF-16 input.
+macro `MINBPC` returns the minimum number of bytes required to
+represent a single character in the encoding we are using.  The
+relationship between characters and bytes is somewhat complicated, but
+every character encoding has such a minimum number of bytes.  Limited
+encodings like ASCII or Latin-1 only use one byte to encode
+characters, and cannot represent anything else.  UTF-8 uses between
+one and four bytes for any Unicode character; its `MINBPC` is 1.
+UTF-16 by contrast uses sixteen bits (two bytes) to represent the most
+common Unicode characters and four bytes for all the rest, so its
+`MINBPC` is 2.  Expat doesn't support UTF-32, but if it did the
+encoding would have a `MINBPC` of 4.
+
+The code rounds the length of the input down to be an integer number
+of `MINBPC` "units", and the `end` pointer adjusted accordingly.  This
+does not mean that the (potentially shortened) input will only contain
+whole characters &mdash; it could for example end with the first two
+bytes of a four-byte UTF-16 character &mdash; but it does guarantee
+that there will be enough information for the code to decide whether
+it has a complete character at the end or not.  For our simple ASCII
+input this makes no difference at all, since all of the characters are
+one byte long.
 
     :::c
     switch (BYTE_TYPE(enc, ptr) {
 
-Then it looks at the first character of our XML, "<", and passes it to
-the macro `BYTE_TYPE`.  This is a bit of a nightmare to untangle, but
-after some digging through `xmltok.c` you can figure out that what you
-actually have is:
+Then the code looks at the first character of our XML, "<", and passes
+it to the macro `BYTE_TYPE`.  This is a bit of a nightmare to
+untangle, but after some digging through `xmltok.c` you can figure out
+that what you actually have is:
 
     :::c
     #define BYTE_TYPE(enc, p) SB_BYTE_TYPE(enc, p)
@@ -267,9 +294,9 @@ actually have is:
 
 In other words, we look up the character in the `type` array of the
 encoding.  That constant array is constructed in `xmltok.c` using
-include files.  For UTF-8 it uses `asciitab.h` for the characters 0x00
-to 0x7f, and `utf8tab.h` for the characters 0x80 to 0xff.  If you look
-up "<" (0x3c) in `asciitab.h`, you will find it listed as `BT_LT`
+include files.  The UTF-8 encoding uses `asciitab.h` for characters
+0x00 to 0x7f, and `utf8tab.h` for characters 0x80 to 0xff.  If you
+look up "<" (0x3c) in `asciitab.h`, you will find it listed as `BT_LT`
 (Byte Type Less Than, obviously).
 
     :::c
@@ -297,7 +324,7 @@ is a `BT_HEX`, a character that could legitimately be a hexadecimal
 digit.  It can also legitimately be the start of an XML element name,
 which is the important thing here.
 
-    :::
+    :::c
     case BT_HEX:
       /* ... */
       *nextTokPtr = ptr - MINBPC(enc);
@@ -308,9 +335,11 @@ the "next token" pointer back to the opening angle bracket and returns
 `XML_TOK_INSTANCE_START`.  You'll notice that it doesn't try to parse
 the element itself.  That's because this is the _prologue_ tokenizer,
 and having a normal element means that we must have finished the
-prologue and be into the main content of the XML.  Since our example
-XML has no prologue at all, we can be happy that the parser got this
-right!
+prologue and be into the main content of the XML &mdash; an XML
+prologue can only legitimately contain an XML declaration, processing
+instructions (both starting with "<?"), a document type declaration or
+comments (both starting with "<!").  Since our example XML has no
+prologue at all, we can be happy that the parser got this right!
 
 ## Processing the Token
 
@@ -345,20 +374,23 @@ particular token but just hasn't got there yet.  For instance, a
 quoted string is recognised with the token `XML_TOK_LITERAL`.  If a
 tokenizer recognises an opening quote and doesn't see a closing quote,
 it will instead return `-XML_TOK_LITERAL` and leave the processor
-function to decide whether or not that is good enough.
+function to decide whether or not that is good enough.  In our case we
+have `XML_TOK_INSTANCE_START`, which is positive and skips all of that
+decision logic.
 
     :::c
     role = XmlTokenRole(&prologState, tok, s, next, enc);
     switch (role) {
 
-In our case we have `XML_TOK_INSTANCE_START`, which is positive and
-skips all of that decision logic.  Instead, `doProlog()` calls
-`XmlTokenRole()` to find out what role the token plays here at the
-start of our XML.  If you looked at that function name and wondered if
-it was another of the macros hiding a function pointer, give yourself
-a pat on the back.  It calls the function pointer `handler` in
-`prologState`, which is itself a macro hiding a field of the parser
-structure.
+Instead, `doProlog()` calls `XmlTokenRole()` to find out what role the
+token plays here at the start of our XML.  If you looked at that
+function name and wondered if it was another of the macros hiding a
+function pointer, give yourself a pat on the back.  It calls the
+function pointer `handler` in `prologState`, which is itself a macro
+hiding a field of the parser structure.
+
+These handler functions effectively implement a state machine for the
+parser.  We start off in `prolog0`.
 
     :::c
     static int PTRCALL
@@ -374,17 +406,17 @@ structure.
         state->handler = error;
         return XML_ROLE_INSTANCE_START;
 
-These handler functions effectively implement a state machine for the
-parser.  We start off in `prolog0`, which turns our token into
-`XML_ROLE_INSTANCE_START` and transitions to `error`.  This is a bit
-of insurance against the parser's internal logic failing.  `prolog0`
-knows that the start of an element means that we have no more prologue,
-so the prologue handler shouldn't be called again in this parse.  The
-`error` handler is there to return an error if this ever happens.
+`prolog0` turns our token into `XML_ROLE_INSTANCE_START` and
+transitions to `error`.  This is a bit of insurance against the
+parser's internal logic failing.  `prolog0` knows that the start of an
+element means that we have no more prologue, so the prologue handler
+shouldn't be called again in this parse.  The `error` handler is there
+to return an error if this ever happens.
 
-The big switch statement in `doProlog()` drops us into a large wodge
-of code that only kicks into life if we had set the parser up to want
-an external DTD.  We didn't do that, so it skips down:
+The big switch statement in `doProlog()` drops us into a large
+wodge<sup>[6](#wodge)</sup> of code that only kicks into life if we
+had set the parser up to want an external DTD.  We didn't do that, so
+it skips down:
 
     :::c
     case XML_ROLE_INSTANCE_START:
@@ -392,12 +424,12 @@ an external DTD.  We didn't do that, so it skips down:
       processor = contentProcessor;
       return contentProcessor(parser, s, end, nextPtr);
 
-Setting `processor` (a field of the parser structure) to
+Setting `processor` (a field of the parser structure, remember) to
 `contentProcessor` signals the end of the XML prologue and the start of
 the actual content of our XML.  The parser could at this point return
 and let `XML_ParseBuffer()` go round its loop, doing the housekeeping
 and then calling the processor function again.  As an optimisation, it
-calls it directly from here.
+calls `contentProcessor()` directly from here.
 
 ## Parsing the Content
 
@@ -438,11 +470,6 @@ of the first character, which is again `BT_LT`.  However in this case
 it hands the work of dealing with an XML element off to a
 sub-function, `normal_scanLt()`.
 
-    :::
-    <doc>
-     ^
-     +-- ptr
-
     :::c
     static int PTRCALL
     PREFIX(scanLt)(const ENCODING *enc, const char *ptr, const char *end,
@@ -456,14 +483,20 @@ sub-function, `normal_scanLt()`.
       CHECK_NMSTRT_CASES(enc, ptr, end, nextTokPtr)
 
 The first thing `normal_scanLt()` does is to ensure that there is a
-character there for it to check, using `REQUIRE_CHAR`.  There is, so
-it switches on the character type `BT_HEX`, just as the prologue
-tokenizer did.  You might hope at this point to see `case BT_HEX` in
-the source, but alas life is not so simple.  There are many byte types
-that may be legal at the start of an XML name, and in particular
-multi-byte characters in UTF-8 may or may not be legal.  In order to
-cover all these cases without replicating code everywhere, we descend
-into more macro madness.
+character there for it to check, using `REQUIRE_CHAR`.
+
+    :::
+    <doc>
+     ^
+     +-- ptr
+
+There is, so it switches on the character type `BT_HEX`, just as the
+prologue tokenizer did.  You might hope at this point to see `case
+BT_HEX` in the source, but alas life is not so simple.  There are many
+byte types that may be legal at the start of an XML name, and in
+particular multi-byte characters in UTF-8 may or may not be legal.  In
+order to cover all these cases without replicating code everywhere, we
+descend into more macro madness.
 
 ## Macro Abuse Part 2
 
@@ -529,18 +562,22 @@ looking up the encoding table, `utf8_encoding`.  This is not as easy
 as it sounds because of the helpful macros used in the table
 construction, but a little persistence shows us that the function is
 named `utf8_isNmstrt4()`.  A little more persistence tells us that
-this is not quite true; `utf8_isNmstrt4` is a macro disguise for
+this is not quite true; `utf8_isNmstrt4()` is a macro disguise for
 `isNever()`, a function that always returns False.  This makes sense,
 since none of the characters encoded as four bytes in UTF-8 are valid
 starts of names.
 
 `BT_LEAD_3` similarly indicates a character that is the start of a
-sequence of three bytes.  It's case checks that there are at least
+sequence of three bytes.  Its case checks that there are at least
 three bytes available, then calls through the `isNmstrt3` function
 pointer in the encoding.  This time `utf8_isNmstrt3()` as it becomes
-is a real function, one that uses macros to turn the UTF-8 into a
-Unicode codepoint and look up that codepoint in a large bit array.  If
-the corresponding bit is set, that Unicode character is a valid
+is a real function, one that uses macros to turn the UTF-8 into
+a [Unicode codepoint](http://unicode.org/glossary/#code_point) and
+look up that codepoint (an integer in the range 0&ndash;1114111
+(0x10ffff in hexadecimal), or rather 0&ndash;65535 (0xffff in hex)
+given that it comes from a three-byte UTF-8
+sequence<sup>[7](#utf83)</sup>) in a large bit array.  If the
+corresponding bit is set, that Unicode character is a valid
 start-of-name character.
 
 `BT_LEAD_2` works just like `BT_LEAD_3`, just with two-byte
@@ -556,15 +593,17 @@ Finally, `BT_NONASCII` is an odd case that only crops up in UTF-16
 encodings.  It indicates a 16-bit character that is out of the ASCII
 range, isn't the leading or trailing half of a surrogate pair, and
 isn't an invalid character (0xffff or 0xfffe).  The code calls
-`IS_NMSTRT_CHAR_MINBPC` very much like the leading character cases.
-Working through the nest of conditional compilations in `xmltok.c`,
-this macro turns out to be 0, so for us it would always be invalid.
+`IS_NMSTRT_CHAR_MINBPC` very much like the leading character cases
+call `IS_NMSTRT_CHAR`.  Working through the nest of conditional
+compilations in `xmltok.c`, `IS_NMSTRT_CHAR_MINBPC` turns out to
+always return 0 for "normal" encodings, so for us a `BT_NONASCII`
+character would always be invalid.
 
 ## Back to the Parser
 
-So we were parsing the first character of our XML element, "d".
-The `CHECK_NMSTRT_CASES` macro invisibly accepts it and moves the
-parse pointer on:
+So we were parsing the first character of our XML element, "d", which
+has a byte type of `BT_HEX`.  The `CHECK_NMSTRT_CASES` macro accepts
+that byte type as described above, and moves the parse pointer on:
 
     :::
     <doc>
@@ -572,7 +611,8 @@ parse pointer on:
       +-- ptr
 
 It also clears a local variable `hadColon`, a flag used in parsing
-namespaces.  We aren't using namespaces, so we can ignore it for now.
+namespaces.  There are no namespaces in our input text (i.e. no colons
+in any names), so we can ignore it for now.
 
     :::c
     /* we have a start-tag */
@@ -606,6 +646,9 @@ The ">" has a byte type of `BT_GT`, which has its own case at last.
     gt:
       *nextTokPtr = ptr + MINBPC(enc);
       return XML_TOK_START_TAG_NO_ATTS;
+
+(Don't be confused by the `gt:` in the code.  It's a jump label, the
+result of a possibly slightly overenthusiastic bit of optimisation.)
 
 The function sets the "next token" pointer to the character following
 the ">" (the newline at the end of the line), and returns
@@ -650,13 +693,13 @@ parser implements.  Fortunately this one is quite obvious.
         }
 
 We want to allocate a TAG structure to hold information about our
-element.  We are going to need to do this many times for a long parse,
-freeing the TAG structure once we are done with the element.  This
-means going back to the heap allocators a lot, which is not
-necessarily an efficient thing to do.  So instead of freeing the TAG
-structures, the parser instead keeps them on a linked list on the
-`freeTagList` field of the parser structure, avoiding all that
-expensive allocation.
+element, so that for example we can recognise its close tag.  We are
+going to need to do this many times for a long parse, freeing the TAG
+structure once we are done with the element.  This means going back to
+the heap allocators a lot, which is not necessarily an efficient thing
+to do.  So instead of freeing the TAG structures, the parser instead
+keeps them on a linked list on the `freeTagList` field of the parser
+structure, avoiding all that expensive allocation.
 
 In this case, this is our first TAG structure, so there is nothing on
 the free list for us to reuse, so we have to allocate anyway, using
@@ -666,11 +709,12 @@ the free list for us to reuse, so we have to allocate anyway, using
 
 `MALLOC()` is of course a macro, hiding a function pointer in the
 parser structure.  There are three of these: `MALLOC()`, `REALLOC()`
-and `FREE()`.  They are used for all allocations in the parser, and
-are made available to user-defined handler functions through the
-`XML_MemMalloc()`, `XML_MemRealloc()` and `XML_MemFree()` functions.
-This allows us to plug in custom allocators used by the whole parser,
-for example to track heap usage levels or test error handling.
+and `FREE()`.  They are used for all allocations in the parser (and
+for consistency are made available to user-defined handler functions
+through the `XML_MemMalloc()`, `XML_MemRealloc()` and `XML_MemFree()`
+functions).  This allows us to plug in custom allocators used by the
+whole parser, for example to track heap usage levels or test error
+handling.
 
 We didn't specify a set of allocation functions when we created our
 parser, so we got the standard system `malloc()`, `realloc()` and
@@ -783,7 +827,10 @@ parameter passed to `lookup()` is zero, it returns NULL as mentioned
 above if it doesn't find the name.  If instead a non-zero number is
 passed, `sizeof(ELEMENT_TYPE)` in this case, it will create a new
 entry in the hash table for that name if necessary, and will allocate,
-zero and return that many bytes of memory as the entry.
+zero and return that many bytes of memory as the entry.  The first
+field in the memory is presumed to be a pointer, and will point to the
+key name when the memory is returned.  **DO NOT FIDDLE WITH THIS**, it
+is important to the way the hash tables work.
 
     :::c
     /* get the attributes from the tokenizer */
@@ -847,7 +894,7 @@ the space at the start of the next line.
       break;
 
 The `XML_TOK_DATA_NEWLINE` return value causes the giant switch
-statement pass a line feed character in the appropriate encoding to
+statement to pass a line feed character in the appropriate encoding to
 any character data handler the user may have registered.  Another trip
 around the parsing state dance and we come back to calling
 `normal_contentTok()` again.
@@ -945,9 +992,9 @@ causing us to call `normal_scanLt()`.
     case BT_SOL:
       return PREFIX(scanEndTag)(enc, ptr + MINBPC(enc), end, nextTokPtr);
 
-Parsing the "/" is a bit different, however; it has a type of `BT_SOL`
-("solidus", the proper technical name for a slash that no one ever
-uses), which drops us into `normal_scanEndTag()`.
+Parsing the "/" is a bit different, however; it has a type of
+`BT_SOL`<sup>[8](#solidus)</sup>, which drops us into
+`normal_scanEndTag()`.
 
     :::c
     static int PTRCALL
@@ -974,12 +1021,13 @@ The start-of-parse pointer `ptr` has been moved on:
                     ^
                     +-- ptr
 
-so `normal_scanEndTag()` first looks at the "e" of "element", and
-through the magic of `CHECK_NMSTRT_CASES()` regards it as acceptable.
-It then loops through the remaining characters, accepting them through
-`CHECK_NAME_CASES()` until it finally reaches the ">".  It sets the
-"next token" pointer to the newline after the ">" and returns
-`XML_TOK_END_TAG` all the way back to `doContent()`.
+so `normal_scanEndTag()` first looks at the "e" of "element".  Through
+the magic of `CHECK_NMSTRT_CASES()` it regards the "e" as acceptable
+and moves the pointer on.  It then loops through the remaining
+characters, accepting them through `CHECK_NAME_CASES()` until it
+finally reaches the ">".  It sets the "next token" pointer to the
+newline after the ">" and returns `XML_TOK_END_TAG` all the way back
+to `doContent()`.
 
     :::c
     case XML_TOK_END_TAG:
@@ -989,8 +1037,26 @@ It then loops through the remaining characters, accepting them through
 The first thing `doContent()` does with an `XML_TOK_END_TAG` is to
 check that it hasn't closed more tags than it opened.  This could
 happen, for example if an overly-optimistic general entity expanded to
-an end tag.  It doesn't for us; we have opened two tags and are
-closing one for the first time.
+an end tag.  The XML document
+
+    :::xml
+    <?xml version="1.0"?>
+    <!DOCTYPE foodoc [
+      <!ENTITY foo "<b>text</b></a>">
+    ]>
+    <a>&foo;
+
+trips exactly this test, while
+
+    :::xml
+    <?xml version="1.0"?>
+    <!DOCTYPE foodoc [
+      <!ENTITY foo "<b>text</b>">
+    ]>
+    <a>&foo;</a>
+
+is just fine.  In any case we don't have that problem; we have opened
+two tags and are closing one for the first time.
 
     :::c
     TAG *tag = tagStack;
@@ -1037,7 +1103,9 @@ data handler.
 Finally the end tag for the `doc` element.  Unsurprisingly this works
 exactly as the end tag for the `element` element up to the point of
 tidying up.  At this juncture `doContent()` realises that it has
-closed the last open tag, and calls `epilogProcessor()`.
+closed the last open tag, and calls `epilogProcessor()` to handle any
+remaining input.  Very little is permitted by the XML standard at this
+point; only comments, processing instructions and whitespace.
 
     :::c
     static enum XML_Error PTRCALL
@@ -1059,7 +1127,8 @@ parser, so the first thing it does is to make itself the current
 processor function.  Then it loops through the remaining input,
 calling `normal_prologTok()` to find out what is there.  Comments,
 processing instructions and whitespace is fine; anything else is an
-error.  We have nothing but a single newline, which is fine.
+error.  We have nothing but a single newline, which the processor
+happily consumes.
 
     :::c
     if (result == XML_ERROR_NONE) {
@@ -1090,7 +1159,7 @@ user code, still indicating success.
 ## Conclusions
 
 So there you have it.  A quick skip through the Expat parser in action
-in only 6,000 words.  While we used a pretty simple example, most of
+in only 7,000 words.  While we used a pretty simple example, most of
 the general principles you can see in action here apply more generally
 to how the code works.  The important observations to take away from
 this are:
@@ -1117,5 +1186,45 @@ I plan to write more articles of this type in the future, including
 in-depth looks at some of the more complex mechanisms in the parser
 such as hash tables, and walkthroughs of more complex XML. Please let
 me know if you would like an explanation of anything in particular.
+
+---
+
+## Footnotes
+
+<a name="bendknee">1</a>: to kneel or submit, figuratively in this
+case.  A relic of our feudal past.
+
+<a name="poobah">2</a>: a humorous title derived from the character
+Pooh-Bah in Gilbert and Sullivan's opera _The Mikado_, who listed
+among his various titles "Lord High Everything Else".  Sometimes used
+to mock overly self-important people, but Sebastian really does do
+everythine else!
+
+<a name="palm">3</a>: "to palm something off on someone" means to pass
+responsibility for something to someone.  It is usually used in the
+sense of selling a fake or counterfeit object, though not here.
+
+<a name="hats">4</a>: get ready for a surprise.  Comes from the days
+when men commonly wore hats (think of all those fedora-wearing private
+eyes and investigative reporters of the pulp-era stories and films),
+and you would need to hold on to it if you took a wild journey in an
+open-topped car.
+
+<a name="rabbit">5</a>: _Alice in Wonderland_ by Lewis Carroll.  If
+you needed this footnote, I disown you.
+
+<a name="wodge">6</a>: an undefined but significant amount of
+something.
+
+<a name="utf83">7</a>: UTF-8 encodes codepoints U+0800 to U+FFFF into
+three bytes as follows:
+
+    :::
+    1110xxxx 10xxxxxx 10xxxxxx
+
+So U+FFFF would become the sequence `0xEF 0xBF 0xBF`.
+
+<a name="solidus">8</a>: "solidus" is the proper technical name for a
+slash that no one ever uses.  Erm, maybe I should rephrase that...
 
 &mdash;Rhodri James, 23rd June 2017

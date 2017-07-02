@@ -6,6 +6,9 @@ url:
 
 # Latest News
 
+* 2017-06-29 —
+  New article:
+  [Expat Internals: The Hash Tables](../expat-internals-the-hash-tables/)
 * 2017-06-23 —
   New article:
   [Expat Internals: A Simple Parse](doc/expat-internals-a-simple-parse/)
