@@ -3,6 +3,10 @@ Date: 2017-06-03
 License: MIT
 slug: news
 
+* 2017-06-29 —
+  New article
+  [Expat Internals: The Hash Tables](../expat-internals-the-hash-tables/)
+  describes the parser's internal hash tables and how they are used.
 * 2017-06-23 —
   New article
   [Expat Internals: A Simple Parse](../expat-internals-a-simple-parse/)

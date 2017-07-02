@@ -22,6 +22,7 @@ Please read:
 # In Depth
 
 * [Expat Internals: A Simple Parse](expat-internals-a-simple-parse/)
+* [Expat Internals: The Hash Tables](expat-internals-the-hash-tables/)
 
 
 # External Articles and References
