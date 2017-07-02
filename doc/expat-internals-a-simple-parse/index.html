@@ -112,6 +112,14 @@ line in detail, just enough to give you a handle on how Expat works.</p>
 XML.  If you don't, I recommend you at least read the <a href="https://www.xml.com/pub/1999/09/expat/index.html">introductory
 article</a> mentioned
 on the <a href="../getting-started/">Getting Started page</a>.</p>
+<p>First, a warning.  I am British, and so is my spelling.  I bend the
+knee<sup><a href="#bendknee">1</a></sup> for words like "program" where the US
+spelling is considered appropriate in IT, but I insist on the right
+spelling of "prologue" and the like.  I also tend to write in mildly
+whimsical idiomatic English.  Fortunately for you lot, Sebastian (the
+maintainer, bug-fixer and Grand Poobah<sup><a href="#poobah">2</a></sup> of
+Expat) is German, and has this distressing habit of asking me what I
+actually mean.  Expect footnotes.</p>
 <h2>The Setup</h2>
 <p>We will work with the following few lines of XML:</p>
 <div class="highlight"><pre><span></span><span class="nt">&lt;doc&gt;</span>
@@ -192,7 +200,7 @@ parse, somehow mysteriously having access to the same buffer.  Why,
 you might ask, are we wasting time and memory copying perfectly good
 text into a new buffer?</p>
 <p>What's actually going on is a little more complicated.
-<code>XML_GetBuffer()</code> actually extends the parser's internal buffer so
+<code>XML_GetBuffer()</code> in fact extends the parser's internal buffer so
 that it has enough space for the text to be parsed <em>as well as anything
 that is already in the buffer,</em> and returns a pointer to this new
 space.  In our case we have no previous text, but this really comes
@@ -218,21 +226,23 @@ structure.  Can you tell why I love this code yet?</p>
 <p>There are in fact several processor functions, which provide the
 high-level syntax handling for different situations during parsing.
 We start off with <code>prologInitProcessor()</code>, the processor that handles
-the start-up of parsing and allows for an XML prologue to be present.
-This does some more initialisation, this time setting up the character
-encoding to use before palming the rest of the work onto
-<code>prologProcessor()</code>.  We will discuss encodings in another article;
-for now, all we need to know is that we haven't told the parser in
-advance what encoding will be used, so it will try to deduce the
-answer as it starts to parse.</p>
+the start-up of parsing and allows for an
+<a href="https://www.w3.org/TR/2000/REC-xml-20001006#sec-prolog-dtd">XML prologue</a>
+to be present.  This does some more initialisation, this time setting
+up the character encoding to use before palming<sup><a href="#palm">3</a></sup>
+the rest of the work onto <code>prologProcessor()</code>.  We will discuss
+encodings in another article; for now, all we need to know is that we
+haven't told the parser in advance what encoding will be used, so it
+will try to deduce the answer from the input text.  The default
+assumption is that the input will be
+<a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8 encoded</a>.</p>
 <p><code>prologProcessor()</code> starts off by calling <code>XmlPrologTok()</code>.  Again you
 will look long and hard for a function by that name; it's actually a
 macro hiding one of several function pointers held in the encoding
 structure that invokes an appropriate tokenizer.  The tokenizer's job
 is to split the input into its lexical units and convert it to an
-internal character format.  In this example, the internal format is
-UTF-8.  If the library had been compiled with <code>XML_UNICODE</code> defined,
-it would be UTF-16.</p>
+internal character format, in this case UTF-8.  If the library had
+been compiled with <code>XML_UNICODE</code> defined, it would be UTF-16.</p>
 <p>At the start of parse, we don't know exactly what character encoding
 we have, so we <em>scan</em> the input for clues rather than consuming it and
 spitting out tokens.  That means <code>XmlPrologTok()</code> initially points us
@@ -244,38 +254,39 @@ another digression.</p>
 something that looks a little odd.  The definition actually says
 <code>NS(initScanProlog)</code>, which looks like the function name is being
 wrapped by a macro for no particular reason.</p>
-<p>There is in fact a good reason for this.  <code>xmltok_ns.c</code> isn't actually
-passed directly to the compiler.  Instead it is included in <code>xmltok.c</code>
-twice, with different definitions of the <code>NS()</code> and <code>ns()</code> macros, to
-provide appropriate functions depending on whether or not the parser
-was told to expect XML namespaces when it was created.  Namespaces are
-a can of worms for another day, so we'll assume for now that we
-created a parser without them.</p>
+<p>There is in fact a good reason for this; <code>xmltok_ns.c</code> isn't passed
+directly to the compiler.  Instead it is included in <code>xmltok.c</code> twice,
+with different definitions of the <code>NS()</code> and <code>ns()</code> macros, to provide
+appropriate functions depending on whether or not the parser was told
+to expect XML namespaces when it was created.  Namespaces are a can of
+worms for another day, so we'll assume for now that we created a
+parser without them.</p>
 <p>There is a good reason for this somewhat confusing behaviour.  The
 biggest benefit is that if you discover a bug in your code, you only
 have to fix it once.  There is no chance of the namespace and
 non-namespace versions of the code getting out of step, because they
 are the <em>same</em> code template.  On the minus side, it becomes harder to
 read the code and be sure what is going to happen.</p>
-<p>Hang on to your hats, it's about to become a lot more confusing.</p>
+<p>Hang on to your hats<sup><a href="#hats">4</a></sup>, it's about to become a lot
+more confusing.</p>
 <p>The same thing happens with the tokenizer functions in
 <code>xmltok_impl.c</code>, except that they are included three times for the
 three different types of encodings; "normal" (8-bit, including UTF-8,
-ASCII, Latin-1 and user-defined encodings), "big2" (big-endian UTF-16)
-and "little2" (UTF-16).  A huge number of macros get defined to make
-this work, some of them redirecting to dedicated functions and some to
-other macros, sometimes via function tables and sometimes not.  It's
-horribly confusing and hard to follow, even using breakpoint
-debugging.</p>
-<p>Follow me down the rabbit-hole.  I won't mind if you lie down and
-whimper every now and then.  I did.</p>
+ASCII, and Latin-1), "big2" (big-endian UTF-16) and "little2"
+(UTF-16).  A huge number of macros get defined to make this work, some
+of them redirecting to dedicated functions and some to other macros,
+sometimes via function tables and sometimes not.  It's horribly
+confusing and hard to follow, even using breakpoint debugging.</p>
+<p>Follow me down the rabbit-hole<sup><a href="#rabbit">5</a></sup>.  I won't mind
+if you lie down and whimper every now and then.  I did.</p>
 <h2>Scanning for the encoding</h2>
 <p>Back to our parse.  <code>initScanProlog()</code> throws us to <code>initScan()</code>,
 which mercifully is just a normal function.  This looks through the
 first few bytes of the input for a clue as to what encoding is being
-used.  Putting the first two bytes together doesn't give us a byte
-order mark or anything else recognisable, so we conclude that we
-probably have UTF-8 input, the parser's default guess.</p>
+used.  We start by assembling the first two bytes into a sixteen-bit
+value to see if we get a byte order mark or a UTF-16 encoding of "&lt;",
+which we don't.  We conclude that we probably have UTF-8 input, the
+parser's default guess.</p>
 <p>Once that is done, we get passed to the real tokenizer, <code>XmlTok()</code>.
 Sad to say, this is another macro, this time passing us to
 <code>normal_prologTok()</code>, which is one of the multiply-included tokenizer
@@ -302,20 +313,34 @@ the input <code>ptr</code> hasn't reached the end of the input at <code>end</cod
 
 
 <p>Then it makes sure that it only deals with whole character units; the
-macro <code>MINBPC</code> returns the minimum number of bytes required for a
-single character, 2 for UTF-16 and 1 for everything else.  The length
-of the input is rounded down to be an integer number of <code>MINBPC</code>
-"units", and the <code>end</code> pointer adjusted accordingly.  For our simple
-ASCII input this makes no difference at all, but it matters a great
-deal for UTF-16 input.</p>
+macro <code>MINBPC</code> returns the minimum number of bytes required to
+represent a single character in the encoding we are using.  The
+relationship between characters and bytes is somewhat complicated, but
+every character encoding has such a minimum number of bytes.  Limited
+encodings like ASCII or Latin-1 only use one byte to encode
+characters, and cannot represent anything else.  UTF-8 uses between
+one and four bytes for any Unicode character; its <code>MINBPC</code> is 1.
+UTF-16 by contrast uses sixteen bits (two bytes) to represent the most
+common Unicode characters and four bytes for all the rest, so its
+<code>MINBPC</code> is 2.  Expat doesn't support UTF-32, but if it did the
+encoding would have a <code>MINBPC</code> of 4.</p>
+<p>The code rounds the length of the input down to be an integer number
+of <code>MINBPC</code> "units", and the <code>end</code> pointer adjusted accordingly.  This
+does not mean that the (potentially shortened) input will only contain
+whole characters &mdash; it could for example end with the first two
+bytes of a four-byte UTF-16 character &mdash; but it does guarantee
+that there will be enough information for the code to decide whether
+it has a complete character at the end or not.  For our simple ASCII
+input this makes no difference at all, since all of the characters are
+one byte long.</p>
 <div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
 </pre></div>
 
 
-<p>Then it looks at the first character of our XML, "&lt;", and passes it to
-the macro <code>BYTE_TYPE</code>.  This is a bit of a nightmare to untangle, but
-after some digging through <code>xmltok.c</code> you can figure out that what you
-actually have is:</p>
+<p>Then the code looks at the first character of our XML, "&lt;", and passes
+it to the macro <code>BYTE_TYPE</code>.  This is a bit of a nightmare to
+untangle, but after some digging through <code>xmltok.c</code> you can figure out
+that what you actually have is:</p>
 <div class="highlight"><pre><span></span><span class="cp">#define BYTE_TYPE(enc, p) SB_BYTE_TYPE(enc, p)</span>
 <span class="cp">#define SB_BYTE_TYPE(enc, p) \</span>
 <span class="cp">  (((struct normal_encoding *)(enc))-&gt;type[(unsigned char)*(p)])</span>
@@ -324,9 +349,9 @@ actually have is:</p>
 
 <p>In other words, we look up the character in the <code>type</code> array of the
 encoding.  That constant array is constructed in <code>xmltok.c</code> using
-include files.  For UTF-8 it uses <code>asciitab.h</code> for the characters 0x00
-to 0x7f, and <code>utf8tab.h</code> for the characters 0x80 to 0xff.  If you look
-up "&lt;" (0x3c) in <code>asciitab.h</code>, you will find it listed as <code>BT_LT</code>
+include files.  The UTF-8 encoding uses <code>asciitab.h</code> for characters
+0x00 to 0x7f, and <code>utf8tab.h</code> for characters 0x80 to 0xff.  If you
+look up "&lt;" (0x3c) in <code>asciitab.h</code>, you will find it listed as <code>BT_LT</code>
 (Byte Type Less Than, obviously).</p>
 <div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_LT</span><span class="p">:</span>
   <span class="p">{</span>
@@ -353,10 +378,10 @@ us there is, so we don't have to deal with that unexpected hidden
 is a <code>BT_HEX</code>, a character that could legitimately be a hexadecimal
 digit.  It can also legitimately be the start of an XML element name,
 which is the important thing here.</p>
-<div class="highlight"><pre><span></span>case BT_HEX:
-  /* ... */
-  *nextTokPtr = ptr - MINBPC(enc);
-  return XML_TOK_INSTANCE_START;
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_HEX</span><span class="p">:</span>
+  <span class="cm">/* ... */</span>
+  <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span> <span class="o">-</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">XML_TOK_INSTANCE_START</span><span class="p">;</span>
 </pre></div>
 
 
@@ -365,9 +390,11 @@ the "next token" pointer back to the opening angle bracket and returns
 <code>XML_TOK_INSTANCE_START</code>.  You'll notice that it doesn't try to parse
 the element itself.  That's because this is the <em>prologue</em> tokenizer,
 and having a normal element means that we must have finished the
-prologue and be into the main content of the XML.  Since our example
-XML has no prologue at all, we can be happy that the parser got this
-right!</p>
+prologue and be into the main content of the XML &mdash; an XML
+prologue can only legitimately contain an XML declaration, processing
+instructions (both starting with "&lt;?"), a document type declaration or
+comments (both starting with "&lt;!").  Since our example XML has no
+prologue at all, we can be happy that the parser got this right!</p>
 <h2>Processing the Token</h2>
 <div class="highlight"><pre><span></span>&lt;doc&gt;
 ^
@@ -400,20 +427,22 @@ particular token but just hasn't got there yet.  For instance, a
 quoted string is recognised with the token <code>XML_TOK_LITERAL</code>.  If a
 tokenizer recognises an opening quote and doesn't see a closing quote,
 it will instead return <code>-XML_TOK_LITERAL</code> and leave the processor
-function to decide whether or not that is good enough.</p>
+function to decide whether or not that is good enough.  In our case we
+have <code>XML_TOK_INSTANCE_START</code>, which is positive and skips all of that
+decision logic.</p>
 <div class="highlight"><pre><span></span><span class="n">role</span> <span class="o">=</span> <span class="n">XmlTokenRole</span><span class="p">(</span><span class="o">&amp;</span><span class="n">prologState</span><span class="p">,</span> <span class="n">tok</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">,</span> <span class="n">enc</span><span class="p">);</span>
 <span class="k">switch</span> <span class="p">(</span><span class="n">role</span><span class="p">)</span> <span class="p">{</span>
 </pre></div>
 
 
-<p>In our case we have <code>XML_TOK_INSTANCE_START</code>, which is positive and
-skips all of that decision logic.  Instead, <code>doProlog()</code> calls
-<code>XmlTokenRole()</code> to find out what role the token plays here at the
-start of our XML.  If you looked at that function name and wondered if
-it was another of the macros hiding a function pointer, give yourself
-a pat on the back.  It calls the function pointer <code>handler</code> in
-<code>prologState</code>, which is itself a macro hiding a field of the parser
-structure.</p>
+<p>Instead, <code>doProlog()</code> calls <code>XmlTokenRole()</code> to find out what role the
+token plays here at the start of our XML.  If you looked at that
+function name and wondered if it was another of the macros hiding a
+function pointer, give yourself a pat on the back.  It calls the
+function pointer <code>handler</code> in <code>prologState</code>, which is itself a macro
+hiding a field of the parser structure.</p>
+<p>These handler functions effectively implement a state machine for the
+parser.  We start off in <code>prolog0</code>.</p>
 <div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">PTRCALL</span>
 <span class="nf">prolog0</span><span class="p">(</span><span class="n">PROLOG_STATE</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span>
         <span class="kt">int</span> <span class="n">tok</span><span class="p">,</span>
@@ -429,16 +458,16 @@ structure.</p>
 </pre></div>
 
 
-<p>These handler functions effectively implement a state machine for the
-parser.  We start off in <code>prolog0</code>, which turns our token into
-<code>XML_ROLE_INSTANCE_START</code> and transitions to <code>error</code>.  This is a bit
-of insurance against the parser's internal logic failing.  <code>prolog0</code>
-knows that the start of an element means that we have no more prologue,
-so the prologue handler shouldn't be called again in this parse.  The
-<code>error</code> handler is there to return an error if this ever happens.</p>
-<p>The big switch statement in <code>doProlog()</code> drops us into a large wodge
-of code that only kicks into life if we had set the parser up to want
-an external DTD.  We didn't do that, so it skips down:</p>
+<p><code>prolog0</code> turns our token into <code>XML_ROLE_INSTANCE_START</code> and
+transitions to <code>error</code>.  This is a bit of insurance against the
+parser's internal logic failing.  <code>prolog0</code> knows that the start of an
+element means that we have no more prologue, so the prologue handler
+shouldn't be called again in this parse.  The <code>error</code> handler is there
+to return an error if this ever happens.</p>
+<p>The big switch statement in <code>doProlog()</code> drops us into a large
+wodge<sup><a href="#wodge">6</a></sup> of code that only kicks into life if we
+had set the parser up to want an external DTD.  We didn't do that, so
+it skips down:</p>
 <div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">XML_ROLE_INSTANCE_START</span><span class="p">:</span>
   <span class="cm">/* useForeignDTD stuff... */</span>
   <span class="n">processor</span> <span class="o">=</span> <span class="n">contentProcessor</span><span class="p">;</span>
@@ -446,12 +475,12 @@ an external DTD.  We didn't do that, so it skips down:</p>
 </pre></div>
 
 
-<p>Setting <code>processor</code> (a field of the parser structure) to
+<p>Setting <code>processor</code> (a field of the parser structure, remember) to
 <code>contentProcessor</code> signals the end of the XML prologue and the start of
 the actual content of our XML.  The parser could at this point return
 and let <code>XML_ParseBuffer()</code> go round its loop, doing the housekeeping
 and then calling the processor function again.  As an optimisation, it
-calls it directly from here.</p>
+calls <code>contentProcessor()</code> directly from here.</p>
 <h2>Parsing the Content</h2>
 <div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
   <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">next</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
@@ -461,7 +490,8 @@ calls it directly from here.</p>
 </pre></div>
 
 
-<p><code>contentProcessor()</code> immediately palms the hard work off on
+<p><code>contentProcessor()</code> immediately
+palms<sup><a href="#palm">3</a></sup> the hard work off on
 <code>doContent()</code>, the main workhorse function of the parser.  Like
 <code>doProlog()</code>, it starts by fiddling with the event pointers.  In
 content processing the tokenizer has not been called in advance, so
@@ -490,13 +520,8 @@ that it only deals in whole characters and switching on the byte type
 of the first character, which is again <code>BT_LT</code>.  However in this case
 it hands the work of dealing with an XML element off to a
 sub-function, <code>normal_scanLt()</code>.</p>
-<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">doc</span><span class="o">&gt;</span>
- <span class="o">^</span>
- <span class="o">+--</span> <span class="n">ptr</span>
-
-<span class="o">:::</span><span class="n">c</span>
-<span class="k">static</span> <span class="kt">int</span> <span class="n">PTRCALL</span>
-<span class="n">PREFIX</span><span class="p">(</span><span class="n">scanLt</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">PTRCALL</span>
+<span class="nf">PREFIX</span><span class="p">(</span><span class="n">scanLt</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">,</span>
                <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">nextTokPtr</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="cp">#ifdef XML_NS</span>
@@ -509,14 +534,20 @@ sub-function, <code>normal_scanLt()</code>.</p>
 
 
 <p>The first thing <code>normal_scanLt()</code> does is to ensure that there is a
-character there for it to check, using <code>REQUIRE_CHAR</code>.  There is, so
-it switches on the character type <code>BT_HEX</code>, just as the prologue
-tokenizer did.  You might hope at this point to see <code>case BT_HEX</code> in
-the source, but alas life is not so simple.  There are many byte types
-that may be legal at the start of an XML name, and in particular
-multi-byte characters in UTF-8 may or may not be legal.  In order to
-cover all these cases without replicating code everywhere, we descend
-into more macro madness.</p>
+character there for it to check, using <code>REQUIRE_CHAR</code>.</p>
+<div class="highlight"><pre><span></span>&lt;doc&gt;
+ ^
+ +-- ptr
+</pre></div>
+
+
+<p>There is, so it switches on the character type <code>BT_HEX</code>, just as the
+prologue tokenizer did.  You might hope at this point to see <code>case
+BT_HEX</code> in the source, but alas life is not so simple.  There are many
+byte types that may be legal at the start of an XML name, and in
+particular multi-byte characters in UTF-8 may or may not be legal.  In
+order to cover all these cases without replicating code everywhere, we
+descend into more macro madness.</p>
 <h2>Macro Abuse Part 2</h2>
 <p>The <code>CHECK_NMSTRT_CASES</code> macro is a horrible, tangled thing that knows
 it is part of a switch statement, and like <code>REQUIRE_CHAR</code> can exit the
@@ -579,17 +610,21 @@ looking up the encoding table, <code>utf8_encoding</code>.  This is not as easy
 as it sounds because of the helpful macros used in the table
 construction, but a little persistence shows us that the function is
 named <code>utf8_isNmstrt4()</code>.  A little more persistence tells us that
-this is not quite true; <code>utf8_isNmstrt4</code> is a macro disguise for
+this is not quite true; <code>utf8_isNmstrt4()</code> is a macro disguise for
 <code>isNever()</code>, a function that always returns False.  This makes sense,
 since none of the characters encoded as four bytes in UTF-8 are valid
 starts of names.</p>
 <p><code>BT_LEAD_3</code> similarly indicates a character that is the start of a
-sequence of three bytes.  It's case checks that there are at least
+sequence of three bytes.  Its case checks that there are at least
 three bytes available, then calls through the <code>isNmstrt3</code> function
 pointer in the encoding.  This time <code>utf8_isNmstrt3()</code> as it becomes
-is a real function, one that uses macros to turn the UTF-8 into a
-Unicode codepoint and look up that codepoint in a large bit array.  If
-the corresponding bit is set, that Unicode character is a valid
+is a real function, one that uses macros to turn the UTF-8 into
+a <a href="http://unicode.org/glossary/#code_point">Unicode codepoint</a> and
+look up that codepoint (an integer in the range 0&ndash;1114111
+(0x10ffff in hexadecimal), or rather 0&ndash;65535 (0xffff in hex)
+given that it comes from a three-byte UTF-8
+sequence<sup><a href="#utf83">7</a></sup>) in a large bit array.  If the
+corresponding bit is set, that Unicode character is a valid
 start-of-name character.</p>
 <p><code>BT_LEAD_2</code> works just like <code>BT_LEAD_3</code>, just with two-byte
 sequences.</p>
@@ -602,13 +637,15 @@ our example parse.</p>
 encodings.  It indicates a 16-bit character that is out of the ASCII
 range, isn't the leading or trailing half of a surrogate pair, and
 isn't an invalid character (0xffff or 0xfffe).  The code calls
-<code>IS_NMSTRT_CHAR_MINBPC</code> very much like the leading character cases.
-Working through the nest of conditional compilations in <code>xmltok.c</code>,
-this macro turns out to be 0, so for us it would always be invalid.</p>
+<code>IS_NMSTRT_CHAR_MINBPC</code> very much like the leading character cases
+call <code>IS_NMSTRT_CHAR</code>.  Working through the nest of conditional
+compilations in <code>xmltok.c</code>, <code>IS_NMSTRT_CHAR_MINBPC</code> turns out to
+always return 0 for "normal" encodings, so for us a <code>BT_NONASCII</code>
+character would always be invalid.</p>
 <h2>Back to the Parser</h2>
-<p>So we were parsing the first character of our XML element, "d".
-The <code>CHECK_NMSTRT_CASES</code> macro invisibly accepts it and moves the
-parse pointer on:</p>
+<p>So we were parsing the first character of our XML element, "d", which
+has a byte type of <code>BT_HEX</code>.  The <code>CHECK_NMSTRT_CASES</code> macro accepts
+that byte type as described above, and moves the parse pointer on:</p>
 <div class="highlight"><pre><span></span>&lt;doc&gt;
   ^
   +-- ptr
@@ -616,7 +653,8 @@ parse pointer on:</p>
 
 
 <p>It also clears a local variable <code>hadColon</code>, a flag used in parsing
-namespaces.  We aren't using namespaces, so we can ignore it for now.</p>
+namespaces.  There are no namespaces in our input text (i.e. no colons
+in any names), so we can ignore it for now.</p>
 <div class="highlight"><pre><span></span><span class="cm">/* we have a start-tag */</span>
 <span class="k">while</span> <span class="p">(</span><span class="n">HAS_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span> <span class="p">{</span>
   <span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
@@ -651,6 +689,8 @@ through.  It accepts the character and moves the parse pointer on.</p>
 </pre></div>
 
 
+<p>(Don't be confused by the <code>gt:</code> in the code.  It's a jump label, the
+result of a possibly slightly overenthusiastic bit of optimisation.)</p>
 <p>The function sets the "next token" pointer to the character following
 the "&gt;" (the newline at the end of the line), and returns
 <code>XML_TOK_START_TAG_NO_ATTS</code>.  A start tag (element) with no attributes
@@ -693,24 +733,25 @@ parser implements.  Fortunately this one is quite obvious.</p>
 
 
 <p>We want to allocate a TAG structure to hold information about our
-element.  We are going to need to do this many times for a long parse,
-freeing the TAG structure once we are done with the element.  This
-means going back to the heap allocators a lot, which is not
-necessarily an efficient thing to do.  So instead of freeing the TAG
-structures, the parser instead keeps them on a linked list on the
-<code>freeTagList</code> field of the parser structure, avoiding all that
-expensive allocation.</p>
+element, so that for example we can recognise its close tag.  We are
+going to need to do this many times for a long parse, freeing the TAG
+structure once we are done with the element.  This means going back to
+the heap allocators a lot, which is not necessarily an efficient thing
+to do.  So instead of freeing the TAG structures, the parser instead
+keeps them on a linked list on the <code>freeTagList</code> field of the parser
+structure, avoiding all that expensive allocation.</p>
 <p>In this case, this is our first TAG structure, so there is nothing on
 the free list for us to reuse, so we have to allocate anyway, using
 <code>MALLOC()</code>.</p>
 <h2>A Digression Into Allocation</h2>
 <p><code>MALLOC()</code> is of course a macro, hiding a function pointer in the
 parser structure.  There are three of these: <code>MALLOC()</code>, <code>REALLOC()</code>
-and <code>FREE()</code>.  They are used for all allocations in the parser, and
-are made available to user-defined handler functions through the
-<code>XML_MemMalloc()</code>, <code>XML_MemRealloc()</code> and <code>XML_MemFree()</code> functions.
-This allows us to plug in custom allocators used by the whole parser,
-for example to track heap usage levels or test error handling.</p>
+and <code>FREE()</code>.  They are used for all allocations in the parser (and
+for consistency are made available to user-defined handler functions
+through the <code>XML_MemMalloc()</code>, <code>XML_MemRealloc()</code> and <code>XML_MemFree()</code>
+functions).  This allows us to plug in custom allocators used by the
+whole parser, for example to track heap usage levels or test error
+handling.</p>
 <p>We didn't specify a set of allocation functions when we created our
 parser, so we got the standard system <code>malloc()</code>, <code>realloc()</code> and
 <code>free()</code> by default.</p>
@@ -815,7 +856,10 @@ parameter passed to <code>lookup()</code> is zero, it returns NULL as mentioned
 above if it doesn't find the name.  If instead a non-zero number is
 passed, <code>sizeof(ELEMENT_TYPE)</code> in this case, it will create a new
 entry in the hash table for that name if necessary, and will allocate,
-zero and return that many bytes of memory as the entry.</p>
+zero and return that many bytes of memory as the entry.  The first
+field in the memory is presumed to be a pointer, and will point to the
+key name when the memory is returned.  <strong>DO NOT FIDDLE WITH THIS</strong>, it
+is important to the way the hash tables work.</p>
 <div class="highlight"><pre><span></span><span class="cm">/* get the attributes from the tokenizer */</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">XmlGetAttributes</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">attStr</span><span class="p">,</span> <span class="n">attsSize</span><span class="p">,</span> <span class="n">atts</span><span class="p">);</span>
 </pre></div>
@@ -878,7 +922,7 @@ the space at the start of the next line.</p>
 
 
 <p>The <code>XML_TOK_DATA_NEWLINE</code> return value causes the giant switch
-statement pass a line feed character in the appropriate encoding to
+statement to pass a line feed character in the appropriate encoding to
 any character data handler the user may have registered.  Another trip
 around the parsing state dance and we come back to calling
 <code>normal_contentTok()</code> again.</p>
@@ -974,9 +1018,9 @@ causing us to call <code>normal_scanLt()</code>.</p>
 </pre></div>
 
 
-<p>Parsing the "/" is a bit different, however; it has a type of <code>BT_SOL</code>
-("solidus", the proper technical name for a slash that no one ever
-uses), which drops us into <code>normal_scanEndTag()</code>.</p>
+<p>Parsing the "/" is a bit different, however; it has a type of
+<code>BT_SOL</code><sup><a href="#solidus">8</a></sup>, which drops us into
+<code>normal_scanEndTag()</code>.</p>
 <div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">PTRCALL</span>
 <span class="nf">PREFIX</span><span class="p">(</span><span class="n">scanEndTag</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span>
                    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">nextTokPtr</span><span class="p">)</span>
@@ -1003,12 +1047,13 @@ uses), which drops us into <code>normal_scanEndTag()</code>.</p>
 </pre></div>
 
 
-<p>so <code>normal_scanEndTag()</code> first looks at the "e" of "element", and
-through the magic of <code>CHECK_NMSTRT_CASES()</code> regards it as acceptable.
-It then loops through the remaining characters, accepting them through
-<code>CHECK_NAME_CASES()</code> until it finally reaches the "&gt;".  It sets the
-"next token" pointer to the newline after the "&gt;" and returns
-<code>XML_TOK_END_TAG</code> all the way back to <code>doContent()</code>.</p>
+<p>so <code>normal_scanEndTag()</code> first looks at the "e" of "element".  Through
+the magic of <code>CHECK_NMSTRT_CASES()</code> it regards the "e" as acceptable
+and moves the pointer on.  It then loops through the remaining
+characters, accepting them through <code>CHECK_NAME_CASES()</code> until it
+finally reaches the "&gt;".  It sets the "next token" pointer to the
+newline after the "&gt;" and returns <code>XML_TOK_END_TAG</code> all the way back
+to <code>doContent()</code>.</p>
 <div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">XML_TOK_END_TAG</span><span class="p">:</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">tagLevel</span> <span class="o">==</span> <span class="n">startTagLevel</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_ERROR_ASYNC_ENTITY</span><span class="p">;</span>
@@ -1018,8 +1063,26 @@ It then loops through the remaining characters, accepting them through
 <p>The first thing <code>doContent()</code> does with an <code>XML_TOK_END_TAG</code> is to
 check that it hasn't closed more tags than it opened.  This could
 happen, for example if an overly-optimistic general entity expanded to
-an end tag.  It doesn't for us; we have opened two tags and are
-closing one for the first time.</p>
+an end tag.  The XML document</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE foodoc [</span>
+<span class="cp">  &lt;!ENTITY foo &quot;&lt;b&gt;</span>text<span class="nt">&lt;/b&gt;&lt;/a&gt;</span>&quot;&gt;
+]&gt;
+<span class="nt">&lt;a&gt;</span><span class="ni">&amp;foo;</span>
+</pre></div>
+
+
+<p>trips exactly this test, while</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE foodoc [</span>
+<span class="cp">  &lt;!ENTITY foo &quot;&lt;b&gt;</span>text<span class="nt">&lt;/b&gt;</span>&quot;&gt;
+]&gt;
+<span class="nt">&lt;a&gt;</span><span class="ni">&amp;foo;</span><span class="nt">&lt;/a&gt;</span>
+</pre></div>
+
+
+<p>is just fine.  In any case we don't have that problem; we have opened
+two tags and are closing one for the first time.</p>
 <div class="highlight"><pre><span></span><span class="n">TAG</span> <span class="o">*</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tagStack</span><span class="p">;</span>
 <span class="n">tagStack</span> <span class="o">=</span> <span class="n">tag</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
 <span class="n">tag</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">freeTagList</span><span class="p">;</span>
@@ -1065,7 +1128,9 @@ data handler.</p>
 <p>Finally the end tag for the <code>doc</code> element.  Unsurprisingly this works
 exactly as the end tag for the <code>element</code> element up to the point of
 tidying up.  At this juncture <code>doContent()</code> realises that it has
-closed the last open tag, and calls <code>epilogProcessor()</code>.</p>
+closed the last open tag, and calls <code>epilogProcessor()</code> to handle any
+remaining input.  Very little is permitted by the XML standard at this
+point; only comments, processing instructions and whitespace.</p>
 <div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">enum</span> <span class="n">XML_Error</span> <span class="n">PTRCALL</span>
 <span class="nf">epilogProcessor</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span>
                 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span>
@@ -1087,7 +1152,8 @@ parser, so the first thing it does is to make itself the current
 processor function.  Then it loops through the remaining input,
 calling <code>normal_prologTok()</code> to find out what is there.  Comments,
 processing instructions and whitespace is fine; anything else is an
-error.  We have nothing but a single newline, which is fine.</p>
+error.  We have nothing but a single newline, which the processor
+happily consumes.</p>
 <div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">XML_ERROR_NONE</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">storeRawNames</span><span class="p">(</span><span class="n">parser</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
@@ -1115,7 +1181,7 @@ we return this time, we return right the way out of the library to the
 user code, still indicating success.</p>
 <h2>Conclusions</h2>
 <p>So there you have it.  A quick skip through the Expat parser in action
-in only 6,000 words.  While we used a pretty simple example, most of
+in only 7,000 words.  While we used a pretty simple example, most of
 the general principles you can see in action here apply more generally
 to how the code works.  The important observations to take away from
 this are:</p>
@@ -1146,6 +1212,36 @@ this are:</p>
 in-depth looks at some of the more complex mechanisms in the parser
 such as hash tables, and walkthroughs of more complex XML. Please let
 me know if you would like an explanation of anything in particular.</p>
+<hr>
+<h2>Footnotes</h2>
+<p><a name="bendknee">1</a>: to kneel or submit, figuratively in this
+case.  A relic of our feudal past.</p>
+<p><a name="poobah">2</a>: a humorous title derived from the character
+Pooh-Bah in Gilbert and Sullivan's opera <em>The Mikado</em>, who listed
+among his various titles "Lord High Everything Else".  Sometimes used
+to mock overly self-important people, but Sebastian really does do
+everythine else!</p>
+<p><a name="palm">3</a>: "to palm something off on someone" means to pass
+responsibility for something to someone.  It is usually used in the
+sense of selling a fake or counterfeit object, though not here.</p>
+<p><a name="hats">4</a>: get ready for a surprise.  Comes from the days
+when men commonly wore hats (think of all those fedora-wearing private
+eyes and investigative reporters of the pulp-era stories and films),
+and you would need to hold on to it if you took a wild journey in an
+open-topped car.</p>
+<p><a name="rabbit">5</a>: <em>Alice in Wonderland</em> by Lewis Carroll.  If
+you needed this footnote, I disown you.</p>
+<p><a name="wodge">6</a>: an undefined but significant amount of
+something.</p>
+<p><a name="utf83">7</a>: UTF-8 encodes codepoints U+0800 to U+FFFF into
+three bytes as follows:</p>
+<div class="highlight"><pre><span></span>1110xxxx 10xxxxxx 10xxxxxx
+</pre></div>
+
+
+<p>So U+FFFF would become the sequence <code>0xEF 0xBF 0xBF</code>.</p>
+<p><a name="solidus">8</a>: "solidus" is the proper technical name for a
+slash that no one ever uses.  Erm, maybe I should rephrase that...</p>
 <p>&mdash;Rhodri James, 23rd June 2017</p>
 </div>
         </div>
