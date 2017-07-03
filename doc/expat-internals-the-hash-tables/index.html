@@ -105,23 +105,31 @@ curious), but I will look at how it is used to implement tables in
 Expat.</p>
 <h2>Absolute Basics</h2>
 <p>For the benefit of those who haven't heard this a million times before
-in Computer Science lectures, a <em>hash table</em> (or <em>dictionary</em> as they
-are sometimes called) is a data structure that associates a piece of
-data with a "key".  It is a common data structure in high level
-languages such as Perl or Python, but in a lower level language like
-C<sup><a href="#C">1</a></sup> we need to implement our own version.</p>
+in Computer Science lectures,
+a <a href="https://en.wikipedia.org/wiki/Hash_table"><em>hash table</em></a> is a data
+structure that associates a piece of data with a "key", as distinct
+from an <a href="https://en.wikipedia.org/wiki/Array_data_structure"><em>array</em></a>
+which associates a piece of data with an integer index.  It is a
+common data structure in high level languages such as Perl or Python,
+but in a lower level language like C<sup><a href="#C">1</a></sup> we need to
+implement our own version.</p>
 <p>In our case the key is a text string in the parser's internal encoding
 (UTF-8 or UTF-16 depending on the compile-time flag <code>XML_UNICODE</code>).
 The key is passed through the hashing algorithm and converted into an
-index into the table, where the associated data will be found.  Of
-course it's not quite that simple, or we wouldn't need a whole article
-to examine them.</p>
+index into the hash table's internal array, where the associated data
+will be found.  Of course it's not quite that simple, or we wouldn't
+need a whole article to examine them.</p>
 <h2>Expat's Hash Tables</h2>
 <p>The parser uses hash tables for the things it will need to look up by
-name.  Elements and element definitions are held in a hash table, for
-instance, as are general entities, parameter entities, namespace
-prefixes and so on.  These tables all use a single common set of data
-structures:</p>
+name.
+<a href="https://www.w3.org/TR/2008/REC-xml-20081126/#dt-element">Elements</a>
+and <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#elemdecls">element type
+declarations</a> are
+held in a hash table, for instance, as are
+<a href="https://www.w3.org/TR/2008/REC-xml-20081126/#gen-entity">general entities</a>,
+<a href="https://www.w3.org/TR/2008/REC-xml-20081126/#dt-PE">parameter entities</a>,
+<a href="https://www.w3.org/TR/xml-names/#dt-prefix">namespace prefixes</a> and
+so on.  These tables all use a single common set of data structures:</p>
 <div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">KEY</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
@@ -145,7 +153,7 @@ here for several reasons; it allows the table to be dynamically
 resized when we add more entries, and does not need to know the size
 of keys or table entries in advance.  The last reason there may look
 like it's unnecessary &mdash; surely we know the size of <code>NAMED</code> at
-compile time &mdash; but we will see later why we want the
+compile time? &mdash; but we will see later why we want the
 flexibility.</p>
 <p>Hash tables are initialised using the function <code>hashTableInit()</code>
 unsurprisingly.  This starts us off with a <code>NULL</code> pointer in the <code>v</code>
@@ -153,10 +161,12 @@ field, <code>mem</code> pointing to the suite of memory allocation functions
 being used by the parser, and all other fields set to zero.  A
 completely empty table, in other words, taking up minimal space.</p>
 <h2>Inserting The First Entry</h2>
-<p>If you recall from the walkthrough, the Expat library mostly interacts
-with hash tables using the <code>lookup()</code> function, both to find entries
-as you might expect and to add new ones.  Let's walk through what the
-code does when we call <code>lookup()</code> asking it to insert a new entry.</p>
+<p>If you recall from the <a href="../expat-internals-a-simple-parse/">previous
+walkthrough</a>, the Expat library
+mostly interacts with hash tables using the <code>lookup()</code> function, both
+to find entries as you might expect and to add new ones.  Let's walk
+through what the code does when we call <code>lookup()</code> asking it to insert
+a new entry.</p>
 <div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">NAMED</span> <span class="o">*</span>
 <span class="nf">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
 <span class="p">{</span>
@@ -168,8 +178,8 @@ code does when we call <code>lookup()</code> asking it to insert a new entry.</p
 </pre></div>
 
 
-<p>Let's assume that we have a "foo" as a key (i.e. <code>name == "foo"</code>, and
-let's assume that our internal representation is UTF-8 for
+<p>Let's assume that we have "foo" as a key (i.e. <code>name == "foo"</code>, and
+let's also assume that our internal representation is UTF-8 for
 simplicity), and we want 20 bytes for our data (i.e. <code>createSize ==
 20</code>).  Entering <code>lookup()</code>, we first check to see if we have a table
 allocated at all by checking the <code>size</code> field, the number of slots
@@ -190,14 +200,14 @@ in an empty table, we would return <code>NULL</code> at this point.</p>
 </pre></div>
 
 
-<p>Having decided we need a new table, we create it.  As the comment
-says, our table size is always a power of two, for general convenience
-later on.  To help with that, as well as keeping the number of entries
-in the <code>size</code> field, we keep the power of two in the <code>power</code> field and
-take some pains to ensure that <code>table-&gt;size</code> is always the same as
-<code>(size_t)1 &lt;&lt; table-&gt;power</code>.  We start off with 64 (2<sup>6</sup>)
-entries, enough for a modest-sized table that will fit small parses
-without wasting too much memory.</p>
+<p>Having decided we need a new table, we create it.  As the comment in
+the code says, our table size is always a power of two for general
+convenience later on.  To help with that, as well as keeping the
+number of entries in the <code>size</code> field, we keep the power of two in the
+<code>power</code> field and take some pains to ensure that <code>table-&gt;size</code> is
+always the same as <code>(size_t)1 &lt;&lt; table-&gt;power</code>.  We start off with 64
+(2<sup>6</sup>) entries, enough for a modest-sized table that will fit
+small parses without wasting too much memory.</p>
 <p>We then allocate enough memory for <code>size</code> pointers to <code>NAMED</code>
 structures using the memory allocation functions held in the table,
 tidying up and returning <code>NULL</code> if we failed.  This new memory is set
@@ -211,8 +221,11 @@ to all zero, giving us a table of <code>NULL</code> pointers.</p>
 hashing algorithm, which will convert it into an <code>unsigned long</code>.
 That value then gets turned into an index by taking the remainder of
 dividing it by the number of entries in the table, something that can
-be done quickly and easily since we made our table size a power of
-two.  The resulting index <code>i</code> is the table entry we will pick.</p>
+be done quickly and easily with a bitwise and since we made our table
+size a power of two (2<sup>n</sup>-1 will always have the least
+significant <em>n</em> bits set to one and the rest zeroes,
+e.g. 2<sup>6</sup>-1 is <code>0b111111</code> (63)).  The resulting index <code>i</code> is
+the table entry we will pick.</p>
 <div class="highlight"><pre><span></span>  <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">NAMED</span> <span class="o">*</span><span class="p">)</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">createSize</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -301,16 +314,18 @@ later, this will always terminate.</p>
 
 <p>Remember that our original index calculation was to take the least
 significant <code>table-&gt;power</code> bits of the hash value.  <code>SECOND_HASH()</code>
-takes the next <code>table-&gt;power - 2</code> bits of the hash value, which has a
-good chance of being different from the step we might calculate if a
-third key collided with "foo" in the future.  This improves our
-chances of getting the right entry within a couple of steps; the
-fewer steps we have to take, the faster our parser will be.</p>
+takes the next <code>table-&gt;power - 3</code> bits of the hash
+value<sup><a href="#hashcalc">3</a></sup>, which has a good chance of being
+different from the step we might calculate if a third key collided
+with "foo" in the future.  This improves our chances of getting the
+right entry within a couple of steps; the fewer steps we have to take,
+the faster our parser will be.</p>
 <p><code>PROBE_STEP()</code> then ensures that our step is an odd number.  This will
-always be co-prime with the size of the table (a power of two,
-remember), so we guarantee to be able to step through every slot in
-the table.  As long as we haven't completely filled our table, we will
-find a slot for our key eventually.</p>
+always be <a href="https://en.wikipedia.org/wiki/Coprime_integers">co-prime</a>
+with the size of the table (a power of two, remember), so we guarantee
+to be able to step through every slot in the table.  As long as we
+haven't completely filled our table, we will find a slot for our key
+eventually.</p>
 <h2>Extending the Table</h2>
 <div class="highlight"><pre><span></span>    <span class="cm">/* check for overflow (table is half full) */</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">used</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
@@ -325,7 +340,7 @@ find a slot for our key eventually.</p>
 </pre></div>
 
 
-<p>"Eventually," of course, could be a very long time in a large
+<p>"Eventually", of course, could be a very long time in a large
 almost-full table.  To increase our chances of finding an empty slot
 quickly, we make sure that the table never gets more than half full.
 This is only a little wasteful of space &mdash; pointers don't take up
@@ -336,7 +351,9 @@ index calculations depended on the table size; if we just extended the
 table, we would start looking for old keys in the wrong slot.  Instead
 we have to allocate ourselves a whole new table <code>newV</code> and re-hash our
 old entries into their new places.  This is an expensive operation, so
-we don't want to do it too often during a parse!</p>
+we don't want to do it too often during a parse!  Ensuring the table
+size is always a power of two gives us exponential growth, which helps
+keep the number of expansions down.</p>
 <div class="highlight"><pre><span></span>      <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
           <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">newHash</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
@@ -356,8 +373,8 @@ we don't want to do it too often during a parse!</p>
 </pre></div>
 
 
-<p>This looks exactly like the hash-mask-and-step routine we just saw,
-mostly because it is exactly the same routine.  It may result in
+<p>This looks almost exactly like the hash-mask-and-step routine we just
+saw, mostly because it is exactly the same routine.  It may result in
 different keys getting their preferred index slot as opposed to having
 to step to other slots, but that simply evens up the average access
 time.</p>
@@ -376,9 +393,9 @@ new entry.</p>
 
 
 <p>One more time around the hash-mask-and-step routine, this time using
-the hash value for our new key that we calculated early on in the
-function and the new table size.  As before, this should lead us
-quickly to an empty slot to put an entry for "bar" in.</p>
+the hash value for our new key (calculated early on in the function)
+and the new table size.  As before, this will eventually lead us to an
+empty slot to put an entry for "bar" in.</p>
 <p>Whether or not we needed to extend the table, <code>i</code> will now contain the
 index of the slot we want.  We add the new entry to the table exactly
 as we did the first time.</p>
@@ -427,7 +444,7 @@ of the table and its end pointer to just past the end of the table.</p>
 <p>You get the next entry out of your iterator by returning the contents
 of the first non-empty slot you come across, leaving the "current
 pointer" pointing to the next possibility.  Once you run off the end
-of the table, return <code>NULL</code>.  Simples.<sup><a href="#simples">3</a></sup></p>
+of the table, return <code>NULL</code>.  Simples.<sup><a href="#simples">4</a></sup></p>
 <p>The code to run through a hash table is then just:</p>
 <div class="highlight"><pre><span></span><span class="n">HASH_TABLE_ITER</span> <span class="n">foo_iter</span><span class="p">;</span>
 <span class="n">hashTableIterInit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">foo_iter</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">foo_table</span><span class="p">);</span>
@@ -448,19 +465,18 @@ that can catch even experienced programmers by surprise.</p>
 <p>They do have one big "gotcha"; the key you look up <em>must</em> persist in
 memory for as long as the hash table, and mustn't be altered in any
 way once it has been inserted.  This may make sense of some of the
-contortions the parser code goes through on what looks like it should
+twisty paths the parser code goes through on what looks like it should
 be a simple table look-up.</p>
-<p>That's almost everything you need to know about hash tables.  There is
-one last little efficiency saving that the parser makes that usually
-isn't relevant, but does affect some of the test suite for the
+<p>That's almost everything you need to know about hash tables in Expat.
+There is one last little efficiency saving that the parser makes that
+usually isn't relevant, but does affect some of the test suite for the
 library.  If you reset a parser (with <code>XML_ParserReset()</code>) to clear it
 for re-use, this does not fully delete the parser's hash tables.  All
 of the entries are removed and their memory freed, but the table
-itself, the <code>v</code> field, is not freed.  This saves a little time;
-if the input that the parser is about to be fed is similar to the one
-it finished with earlier, hopefully we will have the right size of
-table pre-allocated and not have to do the expensive table expansion
-again.</p>
+itself, the <code>v</code> field, is not freed.  This saves a little time; if the
+input that the parser is about to be fed is similar to the one it
+finished with earlier, hopefully we will have the right size of table
+pre-allocated and not have to do the expensive table expansion again.</p>
 <h2>Footnotes</h2>
 <p><a name="C">1</a>: the best description I've heard of C is "it's an
 excellent macro-assembler."  C language constructs map to a relatively
@@ -469,8 +485,25 @@ microprocessors.  As a result, it's not at all uncommon for embedded C
 programmers to take careful note of the assembly language output of
 their compilers.</p>
 <p><a name="mischance">2</a>: bad luck.</p>
-<p><a name="simples">3</a>: I'm sorry, I appear to have become infested
-with <a href="https://www.comparethemeerkat.com">meerkats</a>.</p>
+<p><a name="hashcalc">3</a>: the calculation in <code>SECOND_HASH()</code> is a bit
+confusing (I misread it the first time I studied it!), so let's lay it
+out here.  Assume that <code>power</code> is 6 (and <code>mask</code> is therefore
+<code>0b111111</code>), and suppose that our hash is <code>0b1111111111111111</code> to make
+the masking stand out (and because I can't be bothered to type more
+than 16 bits).  Therefore:</p>
+<div class="highlight"><pre><span></span>hash &amp; ~mask                                = 0b1111111111000000
+
+(hash &amp; ~mask) &gt;&gt; (power-1)                 = 0b0000011111111110
+
+((hash &amp; ~mask) &gt;&gt; (power-1)) &amp; (mask &gt;&gt; 2) = 0b0000000000001110
+</pre></div>
+
+
+<p>So we use the next three (<code>power-3</code>) bits of the hash, shifted left
+one bit.  The least significant bit will then be set to one by
+<code>PROBE_STEP()</code>, so no information is wasted.</p>
+<p><a name="simples">4</a>: I'm sorry, I appear to have become infested
+with <a href="https://en.wikipedia.org/wiki/Compare_the_Meerkat">meerkats</a>.</p>
 <p>&mdash;Rhodri James, 29th June 2017</p>
 </div>
         </div>
