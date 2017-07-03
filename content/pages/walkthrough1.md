@@ -575,9 +575,9 @@ pointer in the encoding.  This time `utf8_isNmstrt3()` as it becomes
 is a real function, one that uses macros to turn the UTF-8 into
 a [Unicode codepoint](http://unicode.org/glossary/#code_point) and
 look up that codepoint (an integer in the range 0&ndash;1114111
-(0x10ffff in hexadecimal), or rather 0&ndash;65535 (0xffff in hex)
-given that it comes from a three-byte UTF-8
-sequence<sup>[7](#utf83)</sup>) in a large bit array.  If the
+(0x10ffff in hexadecimal), or rather 2048&ndash;65535
+(0x0800&ndash;0xffff in hex) given that it comes from a three-byte
+UTF-8 sequence<sup>[7](#utf83)</sup>) in a large bit array.  If the
 corresponding bit is set, that Unicode character is a valid
 start-of-name character.
 
@@ -1212,7 +1212,7 @@ and you would need to hold on to it if you took a wild journey in an
 open-topped car.
 
 <a name="rabbit">5</a>: _Alice in Wonderland_ by Lewis Carroll.  If
-you needed this footnote, I disown you.
+you needed this footnote, go and add to your education immediately.
 
 <a name="wodge">6</a>: an undefined but significant amount of
 something.
