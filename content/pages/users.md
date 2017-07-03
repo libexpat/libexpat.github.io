@@ -19,13 +19,16 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __0-9__
     * [4store](https://github.com/4store/4store)
 * __A__
+    * [AbiWord](https://www.abisource.com/) — efficient, featureful word processor with collaboration
     * [ACOVEA](https://github.com/Acovea/libacovea)
-    * [Advanced Strategic Command](http://www.asc-hq.org/)
+    * [Advanced Strategic Command (asc)](http://www.asc-hq.org/)
     * [AdvanceMAME](http://www.advancemame.it/)
     * [afflib](https://github.com/sshock/AFFLIBv3/)
     * [Aleph One](https://alephone.lhowon.org/)
     * [AmphetaDesk](http://www.disobey.com/amphetadesk/)
     * [Android / core-libart](https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java)
+    * [Android Asset Packaging Tool (aapt)](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt/XMLNode.h)
+    * [Android Asset Packaging Tool (aapt2)](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt2/xml/XmlDom.cpp)
     * [Android Studio](https://developer.android.com/studio/index.html)
     * [Apache httpd / mod_dav](https://httpd.apache.org/) (prior to 2.0.12)
     * [Apache httpd tools](https://httpd.apache.org/)
@@ -37,24 +40,40 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Avahi](https://github.com/lathiat/avahi)
 * __B__
     * [Battle Tanks](http://btanks.sourceforge.net/)
+    * [biboumi](https://lab.louiz.org/louiz/biboumi/) — XMPP to IRC gateway
+    * [boinctui](https://github.com/suleman1971/boinctui) — Fullscreen text mode manager for Boinc client
+    * [Bist](https://gna.org/projects/bist/) — chemical drawing tool
 * __C__
     * [cairo tool xml-to-trace](https://cgit.freedesktop.org/cairo/tree/util/xml-to-trace.c) (not cairo itself)
     * [Calf Studio Gear](http://calf-studio-gear.org/)
+    * [captagent](http://sipcapture.org/) — HOMER SIP capture agent
+    * [CDuce](http://www.cduce.org/) — programming language adapted to the manipulation of XML data
     * [CEGUI](http://cegui.org.uk/)
     * [CenterIM](http://www.centerim.org/index.php/Main_Page)
     * [Ceph](http://ceph.com/)
     * [Chromium](http://chromium.org/)
+    * [Citadel](http://www.citadel.org/doku.php) — groupware server
+    * [clamz](https://code.google.com/archive/p/clamz/) — command-line program to download MP3s from Amazon
+    * [claws-mail-feeds-reader](http://www.claws-mail.org/) — feeds (RSS/Atom) reader plugin for Claws Mail
     * [CMake](https://cmake.org/)
     * [cobex](http://cobex.sourceforge.net/)
     * [Coin3D](https://bitbucket.org/Coin3D/coin/wiki/Home)
+    * [Comet MS/MS search engine](https://sourceforge.net/projects/comet-ms/) — Tandem mass spectrometry (MS/MS) search engine
     * [CSVfix](https://bitbucket.org/neilb/csvfix)
     * [CURL example code](https://github.com/curl/curl/blob/HEAD/docs/examples/xmlstream.c) (not CURL itself)
 * __D__
+    * [DACS (Distributed access control)](https://dacs.dss.ca/) — single sign-on and rule-based access control system
+    * [Dasher](http://www.inference.org.uk/dasher/) — graphical predictive text input system
     * [D-Bus](https://www.freedesktop.org/wiki/Software/dbus/)
     * [digiKam](https://www.digikam.org/)
-    * [Dovecot](http://www.dovecot.org/)
+    * [discover](https://packages.debian.org/sid/discover) — hardware identification system
+    * [Dovecot SOLR plug-in](http://www.dovecot.org/)
+    * [DRadio](http://thrysoee.dk/dradio/) — Danmarks Radio netradio, podcast, and TV player
+    * [drumgizmo](https://www.drumgizmo.org/wiki/) — audio sampler plugin and stand-alone app that simulates a real drum kit
 * __E__
     * [EasySoap++](http://easysoap.sourceforge.net/)
+    * [eegdev](http://cnbi.epfl.ch/software/eegdev.html) — biosignal acquisition device library
+    * [ejabberd / erlang-p1-xml / fast_xml](https://github.com/processone/fast_xml) — XML utilities for Erlang
     * [EKG2](http://www.ekg2.org)
     * [Electron](https://electron.atom.io/)
     * [ELinks](http://elinks.or.cz/)
@@ -63,30 +82,44 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Exempi](https://libopenraw.freedesktop.org/wiki/Exempi/)
     * [Exiv2](http://www.exiv2.org/)
     * [ExternData](https://github.com/tbeu/ExternData)
+    * [ezQuake](https://ezquake.github.io/) — modern QuakeWorld client focused on competitive online play
 * __F__
     * [FBReader](https://fbreader.org/)
+    * [FlightGear](https://sourceforge.net/p/flightgear/fgrun/) — Flight Gear Flight Simulator
     * [Firefox](https://www.mozilla.org/en-US/firefox/)
     * [Fontconfig](http://fontconfig.org/)
     * [fre:ac](https://www.freac.org/)
 * __G__
+    * [GANGI](http://www.gamgi.org/) — General Atomistic Modelling Graphic Interface
     * [Ganglia](http://ganglia.sourceforge.net/)
     * [GDAL](http://www.gdal.org/)
     * [GDB](https://sourceware.org/gdb/)
+    * [gdigi](http://desowin.org/gdigi/) — utility to control DigiTech effect pedals
     * [Geant 4](http://geant4.cern.ch/)
+    * [GenomeTools](http://genometools.org/) — versatile genome analysis toolkit
     * [gettext](https://www.gnu.org/software/gettext/)
+    * [GIFTI](http://www.nitrc.org/projects/gifti) — Geometry format under the Neuroimaging Informatics Technology Initiative (NIfTI)
     * [Git](https://www.git-scm.com/)
     * [Gnash](https://www.gnu.org/software/gnash/)
+    * [GNU Gatekeeper](https://www.gnugk.org/) — OpenH323 Gatekeeper (IP telephony (VOIP), video conferencing)
+    * [GNU Image-Finding Tool (gift)](https://www.gnu.org/software/gift/) — index and search images by content
     * [Godot](https://godotengine.org/)
     * [Goggles Music Manager](https://gogglesmm.github.io/)
     * [Google Earth Enterprise / libsgl](https://github.com/google/earthenterprise/blob/HEAD/earth_enterprise/src/third_party/sgl/v0_8_6/src/SkXMLParser_expat.cpp)
+    * [Gpick](http://www.gpick.org/) — advanced GTK+ color picker
     * [GPSBabel](http://www.gpsbabel.org/)
+    * [gpx2shp](http://gpx2shp.osdn.jp/) — convert GPS or GPX file to ESRI Shape file
     * [graph-tool](https://graph-tool.skewed.de/)
     * [Graphviz](http://www.graphviz.org/)
     * [Grive2](https://github.com/vitalif/grive2)
     * [GXMame](http://gxmame.sourceforge.net/)
 * __H__
+    * [HHVM](http://hhvm.com/) — HipHop Virtual Machine, a JIT replacement for PHP
+    * [HTCondor](http://research.cs.wisc.edu/htcondor/) — distributed workload management system
 * __I__
     * [Ice](https://zeroc.com/products/ice)
+    * [IFrIT (Ionization FRont Interactive Tool)](https://sites.google.com/site/ifrithome/) — powerful tool for visualizing 3-dimensional data sets
+    * [ion](https://ion.ocp.ohiou.edu/) — NASA implementation of Delay-Tolerant Networking (DTN)
     * [Ipsumdump](http://read.seas.harvard.edu/~kohler/ipsumdump/)
 * __J__
     * [jabberd2](http://jabberd2.org)
@@ -95,10 +128,12 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Joe's Window Manager (JWM)](http://joewing.net/projects/jwm/)
 * __K__
     * [K-3D](http://www.k-3d.org/)
+    * [Kamailio XMPP gateway](https://www.kamailio.org/w/)
     * [Kodi](https://kodi.tv/)
     * [KomodoEdit](https://github.com/Komodo/KomodoEdit)
     * [Kopete](https://userbase.kde.org/Kopete)
 * __L__
+    * [ladish](http://ladish.org/) — session management system for JACK applications
     * [LFTP](http://lftp.tech/)
     * [libarchive](http://www.libarchive.org/)
     * [libcutl](http://www.codesynthesis.com/projects/libcutl/)
@@ -121,16 +156,19 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Liquid War 6](https://www.gnu.org/software/liquidwar6/)
     * [litmus](http://www.webdav.org/neon/litmus/)
 * __M__
+    * [Magics++](https://software.ecmwf.int/wiki/display/MAGP/Magics) — latest generation of the ECMWF's Meteorological plotting software MAGICS
     * [MakeMKV](http://www.makemkv.com/)
     * [mamory](https://sourceforge.net/projects/mamory/)
     * [MapServer](http://mapserver.org/)
+    * [matita](http://matita.cs.unibo.it/) — interactive theorem prover
     * [MediaTomb](http://www.mediatomb.cc/)
     * [Memphis](http://trac.openstreetmap.ch/trac/memphis/)
     * [Mesa 3D Graphics Library](https://www.mesa3d.org/)
     * [MIRA](http://www.chevreux.org/projects_mira.html)
+    * [mod_auth_openid](http://findingscience.com/mod_auth_openid/) — OpenID authentication module for Apache2
     * [mod_dav](http://www.webdav.org/mod_dav/)
     * [Music Player Daemon](https://www.musicpd.org)
-    * [mu-conference](https://gna.org/projects/mu-conference/)
+    * [mu-conference / jabber-muc](https://gna.org/projects/mu-conference/)
 * __N__
     * [neon](http://www.webdav.org/neon/)
     * [nginx-dav-ext-module](https://github.com/arut/nginx-dav-ext-module)
@@ -138,8 +176,10 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [NXLog Community Edition](https://nxlog.co/products/nxlog-community-edition)
 * __O__
     * [OGDI](http://ogdi.sourceforge.net/)
+    * [openam](H.323 answering machine) — H.323 answering machine
     * [OpenCOLLADA](http://www.opencollada.org/)
     * [OpenVanilla](https://github.com/openvanilla/openvanilla/commit/bac11c8a818c53e020c903c6f32f220e5c48af91) (prior to version 0.7.1)
+    * [ophcrack](http://ophcrack.sourceforge.net/) — Microsoft Windows password cracker using rainbow tables
     * [Osm2pgsql](http://wiki.openstreetmap.org/wiki/Osm2pgsql)
 * __P__
     * [ParaView](https://www.paraview.org/)
@@ -208,6 +248,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [wxSVG](http://wxsvg.sourceforge.net/)
 * __X__
     * [xkbd](http://trac.hackable1.org/trac/wiki/Xkbd)
+    * [XML Copy Editor](http://xml-copy-editor.sourceforge.net/) — fast, free, validating XML editor
     * [xmlrpc-epi](http://xmlrpc-epi.sourceforge.net/)
 * __Y__
     * [Ymagine](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c)
