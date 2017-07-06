@@ -84,6 +84,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [ExternData](https://github.com/tbeu/ExternData)
     * [ezQuake](https://ezquake.github.io/) — modern QuakeWorld client focused on competitive online play
 * __F__
+    * [Far-NetBox](https://github.com/michaellukashov/Far-NetBox) — SFTP/SCP/FTP/FTPS/WebDAV client for [Far Manager](http://farmanager.com/)
     * [FBReader](https://fbreader.org/)
     * [FlightGear](https://sourceforge.net/p/flightgear/fgrun/) — Flight Gear Flight Simulator
     * [Firefox](https://www.mozilla.org/en-US/firefox/)
@@ -224,6 +225,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Thunderbird](https://www.mozilla.org/en-US/thunderbird/)
     * [Tivoli Storage Manager](https://www.ibm.com/cloud-computing/products/devops/it-operations-management/)
     * [TORCS](http://torcs.sourceforge.net/) (uses modified Expat fork "txml")
+    * [TortoiseSVN](https://tortoisesvn.net/) — Subversion client, implemented as a Windows shell extension
 * __U__
     * [UDUNITS](https://www.unidata.ucar.edu/software/udunits/)
     * [uim](https://github.com/uim/uim/)

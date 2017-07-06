@@ -15,6 +15,8 @@ interfaces to Expat from languages other than C.
     * [xlq/ada-expat](https://github.com/xlq/ada-expat)
 * __AppleScript__
     * [XML Tools 2](http://www.latenightsw.com/freeware/XMLTools2/) is an AppleScript scripting addition that allows AppleScript applications to work with XML data; it is based on Expat.
+* __BlitzMax__
+    * [bah.mod/expat.mod](https://github.com/maxmods/bah.mod/tree/master/expat.mod)
 * __C__
     * [expat-dom](https://github.com/kolotsey/expat-dom) — Easy-to-use DOM interface written in C
     * The [Simple C Expat Wrapper](http://www.nongnu.org/scew/) is a wrapper around Expat that provides a light-weight object model somewhat like a DOM.
