@@ -3,6 +3,9 @@ Date: 2017-06-03
 License: MIT
 slug: news
 
+* 2017-07-13 —
+  [Expat 2.2.2](https://github.com/libexpat/libexpat/blob/R_2_2_2/expat/Changes)
+  has been released
 * 2017-06-29 —
   New article
   [Expat Internals: The Hash Tables](../expat-internals-the-hash-tables/)
