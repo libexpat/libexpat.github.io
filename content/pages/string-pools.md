@@ -20,7 +20,7 @@ would want to.
 ## What Are String Pools Used For?
 
 String pools provide temporary storage for character strings in the
-parser's _internal_ format.  Exactly how long the temporary storage
+parser's _internal_ encoding.  Exactly how long the temporary storage
 lasts depends on the which string pool is used; some are cleared
 frequently while others last for the entire duration of the parse.
 
@@ -44,9 +44,9 @@ element names and entity names, and `entityValuePool` is used to store
 the literal value of an entity, i.e. the value exactly as input, with
 no substitutions done.
 
-As mentioned above, the strings are stored in _internal_ format.  For
-many strings this requires conversion from whatever the input format
-is to internal format, and the string pool functions will take care
+As mentioned above, the strings are stored in _internal_ encoding.  For
+many strings this requires conversion from whatever the input encoding
+is to internal encoding, and the string pool functions will take care
 of that as required.
 
 ## How String Pools Work
@@ -210,7 +210,7 @@ returns success at this point.
 
 If we do have a currently active block, life is a little more tricky.
 The block may (and usually will) contain the first part of string that
-we were in the process of creating when we decided we needed more
+we were in the process of creating when we noticed we needed more
 space.  Unless we want to make more work for the calling function, we
 need to copy that partial string into whatever new space we find so
 that that caller can just go on adding characters without having to
@@ -225,8 +225,8 @@ five characters short of being full, and we want to add the string
     +-...--------------------------+
     | [other contents] 0 . . . . . |
     +-...--------------------------+
-     ^                   ^           ^
-     + blocks->s         + ptr       + end
+      ^                  ^           ^
+      + blocks->s        + ptr       + end
                          + start
 
 The characters get added to the pool one at a time until the pool is
@@ -236,8 +236,8 @@ full:
     +-...------------------------------------+
     | [other contents] 0 'A' 'B' 'C' 'D' 'E' |
     +-...------------------------------------+
-     ^                    ^                    ^
-     + block->s           + start              + end
+      ^                   ^                    ^
+      + block->s          + start              + end
                                                + ptr
 
 and this is the point at which `poolGrow()` gets called.
@@ -264,7 +264,7 @@ block and `end` calculated from `start` and the block size as before.
 
     :::
     +--------------------------...-+
-    | 'A' 'B' 'C' 'D' 'E' . . .
+    | 'A' 'B' 'C' 'D' 'E' . . .    |
     +--------------------------...-+
        ^                  ^          ^
        + start            + ptr      + end
@@ -289,15 +289,15 @@ another.
 
 This condition is true if we have a current block (not true when the
 pool is first initialised, for example) _and_ the start pointer is at
-the start of the block.  This means that there is only one string in
-the block, because `start` always points to the beginning of the
-string we are currently working on (see the example under _Data
-Structures_ above and the description of `poolFinish()` below) and if
-that is still the start of the block there is no room for another
-string in the block.  If there are no other strings in the block,
-there can't be any pointers into the block anywhere else in the
-system.  We can safely use `realloc()` to expand the memory; even if
-it moves the block, there are no stray pointers that can be confused.
+the start of the block.  If we have a finished string in the pool,
+`start` would have been moved on from the start of the current block
+(see the example under _Data Structures_ above and the description of
+`poolFinish()` below).  Therefore we have at most one unfinished
+string in the pool, the string we are currently working on.  With no
+finished strings in the block, there can't be any string pointers in
+the rest of the system that point into this block, so we can safely
+use `realloc()` to expand the memory; even if it moves the block,
+there are no stray pointers that can be confused.
 
     :::c
         BLOCK *temp;
@@ -331,7 +331,7 @@ define what happens with _unsigned_ arithmetic and how that relates to
 signed values.  The multiple casts in the assignment to `blockSize`
 above ensure that no _signed_ overflow ever occurs and the expression
 always has a defined result.  Given that we are only doubling, the
-result will be negative if a signed overflow would have occured had we
+result will be negative if a signed overflow would have occurred had we
 not been careful.  The convenience function `poolBytesToAllocateFor()`
 that converts the character count into a byte count and allows for the
 `BLOCK` header does much the same.
@@ -590,7 +590,7 @@ characters respectively, so that conversion can continue easily.
 
 The use of `ICHAR` rather than `XML_Char` is an unfortunate
 wart<sup>[2](#wart)</sup> here; it's trying to draw a distinction that
-doesn't really exist between the internal character format and what is
+doesn't really exist between the internal character encoding and what is
 presented by the library to user-defined handler functions.
 
 If `XmlConvert()` converts the whole of the input into the string pool
@@ -652,7 +652,7 @@ insertion) in the element hash table and for passing to any start
 element handler, end element handler or default handler that may be
 defined.  During this processing, `tempPool` is used to hold various
 other strings such as attribute names, often to have the implicit
-conversion of the input string to internal format.  Once it is all
+conversion of the input string to internal encoding.  Once it is all
 done, the call to `poolClear()` invalidates all of the strings in one
 go.  The memory the strings occupy is _not_ freed, but will likely be
 re-used in the near future for other strings.
@@ -667,7 +667,7 @@ reset behaviour.
 
 A second usage pattern comes from using the string pool as a buffer
 for converting the input stream, purely to get a temporary
-internally-formatted string.  For example, substituting an entity
+internally-encoded string.  For example, substituting an entity
 reference involves the following code:
 
     :::c
@@ -680,7 +680,7 @@ reference involves the following code:
     poolDiscard(&dtd->pool);
 
 Again `poolStoreString()` is used to get an "unfinished" string
-converted from the input stream to internal format, which is used to
+converted from the input stream to internal encoding, which is used to
 lookup (but not insert) the entity name in the `generalEntities` table
 and immediately discarded.
 
@@ -744,7 +744,7 @@ Used carefully and correctly, string pools save a lot of time and
 effort allocating, converting and freeing input strings.  It is worth
 taking the time to understand what you can and cannot do with each
 pool, as they can be an invaluable help for marshalling text data in
-the right format.
+the right encoding.
 
 ## Footnotes
 
