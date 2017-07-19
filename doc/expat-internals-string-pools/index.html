@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Expat XML parser">
+    <meta name="author" content="">
+
+        <title>Expat Internals: String Pools · Expat XML parser</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../3rdparty/bootstrap/3.0.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../3rdparty/bootswatch/paper/bootstrap.min.css" type="text/css">
+
+    <link rel="stylesheet" href="../../theme/css/main.css">
+
+    <link rel="stylesheet" href="../../theme/css/solarized-light.css">
+
+
+    <script src="../../3rdparty/jquery/jquery-1.10.1.min.js"></script>
+
+    <script src="../../3rdparty/jquery/jquery-migrate-1.2.1.min.js"></script>
+
+    <script src="../../3rdparty/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container" id="wrap">
+      <nav id="navbar" class="navbar navbar-default" role="navigation">
+    <div class="container">
+
+      <!--navbar-header-->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../..">Expat XML parser</a>
+      </div> <!--navbar-header-->
+
+      <!-- Search Box -->
+
+      <!--Menuitems, collapable-->
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menuitem-list">
+                <li >
+                  <a href="https://github.com/libexpat/libexpat/blob/master/expat/Changes" >Changelog</a>
+                </li>
+
+                <li >
+                  <a href="https://sourceforge.net/projects/expat/files/" >Download</a>
+                </li>
+
+                <li >
+                  <a href="https://libexpat.github.io/doc/" >Documentation</a>
+                </li>
+
+                <li >
+                  <a href="https://github.com/libexpat/libexpat" >Git Repository</a>
+                </li>
+
+                <li >
+                  <a href="https://libexpat.github.io/doc/users/" >Users</a>
+                </li>
+
+                <li >
+                  <a href="https://github.com/libexpat/libexpat/issues" >Report a Bug</a>
+                </li>
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+
+    </div> <!--container-->
+  </nav>
+
+
+    <div class="container">
+      <div class="col-md-2">
+      </div>
+
+      <div class="col-md-8">
+        <div class="row">
+              <div class="page-header">
+        <h1><a href="../../doc/expat-internals-string-pools/">Expat Internals: String Pools</a></h1>
+    </div>
+
+        </div>
+
+        <div class="row">
+<div id="page-content">
+  <p><em>Written by Rhodri James</em></p>
+<h1>Expat Internals: String Pools</h1>
+<p>The Expat parser frequently needs to make copies of strings that it
+can control the lifetime of.  To do that it uses <em>string pools</em>,
+flexible structures that are probably best thought of as providing
+dynamic memory on demand, byte by byte if need be.  This article
+delves into how string pools work, how the parser uses them and why it
+would want to.</p>
+<h2>What Are String Pools Used For?</h2>
+<p>String pools provide temporary storage for character strings in the
+parser's <em>internal</em> encoding.  Exactly how long the temporary storage
+lasts depends on the which string pool is used; some are cleared
+frequently while others last for the entire duration of the parse.</p>
+<p>A string pool can only construct one string at a time.  Until the
+string is "finished" (i.e. fully copied into place, terminated and the
+internal pointers updated), it is not possible to start copying
+another separate string into place.</p>
+<p>The parser structure itself directly contains two string pools,
+<code>tempPool</code> and <code>temp2Pool</code>, which as their names suggest are very
+short-term storage.  <code>tempPool</code> is cleared once a start or end tag is
+processed, and is used for attribute names, substituted values of
+entities and the like.  <code>temp2Pool</code> is used for extremely short-term
+storage of strings (across a few lines of code) when <code>tempPool</code>
+contains an unfinished string and hence can't be used.</p>
+<p>The parser's DTD structure contains two more string pools, <code>pool</code> and
+<code>entityValuePool</code>, which both provide long-term storage for the
+lifetime of the parser.  The unhelpfully named <code>pool</code> is used to store
+element names and entity names, and <code>entityValuePool</code> is used to store
+the literal value of an entity, i.e. the value exactly as input, with
+no substitutions done.</p>
+<p>As mentioned above, the strings are stored in <em>internal</em> encoding.  For
+many strings this requires conversion from whatever the input encoding
+is to internal encoding, and the string pool functions will take care
+of that as required.</p>
+<h2>How String Pools Work</h2>
+<p>In this section we will look at the collection of functions and
+structures that together make up a string pool, and see how they fit
+together.</p>
+<h3>Data Structures</h3>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">block</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">block</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
+  <span class="n">XML_Char</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span> <span class="n">BLOCK</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Every string pool contains a number of <code>BLOCK</code> structures, blocks of
+memory that contain strings and suitable expansion space.  A block may
+contain multiple strings if it has the space, or it may just contain a
+single string.  Blocks can be of different sizes, depending on what is
+being or has been stored in them.</p>
+<p>Blocks are held on
+<a href="https://en.wikipedia.org/wiki/Linked_list">linked lists</a>, so each
+block starts with a link pointer <code>next</code> and a total number of
+"character units" of memory available for strings held in <code>size</code>.
+Note that <code>size</code> is <em>not</em> the free space; it indicates the total
+number of character units that the block can contain without
+reallocation.  How big a character unit is depends the internal
+encoding that the parser was compiled for: if <code>XML_UNICODE</code> was
+defined the internal encoding is UTF-16 and there are two bytes per
+character unit, otherwise the internal encoding is UTF-8 and there is
+one byte per character unit.  Remember that a character may require
+more than one character unit for its representation; UTF-8 can use up
+to four bytes for a character, and UTF-16 surrogate pairs are two
+character units (four bytes) representing a single Unicode character.</p>
+<p>The available memory begins at the single character array <code>s</code> and
+extends beyond the notional end of the structure.  This is an old
+programmers' trick from the days before <a href="https://en.wikipedia.org/wiki/Flexible_array_member">flexible array
+members</a>
+became standardised; the presence of <code>s</code> in the structure declaration
+ensures that memory will be correctly aligned for the <code>XML_Char</code> type,
+so any additional memory allocated beyond the end of the structure
+must also be correctly aligned.</p>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="n">BLOCK</span> <span class="o">*</span><span class="n">blocks</span><span class="p">;</span>
+  <span class="n">BLOCK</span> <span class="o">*</span><span class="n">freeBlocks</span><span class="p">;</span>
+  <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">end</span><span class="p">;</span>
+  <span class="n">XML_Char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+  <span class="n">XML_Char</span> <span class="o">*</span><span class="n">start</span><span class="p">;</span>
+  <span class="k">const</span> <span class="n">XML_Memory_Handling_Suite</span> <span class="o">*</span><span class="n">mem</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">STRING_POOL</span><span class="p">;</span>
+</pre></div>
+
+
+<p>The <code>STRING_POOL</code> structure itself maintains two lists of <code>BLOCKs</code>.
+The first list, hanging<sup><a href="#hanging">1</a></sup> off the pointer
+<code>blocks</code>, is a list of currently active blocks whose strings are being
+used in the parser.  The first block on the list is the <em>current
+block,</em> the one to which strings will be added.  The second list,
+<code>freeBlocks</code>, is as its name suggests a list of blocks whose strings
+are not currently in use.  They can be re-used as needed, providing a
+small optimisation for the parser; it is quicker to pull a block off
+the free list than to go back to the allocation functions and get more
+dynamic memory, and it helps to prevent memory fragmentation.</p>
+<p>The core of string pool operations are the three pointers <code>start</code>,
+<code>ptr</code> and <code>end</code>.  <code>start</code> points to the start of the string currently
+being assembled in the pool, which is not necessarily at the start of
+the current block.  <code>ptr</code> points to the character insertion point, the
+place to append new characters to the current string.  <code>end</code> points to
+just past the end of available memory, the point at which either the
+block must be extended or a new block started.  These three pieces of
+information are most of what is needed to control the string pool.</p>
+<p>For example, suppose that a string pool already contains the string
+"elt" and we wish to put the string "att" into the pool as well.
+After the first two letters have been inserted, the pool pointers will
+look like this:</p>
+<div class="highlight"><pre><span></span>+---------------------------...-+
+| &#39;e&#39; &#39;l&#39; &#39;t&#39;  0  &#39;a&#39; &#39;t&#39; .     |
++---------------------------...-+
+   ^               ^      ^       ^
+   |         start-+      +-ptr   +-end
+   + blocks-&gt;s
+</pre></div>
+
+
+<p>Finally, <code>mem</code> is a pointer to the parser's suite of memory allocation
+functions.  This allows us to use alternative allocation functions,
+for example for debugging, consistently across the whole parser.</p>
+<h3>Initialising and Expanding a Pool</h3>
+<p>String pools are initialised by calling <code>poolInit()</code>.  This sets all
+the pointers to <code>NULL</code> except for <code>mem</code>, which points to the memory
+allocation suite passed as a parameter.  Obviously this function
+should only be used at parser initialisation time; calling it on an
+active string pool will leak memory.</p>
+<p>Doing almost anything useful with a pool will require it to actually
+get some memory.  This is handled by the function <code>poolGrow()</code>, which
+is the most complicated thing about string pools:</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">XML_Bool</span> <span class="n">FASTCALL</span>
+<span class="nf">poolGrow</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">)</span>
+<span class="p">{</span>
+</pre></div>
+
+
+<p>Notice that the pool is not told how much to grow by, just that it
+needs to grow.</p>
+<p>As it happens <code>poolGrow()</code> is only ever called when the current block
+is full, i.e. when <code>pool-&gt;ptr == pool-&gt;end</code>.  This isn't an absolute
+requirement, but a good deal of the following code makes more sense
+when you bear that in mind.</p>
+<div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">+</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">XML_TRUE</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>As mentioned above, a pool may have unused blocks
+hanging<sup><a href="#hanging">1</a></sup> off its <code>freeBlocks</code> pointer.  Let's
+assume for the moment that we have free blocks.  The next test checks
+to see if we have any currently active blocks; if <code>start</code> is NULL, no
+block can be hanging off <code>blocks</code>.  That makes linking and unlinking
+simple.</p>
+<p>The pointer-fiddling for <code>pool-&gt;blocks</code> and <code>pool-&gt;freeBlocks</code> is
+<a href="http://www.learn-c.org/en/Linked_lists">fairly standard linked-list</a>
+stuff.  More interesting is the initialisation of <code>start</code> (to the
+start of the available memory in the block), <code>end</code> (calculated from
+the number of characters available) and <code>ptr</code> (same as <code>start</code>,
+obviously).  Since this is all trivially successful, the function just
+returns success at this point.</p>
+<div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">BLOCK</span> <span class="o">*</span><span class="n">tem</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span> <span class="o">=</span> <span class="n">tem</span><span class="p">;</span>
+      <span class="n">memcpy</span><span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">,</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span>
+             <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">XML_Char</span><span class="p">));</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">);</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">+</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">XML_TRUE</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</pre></div>
+
+
+<p>If we do have a currently active block, life is a little more tricky.
+The block may (and usually will) contain the first part of string that
+we were in the process of creating when we noticed we needed more
+space.  Unless we want to make more work for the calling function, we
+need to copy that partial string into whatever new space we find so
+that that caller can just go on adding characters without having to
+start from scratch.  In that case, the new space we allocate or find
+had better be big enough to hold that partial string and more besides.</p>
+<p>As an example, suppose we have a string pool whose current block is
+five characters short of being full, and we want to add the string
+"ABCDEF" to it.  Initially the pool will look like this:</p>
+<div class="highlight"><pre><span></span><span class="o">+-</span><span class="p">...</span><span class="o">--------------------------+</span>
+<span class="o">|</span> <span class="p">[</span><span class="n">other</span> <span class="n">contents</span><span class="p">]</span> <span class="mi">0</span> <span class="p">.</span> <span class="p">.</span> <span class="p">.</span> <span class="p">.</span> <span class="p">.</span> <span class="o">|</span>
+<span class="o">+-</span><span class="p">...</span><span class="o">--------------------------+</span>
+  <span class="o">^</span>                  <span class="o">^</span>           <span class="o">^</span>
+  <span class="o">+</span> <span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span>        <span class="o">+</span> <span class="n">ptr</span>       <span class="o">+</span> <span class="n">end</span>
+                     <span class="o">+</span> <span class="n">start</span>
+</pre></div>
+
+
+<p>The characters get added to the pool one at a time until the pool is
+full:</p>
+<div class="highlight"><pre><span></span><span class="o">+-</span><span class="p">...</span><span class="o">------------------------------------+</span>
+<span class="o">|</span> <span class="p">[</span><span class="n">other</span> <span class="n">contents</span><span class="p">]</span> <span class="mi">0</span> <span class="sc">&#39;A&#39;</span> <span class="sc">&#39;B&#39;</span> <span class="sc">&#39;C&#39;</span> <span class="sc">&#39;D&#39;</span> <span class="sc">&#39;E&#39;</span> <span class="o">|</span>
+<span class="o">+-</span><span class="p">...</span><span class="o">------------------------------------+</span>
+  <span class="o">^</span>                   <span class="o">^</span>                    <span class="o">^</span>
+  <span class="o">+</span> <span class="n">block</span><span class="o">-&gt;</span><span class="n">s</span>          <span class="o">+</span> <span class="n">start</span>              <span class="o">+</span> <span class="n">end</span>
+                                           <span class="o">+</span> <span class="n">ptr</span>
+</pre></div>
+
+
+<p>and this is the point at which <code>poolGrow()</code> gets called.</p>
+<p>The number of characters in the unfinished current string is just the
+difference between the <code>start</code> and <code>end</code> pointers (five in our
+example).  As long as that is less than <code>freeBlocks-&gt;size</code>, the
+unfinished string will fit in the free block with at least one
+character to spare.  If we didn't need <em>more</em> space than the
+unfinished string takes up at the moment, we wouldn't have had to
+expand the pool!</p>
+<p>Assuming that the unfinished string does fit into the first free
+block, we do much the same dance as before unlinking the first free
+block and re-linking it as the first active block, but the way we set
+the working pointers is much more interesting.</p>
+<p>First we copy the unfinished string (still pointed to by
+<code>pool-&gt;start</code>) to the start of the new current block
+(<code>pool-&gt;blocks-&gt;s</code>).  Once that is done, we can update the working
+pointers; <code>ptr</code> must point <code>end - start</code> characters into
+the new block, then <code>start</code> can be updated to the start of the new
+block and <code>end</code> calculated from <code>start</code> and the block size as before.</p>
+<div class="highlight"><pre><span></span>+--------------------------...-+
+| &#39;A&#39; &#39;B&#39; &#39;C&#39; &#39;D&#39; &#39;E&#39; . . .    |
++--------------------------...-+
+   ^                  ^          ^
+   + start            + ptr      + end
+   + block-&gt;s
+</pre></div>
+
+
+<p>Again we are done, so we just return success.  The calling code will
+have space for at least one more character before it overflows the
+buffer again, and probably a lot more than that.</p>
+<p>If we continue to execute the function past this point, either we have
+no blocks on the <code>freeBlocks</code> list, or there isn't enough memory in
+the first free block to fit the string that caused us to want to
+expand the pool and still have space to expand.  In the latter case we
+could carry on down the <code>freeBlocks</code> list looking for a big enough
+block, but the cost of searching the list and unlinking the block
+starts to outweigh the cost of going to the allocation functions, so
+we don't.  Clearly we will have to allocate more memory one way or
+another.</p>
+<div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">&amp;&amp;</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</pre></div>
+
+
+<p>This condition is true if we have a current block (not true when the
+pool is first initialised, for example) <em>and</em> the start pointer is at
+the start of the block.  If we have a finished string in the pool,
+<code>start</code> would have been moved on from the start of the current block
+(see the example under <em>Data Structures</em> above and the description of
+<code>poolFinish()</code> below).  Therefore we have at most one unfinished
+string in the pool, the string we are currently working on.  With no
+finished strings in the block, there can't be any string pointers in
+the rest of the system that point into this block, so we can safely
+use <code>realloc()</code> to expand the memory; even if it moves the block,
+there are no stray pointers that can be confused.</p>
+<div class="highlight"><pre><span></span>    <span class="n">BLOCK</span> <span class="o">*</span><span class="n">temp</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">blockSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)((</span><span class="kt">unsigned</span><span class="p">)(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">)</span><span class="o">*</span><span class="mi">2U</span><span class="p">);</span>
+    <span class="kt">size_t</span> <span class="n">bytesToAllocate</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">blockSize</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
+
+    <span class="n">bytesToAllocate</span> <span class="o">=</span> <span class="n">poolBytesToAllocateFor</span><span class="p">(</span><span class="n">blockSize</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bytesToAllocate</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
+
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">BLOCK</span> <span class="o">*</span><span class="p">)</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">realloc_fcn</span><span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">bytesToAllocate</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">temp</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="n">blockSize</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">);</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">+</span> <span class="n">blockSize</span><span class="p">;</span>
+  <span class="p">}</span>
+</pre></div>
+
+
+<p>The calculation of the new size of the block is not quite as
+straightforward as you might hope.  We are aiming to double the
+current allocation, but this could conceivably lead us to sufficiently
+enormous numbers that we might overflow an <code>int</code>.  The C standard in
+its infinite wisdom leaves undefined what happens then, but does
+define what happens with <em>unsigned</em> arithmetic and how that relates to
+signed values.  The multiple casts in the assignment to <code>blockSize</code>
+above ensure that no <em>signed</em> overflow ever occurs and the expression
+always has a defined result.  Given that we are only doubling, the
+result will be negative if a signed overflow would have occurred had we
+not been careful.  The convenience function <code>poolBytesToAllocateFor()</code>
+that converts the character count into a byte count and allows for the
+<code>BLOCK</code> header does much the same.</p>
+<p>Once the potential overflows are out of the way, the reallocation of
+the block is straightforward.  Updating the pool fields is then much
+like it was for reusing a free block, except that there is no need to
+copy the unfinished string (since <code>realloc()</code> does that for us).</p>
+<div class="highlight"><pre><span></span><span class="k">else</span> <span class="p">{</span>
+  <span class="n">BLOCK</span> <span class="o">*</span><span class="n">tem</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">blockSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">);</span>
+  <span class="kt">size_t</span> <span class="n">bytesToAllocate</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">blockSize</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">blockSize</span> <span class="o">&lt;</span> <span class="n">INIT_BLOCK_SIZE</span><span class="p">)</span>
+    <span class="n">blockSize</span> <span class="o">=</span> <span class="n">INIT_BLOCK_SIZE</span><span class="p">;</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="cm">/* Detect overflow, avoiding _signed_ overflow undefined behavior */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="kt">int</span><span class="p">)((</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">blockSize</span> <span class="o">*</span> <span class="mi">2U</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">blockSize</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">bytesToAllocate</span> <span class="o">=</span> <span class="n">poolBytesToAllocateFor</span><span class="p">(</span><span class="n">blockSize</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">bytesToAllocate</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
+</pre></div>
+
+
+<p>If the string we are working on is not the only one in the block,
+there will be pointers to those strings in other structures in the
+program.  That means that we can't use <code>realloc()</code> in case it moves
+the block, so we have to allocate a new block.  How big a block
+depends on the size of the unfinished string.  If it is below the
+<code>INIT_BLOCK_SIZE</code> threshold, we will allocate <code>INIT_BLOCK_SIZE</code>
+character units; this will be what happens for a previously unused
+string pool.  Otherwise we double the length of the unfinished string,
+taking the same trouble as above to ensure that we don't have any
+undefined behaviour with signed integer overflows.</p>
+<p>Attentive readers may notice that this is much the same decision logic
+as is used for extending the
+<a href="../expat-internals-the-hash-tables/">hash tables</a>, for much the same
+reason.  We wish to avoid calling the allocation functions more often
+than we have to, and this exponential growth strategy is a good
+compromise between wasting memory and wasting time.</p>
+<div class="highlight"><pre><span></span>    <span class="n">tem</span> <span class="o">=</span> <span class="p">(</span><span class="n">BLOCK</span> <span class="o">*</span><span class="p">)</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">bytesToAllocate</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tem</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
+    <span class="n">tem</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="n">blockSize</span><span class="p">;</span>
+    <span class="n">tem</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">tem</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">!=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">)</span>
+      <span class="n">memcpy</span><span class="p">(</span><span class="n">tem</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">,</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span>
+             <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">XML_Char</span><span class="p">));</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">tem</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">);</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">=</span> <span class="n">tem</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">tem</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="n">blockSize</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">XML_TRUE</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Once we know how big our <code>BLOCK</code> will be, the rest is straightforward.
+After allocating it and linking it onto the front of the active block
+list, we copy the unfinished string (if there is one) from the
+previous block (still pointed to by <code>pool-&gt;start</code>) to the start of our
+new block. Then we set up our working pointers exactly as we did when
+we used the free block above.</p>
+<p>At the end of this function, either we return 0 for failure or all the
+pointers are set up and ready for the pool access functions and macros
+to use.</p>
+<h3>Building Strings From XML_Chars</h3>
+<p>There are several ways to assemble a string in a string pool.  The
+simplest is to build it character by character using the
+<code>poolAppendChar()</code> macro.</p>
+<div class="highlight"><pre><span></span><span class="cp">#define poolAppendChar(pool, c) \</span>
+<span class="cp">  (((pool)-&gt;ptr == (pool)-&gt;end &amp;&amp; !poolGrow(pool)) \</span>
+<span class="cp">  ? 0 \</span>
+<span class="cp">  : ((*((pool)-&gt;ptr)++ = c), 1))</span>
+</pre></div>
+
+
+<p>This is a macro for efficiency reasons (it is used frequently), and as
+such can be confusing to read.  It's easiest to describe as if it were
+a function returning a boolean:</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">poolAppendChar</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="n">XML_Char</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="o">*</span><span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">)</span><span class="o">++</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>If the pool isn't full (i.e. <code>pool-&gt;ptr != pool-&gt;end</code>), we copy the
+character into place, increment <code>ptr</code> and return 1 for success.  If
+the pool is full, we try to expand it using <code>poolGrow()</code>; if that
+fails we return 0, otherwise we insert the character into our now
+longer pool as before.</p>
+<p>Once the string is complete, including its terminator, a pointer to it
+can be obtained using the <code>poolStart()</code> macro (which returns the
+<code>start</code> field of the pool).  The pool is made ready for the next
+string by the <code>poolFinish()</code> macro, which moves the <code>start</code> pointer up
+to <code>ptr</code> &mdash; this is what I have been referring to when I talked
+about "finishing" strings.  Alternatively the string can be discarded
+by calling the <code>poolDiscard()</code> macro, which moves the <code>ptr</code> pointer
+back to <code>start</code>.</p>
+<p>For example, suppose we have added the string "ABCDEF" to the pool but
+not yet finished it:</p>
+<div class="highlight"><pre><span></span><span class="o">+----------------------------------------------</span><span class="p">...</span><span class="o">-+</span>
+<span class="o">|</span> <span class="p">[</span><span class="n">other</span> <span class="n">contents</span><span class="p">]</span> <span class="sc">&#39;A&#39;</span> <span class="sc">&#39;B&#39;</span> <span class="sc">&#39;C&#39;</span> <span class="sc">&#39;D&#39;</span> <span class="sc">&#39;E&#39;</span> <span class="sc">&#39;F&#39;</span> <span class="mi">0</span> <span class="p">.</span> <span class="p">...</span> <span class="o">|</span>
+<span class="o">+----------------------------------------------</span><span class="p">...</span><span class="o">-+</span>
+                    <span class="o">^</span>                        <span class="o">^</span>       <span class="o">^</span>
+                    <span class="o">+</span> <span class="n">start</span>                  <span class="o">+</span> <span class="n">ptr</span>   <span class="o">+</span> <span class="n">end</span>
+</pre></div>
+
+
+<p>Calling <code>poolStart()</code> returns the pointer <code>start</code>, i.e. a pointer to
+the start of the string "ABCDEF".  After calling <code>poolFinish()</code> we
+have:</p>
+<div class="highlight"><pre><span></span><span class="o">+----------------------------------------------</span><span class="p">...</span><span class="o">-+</span>
+<span class="o">|</span> <span class="p">[</span><span class="n">other</span> <span class="n">contents</span><span class="p">]</span> <span class="sc">&#39;A&#39;</span> <span class="sc">&#39;B&#39;</span> <span class="sc">&#39;C&#39;</span> <span class="sc">&#39;D&#39;</span> <span class="sc">&#39;E&#39;</span> <span class="sc">&#39;F&#39;</span> <span class="mi">0</span> <span class="p">.</span> <span class="p">...</span> <span class="o">|</span>
+<span class="o">+----------------------------------------------</span><span class="p">...</span><span class="o">-+</span>
+                                             <span class="o">^</span>       <span class="o">^</span>
+                                             <span class="o">+</span> <span class="n">ptr</span>   <span class="o">+</span> <span class="n">end</span>
+                                             <span class="o">+</span> <span class="n">start</span>
+</pre></div>
+
+
+<p>leaving the pool ready to build another string.  If instead we had
+called <code>poolDiscard()</code>, we would get:</p>
+<div class="highlight"><pre><span></span><span class="o">+----------------------------------------------</span><span class="p">...</span><span class="o">-+</span>
+<span class="o">|</span> <span class="p">[</span><span class="n">other</span> <span class="n">contents</span><span class="p">]</span> <span class="sc">&#39;A&#39;</span> <span class="sc">&#39;B&#39;</span> <span class="sc">&#39;C&#39;</span> <span class="sc">&#39;D&#39;</span> <span class="sc">&#39;E&#39;</span> <span class="sc">&#39;F&#39;</span> <span class="mi">0</span> <span class="p">.</span> <span class="p">...</span> <span class="o">|</span>
+<span class="o">+----------------------------------------------</span><span class="p">...</span><span class="o">-+</span>
+                    <span class="o">^</span>                                <span class="o">^</span>
+                    <span class="o">+</span> <span class="n">start</span>                          <span class="o">+</span> <span class="n">end</span>
+                    <span class="o">+</span> <span class="n">ptr</span>
+</pre></div>
+
+
+<p>and the next characters we add to the pool will overwrite the string
+"ABCDEF" that we have now discarded.</p>
+<p>In the simple case of copying an existing internally-encoded string,
+the function <code>poolCopyString()</code> wraps all of the preceding into one
+convenient function:</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span> <span class="n">FASTCALL</span>
+<span class="nf">poolCopyString</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">do</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">poolAppendChar</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="o">*</span><span class="n">s</span><span class="p">))</span>
+      <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="o">++</span><span class="p">);</span>
+  <span class="n">s</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">;</span>
+  <span class="n">poolFinish</span><span class="p">(</span><span class="n">pool</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>It returns <code>NULL</code> (and leaves the pool full of an unfinished string)
+if it fails (usually because it has run out of memory), and otherwise
+returns a pointer to the copied string.  It can be thought of as
+roughly equivalent to <code>strdup()</code>.  A similar function,
+<code>poolCopyStringN()</code> copies a given number of characters from the
+source string, which may leave the copied string unterminated.  It is
+roughly equivalent to a version of <code>strndup()</code> that does not stop when
+it reaches a terminator.</p>
+<p>The function <code>poolAppendString()</code> does almost the same as
+<code>poolCopyString()</code>, except that it does not copy the final string
+terminator and does not "finish" the string with <code>poolFinish()</code>.  This
+can lead to some confusion; based on the names, one might think that
+<code>poolCopyString()</code> and <code>poolAppendString()</code> can be chained together
+like <code>strcpy()</code> and <code>strcat()</code>.  This is not quite true.  With the
+standard library string functions, you join strings by starting with
+<code>strcpy()</code> and then call <code>strcat()</code> for each of the remaining strings.
+With the pool functions, you have to call <code>poolAppendString()</code> for
+each string other than the last one you wish to join, which you add
+with <code>poolCopyString()</code>.  In other words, the following code snippets
+are equivalent (assuming <code>XML_Char</code> is the same as <code>char</code> for
+convenience):</p>
+<div class="highlight"><pre><span></span><span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+<span class="n">strcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="s">&quot;ABC&quot;</span><span class="p">);</span>
+<span class="n">strcat</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="s">&quot;DEF&quot;</span><span class="p">);</span>
+<span class="n">strcat</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="s">&quot;GHI&quot;</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;string = %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
+
+
+<span class="n">STRING_POOL</span> <span class="n">pool</span><span class="p">;</span>
+<span class="n">XML_Char</span> <span class="o">*</span><span class="n">string</span><span class="p">;</span>
+<span class="n">poolInit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">);</span>
+<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span> <span class="s">&quot;ABC&quot;</span><span class="p">);</span>
+<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span> <span class="s">&quot;DEF&quot;</span><span class="p">);</span>
+<span class="n">string</span> <span class="o">=</span> <span class="n">poolCopyString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span> <span class="s">&quot;GHI&quot;</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;string = %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">);</span>
+</pre></div>
+
+
+<h3>Building Strings From Chars</h3>
+<p>Sometimes the parser wants to copy part of the input character stream.
+<code>poolAppend()</code> fulfils this need.  It uses start and end pointers
+into the input source since it is unlikely that there will be a
+convenient terminator.  To avoid confusion, <code>poolAppend()</code> always
+converts the input to use the internal character encoding, which makes
+the process somewhat more involved.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">XML_Char</span> <span class="o">*</span>
+<span class="nf">poolAppend</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
+           <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</pre></div>
+
+
+<p>First we check to see if we have a current block at all (i.e. if
+<code>pool-&gt;ptr</code> is not <code>NULL</code>), and if not we call <code>poolGrow()</code> to get
+ourselves one.</p>
+<div class="highlight"><pre><span></span>  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="k">enum</span> <span class="n">XML_Convert_Result</span> <span class="n">convert_res</span> <span class="o">=</span>
+      <span class="n">XmlConvert</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span>
+                 <span class="p">(</span><span class="n">ICHAR</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">),</span>
+                 <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">((</span><span class="n">convert_res</span> <span class="o">==</span> <span class="n">XML_CONVERT_COMPLETED</span><span class="p">)</span> <span class="o">||</span>
+        <span class="p">(</span><span class="n">convert_res</span> <span class="o">==</span> <span class="n">XML_CONVERT_INPUT_INCOMPLETE</span><span class="p">))</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
+      <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="p">}</span>
+</pre></div>
+
+
+<p>I've taken the liberty of respacing the code above to make it more
+legible.  The call to <code>XmlConvert()</code>, as you may recall from
+the <a href="../expat-internals-a-simple-parse">first walkthrough</a>, translates
+the input characters from <code>ptr</code> to <code>end</code> from the input encoding <code>enc</code>
+to the internal encoding (UTF-8 or UTF-16 depending on how the library
+was compiled).  The results are placed into the output buffer starting
+at <code>pool-&gt;ptr</code>, stopping if <code>pool-&gt;end</code> is reached to allow the output
+buffer to be expanded.  Both <code>ptr</code> and <code>pool-&gt;ptr</code> will be updated
+when the function returns to point to the next input and output
+characters respectively, so that conversion can continue easily.</p>
+<p>The use of <code>ICHAR</code> rather than <code>XML_Char</code> is an unfortunate
+wart<sup><a href="#wart">2</a></sup> here; it's trying to draw a distinction that
+doesn't really exist between the internal character encoding and what is
+presented by the library to user-defined handler functions.</p>
+<p>If <code>XmlConvert()</code> converts the whole of the input into the string pool
+buffer, it will return <code>XML_CONVERT_COMPLETED</code> and we will break out
+of the loop.  If it converts all of the input that can be converted,
+leaving behind only incomplete multi-byte characters, it returns
+<code>XML_CONVERT_INPUT_INCOMPLETE</code> instead.  This should never happen in
+practice; early stages of the parse will filter out incomplete
+characters like that, so by the time we want to record strings they
+shouldn't occur.  We still break out of the loop because there is
+nothing more we can usefully do.  Otherwise we must have run out of
+output buffer, so we call <code>poolGrow()</code> to get ourselves some more and
+loop back to try again.</p>
+<div class="highlight"><pre><span></span>  <span class="k">return</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>By the time we break out of the loop, the <code>ptr</code> field will have been
+updated to point to the next character insertion point.  We don't
+"finish" the string here; we are appending, and there is a good chance
+that we will want to append some more input data to the string.
+Instead we simply return a pointer to the start of the string and let
+the caller call <code>poolFinish()</code> if it really wants to.</p>
+<p><code>poolStoreString()</code> is very similar to <code>poolAppend()</code>, taking
+characters from the input stream and converting them into the internal
+encoding in a string pool.  The only difference is that
+<code>poolStoreString()</code> ensures that the string has a <code>NUL</code> terminator.
+It does <em>not</em> finish the string; as we will see below, it is often the
+case that we only want the string copied briefly, and can discard the
+copy shortly afterwards.</p>
+<h2>How And Why String Pools Are Used</h2>
+<p>As I mentioned earlier, there are four string pools that the parser
+uses; <code>tempPool</code> and <code>temp2Pool</code> in the parser structure itself, and
+<code>pool</code> and <code>entityValuePool</code> in the DTD structure.  The two pairs of
+pools have rather different patterns of use.</p>
+<p>The temporary pools are almost exclusively used in a simple manner
+that preserves the strings for a relatively short period.  The
+processing of <code>XML_TOK_EMPTY_ELEMENT_WITH_ATTS</code> is a good example of
+this.</p>
+<div class="highlight"><pre><span></span><span class="n">name</span><span class="p">.</span><span class="n">str</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tempPool</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">rawName</span><span class="p">,</span>
+                           <span class="n">rawName</span> <span class="o">+</span> <span class="n">XmlNameLength</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">rawName</span><span class="p">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">name</span><span class="p">.</span><span class="n">str</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
+<span class="n">poolFinish</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tempPool</span><span class="p">);</span>
+<span class="cm">/* ... do stuff ... */</span>
+<span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tempPool</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The code makes a working copy of the tag name using
+<code>poolStoreString()</code>, which you'll recall does not finish the string so
+it has to do that for itself.  It uses this copy for lookup (but not
+insertion) in the element hash table and for passing to any start
+element handler, end element handler or default handler that may be
+defined.  During this processing, <code>tempPool</code> is used to hold various
+other strings such as attribute names, often to have the implicit
+conversion of the input string to internal encoding.  Once it is all
+done, the call to <code>poolClear()</code> invalidates all of the strings in one
+go.  The memory the strings occupy is <em>not</em> freed, but will likely be
+re-used in the near future for other strings.</p>
+<p>The more permanent pools only ever get <code>poolClear()</code> called on them
+when the parser is being reset.  They are used in a variety of ways.
+First and most obviously they are used to hold the strings passed to
+the parser through the function API.  At present that is just the base
+URI passed through <code>XML_SetBase()</code>; <code>XML_SetEncoding()</code> uses a
+different mechanism as its semantics are complicated by the parser's
+reset behaviour.</p>
+<p>A second usage pattern comes from using the string pool as a buffer
+for converting the input stream, purely to get a temporary
+internally-encoded string.  For example, substituting an entity
+reference involves the following code:</p>
+<div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span>
+                        <span class="n">s</span> <span class="o">+</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">,</span>
+                        <span class="n">next</span> <span class="o">-</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">name</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
+<span class="n">entity</span> <span class="o">=</span> <span class="p">(</span><span class="n">ENTITY</span> <span class="o">*</span><span class="p">)</span><span class="n">lookup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">generalEntities</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">poolDiscard</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Again <code>poolStoreString()</code> is used to get an "unfinished" string
+converted from the input stream to internal encoding, which is used to
+lookup (but not insert) the entity name in the <code>generalEntities</code> table
+and immediately discarded.</p>
+<p>Finally, the DTD string pools are used for permanent storage (for the
+lifetime of the parse, at least) of converted input strings, when it
+is needed.  A reasonably self-contained example occurs at the start of
+<code>getAttributeId()</code>, though with a twist:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">poolAppendChar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">,</span> <span class="n">XML_T</span><span class="p">(</span><span class="sc">&#39;\0&#39;</span><span class="p">)))</span>
+  <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">name</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="cm">/* skip quotation mark - its storage will be re-used (like in name[-1]) */</span>
+<span class="o">++</span><span class="n">name</span><span class="p">;</span>
+<span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="n">ATTRIBUTE_ID</span> <span class="o">*</span><span class="p">)</span><span class="n">lookup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">attributeIds</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ATTRIBUTE_ID</span><span class="p">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">id</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">)</span>
+  <span class="n">poolDiscard</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">);</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="n">poolFinish</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The twist I mentioned is the first <code>poolAppendChar()</code>.  The code
+cunningly<sup><a href="#cunning">3</a></sup> inserts a spare <code>XML_Char</code> at the
+start of an attribute ID to track its state.  Exactly what that means
+will be the subject of a future article; suffice to say that
+namespaces cause us more work than you might at first imagine.  The
+subsequent comment, "skip quotation mark", is slightly misleading; the
+quotation mark is not part of the copied string, it is the cunningly
+inserted leading <code>NUL</code> that is being skipped.</p>
+<p>That aside, we use <code>dtd-&gt;pool</code> in a fairly straightforward manner.  We
+call <code>poolStoreString()</code> to copy the attribute ID into the pool without
+"finishing" it, just as we did before, and then use that to look up
+the ID in the DTD's hash table of attributes.  <code>lookup()</code> will create
+a new entry if we had not previously seen this attribute, and will
+need a permanently stored name to do that with.  We can tell if this
+happened, because then the name returned in <code>id-&gt;name</code> will be the
+same pointer as the <code>name</code> we just created with <code>poolStoreString()</code>.
+If that happens, we call <code>poolFinish()</code> to store our string
+permanently; otherwise we call <code>poolDiscard()</code> to get rid of the
+duplicate.</p>
+<h2>Conclusions</h2>
+<p>String pools are one of the more confusing of the parser's internal
+features.  When using them, you need to be aware of how your chosen
+string pool is being used elsewhere; if you are careless in your
+choice of pool, your strings might unexpectedly disappear from under
+your feet.  Worse, they might appear to be perfectly intact until
+something legitimately overwrites them.</p>
+<p>This is the reason why strings passed to handlers must be copied if
+the handler wants to keep them for future use.  The strings are
+provided through the temporary string pools, and will be cleared once
+the parser itself has no more need of them.</p>
+<p>Used carefully and correctly, string pools save a lot of time and
+effort allocating, converting and freeing input strings.  It is worth
+taking the time to understand what you can and cannot do with each
+pool, as they can be an invaluable help for marshalling text data in
+the right encoding.</p>
+<h2>Footnotes</h2>
+<p><a name="hanging">1</a>: a common image of a linked list is as a
+chain, with each link in the chain being an element of the list.  If
+you think of the list head pointer as a loop bolted to the wall, the
+rest of the chain hangs down from that loop.  Linked lists (and other
+structures) are therefore sometimes said to "hang off" their head
+pointers.</p>
+<p><a name="wart">2</a>: "Wart" is used as a term for an unfortunate and
+ugly feature in a program, language or similar.  A wart is not
+necessarily a bug, it may simply make certain types of development or
+usage patterns unnecessarily hard, as in this case.</p>
+<p><a name="cunning">3</a>: something is described as cunning if it is
+very clever, often deceitful.  In recent years it has come to have
+sarcastic overtones, thanks to
+<a href="http://www.bbc.co.uk/programmes/b006xxw3">Blackadder</a>; Baldrick's cry
+of "I have a cunning plan, milord" generally introduced a bizarre,
+complicated and very stupid suggestion.</p>
+<p>&mdash;Rhodri James, 19 July 2017</p>
+</div>
+        </div>
+
+        <div class="row">
+        </div>
+
+      </div>
+
+      <div class="col-md-2">
+      </div>
+    </div>
+
+
+  </div>
+
+    <nav id="footer" class="navbar navbar-default">
+    <div class="container">
+        <p id="footer-text" class="navbar-text text-center">
+          <span id="engine">
+            Compiled using
+            <a href="https://docs.getpelican.com">Pelican</a>
+          </span>
+          <span id="theme">
+            with theme
+            <a href="https://github.com/yuex/pelican-chameleon">Chameleon</a>
+          </span>
+          <span id="bootstrap">
+            on top of
+            <a href="https://getbootstrap.com/">Bootstrap</a>
+          </span>
+        </p>
+      </div>
+    </div>
+  </nav>
+
+
+</body>
+</html>
