@@ -3,7 +3,7 @@ Date: 2017-06-03
 License: MIT
 slug: news
 
-* 2017-07-17 —
+* 2017-07-19 —
   New article:
   [Expat Internals: String Pools](../expat-internals-string-pools/)
   describes the parser's temporary storage mechanism for strings.

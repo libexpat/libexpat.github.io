@@ -1,5 +1,5 @@
 Title: Expat Internals: String Pools
-Date: 17 July 2017
+Date: 19 July 2017
 License: MIT
 Category: Maintenance
 Tags: internal, strings
@@ -767,4 +767,4 @@ sarcastic overtones, thanks to
 of "I have a cunning plan, milord" generally introduced a bizarre,
 complicated and very stupid suggestion.
 
-&mdash;Rhodri James, 17 July 2017
+&mdash;Rhodri James, 19 July 2017

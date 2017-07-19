@@ -6,7 +6,7 @@ url:
 
 # Latest News
 
-* 2017-07-17 —
+* 2017-07-19 —
   New article:
   [Expat Internals: String Pools](doc/expat-internals-string-pools/)
 * 2017-07-13 —
