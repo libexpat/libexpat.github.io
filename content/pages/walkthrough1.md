@@ -519,7 +519,7 @@ well:
       ptr += MINBPC(enc);
       break;
 
-    case BT_LEAD_2:
+    case BT_LEAD2:
       if (end - ptr < 2)
         return XML_TOK_PARTIAL_CHAR;
       if (!IS_NMSTRT_CHAR(enc, ptr, 2)) {
@@ -529,7 +529,7 @@ well:
       ptr += 2;
       break;
 
-    case BT_LEAD_3:
+    case BT_LEAD3:
       if (end - ptr < 3)
         return XML_TOK_PARTIAL_CHAR;
       if (!IS_NMSTRT_CHAR(enc, ptr, 3)) {
@@ -539,7 +539,7 @@ well:
       ptr += 3;
       break;
 
-    case BT_LEAD_4:
+    case BT_LEAD4:
       if (end - ptr < 4)
         return XML_TOK_PARTIAL_CHAR;
       if (!IS_NMSTRT_CHAR(enc, ptr, 4)) {
@@ -549,7 +549,7 @@ well:
       ptr += 4;
       break;
 
-Let's take those last cases first.  `BT_LEAD_4` indicates a character
+Let's take those last cases first.  `BT_LEAD4` indicates a character
 that is the start of a sequence of four bytes.  Note that here we are
 talking about bytes, not units of `MINBPC`, which can be a little
 confusing when the input is UTF-16.  The code in this case checks that
@@ -568,7 +568,7 @@ this is not quite true; `utf8_isNmstrt4()` is a macro disguise for
 since none of the characters encoded as four bytes in UTF-8 are valid
 starts of names.
 
-`BT_LEAD_3` similarly indicates a character that is the start of a
+`BT_LEAD3` similarly indicates a character that is the start of a
 sequence of three bytes.  Its case checks that there are at least
 three bytes available, then calls through the `isNmstrt3` function
 pointer in the encoding.  This time `utf8_isNmstrt3()` as it becomes
@@ -581,7 +581,7 @@ UTF-8 sequence<sup>[7](#utf83)</sup>) in a large bit array.  If the
 corresponding bit is set, that Unicode character is a valid
 start-of-name character.
 
-`BT_LEAD_2` works just like `BT_LEAD_3`, just with two-byte
+`BT_LEAD2` works just like `BT_LEAD3`, just with two-byte
 sequences.
 
 `BT_HEX` and `BT_NMSTRT` are easy.  The first one is a letter that
@@ -1199,7 +1199,7 @@ case.  A relic of our feudal past.
 Pooh-Bah in Gilbert and Sullivan's opera _The Mikado_, who listed
 among his various titles "Lord High Everything Else".  Sometimes used
 to mock overly self-important people, but Sebastian really does do
-everythine else!
+everything else!
 
 <a name="palm">3</a>: "to palm something off on someone" means to pass
 responsibility for something to someone.  It is usually used in the
