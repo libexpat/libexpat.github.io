@@ -1,5 +1,5 @@
 Title: Expat Internals: Parsing XML Declarations
-Date: 13 July 2017
+Date: 28 July 2017
 License: MIT
 Category: Maintenance
 Tags: internal, walkthrough
@@ -16,7 +16,8 @@ internal workings.  Instead of the very simple piece of XML that we
 saw last time, we will look at the common opening of an XML document,
 the [XML
 declaration](https://www.w3.org/TR/2008/REC-xml-20081126/#sec-prolog-dtd).
-I am going to assume that you have read the walkthrough and are familiar
+I am going to assume that you have read the
+[walkthrough](../expat-internals-a-simple-parse/) and are familiar
 with the weird and wonderful world of Expat's macros and
 multiply-included source files.
 
@@ -30,7 +31,17 @@ lines of XML to a file:
 
 and compile and run the `outline` example program on it.
 
+
 ## What Is An XML Declaration?
+
+An _XML declaration_ is part of the
+[prologue](https://www.w3.org/TR/2008/REC-xml-20081126/#sec-prolog-dtd)
+of an XML document, the part that defines the structure of the rest of
+the document.  It specifies which version of the XML standard is being
+used, what character encoding is being used, and whether the document
+stands alone or expects to use external resources.  If it is present,
+the XML declaration must appear first, right at the start of the
+input.
 
 Before we start, it's worth looking into exactly what goes into an XML
 declaration.  According to [section 2.8 of the XML
@@ -57,7 +68,8 @@ practise it's quite straightforward.  The particular thing to notice
 is that every single literal character listed in these productions can
 be encoded in ASCII.  This drastically reduces the amount of work the
 parser will have to do converting the input; once it knows it has an
-XML declaration, every character that isn't ASCII is invalid.
+XML declaration, every character that cannot be encoded in ASCII is
+invalid.
 
 The other thing to notice is that the "attributes" of the XML
 declaration have to occur in a defined order.  The version information
@@ -68,6 +80,7 @@ logic.
 
 Armed with this information, let's see what the parser makes of our
 XML declaration.
+
 
 ## Prologue Parsing
 
@@ -101,12 +114,18 @@ which has its own case in the switch statement:
       return PREFIX(scanPi)(enc, ptr + MINBPC(enc), end, nextTokPtr);
 
 The sequence of characters "<?" in an XML document either means that
-we have an XML declaration (or a [text
+we have an XML declaration, a [text
 declaration](https://www.w3.org/TR/2008/REC-xml-20081126/#sec-TextDecl)
-if we are parsing an external entity) or a [processing
+or a [processing
 instruction](https://www.w3.org/TR/2008/REC-xml-20081126/#sec-pi).
-The function `normal_scanPi()` checks to see which of these is the
-case.
+A text declaration is almost identical to an XML declaration, and
+takes the place of an XML declaration in an externally parsed entity.
+At this point in the parse we treat XML declarations and text
+declarations as the same thing, and will sort out the difference
+later.
+
+The function `normal_scanPi()` checks to see whether we have a
+processing instruction or one of the declarations.
 
     :::c
     const char *target = ptr;
@@ -129,8 +148,9 @@ With the target pointer securely stashed away, we then commence the
 familiar trudge<sup>[1](#trudge)</sup> through an XML name.  The macro
 `REQUIRE_CHAR()` ensures that there is a character in the buffer to
 test, which there is, and we then switch on its byte type.  "x" has a
-byte type of `BT_NMSTRT`, which is swept up by the magic macro
-`CHECK_NMSTRT_CASES()` as an entirely acceptable start of an XML name.
+byte type of `BT_NMSTRT`, meaning a character that can legally start
+an XML name. The magic macro `CHECK_NMSTRT_CASES()` accepts this
+character and moves `ptr` on to examine the next character.
 
     :::c
     while (HAS_CHAR(enc, ptr, end)) {
@@ -152,6 +172,7 @@ therefore calls `normal_checkPiTarget()` to see what sort of target
 name it has; in particular if the name is "xml" (which it is), it's
 not a processing instruction at all!
 
+
 ## Target Practise
 
 `normal_checkPiTarget()` has to do something slightly more complicated
@@ -161,21 +182,25 @@ instructions to have targets that are "XML", "Xml", "xML" or indeed
 any combination of different letter cases of the word "xml".  It
 therefore returns the correct token for the target, `XML_TOK_PI` or
 `XML_TOK_XML_DECL`, through a pointer and its actual return value is a
-boolean; 1 (TRUE) for a valid target and 0 (FALSE) for an invalid one.
+boolean; 1 (success) for a valid target and 0 (failure) for an invalid
+one.
 
     :::c
     int upper = 0;
     *tokPtr = XML_TOK_PI;
-    if (end - ptr != MINBPC(enc)*3)
-      return 1;
 
 The function keeps a flag to indicate that it has seen an uppercase
 (invalid) character.  `upper` will remain zero as long as none of "X",
-"M" or "L" are seen in the appropriate character position.  Then the
-code makes the first obvious check; if the name isn't exactly three
-characters long, it can't possibly be "xml" so must be a processing
-instruction target.  We do have three characters, so the parse
-proceeds.
+"M" or "L" are seen in the appropriate character position.
+
+    :::c
+    if (end - ptr != MINBPC(enc)*3)
+      return 1;
+
+Then the code makes the first obvious check; if the name isn't exactly
+three characters long, it can't possibly be "xml" so must be a
+processing instruction target.  We do have three characters, so the
+parse proceeds.
 
     :::c
     switch (BYTE_TO_ASCII(enc, ptr)) {
@@ -238,30 +263,33 @@ Substituting the `INVALID_LEAD_CASE` macros makes it somewhat easier
 to read:
 
     :::c
-    case BT_LEAD_2:
+    case BT_LEAD2:
       if (end - ptr < 2)
         return XML_TOK_PARTIAL_CHAR;
       if (IS_INVALID_CHAR(enc, ptr, 2)) {
         *nextTokPtr = ptr;
         return XML_TOK_INVALID;
+      }
       ptr += 2;
       break;
 
-    case BT_LEAD_3:
+    case BT_LEAD3:
       if (end - ptr < 3)
         return XML_TOK_PARTIAL_CHAR;
       if (IS_INVALID_CHAR(enc, ptr, 3)) {
         *nextTokPtr = ptr;
         return XML_TOK_INVALID;
+      }
       ptr += 3;
       break;
 
-    case BT_LEAD_4:
+    case BT_LEAD4:
       if (end - ptr < 4)
         return XML_TOK_PARTIAL_CHAR;
       if (IS_INVALID_CHAR(enc, ptr, 4)) {
         *nextTokPtr = ptr;
         return XML_TOK_INVALID;
+      }
       ptr += 2;
       break;
 
@@ -271,7 +299,7 @@ to read:
       *nextTokPtr = ptr;
       return XML_TOK_INVALID;
 
-Let's take those cases in order.  `BT_LEAD_2`, you may recall,
+Let's take those cases in order.  `BT_LEAD2`, you may recall,
 indicates a character that is the start of a sequence of two bytes.
 If there are less than two bytes in the input buffer we don't have a
 complete character to examine, so return `XML_TOK_PARTIAL_CHAR`.  Then
@@ -279,14 +307,14 @@ we call `IS_INVALID_CHAR()`, which is a macro that takes a little
 disentangling.  It wraps (in this case) the `isInvalid2()` function in
 the encoding table, which for UTF-8 points to the function
 `utf8_isInvalid2()`, which calls the macro `UTF8_INVALID2()`, which
-returns True if the next two bytes of the input do not form a legal
-UTF-8 two byte sequence.  If the sequence isn't valid,
-`INVALID_CASES()` will update the next token pointer to this sequence
-and return `XML_TOK_INVALID` to pass on the error.  Failing that, the
-sequence is accepted and the current input pointer is moved on two
-bytes.  `BT_LEAD_3` and `BT_LEAD_4` work similarly, checking for
-malformed three and four byte sequences and using `utf8_isInvalid3()`
-and `utf8_isInvalid4()` respectively.
+returns 1 (success, i.e. the character is invalid) if the next two
+bytes of the input do not form a legal UTF-8 two byte sequence.  If
+the sequence isn't valid, `INVALID_CASES()` will update the next token
+pointer to this sequence and return `XML_TOK_INVALID` to pass on the
+error.  Failing that, the sequence is accepted and the current input
+pointer is moved on two bytes.  `BT_LEAD3` and `BT_LEAD4` work
+similarly, checking for malformed three and four byte sequences and
+using `utf8_isInvalid3()` and `utf8_isInvalid4()` respectively.
 
 `BT_NONXML` is the byte type reserved for bytes that cannot form a
 character permitted in XML.  That includes the ASCII [control
@@ -299,9 +327,10 @@ permitted range.
 `BT_MALFORM` is slightly different; it is reserved for 0xFE and 0xFF,
 which are never defined for any purpose in UTF-8.
 
-Finally, `BT_TRAIL` indicates a byte that would follow a `BT_LEAD_n`
-byte.  We should never see one of these, because it should always be
-dealt with when processing the relevant leading byte.
+Finally, `BT_TRAIL` indicates a byte that would follow a `BT_LEAD2`,
+`BT_LEAD3` or `BT_LEAD4` byte.  We should never see one of these,
+because it should always be dealt with when processing the relevant
+leading byte.
 
     :::c
     default:
@@ -402,7 +431,7 @@ The big switch statement in `doProlog()` directs us to call
 The same function handles both XML declarations and text declarations,
 since they are almost identical in form.  The second argument,
 `isGeneralTextEntity`, distinguishes the two cases.  For us it is
-zero (false), since we are not processing a general text entity.
+zero (`XML_FALSE`), since we are not processing a general text entity.
 
     :::c
     const char *encodingName = NULL;
@@ -427,7 +456,7 @@ zero (false), since we are not processing a general text entity.
 
 After initializing a whole bunch of local variables, we then choose
 which function to process the declaration with.  `ns` is a parser
-field that is True if we have a non-standard _namespace separator_
+field that is `XML_TRUE` if we have a non-standard _namespace separator_
 defined, a choice made when creating the parser.  We don't, so
 `XmlParseXmlDecl()` gets called.  Surprisingly, given that it starts
 "Xml...", this is not a macro.  It is a veneer function from the
@@ -770,9 +799,9 @@ through both the input string `ptr1` and the comparison string `ptr2`,
 checking that it hasn't run out of input string and using
 `CHAR_MATCHES()` to do encoding-aware comparisons, finishing when it
 runs out of comparison string.  In accordance with its name it returns
-1 (True) if the input text matches the ASCII comparison string, and 0
-(False) if not.  The input text is "version", so in our case we get
-a 1.
+1 (`XML_TRUE`) if the input text matches the ASCII comparison string,
+and 0 (`XML_False`) if not.  The input text is "version", so in our
+case we get a 1.
 
 Back in `doParseXmlDecl()`, we know we have the `version`
 pseudo-attribute so we load the passed-in pointers with the version
@@ -871,16 +900,16 @@ convert the whole of the encoding name, clearly we aren't going to
 match any of the encodings we know about!
 
 Then there is a little special case to deal with.  `streqci()` is a
-case-insensitive ASCII string comparison routine returning True if the
-two strings are the same after converting their characters to
-uppercase.  `enc->minBytesPerChar` contains the size of the "character
-unit" we referred to earlier, i.e. 2 for UTF-16 and 1 for everything
-else.  The condition `streqci(buf, KW_UTF_16) && enc->minBytesPerChar
-== 2` is therefore asking "Have we been asked for UTF-16 _without
-specifying big or little endian_, and are we already using UTF-16?"
-If we are, we choose to use the same endianness of UTF-16 that we are
-already using; this must be right, otherwise we couldn't have read the
-declaration in the first place!
+case-insensitive ASCII string comparison routine returning `XML_TRUE`
+(success) if the two strings are the same after converting their
+characters to uppercase.  `enc->minBytesPerChar` contains the size of
+the "character unit" we referred to earlier, i.e. 2 for UTF-16 and 1
+for everything else.  The condition `streqci(buf, KW_UTF_16) &&
+enc->minBytesPerChar == 2` is therefore asking "Have we been asked for
+UTF-16 _without specifying big or little endian_, and are we already
+using UTF-16?"  If we are, we choose to use the same endianness of
+UTF-16 that we are already using; this must be right, otherwise we
+couldn't have read the declaration in the first place!
 
 Assuming that's not the case, we call `getEncodingIndex()` to search
 the encodings table for the name.  This is a straightforward array of
@@ -1002,16 +1031,16 @@ basic checks and transfer these results somewhere more useful.
 
 As previously mentioned, text declarations don't allow the
 pseudo-parameter `standalone` to be present, so we ignore it if
-`isGeneralTextEntity` is True.  This is a redundant check;
+`isGeneralTextEntity` is `XML_TRUE`.  This is a redundant check;
 `standalone` will have been left alone (-1) if `isGeneralTextEntity`
-is True, but a little paranoia doesn't hurt.  Otherwise `standalone ==
-1` causes us to set the `standalone` flag in the parser's DTD
-structure.  We also check the parameter entity parsing control, which
-could have been set to parse external entities unless the XML document
-is supposed to be standalone.  Since we know now that it is supposed
-to be standalone, we update that control field to disallow external
-parsing.  External entities are a large topic for another time, so we
-won't go into the ramifications of that now.
+is `XML_TRUE`, but a little paranoia doesn't hurt.  Otherwise
+`standalone == 1` causes us to set the `standalone` flag in the
+parser's DTD structure.  We also check the parameter entity parsing
+control, which could have been set to parse external entities unless
+the XML document is supposed to be standalone.  Since we know now that
+it is supposed to be standalone, we update that control field to
+disallow external parsing.  External entities are a large topic for
+another time, so we won't go into the ramifications of that now.
 
 If there is an XML declaration handler, or failing that a default
 handler, that gets called next.  Let's assume that we don't have
@@ -1253,4 +1282,4 @@ Rode the six hundred.
 From _The Charge of the Light Brigade_ by Alfred, Lord Tennyson,
 commemorating a suicidal charge at the Battle of Balaclava.
 
-&mdash;Rhodri James, 13th July 2017
+&mdash;Rhodri James, 28th July 2017
