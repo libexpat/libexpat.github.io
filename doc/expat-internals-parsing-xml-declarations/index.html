@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Expat XML parser">
+    <meta name="author" content="">
+
+        <title>Expat Internals: Parsing XML Declarations · Expat XML parser</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../3rdparty/bootstrap/3.0.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../3rdparty/bootswatch/paper/bootstrap.min.css" type="text/css">
+
+    <link rel="stylesheet" href="../../theme/css/main.css">
+
+    <link rel="stylesheet" href="../../theme/css/solarized-light.css">
+
+
+    <script src="../../3rdparty/jquery/jquery-1.10.1.min.js"></script>
+
+    <script src="../../3rdparty/jquery/jquery-migrate-1.2.1.min.js"></script>
+
+    <script src="../../3rdparty/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container" id="wrap">
+      <nav id="navbar" class="navbar navbar-default" role="navigation">
+    <div class="container">
+
+      <!--navbar-header-->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../..">Expat XML parser</a>
+      </div> <!--navbar-header-->
+
+      <!-- Search Box -->
+
+      <!--Menuitems, collapable-->
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menuitem-list">
+                <li >
+                  <a href="https://github.com/libexpat/libexpat/blob/master/expat/Changes" >Changelog</a>
+                </li>
+
+                <li >
+                  <a href="https://sourceforge.net/projects/expat/files/" >Download</a>
+                </li>
+
+                <li >
+                  <a href="https://libexpat.github.io/doc/" >Documentation</a>
+                </li>
+
+                <li >
+                  <a href="https://github.com/libexpat/libexpat" >Git Repository</a>
+                </li>
+
+                <li >
+                  <a href="https://libexpat.github.io/doc/users/" >Users</a>
+                </li>
+
+                <li >
+                  <a href="https://github.com/libexpat/libexpat/issues" >Report a Bug</a>
+                </li>
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+
+    </div> <!--container-->
+  </nav>
+
+
+    <div class="container">
+      <div class="col-md-2">
+      </div>
+
+      <div class="col-md-8">
+        <div class="row">
+              <div class="page-header">
+        <h1><a href="../../doc/expat-internals-parsing-xml-declarations/">Expat Internals: Parsing XML Declarations</a></h1>
+    </div>
+
+        </div>
+
+        <div class="row">
+<div id="page-content">
+  <p><em>Written by Rhodri James</em></p>
+<h1>Expat Internals: Parsing XML Declarations</h1>
+<p>This article follows on from the <a href="../expat-internals-a-simple-parse/">first
+walkthrough</a> of the parser's
+internal workings.  Instead of the very simple piece of XML that we
+saw last time, we will look at the common opening of an XML document,
+the <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-prolog-dtd">XML
+declaration</a>.
+I am going to assume that you have read the walkthrough and are familiar
+with the weird and wonderful world of Expat's macros and
+multiply-included source files.</p>
+<p>As before, you are welcome to fire up <code>gdb</code> and follow the code paths
+yourself as you read the article.  You will need to copy the following
+lines of XML to a file:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="nt">&lt;doc&gt;</span>Hello, world<span class="nt">&lt;/doc&gt;</span>
+</pre></div>
+
+
+<p>and compile and run the <code>outline</code> example program on it.</p>
+<h2>What Is An XML Declaration?</h2>
+<p>Before we start, it's worth looking into exactly what goes into an XML
+declaration.  According to <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-prolog-dtd">section 2.8 of the XML
+standard</a>,
+an XML declaration is:</p>
+<div class="highlight"><pre><span></span>[23] XMLDecl      ::= &#39;&lt;?xml&#39; VersionInfo EncodingDecl? SDDecl? S? &#39;?&gt;&#39;
+[24] VersionInfo  ::= S &#39;version&#39; Eq (&quot;&#39;&quot; VersionNum &quot;&#39;&quot; | &#39;&quot;&#39; VersionNum &#39;&quot;&#39;)
+[3]  S            ::= (#x20 | #x9 | #xD | #xA)+
+[25] Eq           ::= S? &#39;=&#39; S?
+[26] VersionNum   ::= &#39;1.&#39; [0-9]+
+[80] EncodingDecl ::= S &#39;encoding&#39; Eq (&#39;&quot;&#39; EncName &#39;&quot;&#39; | &quot;&#39;&quot; EncName &quot;&#39;&quot;)
+[81] EncName      ::= [A-Za-z] ([A-Za-z0-9._] | &#39;-&#39;)*
+[32] SDDecl       ::= S &#39;standalone&#39; Eq ((&quot;&#39;&quot; (&#39;yes&#39; | &#39;no&#39;) &quot;&#39;&quot;) | (&#39;&quot;&#39; (&#39;yes&#39; | &#39;no&#39;) &#39;&quot;&#39;))
+</pre></div>
+
+
+<p>(The numbers in square brackets are the production numbers in the
+standard, for reference.  Some of them have been dragged in from other
+sections.)</p>
+<p>This may look confusing if you aren't used to reading
+<a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form">BNF</a>, but in
+practise it's quite straightforward.  The particular thing to notice
+is that every single literal character listed in these productions can
+be encoded in ASCII.  This drastically reduces the amount of work the
+parser will have to do converting the input; once it knows it has an
+XML declaration, every character that isn't ASCII is invalid.</p>
+<p>The other thing to notice is that the "attributes" of the XML
+declaration have to occur in a defined order.  The version information
+must be present, and must be first.  The encoding declaration must be
+next if it is present, and finally the standalone declaration.
+Nothing else is allowed.  Again, this drastically simplifies the parsing
+logic.</p>
+<p>Armed with this information, let's see what the parser makes of our
+XML declaration.</p>
+<h2>Prologue Parsing</h2>
+<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;...
+^
++ ptr
+</pre></div>
+
+
+<p>The initial stages of the parse are identical to those of the
+<a href="../expat-internals-a-simple-parse/">previous walkthrough</a>: the parser
+defaults to assuming that the input will be UTF-8 and <code>initScan()</code>
+sees no reason in the first few characters of the input to revise that
+assumption.  It is only once <code>normal_prologTok()</code> takes control that
+things start to differ.  The code performs the familiar checks for
+whether there is any input and making sure it only has whole
+characters, then switches on the byte type of "&lt;".</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_LT</span><span class="p">:</span>
+  <span class="p">{</span>
+    <span class="n">ptr</span> <span class="o">+=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span>
+    <span class="n">REQUIRE_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
+</pre></div>
+
+
+<p>As before, "&lt;" is perfectly acceptable, so the code goes on to
+consider the next character, "?".  This has a byte type of <code>BT_QUEST</code>,
+which has its own case in the switch statement:</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_QUEST</span><span class="p">:</span>
+  <span class="k">return</span> <span class="n">PREFIX</span><span class="p">(</span><span class="n">scanPi</span><span class="p">)(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span> <span class="o">+</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">),</span> <span class="n">end</span><span class="p">,</span> <span class="n">nextTokPtr</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The sequence of characters "&lt;?" in an XML document either means that
+we have an XML declaration (or a <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-TextDecl">text
+declaration</a>
+if we are parsing an external entity) or a <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-pi">processing
+instruction</a>.
+The function <code>normal_scanPi()</code> checks to see which of these is the
+case.</p>
+<div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">target</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="n">REQUIRE_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+<span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
+<span class="n">CHECK_NMSTRT_CASES</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">nextTokPtr</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The first thing <code>normal_scanPi()</code> does is to take a copy of the input
+pointer as it is passed in, in our case pointing to the "x" of "xml".
+If this text turns out to be a processing instruction the parser will
+need to know the name that follows the "&lt;?" characters, called the
+<em>target</em> of the processing instruction.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+  ^
+  + ptr, target
+</pre></div>
+
+
+<p>With the target pointer securely stashed away, we then commence the
+familiar trudge<sup><a href="#trudge">1</a></sup> through an XML name.  The macro
+<code>REQUIRE_CHAR()</code> ensures that there is a character in the buffer to
+test, which there is, and we then switch on its byte type.  "x" has a
+byte type of <code>BT_NMSTRT</code>, which is swept up by the magic macro
+<code>CHECK_NMSTRT_CASES()</code> as an entirely acceptable start of an XML name.</p>
+<div class="highlight"><pre><span></span><span class="k">while</span> <span class="p">(</span><span class="n">HAS_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
+  <span class="n">CHECK_NAME_CASES</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">nextTokPtr</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We then loop through the following characters, checking that we
+continue to have a valid name.  The character "m" and "l", both also
+having byte type <code>BT_NMSTRT</code>, are considered acceptable for a name by
+<code>CHECK_NAME_CASES()</code>.  Then we get to the space, which has a byte type
+of <code>BT_S</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_S</span><span class="p">:</span> <span class="k">case</span> <span class="nl">BT_CR</span><span class="p">:</span> <span class="k">case</span> <span class="nl">BT_LF</span><span class="p">:</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">PREFIX</span><span class="p">(</span><span class="n">checkPiTarget</span><span class="p">)(</span><span class="n">enc</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tok</span><span class="p">))</span> <span class="p">{</span>
+</pre></div>
+
+
+<p>The tokenizer regards whitespace as ending the target name.  It
+therefore calls <code>normal_checkPiTarget()</code> to see what sort of target
+name it has; in particular if the name is "xml" (which it is), it's
+not a processing instruction at all!</p>
+<h2>Target Practise</h2>
+<p><code>normal_checkPiTarget()</code> has to do something slightly more complicated
+than just doing a <code>strcmp()</code> of the input text to see if it is "xml".
+The XML standard, in an effort to avoid accidents, forbids processing
+instructions to have targets that are "XML", "Xml", "xML" or indeed
+any combination of different letter cases of the word "xml".  It
+therefore returns the correct token for the target, <code>XML_TOK_PI</code> or
+<code>XML_TOK_XML_DECL</code>, through a pointer and its actual return value is a
+boolean; 1 (TRUE) for a valid target and 0 (FALSE) for an invalid one.</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">upper</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="o">*</span><span class="n">tokPtr</span> <span class="o">=</span> <span class="n">XML_TOK_PI</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">!=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+
+
+<p>The function keeps a flag to indicate that it has seen an uppercase
+(invalid) character.  <code>upper</code> will remain zero as long as none of "X",
+"M" or "L" are seen in the appropriate character position.  Then the
+code makes the first obvious check; if the name isn't exactly three
+characters long, it can't possibly be "xml" so must be a processing
+instruction target.  We do have three characters, so the parse
+proceeds.</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TO_ASCII</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
+<span class="k">case</span> <span class="nl">ASCII_x</span><span class="p">:</span>
+  <span class="k">break</span><span class="p">;</span>
+<span class="k">case</span> <span class="nl">ASCII_X</span><span class="p">:</span>
+  <span class="n">upper</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">break</span><span class="p">;</span>
+<span class="k">default</span><span class="o">:</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">ptr</span> <span class="o">+=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
+</pre></div>
+
+
+<p>We test the first character.  Is it "x"?  Then we might have an XML
+declaration.  Is it "X"?  Then we don't have an XML declaration, but
+we might not have a valid processing instruction target either.  We
+set the flag <code>upper</code> and carry on in case of problems.  Otherwise this
+must be a processing instruction target, so we happily return success.
+In our case we have "x", so we drop through and consider the next
+character.</p>
+<p>The same logic is applied to the next character being "m" or "M", and
+the final character being "l" or "L".  In our case we have the right
+letters in the right place, so <code>upper</code> is left at zero.</p>
+<div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">upper</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="o">*</span><span class="n">tokPtr</span> <span class="o">=</span> <span class="n">XML_TOK_XML_DECL</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><code>upper</code> doesn't flag an invalid name for us, so we set the token
+pointer to <code>XML_TOK_XML_DECL</code> and return success.  All fairly
+straightforward, though it looks a little peculiar when laid out as
+it is in the code.</p>
+<h2>Macro Abuse Redux</h2>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+  ^  ^
+  |  + ptr
+  + target
+</pre></div>
+
+
+<p>While we have a valid start of an XML declaration, we still have to
+make sure that we have the closing "?&gt;" that delimits the whole
+declaration.  That's what the next steps in <code>normal_scanPi()</code> do.</p>
+<div class="highlight"><pre><span></span><span class="n">ptr</span> <span class="o">+=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">HAS_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
+  <span class="n">INVALID_CASES</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">nextTokPtr</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>INVALID_CASES()</code> is a magic macro we haven't met before.  It's
+another horribly tangled creature like <code>CHECK_NMSTRT_CASES()</code> that is
+hard to comprehend because of all the subordinate macros.
+Substituting the <code>INVALID_LEAD_CASE</code> macros makes it somewhat easier
+to read:</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_LEAD_2</span><span class="p">:</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">IS_INVALID_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">XML_TOK_INVALID</span><span class="p">;</span>
+  <span class="n">ptr</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="k">break</span><span class="p">;</span>
+
+<span class="k">case</span> <span class="nl">BT_LEAD_3</span><span class="p">:</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">IS_INVALID_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">XML_TOK_INVALID</span><span class="p">;</span>
+  <span class="n">ptr</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="k">break</span><span class="p">;</span>
+
+<span class="k">case</span> <span class="nl">BT_LEAD_4</span><span class="p">:</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">IS_INVALID_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">XML_TOK_INVALID</span><span class="p">;</span>
+  <span class="n">ptr</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="k">break</span><span class="p">;</span>
+
+<span class="k">case</span> <span class="nl">BT_NONXML</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_MALFORM</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_TRAIL</span><span class="p">:</span>
+  <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">XML_TOK_INVALID</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Let's take those cases in order.  <code>BT_LEAD_2</code>, you may recall,
+indicates a character that is the start of a sequence of two bytes.
+If there are less than two bytes in the input buffer we don't have a
+complete character to examine, so return <code>XML_TOK_PARTIAL_CHAR</code>.  Then
+we call <code>IS_INVALID_CHAR()</code>, which is a macro that takes a little
+disentangling.  It wraps (in this case) the <code>isInvalid2()</code> function in
+the encoding table, which for UTF-8 points to the function
+<code>utf8_isInvalid2()</code>, which calls the macro <code>UTF8_INVALID2()</code>, which
+returns True if the next two bytes of the input do not form a legal
+UTF-8 two byte sequence.  If the sequence isn't valid,
+<code>INVALID_CASES()</code> will update the next token pointer to this sequence
+and return <code>XML_TOK_INVALID</code> to pass on the error.  Failing that, the
+sequence is accepted and the current input pointer is moved on two
+bytes.  <code>BT_LEAD_3</code> and <code>BT_LEAD_4</code> work similarly, checking for
+malformed three and four byte sequences and using <code>utf8_isInvalid3()</code>
+and <code>utf8_isInvalid4()</code> respectively.</p>
+<p><code>BT_NONXML</code> is the byte type reserved for bytes that cannot form a
+character permitted in XML.  That includes the ASCII <a href="https://en.wikipedia.org/wiki/Control_character">control
+characters</a> other
+than whitespace characters, and bytes that would start a four byte
+sequence that would encode a <a href="http://unicode.org/glossary/#code_point">Unicode
+codepoint</a> outside the
+permitted range.</p>
+<p><code>BT_MALFORM</code> is slightly different; it is reserved for 0xFE and 0xFF,
+which are never defined for any purpose in UTF-8.</p>
+<p>Finally, <code>BT_TRAIL</code> indicates a byte that would follow a <code>BT_LEAD_n</code>
+byte.  We should never see one of these, because it should always be
+dealt with when processing the relevant leading byte.</p>
+<div class="highlight"><pre><span></span><span class="k">default</span><span class="o">:</span>
+  <span class="n">ptr</span> <span class="o">+=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
+  <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>So if we encounter an invalid byte, it will cause us to exit
+<code>normal_scanPi()</code> protesting its invalidity.  What we are actually
+looking for is a question mark, <code>BT_QUEST</code>, and if we don't find it we
+just move on to look at the next byte.  If we do find it, more
+interesting things happen.</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_QUEST</span><span class="p">:</span>
+  <span class="n">ptr</span> <span class="o">+=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
+  <span class="n">REQUIRE_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">CHAR_MATCHES</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">ASCII_GT</span><span class="p">))</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span> <span class="o">+</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">tok</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">break</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Once we have checked to see if there is another character in the buffer for
+us to look at, we compare that character with "&gt;" to see if we have a
+"?&gt;" closing sequence.  (<code>CHAR_MATCHES()</code> is a macro that hides
+whether we are doing an 8-bit or 16-bit comparison).  If we do, we
+point the next token pointer to the character after the "&gt;" (if there
+is one) and return whichever token <code>normal_checkPiTarget()</code> supplied
+us with.  Otherwise we have just found an isolated "?" and must carry
+on with the search.  Notice that this means that processing
+instructions may not contain the sequence "?&gt;" even in a quoted
+string, which is a correct if perhaps surprising feature of the XML
+standard.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+  ^                                                       ^
+  + target                                    *nextTokPtr +
+</pre></div>
+
+
+<p>In our case we will move along the characters, falling into the
+default case of our <code>switch</code> statement until we finally reach the
+closing "?&gt;", set the next token pointer to the newline and return
+<code>XML_TOK_XML_DECL</code>.</p>
+<h2>Back to the Parser</h2>
+<p>The call stack unwinds all the way back to <code>prologParser()</code>, which
+promptly throws us at <code>doProlog()</code>.  As you may recall, this starts
+with some housekeeping, setting up the event pointers, then tests to
+see if the token is negative, indicating some problem.
+<code>XML_TOK_XML_DECL</code> is decidedly positive, so instead we call
+<code>XmlTokenRole()</code> to find out what it means in context.  Because we are
+at the start of the parse, <code>XmlTokenRole()</code> translates to the
+<code>prolog0()</code> handler function.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">PTRCALL</span>
+<span class="nf">prolog0</span><span class="p">(</span><span class="n">PROLOG_STATE</span> <span class="o">*</span><span class="n">state</span><span class="p">,</span>
+        <span class="kt">int</span> <span class="n">tok</span><span class="p">,</span>
+        <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span>
+        <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">,</span>
+        <span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="n">tok</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/* ... */</span>
+  <span class="k">case</span> <span class="nl">XML_TOK_XML_DECL</span><span class="p">:</span>
+    <span class="n">state</span><span class="o">-&gt;</span><span class="n">handler</span> <span class="o">=</span> <span class="n">prolog1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">XML_ROLE_XML_DECL</span><span class="p">;</span>
+</pre></div>
+
+
+<p><code>prolog0()</code> converts our token into <code>XML_ROLE_XML_DECL</code>, but unlike
+the <a href="../expat-internals-a-simple-parse/">first walkthrough</a> it sets
+the role handler function pointer to <code>prolog1</code> rather than <code>error</code>.
+You might suspect that we will stay with the prologue processor this
+time, and you'd be right.  There may, after all, be more XML prologue
+to come.</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="n">role</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">case</span> <span class="nl">XML_ROLE_XML_DECL</span><span class="p">:</span>
+  <span class="p">{</span>
+    <span class="k">enum</span> <span class="n">XML_Error</span> <span class="n">result</span> <span class="o">=</span> <span class="n">processXmlDecl</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">XML_ERROR_NONE</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="n">enc</span> <span class="o">=</span> <span class="n">encoding</span><span class="p">;</span>
+    <span class="n">handleDefault</span> <span class="o">=</span> <span class="n">XML_FALSE</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">break</span><span class="p">;</span>
+</pre></div>
+
+
+<p>The big switch statement in <code>doProlog()</code> directs us to call
+<code>processXmlDecl()</code> to, er, process the XML declaration.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">enum</span> <span class="n">XML_Error</span>
+<span class="n">processXmlDecl</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="kt">int</span> <span class="n">isGeneralTextEntity</span><span class="p">,</span>
+               <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">next</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The same function handles both XML declarations and text declarations,
+since they are almost identical in form.  The second argument,
+<code>isGeneralTextEntity</code>, distinguishes the two cases.  For us it is
+zero (false), since we are not processing a general text entity.</p>
+<div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">encodingName</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">storedEncName</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">newEncoding</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">version</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">versionend</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">storedversion</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">standalone</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ns</span>
+      <span class="o">?</span> <span class="nl">XmlParseXmlDeclNS</span>
+      <span class="p">:</span> <span class="n">XmlParseXmlDecl</span><span class="p">)(</span><span class="n">isGeneralTextEntity</span><span class="p">,</span>
+                         <span class="n">encoding</span><span class="p">,</span>
+                         <span class="n">s</span><span class="p">,</span>
+                         <span class="n">next</span><span class="p">,</span>
+                         <span class="o">&amp;</span><span class="n">eventPtr</span><span class="p">,</span>
+                         <span class="o">&amp;</span><span class="n">version</span><span class="p">,</span>
+                         <span class="o">&amp;</span><span class="n">versionend</span><span class="p">,</span>
+                         <span class="o">&amp;</span><span class="n">encodingName</span><span class="p">,</span>
+                         <span class="o">&amp;</span><span class="n">newEncoding</span><span class="p">,</span>
+                         <span class="o">&amp;</span><span class="n">standalone</span><span class="p">))</span> <span class="p">{</span>
+</pre></div>
+
+
+<p>After initializing a whole bunch of local variables, we then choose
+which function to process the declaration with.  <code>ns</code> is a parser
+field that is True if we have a non-standard <em>namespace separator</em>
+defined, a choice made when creating the parser.  We don't, so
+<code>XmlParseXmlDecl()</code> gets called.  Surprisingly, given that it starts
+"Xml...", this is not a macro.  It is a veneer function from the
+multiply-included file <code>xmltok_ns.c</code> that calls <code>doParseXmlDecl()</code>,
+supplying it with the correct function to find any encoding named in
+the declaration, in this case the aptly-named <code>findEncoding()</code>.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+^                                                         ^
++ ptr                                                 end +
+</pre></div>
+
+
+<p><code>doParseXmlDecl()</code> starts by initializing a bunch of local variables
+and then stepping the pointers over the fixed start and end of the
+declaration.</p>
+<div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">val</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">nameEnd</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="n">ptr</span> <span class="o">+=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
+<span class="n">end</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">parsePseudoAttribute</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nameEnd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">)</span>
+    <span class="o">||</span> <span class="o">!</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+</pre></div>
+
+
+<p>It then calls <code>parsePseudoAttribute()</code> to get the first name/value
+pair in the declaration.  We refer to these as "pseudo-attributes"
+because they are fixed and limited by the standard as we noted
+earlier; only certain "attribute" names are valid, and only in certain
+orders.  Notice that this condition also tests if the <code>name</code> pointer
+is NULL; that will be important later.</p>
+<h2>Pseudo-Attribute Parsing</h2>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">namePtr</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The first thing <code>parsePseudoAttribute()</code> does is to check if there is
+anything to parse.  Recall that the pointers have been moved over the
+fixed parts of the declaration:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+     ^                                                  ^
+     + ptr                                          end +
+</pre></div>
+
+
+<p>If the two pointers are equal, that would mean that we have run out of
+pseudo-attributes to parse, so the correct thing to do is to set the
+name pointer <code>namePtr</code> to NULL and return 1 for success.  If this
+happened at this point of the parse, we would have a completely empty
+XML declaration, which is an error.  The check back in
+<code>doParseXmlDecl()</code> for a NULL name pointer catches this case and will
+return an error back up the call chain.</p>
+<p>Anyway in our case the pointers are still a good way apart, so we move
+on to the next test.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isSpace</span><span class="p">(</span><span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">)))</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>What we are attempting to do is to determine if <code>ptr</code> is pointing to a
+whitespace character.  Unfortunately we can't just use the standard
+library <code>isspace()</code> function for two reasons; first, our input
+encoding may not be what <code>isspace()</code> is expecting, and second, XML
+only accepts a limited set of characters as valid whitespace, and in
+particular does not regard locale-specific spaces as being
+whitespace.  Only a space, tab, newline or carriage return are
+acceptable.</p>
+<p>Therefore we have two steps to perform here.  First, <code>toAscii()</code> is
+called to convert the input to a single ASCII character, or -1 if the
+character isn't legal ASCII.  After that, <code>isSpace()</code> (note the
+capital 'S') compares that against the short list of whitespace
+characters.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span>
+<span class="nf">toAscii</span><span class="p">(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">buf</span><span class="p">;</span>
+  <span class="n">XmlUtf8Convert</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">buf</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="n">buf</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><code>toAscii()</code> is a simple function making use of the encoding's
+conversion functions.  <code>XmlUtf8Convert()</code> is a macro like the
+<code>XmlConvert()</code> macro that was mentioned in the <a href="../expat-internals-a-simple-parse/">previous
+walkthrough</a>, except that it
+selects the appropriate function to convert to UTF-8 rather than to
+the internal encoding.  In our case these happen to be the same thing;
+<code>XmlUtf8Convert()</code> invokes <code>utf8_toUtf8()</code> as described in that
+walkthrough.  Arguably much simpler functions could be used, but the
+conversion functions happen to be there.</p>
+<p>We deliberately supply only one byte of output buffer, because we are
+only looking for ASCII characters, and we don't bother with the return
+value.  It is enough to check whether the output buffer pointer we
+pass to the conversion function is moved on; if it is, we have ASCII
+because those are the only UTF-8 characters that fit in a single byte.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">FASTCALL</span>
+<span class="nf">isSpace</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="mh">0x20</span><span class="o">:</span>
+  <span class="k">case</span> <span class="mh">0xD</span><span class="o">:</span>
+  <span class="k">case</span> <span class="mh">0xA</span><span class="o">:</span>
+  <span class="k">case</span> <span class="mh">0x9</span><span class="o">:</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>In our case we have a space (0x20), which is decoded and fed to
+<code>isSpace()</code>.  This performs the obvious switch and returns 1; a space
+is indeed a whitespace character.</p>
+<p>Back in <code>parsePseudoAttribute()</code> we have the space required to
+separate pseudo-attributes, so we don't throw our hands up in
+horror<sup><a href="#horror">2</a></sup> and return an error.  Instead we proceed
+to skip over any further optional whitespace:</p>
+<div class="highlight"><pre><span></span><span class="k">do</span> <span class="p">{</span>
+  <span class="n">ptr</span> <span class="o">+=</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">isSpace</span><span class="p">(</span><span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">)));</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">namePtr</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>If this puts us at the end of the declaration, again we return with a
+NULL name pointer and let the caller decide whether this is an error.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+      ^                                                 ^
+      + ptr                                         end +
+</pre></div>
+
+
+<p>Fortunately for us there is plenty of text left in the declaration,
+and our <code>ptr</code> is pointing to the start of the pseudo-attribute name.
+We record that, and start a long loop wandering along the name.</p>
+<div class="highlight"><pre><span></span><span class="o">*</span><span class="n">namePtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+  <span class="n">c</span> <span class="o">=</span> <span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</pre></div>
+
+
+<p>Each character is converted to a single-byte ASCII value.  This is a
+plausible thing to do because all of the pseudo-attributes as defined
+by the XML standard have names that consist solely of ASCII
+characters.  If <code>toAscii()</code> returns an error (-1), we cannot have a
+valid pseudo-attribute name so we return 0 to signal an error.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">ASCII_EQUALS</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">nameEndPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+  <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>If we reach an equals sign, we have the end of the pseudo-attribute
+name.  We record that and break out of the loop.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">isSpace</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">nameEndPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+  <span class="k">do</span> <span class="p">{</span>
+    <span class="n">ptr</span> <span class="o">+=</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">isSpace</span><span class="p">(</span><span class="n">c</span> <span class="o">=</span> <span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">)));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_EQUALS</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Alternatively if we have whitespace, we also have the end of the
+pseudo-attribute name, but we need to hunt on until we find something
+that isn't whitespace.  If that something isn't an equals sign, we
+have an error; otherwise we break out of the loop just like when we
+found the equals sign earlier.</p>
+<div class="highlight"><pre><span></span><span class="n">ptr</span> <span class="o">+=</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Finally we move the input pointer on.  This raises the question of
+whether we can run off the end of our input buffer and start trying to
+parse gibberish, since we don't explicitly test for <code>ptr</code> reaching
+<code>end</code>.  We can't run off the buffer, as it happens; the conversion
+function will catch that and return an error, so <code>toAscii()</code> will also
+return an error and <code>parsePseudoAttribute()</code> will pass the error on.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+      ^      ^                                          ^
+      |      + ptr                                  end +
+      |      + *nameEndPtr
+      + *namePtr
+</pre></div>
+
+
+<p>We exit the loop with the start- and end-of-name pointers set to
+capture the pseudo-attribute name, "version" in this case.  Before
+starting in on the pseudo-attribute value, we have one more check to
+make.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">==</span> <span class="o">*</span><span class="n">namePtr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The only way that <code>ptr</code> can be the same as <code>*namePtr</code> is if the first
+character of the "name" was actually the equals sign.  That's clearly
+an error, so we would return 0 to complain about it.  Fortunately we
+don't have that problem, so we move <code>ptr</code> on from the equals and skip
+over any whitespace there might be before the pseudo-attribute value.</p>
+<div class="highlight"><pre><span></span><span class="n">ptr</span> <span class="o">+=</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">isSpace</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+  <span class="n">ptr</span> <span class="o">+=</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
+  <span class="n">c</span> <span class="o">=</span> <span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_QUOT</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_APOS</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>What we want now is a quoted string for our value.  XML accepts either
+single or double quotes, or <code>ASCII_APOS</code> and <code>ASCII_QUOT</code> as the
+macros used here call them.  There are macro definitions for most of
+the ASCII characters in the file <code>ascii.h</code> as hexadecimal numbers.
+It's not entirely clear why these are considered preferable to
+character literals, but the code makes liberal use of them.
+Regardless, we have a double quote here so we don't return an error.</p>
+<div class="highlight"><pre><span></span><span class="n">open</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">c</span><span class="p">;</span>
+<span class="n">ptr</span> <span class="o">+=</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
+<span class="o">*</span><span class="n">valPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+</pre></div>
+
+
+<p>What we do need to do at this point is record which of the quote
+characters were used to open the string, which is just a matter of
+storing it in the local variable <code>open</code>.  The next character must be
+the start of the value proper, so we move the pointer on and record
+that.</p>
+<p>Obviously the next thing we want to do is to skip along input string
+until we run off the end (and <code>toAscii()</code> returns an error) or we find
+our closing quote.  However only a limited number of characters are
+allowed in the value of any pseudo-attribute: ASCII alphanumerics, a
+period, a minus sign or an underscore.  The following loop therefore
+looks rather different to the equivalent for handling normal element
+attributes:</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(;;</span> <span class="n">ptr</span> <span class="o">+=</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">c</span> <span class="o">=</span> <span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">open</span><span class="p">)</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ASCII_a</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_z</span><span class="p">)</span>
+      <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">ASCII_A</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_Z</span><span class="p">)</span>
+      <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">ASCII_0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_9</span><span class="p">)</span>
+      <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_PERIOD</span>
+      <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_MINUS</span>
+      <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_UNDERSCORE</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Once we have found the closing quotes, we can just set the next token
+pointer to the (hopefully) following space and return 1 for success.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+      ^      ^ ^   ^                                    ^
+      |      | |   + *nextTokPtr                    end +
+      |      | + *valPtr
+      |      + *nameEndPtr
+      + *namePtr
+</pre></div>
+
+
+<p>Notice that there is no "end of value" pointer; it has to be deduced
+from the next token pointer.</p>
+<h2>Dealing With The Declaration</h2>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">XmlNameMatchesAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">nameEnd</span><span class="p">,</span> <span class="n">KW_version</span><span class="p">))</span> <span class="p">{</span>
+</pre></div>
+
+
+<p>Control returns in <code>doParseXmlDecl()</code>, where we have the first
+pseudo-attribute in the declaration and so don't immediately raise an
+error.  Instead we check to see if we have the right name; the first
+pseudo-attribute must be "version" according to the XML standard.
+Again we can't do something as straightforward as <code>memcmp()</code> because
+of encoding issues, so we roll our own<sup><a href="#roll">3</a></sup> in the
+form of <code>XmlNameMatchesAscii()</code>.  Just to catch you out, this is a
+macro for a function in the encoding table, this time
+<code>normal_nameMatchesAscii()</code>.</p>
+<p>The <code>KW_version</code> that we pass to <code>normal_nameMatchesAscii()</code> is a
+<code>char</code> constant array made up of <code>ASCII_</code> macro-ed characters spelling
+out "version"; it is somewhat puzzling why this is preferable to a
+string literal, since it is obviously not as clear.  However, that's
+the way the parser likes it.  Ours not to reason
+why.<sup><a href="#lightbrigade">5</a></sup></p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">PTRCALL</span>
+<span class="nf">PREFIX</span><span class="p">(</span><span class="n">nameMatchesAscii</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">UNUSED_P</span><span class="p">(</span><span class="n">enc</span><span class="p">),</span>
+                         <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr1</span><span class="p">,</span>
+                         <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end1</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">for</span> <span class="p">(;</span> <span class="o">*</span><span class="n">ptr2</span><span class="p">;</span> <span class="n">ptr1</span> <span class="o">+=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">),</span> <span class="n">ptr2</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">end1</span> <span class="o">-</span> <span class="n">ptr1</span> <span class="o">&lt;</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">))</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">CHAR_MATCHES</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr1</span><span class="p">,</span> <span class="o">*</span><span class="n">ptr2</span><span class="p">))</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">ptr1</span> <span class="o">==</span> <span class="n">end1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><code>normal_nameMatchesAscii()</code> is pretty straightforward.  It loops
+through both the input string <code>ptr1</code> and the comparison string <code>ptr2</code>,
+checking that it hasn't run out of input string and using
+<code>CHAR_MATCHES()</code> to do encoding-aware comparisons, finishing when it
+runs out of comparison string.  In accordance with its name it returns
+1 (True) if the input text matches the ASCII comparison string, and 0
+(False) if not.  The input text is "version", so in our case we get
+a 1.</p>
+<p>Back in <code>doParseXmlDecl()</code>, we know we have the <code>version</code>
+pseudo-attribute so we load the passed-in pointers with the version
+number string:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">versionPtr</span><span class="p">)</span>
+  <span class="o">*</span><span class="n">versionPtr</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">versionEndPtr</span><span class="p">)</span>
+  <span class="o">*</span><span class="n">versionEndPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+</pre></div>
+
+
+<p>The checks that pointers have actually been passed are unnecessary
+&mdash; they always are &mdash; but they cost little and provide peace
+of mind.</p>
+<p>Then we call <code>parsePseudoAttribute()</code> again for the next
+pseudo-attribute:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">parsePseudoAttribute</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">name</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">nameEnd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">badPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">isGeneralTextEntity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* a TextDecl must have an EncodingDecl */</span>
+    <span class="o">*</span><span class="n">badPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This time we are allowed not to have an attribute (i.e. for <code>name</code> to
+be NULL), since we are an XML declaration not a text declaration
+(i.e. <code>isGeneralTextEntity</code> is zero).  If there wasn't anything after
+the <code>version</code> we would just exit with success here, however in our
+case there is:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+                    ^       ^ ^        ^                ^
+                    |       | + val    + ptr        end +
+                    + name  + nameEnd
+</pre></div>
+
+
+<p>We want it to be "encoding" to be valid according the XML standard,
+and indeed it is.  We are then treated to the ASCII version of
+<code>IS_NMSTRT_CHAR()</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">XmlNameMatchesAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">nameEnd</span><span class="p">,</span> <span class="n">KW_encoding</span><span class="p">))</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ASCII_a</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_z</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+      <span class="o">!</span><span class="p">(</span><span class="n">ASCII_A</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_Z</span><span class="p">))</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">badPtr</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">encodingName</span><span class="p">)</span>
+    <span class="o">*</span><span class="n">encodingName</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+    <span class="o">*</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">encodingFinder</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">ptr</span> <span class="o">-</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">);</span>
+</pre></div>
+
+
+<p>An encoding name must begin with an ASCII alphabetic character, which
+is a pretty straightforward check.  <code>parsePseudoAttribute()</code> has
+already checked that the rest of the characters in the encoding name
+are valid, so we don't need to do the equivalent of <code>IS_NAME_CHAR()</code>
+on them.  Assuming we pass the test, we stash a pointer to the
+encoding name and call the <code>encodingFinder</code> function supplied.</p>
+<h2>Encoding Names</h2>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span>
+<span class="nf">NS</span><span class="p">(</span><span class="n">findEncoding</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="cp">#define ENCODING_MAX 128</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">ENCODING_MAX</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">buf</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="n">XmlUtf8Convert</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="n">ENCODING_MAX</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">!=</span> <span class="n">end</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">streqci</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">KW_UTF_16</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">enc</span><span class="p">;</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="n">getEncodingIndex</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">UNKNOWN_ENC</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">NS</span><span class="p">(</span><span class="n">encodings</span><span class="p">)[</span><span class="n">i</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Finding an encoding given its name is a slightly involved process.
+First we have to convert the name into UTF-8 so that we can compare it
+properly.  The pre-defined encoding names are not particularly long,
+so a buffer of 128 bytes should be more than enough; if we fail to
+convert the whole of the encoding name, clearly we aren't going to
+match any of the encodings we know about!</p>
+<p>Then there is a little special case to deal with.  <code>streqci()</code> is a
+case-insensitive ASCII string comparison routine returning True if the
+two strings are the same after converting their characters to
+uppercase.  <code>enc-&gt;minBytesPerChar</code> contains the size of the "character
+unit" we referred to earlier, i.e. 2 for UTF-16 and 1 for everything
+else.  The condition <code>streqci(buf, KW_UTF_16) &amp;&amp; enc-&gt;minBytesPerChar
+== 2</code> is therefore asking "Have we been asked for UTF-16 <em>without
+specifying big or little endian</em>, and are we already using UTF-16?"
+If we are, we choose to use the same endianness of UTF-16 that we are
+already using; this must be right, otherwise we couldn't have read the
+declaration in the first place!</p>
+<p>Assuming that's not the case, we call <code>getEncodingIndex()</code> to search
+the encodings table for the name.  This is a straightforward array of
+strings rather than anything more complicated; encoding names are
+rarely looked up while parsing, so the power and speed of <a href="../expat-internals-the-hash-tables">hash
+tables</a> for example are
+unnecessary.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">FASTCALL</span>
+<span class="nf">getEncodingIndex</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="k">const</span> <span class="n">encodingNames</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">KW_ISO_8859_1</span><span class="p">,</span>
+    <span class="n">KW_US_ASCII</span><span class="p">,</span>
+    <span class="n">KW_UTF_8</span><span class="p">,</span>
+    <span class="n">KW_UTF_16</span><span class="p">,</span>
+    <span class="n">KW_UTF_16BE</span><span class="p">,</span>
+    <span class="n">KW_UTF_16LE</span><span class="p">,</span>
+  <span class="p">};</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">NO_ENC</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+       <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">encodingNames</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="n">encodingNames</span><span class="p">[</span><span class="mi">0</span><span class="p">]));</span>
+       <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">streqci</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">encodingNames</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+      <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">UNKNOWN_ENC</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><code>getEncodingIndex()</code> is pretty simple.  It returns <code>NO_ENC</code> (6) if
+there is no encoding name to match, <code>UNKNOWN_ENC</code> (-1) if none of the
+names match, or a constant giving the index into the encodings table
+of the encoding requested if it does match something.  In our case we
+have "us-ascii", which unsurprisingly matches <code>KW_US_ASCII</code> and so
+returns 1 (<code>US_ASCII_ENC</code>).  Back in <code>findEncoding()</code>, this leads us
+to return <code>encodings[1]</code>, which is the encoding structure
+<code>ascii_encoding</code>.</p>
+<h2>Alone I Stand</h2>
+<p>With the encoding found (or not, <code>doParseXmlDecl()</code> doesn't actually
+care), we call <code>parsePseudoAttribute()</code> again to see if there is any
+more to do.  Which there is.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+                                        ^         ^ ^   ^
+                                   name + nameEnd + |   + ptr
+                                                val +   + end
+</pre></div>
+
+
+<p>According to the XML standard, the third pseudo-attribute must be
+"standalone", and it mustn't be present in text declarations.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">XmlNameMatchesAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">nameEnd</span><span class="p">,</span> <span class="n">KW_standalone</span><span class="p">)</span>
+    <span class="o">||</span> <span class="n">isGeneralTextEntity</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">badPtr</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Furthermore its value must be either "yes" or "no"; nothing else is
+allowed.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">XmlNameMatchesAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span>
+                        <span class="n">ptr</span> <span class="o">-</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">,</span> <span class="n">KW_yes</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">standalone</span><span class="p">)</span>
+    <span class="o">*</span><span class="n">standalone</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">XmlNameMatchesAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span>
+                             <span class="n">ptr</span> <span class="o">-</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">,</span> <span class="n">KW_no</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">standalone</span><span class="p">)</span>
+    <span class="o">*</span><span class="n">standalone</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">badPtr</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>That's all that is allowed in an XML declaration.  The only thing left
+for <code>doParseXmlDecl()</code> to do is to skip over any trailing whitespace
+and complain if there's anything else in the declaration.</p>
+<div class="highlight"><pre><span></span>  <span class="k">while</span> <span class="p">(</span><span class="n">isSpace</span><span class="p">(</span><span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">)))</span>
+    <span class="n">ptr</span> <span class="o">+=</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">!=</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">badPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2>Declaration Handling</h2>
+<p>Returning back to <code>processXmlDecl()</code>, we have set up a lot of
+pointers.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+               ^   ^          ^                           ^
+       version +   |          + encodingName        *next +
+        versionend +
+</pre></div>
+
+
+<p>In addition, <code>newEncoding</code> points to the encoding structure
+<code>ascii_encoding</code> and <code>standalone</code> is now 1.  We then perform some
+basic checks and transfer these results somewhere more useful.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isGeneralTextEntity</span> <span class="o">&amp;&amp;</span> <span class="n">standalone</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">_dtd</span><span class="o">-&gt;</span><span class="n">standalone</span> <span class="o">=</span> <span class="n">XML_TRUE</span><span class="p">;</span>
+<span class="cp">#ifdef XML_DTD</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">paramEntityParsing</span> <span class="o">==</span> <span class="n">XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE</span><span class="p">)</span>
+    <span class="n">paramEntityParsing</span> <span class="o">=</span> <span class="n">XML_PARAM_ENTITY_PARSING_NEVER</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="cm">/* XML_DTD */</span><span class="cp"></span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>As previously mentioned, text declarations don't allow the
+pseudo-parameter <code>standalone</code> to be present, so we ignore it if
+<code>isGeneralTextEntity</code> is True.  This is a redundant check;
+<code>standalone</code> will have been left alone (-1) if <code>isGeneralTextEntity</code>
+is True, but a little paranoia doesn't hurt.  Otherwise <code>standalone ==
+1</code> causes us to set the <code>standalone</code> flag in the parser's DTD
+structure.  We also check the parameter entity parsing control, which
+could have been set to parse external entities unless the XML document
+is supposed to be standalone.  Since we know now that it is supposed
+to be standalone, we update that control field to disallow external
+parsing.  External entities are a large topic for another time, so we
+won't go into the ramifications of that now.</p>
+<p>If there is an XML declaration handler, or failing that a default
+handler, that gets called next.  Let's assume that we don't have
+handlers and move on to dealing with the encoding.  This is more
+complicated than you might hope.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">protocolEncodingName</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">newEncoding</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">newEncoding</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span> <span class="o">!=</span> <span class="n">encoding</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">eventPtr</span> <span class="o">=</span> <span class="n">encodingName</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">XML_ERROR_INCORRECT_ENCODING</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">encoding</span> <span class="o">=</span> <span class="n">newEncoding</span><span class="p">;</span>
+  <span class="p">}</span>
+</pre></div>
+
+
+<p>If we have previously set an encoding, for example by the user calling
+<code>XML_SetEncoding()</code>, that overrides anything the XML declaration might
+say.  We will have the parser field <code>protocolEncodingName</code> pointing to
+the overriding encoding name in that case, so we skip this whole
+section if the field is not NULL.</p>
+<p>Otherwise if the declaration gave an encoding, i.e. <code>newEncoding</code> is
+not NULL (which indeed is correct), we need to check if it's
+compatible with what we've already seen.  In particular, if the
+requested encoding has a different size of "character unit" to the
+encoding we've been using all along, something is wrong.</p>
+<p><strong>There should be checks that UTF-16 encodings have the same
+endianness.</strong>  As <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#charencoding">section 4.3.3 of the XML
+standard</a>
+rather wordily puts it,</p>
+<blockquote>
+<p>In the absence of information provided by an external transport
+protocol (e.g. HTTP or MIME), it is a fatal error for an entity
+including an encoding declaration to be presented to the XML
+processor in an encoding other than that named in the declaration
+[...]</p>
+</blockquote>
+<p>If all is well, we update the <code>encoding</code> field of the parser structure
+with the new encoding.  From now on, our parsing will expect ASCII
+input.  Notice that we don't update <code>protocolEncodingName</code>; that is
+for overrides only.</p>
+<div class="highlight"><pre><span></span><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">encodingName</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">enum</span> <span class="n">XML_Error</span> <span class="n">result</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">storedEncName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">storedEncName</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span>
+      <span class="o">&amp;</span><span class="n">temp2Pool</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">encodingName</span><span class="p">,</span>
+      <span class="n">encodingName</span> <span class="o">+</span> <span class="n">XmlNameLength</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">encodingName</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">storedEncName</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">handleUnknownEncoding</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">storedEncName</span><span class="p">);</span>
+  <span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">temp2Pool</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">XML_ERROR_UNKNOWN_ENCODING</span><span class="p">)</span>
+    <span class="n">eventPtr</span> <span class="o">=</span> <span class="n">encodingName</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>If <code>newEncoding</code> is NULL but <code>encodingName</code> is not, the declaration
+must have given us an encoding name that <code>findEncoding()</code> didn't
+recognise.  In that case we turn matters over to a user-defined
+unknown encoding handler if there is one, and protest if it doesn't
+sort things out.  User-defined encodings are a complicated and lengthy
+subject that we will go into in a future document; for now, be glad
+that we are not doing that.</p>
+<p>After that, we just tidy up any temporary copies of strings we may
+have made and return success.</p>
+<h2>Continuing the Parse</h2>
+<p>When <code>processXmlDecl()</code> returns control to <code>doProlog()</code>, all that
+remains in the declaration-specific code is for us to ensure we use
+the new encoding (if there is one) and don't gratuitously call any
+user-defined default handler.  Doing the by-now familiar dance of
+checking the parsing state, we end up calling <code>XmlPrologTok()</code> with
+our updated parse pointers:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+                                                          ^
+                                                        s +
+<span class="nt">&lt;doc&gt;</span>Hello, world<span class="nt">&lt;/doc&gt;</span>
+                        ^
+                    end +
+</pre></div>
+
+
+<p>As you may recall, <code>XmlPrologTok()</code> is really a macro disguising a
+function pointer field of the encoding table.  We have a new encoding
+table now, but its prologue tokenizer is still <code>normal_prologTok()</code>.
+In fact <code>normal_prologTok()</code> is used for all 8-bit encodings,
+regardless of their internal differences.</p>
+<p>After ensuring that there is text to parse, which there is, and that
+we only deal in whole character units, <code>normal_prologTok()</code> switches
+on the byte type of the newline character.  This is <code>BT_LF</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_S</span><span class="p">:</span> <span class="k">case</span> <span class="nl">BT_LF</span><span class="p">:</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="n">ptr</span> <span class="o">+=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="n">HAS_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
+</pre></div>
+
+
+<p>Whitespace is meaningless at this point, so we can skip over any
+further spaces, tabs or newlines that we find.  This is complicated a
+little by having to deal with carriage return/linefeed pairs, which
+are used as line endings on some operating systems.</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_S</span><span class="p">:</span> <span class="k">case</span> <span class="nl">BT_LF</span><span class="p">:</span>
+  <span class="k">break</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Spaces and line feeds (newlines) are easy, we just ignore them.</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_CR</span><span class="p">:</span>
+  <span class="cm">/* don&#39;t split CR/LF pair */</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">+</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span> <span class="o">!=</span> <span class="n">end</span><span class="p">)</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="cm">/* fall through */</span>
+</pre></div>
+
+
+<p>Carriage returns we allow through if there is a following character to
+check, otherwise we will treat it as a non-space character just in
+case it was going to be followed by something other than a line feed.</p>
+<div class="highlight"><pre><span></span><span class="k">default</span><span class="o">:</span>
+  <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">XML_TOK_PROLOG_S</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The moment we reach a non-whitespace character (or a lone carriage
+return), we set the next token pointer to it and return
+<code>XML_TOK_PROLOG_S</code>.  This is what happens straight away in our parse;
+the character after the newline is the "&lt;" at the start of "&lt;doc&gt;".</p>
+<p><code>doProlog()</code> loops back to check for errors and ask <code>XmlTokenRole()</code>
+what <code>XML_TOK_PROLOG_S</code> means in this context.  <code>XmlTokenRole()</code> is
+now the handler <code>prolog1()</code> if you recall, and that has no particular
+interest in whitespace:</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="n">tok</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">case</span> <span class="nl">XML_TOK_PROLOG_S</span><span class="p">:</span>
+  <span class="k">return</span> <span class="n">XML_ROLE_NONE</span><span class="p">;</span>
+</pre></div>
+
+
+<p><code>XML_ROLE_NONE</code> means there is nothing to do for this, which
+<code>doProlog()</code> duly does.  Or doesn't.  Whatever.  It then calls the
+tokenizer again to see what's next.</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;doc&gt;</span>Hello, world<span class="nt">&lt;/doc&gt;</span>
+^                       ^
++ ptr               end +
+</pre></div>
+
+
+<p><code>normal_prologTok()</code> sees the "&lt;" and as before looks at the next
+character "d".  This has a byte type of <code>BT_HEX</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_NMSTRT</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_HEX</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_NONASCII</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_LEAD2</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_LEAD3</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_LEAD4</span><span class="p">:</span>
+  <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span> <span class="o">-</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">XML_TOK_INSTANCE_START</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>We have seen <code>XML_TOK_INSTANCE_START</code> in our <a href="../expat-internals-a-simple-parse/">first
+walkthrough</a>, but then we were
+using <code>prolog0()</code> as the handler.  This time we have <code>prolog1()</code>, so
+we can't necessarily expect it will tell us the same role.</p>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">XML_TOK_INSTANCE_START</span><span class="p">:</span>
+  <span class="n">state</span><span class="o">-&gt;</span><span class="n">handler</span> <span class="o">=</span> <span class="n">error</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">XML_ROLE_INSTANCE_START</span><span class="p">;</span>
+</pre></div>
+
+
+<p>In fact we do get exactly the same role, so <code>doProlog()</code> will pass
+control on to the content processor and everything will continue as
+you would expect from last time.  In the interests of brevity we will
+stop here, but you are welcome to carry on tracing the execution path
+through the library.  The more you do it, the more used you will get
+to the peculiar little habits Expat has.</p>
+<h2>Conclusions</h2>
+<p>Processing an XML declaration is unlike most of the parsing the
+library does, because the XML standard puts some very strict limits on
+what is and is not permitted in the declaration.  All of the valid
+characters permitted in the declaration are in the ASCII character
+set, which dramatically simplifies decoding the input.  The attributes
+have fixed names and must appear in a specific order, simplifying the
+parse.  All in all it is a much more tightly defined environment than
+anything else in an XML document, and the parser takes considerable
+advantage of that.</p>
+<p>Hopefully this article has shed a little light on this rather
+different corner of the parser, and helped you understand a little
+more of how Expat works.  As ever, please don't hesitate to contact me
+if you want to know more details, or if you have anything you would
+specifically like covered in a future article.</p>
+<hr>
+<h2>Footnotes</h2>
+<p><a name="trudge">1</a>: to walk heavily or wearily.  Trudging
+definitely involves effort.</p>
+<p><a name="horror">2</a>: an expression of dismay or disgust, by
+implication somewhat theatrical.</p>
+<p><a name="roll">3</a>: "roll your own" is a phrase first applied to
+cigarettes.  Those who don't like the cigarettes the tobacco companies
+produce can buy paper, filters and tobacco and literally roll a
+cigarette for themselves<sup><a href="#smoking">4</a></sup>.  The phrase has
+become applied to many cases of creating an item for yourself rather
+than buying a pre-made version.</p>
+<p><a name="smoking">4</a>: <a href="https://www.nhs.uk/smokefree/why-quit/smoking-health-problems">smoking is bad for your
+health</a>.
+Seriously.  Trust the medical profession on this one.</p>
+<p><a name="lightbrigade">5</a>:</p>
+<blockquote>
+<p>Theirs not to make reply,<br />
+Theirs not to reason why,<br />
+Theirs but to do and die,<br />
+Into the valley of Death<br />
+Rode the six hundred.</p>
+</blockquote>
+<p>From <em>The Charge of the Light Brigade</em> by Alfred, Lord Tennyson,
+commemorating a suicidal charge at the Battle of Balaclava.</p>
+<p>&mdash;Rhodri James, 13th July 2017</p>
+</div>
+        </div>
+
+        <div class="row">
+        </div>
+
+      </div>
+
+      <div class="col-md-2">
+      </div>
+    </div>
+
+
+  </div>
+
+    <nav id="footer" class="navbar navbar-default">
+    <div class="container">
+        <p id="footer-text" class="navbar-text text-center">
+          <span id="engine">
+            Compiled using
+            <a href="https://docs.getpelican.com">Pelican</a>
+          </span>
+          <span id="theme">
+            with theme
+            <a href="https://github.com/yuex/pelican-chameleon">Chameleon</a>
+          </span>
+          <span id="bootstrap">
+            on top of
+            <a href="https://getbootstrap.com/">Bootstrap</a>
+          </span>
+        </p>
+      </div>
+    </div>
+  </nav>
+
+
+</body>
+</html>
