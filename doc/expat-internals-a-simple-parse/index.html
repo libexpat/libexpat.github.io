@@ -565,7 +565,7 @@ well:</p>
   <span class="n">ptr</span> <span class="o">+=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
   <span class="k">break</span><span class="p">;</span>
 
-<span class="k">case</span> <span class="nl">BT_LEAD_2</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_LEAD2</span><span class="p">:</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">IS_NMSTRT_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">{</span>
@@ -575,7 +575,7 @@ well:</p>
   <span class="n">ptr</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
   <span class="k">break</span><span class="p">;</span>
 
-<span class="k">case</span> <span class="nl">BT_LEAD_3</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_LEAD3</span><span class="p">:</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">IS_NMSTRT_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="p">{</span>
@@ -585,7 +585,7 @@ well:</p>
   <span class="n">ptr</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
   <span class="k">break</span><span class="p">;</span>
 
-<span class="k">case</span> <span class="nl">BT_LEAD_4</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_LEAD4</span><span class="p">:</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">IS_NMSTRT_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="p">{</span>
@@ -597,7 +597,7 @@ well:</p>
 </pre></div>
 
 
-<p>Let's take those last cases first.  <code>BT_LEAD_4</code> indicates a character
+<p>Let's take those last cases first.  <code>BT_LEAD4</code> indicates a character
 that is the start of a sequence of four bytes.  Note that here we are
 talking about bytes, not units of <code>MINBPC</code>, which can be a little
 confusing when the input is UTF-16.  The code in this case checks that
@@ -614,7 +614,7 @@ this is not quite true; <code>utf8_isNmstrt4()</code> is a macro disguise for
 <code>isNever()</code>, a function that always returns False.  This makes sense,
 since none of the characters encoded as four bytes in UTF-8 are valid
 starts of names.</p>
-<p><code>BT_LEAD_3</code> similarly indicates a character that is the start of a
+<p><code>BT_LEAD3</code> similarly indicates a character that is the start of a
 sequence of three bytes.  Its case checks that there are at least
 three bytes available, then calls through the <code>isNmstrt3</code> function
 pointer in the encoding.  This time <code>utf8_isNmstrt3()</code> as it becomes
@@ -626,7 +626,7 @@ look up that codepoint (an integer in the range 0&ndash;1114111
 UTF-8 sequence<sup><a href="#utf83">7</a></sup>) in a large bit array.  If the
 corresponding bit is set, that Unicode character is a valid
 start-of-name character.</p>
-<p><code>BT_LEAD_2</code> works just like <code>BT_LEAD_3</code>, just with two-byte
+<p><code>BT_LEAD2</code> works just like <code>BT_LEAD3</code>, just with two-byte
 sequences.</p>
 <p><code>BT_HEX</code> and <code>BT_NMSTRT</code> are easy.  The first one is a letter that
 could be a valid hexadecimal digit, i.e. "a" or "f" or "A" to "F".
@@ -1220,7 +1220,7 @@ case.  A relic of our feudal past.</p>
 Pooh-Bah in Gilbert and Sullivan's opera <em>The Mikado</em>, who listed
 among his various titles "Lord High Everything Else".  Sometimes used
 to mock overly self-important people, but Sebastian really does do
-everythine else!</p>
+everything else!</p>
 <p><a name="palm">3</a>: "to palm something off on someone" means to pass
 responsibility for something to someone.  It is usually used in the
 sense of selling a fake or counterfeit object, though not here.</p>
