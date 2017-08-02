@@ -3,6 +3,9 @@ Date: 2017-06-03
 License: MIT
 slug: news
 
+* 2017-08-02 —
+  [Expat 2.2.3](https://github.com/libexpat/libexpat/blob/R_2_2_3/expat/Changes)
+  has been released
 * 2017-07-19 —
   New article:
   [Expat Internals: String Pools](../expat-internals-string-pools/)

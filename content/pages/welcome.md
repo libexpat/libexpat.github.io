@@ -6,6 +6,9 @@ url:
 
 # Latest News
 
+* 2017-08-02 —
+  [Expat 2.2.**3**](https://github.com/libexpat/libexpat/blob/R_2_2_3/expat/Changes)
+  has been released, includes **security fixes**
 * 2017-07-19 —
   New article:
   [Expat Internals: String Pools](doc/expat-internals-string-pools/)
