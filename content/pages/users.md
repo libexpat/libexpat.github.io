@@ -89,7 +89,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [FlightGear](https://sourceforge.net/p/flightgear/fgrun/) — Flight Gear Flight Simulator
     * [Firefox](https://www.mozilla.org/en-US/firefox/)
     * [Fontconfig](http://fontconfig.org/)
-    * [fre:ac](https://www.freac.org/)
+    * [fre:ac CDK](https://www.freac.org/) — Free audio converter and CD ripper
 * __G__
     * [GANGI](http://www.gamgi.org/) — General Atomistic Modelling Graphic Interface
     * [Ganglia](http://ganglia.sourceforge.net/)
