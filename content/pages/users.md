@@ -50,7 +50,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [CDuce](http://www.cduce.org/) — programming language adapted to the manipulation of XML data
     * [CEGUI](http://cegui.org.uk/)
     * [CenterIM](http://www.centerim.org/index.php/Main_Page)
-    * [Ceph](http://ceph.com/)
+    * [Ceph / librgw](https://github.com/ceph/ceph/blob/master/src/rgw/rgw_xml.cc) — Ceph RADOS Gateway client library
     * [Chromium](http://chromium.org/)
     * [Citadel](http://www.citadel.org/doku.php) — groupware server
     * [clamz](https://code.google.com/archive/p/clamz/) — command-line program to download MP3s from Amazon
@@ -59,12 +59,14 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [cobex](http://cobex.sourceforge.net/)
     * [Coin3D](https://bitbucket.org/Coin3D/coin/wiki/Home)
     * [Comet MS/MS search engine](https://sourceforge.net/projects/comet-ms/) — Tandem mass spectrometry (MS/MS) search engine
+    * [C-Pluff](http://www.c-pluff.org/) — Plug-in framework for C
     * [CSVfix](https://bitbucket.org/neilb/csvfix)
     * [CURL example code](https://github.com/curl/curl/blob/HEAD/docs/examples/xmlstream.c) (not CURL itself)
 * __D__
     * [DACS (Distributed access control)](https://dacs.dss.ca/) — single sign-on and rule-based access control system
     * [Dasher](http://www.inference.org.uk/dasher/) — graphical predictive text input system
     * [D-Bus](https://www.freedesktop.org/wiki/Software/dbus/)
+    * [DFXML / tcpflow](https://github.com/simsong/dfxml/blob/master/src/dfxml_reader.cpp) — Digital Forensics XML project and library
     * [digiKam](https://www.digikam.org/)
     * [discover](https://packages.debian.org/sid/discover) — hardware identification system
     * [Dovecot SOLR plug-in](http://www.dovecot.org/)
@@ -93,17 +95,18 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __G__
     * [GANGI](http://www.gamgi.org/) — General Atomistic Modelling Graphic Interface
     * [Ganglia](http://ganglia.sourceforge.net/)
+    * [GCDM / gdcmexpat](http://gdcm.sourceforge.net/) — Grassroots DICOM library
     * [GDAL](http://www.gdal.org/)
     * [GDB](https://sourceware.org/gdb/)
     * [gdigi](http://desowin.org/gdigi/) — utility to control DigiTech effect pedals
     * [Geant 4](http://geant4.cern.ch/)
     * [GenomeTools](http://genometools.org/) — versatile genome analysis toolkit
     * [gettext](https://www.gnu.org/software/gettext/)
-    * [GIFTI](http://www.nitrc.org/projects/gifti) — Geometry format under the Neuroimaging Informatics Technology Initiative (NIfTI)
+    * [GIFTI / libgiftiio](http://www.nitrc.org/projects/gifti) — Geometry format under the Neuroimaging Informatics Technology Initiative (NIfTI)
     * [Git](https://www.git-scm.com/)
     * [Gnash](https://www.gnu.org/software/gnash/)
     * [GNU Gatekeeper](https://www.gnugk.org/) — OpenH323 Gatekeeper (IP telephony (VOIP), video conferencing)
-    * [GNU Image-Finding Tool (gift)](https://www.gnu.org/software/gift/) — index and search images by content
+    * [GNU Image-Finding Tool (gift/gnuift)](https://www.gnu.org/software/gift/) — index and search images by content
     * [Godot](https://godotengine.org/)
     * [Goggles Music Manager](https://gogglesmm.github.io/)
     * [Google Earth Enterprise / libsgl](https://github.com/google/earthenterprise/blob/HEAD/earth_enterprise/src/third_party/sgl/v0_8_6/src/SkXMLParser_expat.cpp)
@@ -138,56 +141,67 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [LFTP](http://lftp.tech/)
     * [libarchive](http://www.libarchive.org/)
     * [libcutl](http://www.codesynthesis.com/projects/libcutl/)
-    * [LibDOM](http://www.netsurf-browser.org/projects/libdom/)
+    * [LibDOM / NetSurf](http://www.netsurf-browser.org/projects/libdom/)
     * [libgadu](http://libgadu.net/)
-    * [libisds](http://xpisar.wz.cz/libisds/)
+    * [libisds](http://xpisar.wz.cz/libisds/) — Czech Data Boxes access library
     * [libkml](https://github.com/google/libkml/blob/8609edf7c8d13ae2ddb6eac2bca7c8e49c67a5f8/src/kml/base/expat_parser.cc)
     * [libmesode](https://github.com/boothj5/libmesode)
     * [libmetalink](https://launchpad.net/libmetalink)
-    * [libnih](https://launchpad.net/libnih)
+    * [libnih / nih-dbus-tool](https://launchpad.net/libnih)
     * [LibOFA](https://code.google.com/p/musicip-libofa/)
+    * [libopkele](http://kin.klever.net/libopkele/) — OpenID support library in C++
+    * [libosmium](http://osmcode.org/libosmium/) — C++ framework for working with OSM data files
     * [libprotobuf-mutator](https://github.com/google/libprotobuf-mutator/blob/HEAD/examples/expat/expat_example.cc)
     * [LibreOffice](http://www.libreoffice.org)
     * [libstrophe](https://github.com/strophe/libstrophe)
     * [libsolv / libzypp](http://doc.opensuse.org/projects/libzypp/HEAD/)
+    * [libsynthesis](http://www.synthesis.ch/indefero/index.php/p/libsynthesis/) — library for SyncML-DS (SyncML Data Sync) clients
     * [libwbxml](https://github.com/libwbxml/libwbxml)
     * [libwmf](http://wvware.sourceforge.net/)
     * [libwww](https://www.w3.org/Library/)
     * [libxspf](http://libspiff.sourceforge.net/)
     * [Liquid War 6](https://www.gnu.org/software/liquidwar6/)
     * [litmus](http://www.webdav.org/neon/litmus/)
+    * [log4c](http://log4c.sourceforge.net/) — C library for flexible logging
 * __M__
-    * [Magics++](https://software.ecmwf.int/wiki/display/MAGP/Magics) — latest generation of the ECMWF's Meteorological plotting software MAGICS
+    * [Magics++ / libmagplus](https://software.ecmwf.int/wiki/display/MAGP/Magics) — latest generation of the ECMWF's Meteorological plotting software MAGICS
     * [MakeMKV](http://www.makemkv.com/)
     * [mamory](https://sourceforge.net/projects/mamory/)
     * [MapServer](http://mapserver.org/)
+    * [matchbox-keyboard](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-keyboard/) — on-screen 'virtual' or 'software' keyboard, designed for touch-screen devices running X
+    * [matchbox-window-manager](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-window-manager/) — window manager for resource-limited systems
+    * [matchbox-window-manager 2](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-window-manager-2/) — window manager for resource-limited systems
     * [matita](http://matita.cs.unibo.it/) — interactive theorem prover
     * [MediaTomb](http://www.mediatomb.cc/)
     * [Memphis](http://trac.openstreetmap.ch/trac/memphis/)
-    * [Mesa 3D Graphics Library](https://www.mesa3d.org/)
+    * [Mesa 3D Graphics Library / libgbm](https://www.mesa3d.org/)
     * [MIRA](http://www.chevreux.org/projects_mira.html)
     * [mod_auth_openid](http://findingscience.com/mod_auth_openid/) — OpenID authentication module for Apache2
     * [mod_dav](http://www.webdav.org/mod_dav/)
+    * [mstoolkit](https://github.com/mhoopmann/mstoolkit/blob/master/src/mzParser/saxhandler.cpp) — libraries for manipulating mass spectrometry data
     * [Music Player Daemon](https://www.musicpd.org)
     * [mu-conference / jabber-muc](https://gna.org/projects/mu-conference/)
 * __N__
     * [neon](http://www.webdav.org/neon/)
     * [nginx-dav-ext-module](https://github.com/arut/nginx-dav-ext-module)
+    * [nrss](http://www.codezen.org/nrss/) — ncurses-based RSS reader
     * [NuSMV](http://nusmv.fbk.eu/)
     * [NXLog Community Edition](https://nxlog.co/products/nxlog-community-edition)
 * __O__
     * [OGDI](http://ogdi.sourceforge.net/)
     * [openam](H.323 answering machine) — H.323 answering machine
     * [OpenCOLLADA](http://www.opencollada.org/)
+    * [OpenSIPS](http://www.opensips.org/) (modules `jabber` and `xmpp`) — very fast and configurable SIP server
     * [OpenVanilla](https://github.com/openvanilla/openvanilla/commit/bac11c8a818c53e020c903c6f32f220e5c48af91) (prior to version 0.7.1)
     * [ophcrack](http://ophcrack.sourceforge.net/) — Microsoft Windows password cracker using rainbow tables
+    * [osm2pgrouting](https://github.com/pgRouting/osm2pgrouting/blob/master/src/XMLParser.cpp) — Tool to import OpenStreetMap data into a pgRouting database
     * [Osm2pgsql](http://wiki.openstreetmap.org/wiki/Osm2pgsql)
 * __P__
     * [ParaView](https://www.paraview.org/)
     * [POCO](https://pocoproject.org/)
     * [Poedit](https://poedit.net)
     * [polkit](https://www.freedesktop.org/wiki/Software/polkit/)
-    * [ptlib](http://www.opalvoip.org/)
+    * [ptlib (Portable Tools Library)](http://www.opalvoip.org/)
     * [PyPy](http://pypy.org/)
     * [Python](https://www.python.org/)
     * [pyxml](http://pyxml.sourceforge.net/)
@@ -200,6 +214,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [RawTherapee](http://www.rawtherapee.com/)
     * [readosm](https://www.gaia-gis.it/spatialite)
     * [Redland RDF Library](http://librdf.org/)
+    * [rfdump](http://www.rfdump.org/) — tool to decode RFID tag data
     * [RNV](https://github.com/hartwork/rnv)
 * __S__
     * [s3backer](https://github.com/archiecobbs/s3backer)
@@ -220,38 +235,46 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Subversion](http://subversion.apache.org/)
     * [Swift XMPP Client](http://swift.im/)
 * __T__
+    * [Tandem](http://www.thegpm.org/TANDEM/) — mass spectrometry software for protein identification
     * [TECkit](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&cat_id=TECkit)
     * [thin-provisioning-tools](https://github.com/jthornber/thin-provisioning-tools)
     * [Thunderbird](https://www.mozilla.org/en-US/thunderbird/)
     * [Tivoli Storage Manager](https://www.ibm.com/cloud-computing/products/devops/it-operations-management/)
     * [TORCS](http://torcs.sourceforge.net/) (uses modified Expat fork "txml")
     * [TortoiseSVN](https://tortoisesvn.net/) — Subversion client, implemented as a Windows shell extension
+    * [Trusted QSL](http://sourceforge.net/projects/trustedqsl/) — QSL log signing for the Logbook of the World (LoTW)
 * __U__
     * [UDUNITS](https://www.unidata.ucar.edu/software/udunits/)
     * [uim](https://github.com/uim/uim/)
     * [Unbound](http://unbound.net/)
+    * [urfkill](http://www.freedesktop.org/wiki/Software/urfkill) — wireless killswitch management daemon for laptops
     * [uWSGI](http://projects.unbit.it/uwsgi/)
 * __V__
     * [vdr-rssreader](http://www.saunalahti.fi/~rahrenbe/vdr/rssreader/)
     * [Viking](https://sourceforge.net/projects/viking/)
     * [VirtualBox](https://www.virtualbox.org/)
     * [VMD](http://www.ks.uiuc.edu/Research/vmd/)
+    * [VOMS](https://wiki.italiangrid.it/VOMS) — Virtual Organization Membership Service
     * [VOTCA](http://www.votca.org)
     * [vstgui](https://github.com/steinbergmedia/vstgui)
+    * [Virtuoso Open-Source Edition](http://vos.openlinksw.com/owiki/wiki/VOS/) — high-performance object-relational SQL database
     * [VTK](http://www.vtk.org/)
 * __W__
     * [Wayland](https://wayland.freedesktop.org/)
     * [WebKit / libwebrtc](https://github.com/WebKit/webkit/blob/master/Source/ThirdParty/libwebrtc/Source/third_party/expat/files/lib)
       (prior to [this commit](https://github.com/WebKit/webkit/commit/7c6bc1c04c2c64c95f0adfcdc504d94c5beee927))
+    * [white_dune](http://wdune.ourproject.org/) — graphical VRML97/X3D viewer, editor, 3D modeller and animation tool
     * [WinMerge 2](http://winmerge.org/)
     * [WinSCP](https://winscp.net/eng/index.php)
     * [WinSparkle](https://github.com/vslavik/winsparkle/tree/master/3rdparty)
+    * [wvWare / libwv](http://www.abisource.com/projects/) — library which allows access to Microsoft Word files
     * [wxWidgets](http://wxwidgets.org/)
     * [wxSVG](http://wxsvg.sourceforge.net/)
 * __X__
     * [xkbd](http://trac.hackable1.org/trac/wiki/Xkbd)
     * [XML Copy Editor](http://xml-copy-editor.sourceforge.net/) — fast, free, validating XML editor
     * [xmlrpc-epi](http://xmlrpc-epi.sourceforge.net/)
+    * [XPilot NG](http://xpilot.sourceforge.net/) — Multi-player tactical game for X (NG version)
 * __Y__
     * [Ymagine](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c)
 * __Z__

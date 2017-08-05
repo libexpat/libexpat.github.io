@@ -83,6 +83,7 @@ interfaces to Expat from languages other than C.
 * __TCL__
     * The [TclXML project](http://tclxml.sourceforge.net/) includes a [Tcl](http://tcl.activestate.com/) binding for Expat
     * [tDOM](http://www.tdom.org/) is an alternate package providing XML support for [Tcl](http://tcl.activestate.com/), based in part on Expat.
+    * [XOTcl](http://media.wu.ac.at/) — Extended Object Tcl
 * __Xojo__
     * [XMLReader class](http://docs.xojo.com/index.php/XMLReader)
 * __Vicare Scheme__
