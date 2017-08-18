@@ -10,7 +10,14 @@ Thank you!
 
 Wherever you go, Expat is already waiting for you:
 
-* __GNU/Linux__
+* __BSD__
+    * [DragonFlyBSD](https://github.com/DragonFlyBSD/DPorts/tree/master/textproc/expat2)
+    * [FreeBSD](https://svnweb.freebsd.org/ports/head/textproc/expat2/)
+    * [NetBSD](http://pkgsrc.se/textproc/expat)
+    * [OpenBSD](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libexpat/)
+* __Haiku__
+    * [HaikuPorts](https://github.com/haikuports/haikuports/tree/master/dev-libs/expat)
+* __Linux__
     * [Alpine Linux](https://git.alpinelinux.org/cgit/aports/tree/main/expat)
     * [ALT Linux](https://packages.altlinux.org/en/Sisyphus/srpms/expat)
     * [Arch Linux](https://git.archlinux.org/svntogit/packages.git/log/trunk?h=packages/expat)
@@ -36,13 +43,6 @@ Wherever you go, Expat is already waiting for you:
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/voidlinux/void-packages/tree/master/srcpkgs/expat)
     * [Yocto Project](https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-core/expat)
-* __BSD__
-    * [DragonFlyBSD](https://github.com/DragonFlyBSD/DPorts/tree/master/textproc/expat2)
-    * [FreeBSD](https://svnweb.freebsd.org/ports/head/textproc/expat2/)
-    * [NetBSD](http://pkgsrc.se/textproc/expat)
-    * [OpenBSD](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libexpat/)
-* __Haiku__
-    * [HaikuPorts](https://github.com/haikuports/haikuports/tree/master/dev-libs/expat)
 * __macOS__
     * [Fink](http://pdb.finkproject.org/pdb/package.php/expat1)
     * [Gentoo Prefix](https://packages.gentoo.org/packages/dev-libs/expat)
