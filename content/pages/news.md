@@ -36,3 +36,39 @@ slug: news
 * 2016-03-12 —
   [Expat 2.1.1](https://github.com/libexpat/libexpat/blob/R_2_1_1/expat/Changes)
   has been released
+* 2012-03-24 —
+  [Expat 2.1.0](https://github.com/libexpat/libexpat/blob/R_2_1_0/expat/Changes)
+  has been released
+* 2007-06-05 —
+  [Expat 2.0.1](https://github.com/libexpat/libexpat/blob/R_2_0_1/expat/Changes)
+  has been released
+* 2006-01-11 —
+  [Expat 2.0.0](https://github.com/libexpat/libexpat/blob/R_2_0_0/expat/Changes)
+  has been released
+* 2004-07-23 —
+  [Expat 1.95.8](https://github.com/libexpat/libexpat/blob/R_1_95_8/expat/Changes)
+  has been released
+* 2003-10-20 —
+  [Expat 1.95.7](https://github.com/libexpat/libexpat/blob/R_1_95_7/expat/Changes)
+  has been released
+* 2003-01-28 —
+  [Expat 1.95.6](https://github.com/libexpat/libexpat/blob/R_1_95_6/expat/Changes)
+  has been released
+* 2002-09-06 —
+  [Expat 1.95.5](https://github.com/libexpat/libexpat/blob/R_1_95_5/expat/Changes)
+  has been released
+* 2002-07-12 —
+  [Expat 1.95.4](https://github.com/libexpat/libexpat/blob/R_1_95_4/expat/Changes)
+  has been released
+* 2002-06-03 —
+  [Expat 1.95.3](https://github.com/libexpat/libexpat/blob/R_1_95_3/expat/Changes)
+  has been released
+* 2001-07-27 —
+  [Expat 1.95.2](https://github.com/libexpat/libexpat/blob/R_1_95_2/expat/Changes)
+  has been released
+* 2000-10-22 —
+  Expat 1.95.1
+  has been released
+* 2000-09-29 —
+  [Expat 1.95.0](https://github.com/libexpat/libexpat/blob/R_1_95_0/expat/Changes)
+  has been released
