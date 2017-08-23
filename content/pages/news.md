@@ -72,3 +72,12 @@ slug: news
 * 2000-09-29 —
   [Expat 1.95.0](https://github.com/libexpat/libexpat/blob/R_1_95_0/expat/Changes)
   has been released
+* 1999-01-09 —
+  Expat 1.0.2
+  has been released
+* 1998-11-22 —
+  Expat 1.0.1
+  has been released
+* 1998-08-14 —
+  Expat 1.0
+  has been released
