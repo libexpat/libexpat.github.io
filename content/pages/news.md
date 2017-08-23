@@ -1,8 +1,11 @@
 Title: Expat News
-Date: 2017-06-03
+Date: 2017-08-23
 License: MIT
 slug: news
 
+* 2017-08-19 —
+  [Expat 2.2.4](https://github.com/libexpat/libexpat/blob/R_2_2_4/expat/Changes)
+  has been released
 * 2017-08-02 —
   [Expat 2.2.3](https://github.com/libexpat/libexpat/blob/R_2_2_3/expat/Changes)
   has been released
