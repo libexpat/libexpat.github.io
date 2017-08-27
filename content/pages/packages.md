@@ -15,6 +15,7 @@ Wherever you go, Expat is already waiting for you:
     * [FreeBSD](https://svnweb.freebsd.org/ports/head/textproc/expat2/)
     * [NetBSD](http://pkgsrc.se/textproc/expat)
     * [OpenBSD](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libexpat/)
+    * [Ravenports](https://github.com/jrmarino/Ravenports/blob/master/bucket_31/expat)
 * __Haiku__
     * [HaikuPorts](https://github.com/haikuports/haikuports/tree/master/dev-libs/expat)
 * __Linux__
@@ -23,6 +24,7 @@ Wherever you go, Expat is already waiting for you:
     * [Arch Linux](https://git.archlinux.org/svntogit/packages.git/log/trunk?h=packages/expat)
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
     * [CentOS](http://centos-packages.com/7/package/expat/versions/)
+    * [CRUX](https://crux.nu/gitweb/?p=ports/compat-32.git;a=tree;f=expat-32;hb=HEAD)
     * [Debian](https://packages.debian.org/source/sid/expat)
     * [Exherbo](http://git.exherbo.org/arbor.git/tree/packages/dev-libs/expat)
     * [Fedora](https://apps.fedoraproject.org/packages/expat-devel/overview/)
@@ -33,11 +35,16 @@ Wherever you go, Expat is already waiting for you:
     * [Linuxbrew](http://braumeister.org/formula/expat)
     * [Mageia](https://madb.mageia.org/package/show/name/expat/release/cauldron/application/0/arch/x86_64)
     * [meta-debian](https://github.com/meta-debian/meta-debian/blob/master/recipes-debian/expat/expat_debian.bb)
+    * Mint
     * [NixOS](https://github.com/NixOS/nixpkgs/commits/master/pkgs/development/libraries/expat/default.nix)
+    * OpenMandriva
     * [openSUSE](https://build.opensuse.org/package/show/devel:libraries:c_c++/expat)
     * [OpenWrt](https://github.com/openwrt/packages/blob/master/libs/expat/Makefile)
     * [Parabola](https://www.parabola.nu/packages/testing/x86_64/expat/)
+    * PCLinuxOS
     * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
+    * ROSA
+    * Slackware
     * [Solus Project](https://dev.solus-project.com/source/expat/)
     * [T2](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
@@ -54,3 +61,8 @@ Wherever you go, Expat is already waiting for you:
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
     * [Native installer](https://sourceforge.net/projects/expat/files/expat_win32/)
     * [NuGet](https://www.nuget.org/packages?q=expat)
+
+
+See also:
+
+* [Versions for expat](https://repology.org/metapackage/expat/versions) (repology.org)
