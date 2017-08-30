@@ -8,6 +8,9 @@ url:
 
 * 2017-10-21 —
   New article:
+  [Writing A Custom Encoding](doc/writing-a-custom-encoding/)
+* 2017-10-21 —
+  New article:
   [Expat Internals: Parsing XML Declarations](doc/expat-internals-parsing-xml-declarations/)
 * 2017-08-19 —
   [Expat 2.2.**4**](https://github.com/libexpat/libexpat/blob/R_2_2_4/expat/Changes)

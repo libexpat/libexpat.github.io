@@ -6,6 +6,10 @@ slug: news
 
 * 2017-10-21 —
   New article:
+  [Writing A Custom Encoding](../writing-a-custom-encoding/)
+  describes how to add a custom character encoding to your parser.
+* 2017-10-21 —
+  New article:
   [Expat Internals: Parsing XML Declarations](../expat-internals-parsing-xml-declarations/)
 * 2017-08-19 —
   [Expat 2.2.4](https://github.com/libexpat/libexpat/blob/R_2_2_4/expat/Changes)
