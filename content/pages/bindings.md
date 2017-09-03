@@ -21,7 +21,7 @@ interfaces to Expat from languages other than C.
     * [expat-dom](https://github.com/kolotsey/expat-dom) — Easy-to-use DOM interface written in C
     * The [Simple C Expat Wrapper](http://www.nongnu.org/scew/) is a wrapper around Expat that provides a light-weight object model somewhat like a DOM.
 * __C++__
-    * [ExpatMM -- C++ interface to Expat](http://devzone.intellitree.com/projects/expatmm/)
+    * [ExpatMM -- C++ interface to Expat](https://github.com/ckane/expatmm)
     * _[C++ Wrappers for the Expat XML Parser](http://www.codeproject.com/soap/expatimpl.asp "C++ Wrappers for the Expat XML Parser" )_, an article by Tim Smith providing object-oriented wrappers for Expat. The wrappers use some MFC-biased naming, but look interesting.
     * [Arabica](http://www.jezuk.co.uk/cgi-bin/view/arabica "Arabica" ) \-- an XML Parser toolkit for C++ programmers, with SAX2 implementations based on several parsers, including Expat.
     * [expatpp](https://sourceforge.net/projects/expatpp/) c++ layer for expat
