@@ -18,7 +18,7 @@ Thank you!
 # <a name="split-character-data"></a> Character data may be split across multiple handler calls
 
 If you register a character data handler with
-XML_SetCharacterDataHandler(), you might expect that you would be
+`XML_SetCharacterDataHandler()`, you might expect that you would be
 called just once for each section of character data.  Unfortunately
 you would be wrong.  Expat can and will split up character data in an
 arbitrary manner, presenting each set of characters in separate
@@ -41,12 +41,13 @@ structured, you may well be able to do better than that.
 There is a note in the description of
 `XML_ExternalEntityParserCreate()` in `expat.h` that is easy to miss:
 
-> [XML_ExternalEntityParserCreate()] can be called at any point _after_ the first call to an ExternalEntityRefHandler [...]
+> `XML_ExternalEntityParserCreate()` can be called at any point _after_ the
+first call to an ExternalEntityRefHandler [...]
 
 Unfortunately this conflicts with a common programming pattern, that
 of creating everything ahead of time; in particular, creating
 sub-parsers before starting to parse the input, which will be well
-before any ExternalEntityRefHandler is called.  This appears to work,
+before any `ExternalEntityRefHandler` is called.  This appears to work,
 but the sub-parsers will be unable to communicate their results back
 to the main parser.
 
@@ -54,7 +55,7 @@ There are a number of "fixes" to this issue that generally cause more
 serious problems of their own.  The best solution is to do what
 `expat.h` says and not create a sub-parser until the appropriate
 handler is called.  The test suite has a lot of examples of creating
-and disposing of parsers in the ExternalEntityRefHandler itself.
+and disposing of parsers in the `ExternalEntityRefHandler` itself.
 
 
 # <a name="temporary-strings"></a> Strings pass to handlers are only temporary
