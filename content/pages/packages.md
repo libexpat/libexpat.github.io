@@ -4,7 +4,7 @@ License: MIT
 slug: packages
 
 > Please note, **this website is work-in-progress**.<br />
-Be encouraged to [join improving this website](doc/contribute-website/).
+Be encouraged to [join improving this website](../contribute-website/).
 Thank you!
 
 
