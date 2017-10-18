@@ -39,7 +39,7 @@ Welcome to Expat, a stream-oriented XML parser library written in C.<br/>
 Expat excels with files too large to fit RAM, and
 where performance and flexibility are crucial.
 
-There are a number of [applications and libaries using Expat](doc/users/),
+There are a number of [applications and libraries using Expat](doc/users/),
 as well as [bindings and 3rd-party wrappers](doc/bindings/).
 Expat is [packaged everywhere](doc/packages/).
 
