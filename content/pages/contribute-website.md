@@ -15,7 +15,8 @@ This website is maintained using
 * [Markdown syntax](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
   files for articles
 * [Pelican](https://blog.getpelican.com/)
-  (and theme `notmyidea`) to render HTML from Markdown
+  (and theme [Chameleon](https://github.com/yuex/pelican-chameleon))
+  to render HTML from Markdown
 * [Pull requests](https://github.com/libexpat/libexpat.github.io/pulls)
   against Git repository
   [libexpat/libexpat.github.io](https://github.com/libexpat/libexpat.github.io)
