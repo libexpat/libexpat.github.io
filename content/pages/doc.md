@@ -24,6 +24,7 @@ Please read:
 1. [Expat Internals: A Simple Parse](expat-internals-a-simple-parse/)
 1. [Expat Internals: The Hash Tables](expat-internals-the-hash-tables/)
 1. [Expat Internals: String Pools](expat-internals-string-pools/)
+1. [Expat Internals: Parsing XML Declarations](expat-internals-parsing-xml-declarations/)
 
 
 # External Articles and References
