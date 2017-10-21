@@ -1,10 +1,11 @@
 Title: Writing A Custom Encoding
-Date: 30 August 2017
+Date: 21 October 2017
 License: MIT
 Category: Maintenance
 Tags: encodings
 Author: Rhodri James
 Summary: How to cope with alternative character encodings
+Slug: writing-a-custom-encoding
 
 _Written by Rhodri James_
 
