@@ -17,7 +17,7 @@ PAGE_SAVE_AS = '%s/{slug}/index.html' % _DOC_MASTER
 DISPLAY_PAGES_ON_MENU = False
 MENUITEMS = (
     ('Changelog', _github('/blob/master/expat/Changes')),
-    ('Download', 'https://sourceforge.net/projects/expat/files/'),
+    ('Download', 'https://github.com/libexpat/libexpat/releases'),
     ('Documentation', SITEURL + '/%s/' % _DOC_MASTER),
     ('Git Repository', _github()),
     ('Users', SITEURL + '/' + PAGE_URL.format(slug='users')),
