@@ -1,10 +1,11 @@
 Title: Expat Internals: Parsing XML Declarations
-Date: 28 July 2017
+Date: 21 October 2017
 License: MIT
 Category: Maintenance
 Tags: internal, walkthrough
 Author: Rhodri James
 Summary: A walk-through of parsing an XML declaration
+Slug: expat-internals-parsing-xml-declarations
 
 _Written by Rhodri James_
 
