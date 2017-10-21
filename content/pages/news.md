@@ -67,7 +67,7 @@ slug: news
   [Expat 1.95.2](https://github.com/libexpat/libexpat/blob/R_1_95_2/expat/Changes)
   has been released
 * 2000-10-22 —
-  Expat 1.95.1
+  [Expat 1.95.1](https://github.com/libexpat/libexpat/blob/R_1_95_2/expat/Changes#L13)
   has been released
 * 2000-09-29 —
   [Expat 1.95.0](https://github.com/libexpat/libexpat/blob/R_1_95_0/expat/Changes)
