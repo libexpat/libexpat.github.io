@@ -54,7 +54,7 @@
                 </li>
 
                 <li >
-                  <a href="https://sourceforge.net/projects/expat/files/" >Download</a>
+                  <a href="https://github.com/libexpat/libexpat/releases" >Download</a>
                 </li>
 
                 <li >
@@ -102,7 +102,8 @@ internal workings.  Instead of the very simple piece of XML that we
 saw last time, we will look at the common opening of an XML document,
 the <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-prolog-dtd">XML
 declaration</a>.
-I am going to assume that you have read the walkthrough and are familiar
+I am going to assume that you have read the
+<a href="../expat-internals-a-simple-parse/">walkthrough</a> and are familiar
 with the weird and wonderful world of Expat's macros and
 multiply-included source files.</p>
 <p>As before, you are welcome to fire up <code>gdb</code> and follow the code paths
@@ -115,6 +116,14 @@ lines of XML to a file:</p>
 
 <p>and compile and run the <code>outline</code> example program on it.</p>
 <h2>What Is An XML Declaration?</h2>
+<p>An <em>XML declaration</em> is part of the
+<a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-prolog-dtd">prologue</a>
+of an XML document, the part that defines the structure of the rest of
+the document.  It specifies which version of the XML standard is being
+used, what character encoding is being used, and whether the document
+stands alone or expects to use external resources.  If it is present,
+the XML declaration must appear first, right at the start of the
+input.</p>
 <p>Before we start, it's worth looking into exactly what goes into an XML
 declaration.  According to <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-prolog-dtd">section 2.8 of the XML
 standard</a>,
@@ -139,7 +148,8 @@ practise it's quite straightforward.  The particular thing to notice
 is that every single literal character listed in these productions can
 be encoded in ASCII.  This drastically reduces the amount of work the
 parser will have to do converting the input; once it knows it has an
-XML declaration, every character that isn't ASCII is invalid.</p>
+XML declaration, every character that cannot be encoded in ASCII is
+invalid.</p>
 <p>The other thing to notice is that the "attributes" of the XML
 declaration have to occur in a defined order.  The version information
 must be present, and must be first.  The encoding declaration must be
@@ -180,12 +190,17 @@ which has its own case in the switch statement:</p>
 
 
 <p>The sequence of characters "&lt;?" in an XML document either means that
-we have an XML declaration (or a <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-TextDecl">text
+we have an XML declaration, a <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-TextDecl">text
 declaration</a>
-if we are parsing an external entity) or a <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-pi">processing
+or a <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-pi">processing
 instruction</a>.
-The function <code>normal_scanPi()</code> checks to see which of these is the
-case.</p>
+A text declaration is almost identical to an XML declaration, and
+takes the place of an XML declaration in an externally parsed entity.
+At this point in the parse we treat XML declarations and text
+declarations as the same thing, and will sort out the difference
+later.</p>
+<p>The function <code>normal_scanPi()</code> checks to see whether we have a
+processing instruction or one of the declarations.</p>
 <div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">target</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
 <span class="n">REQUIRE_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
 <span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
@@ -208,8 +223,9 @@ need to know the name that follows the "&lt;?" characters, called the
 familiar trudge<sup><a href="#trudge">1</a></sup> through an XML name.  The macro
 <code>REQUIRE_CHAR()</code> ensures that there is a character in the buffer to
 test, which there is, and we then switch on its byte type.  "x" has a
-byte type of <code>BT_NMSTRT</code>, which is swept up by the magic macro
-<code>CHECK_NMSTRT_CASES()</code> as an entirely acceptable start of an XML name.</p>
+byte type of <code>BT_NMSTRT</code>, meaning a character that can legally start
+an XML name. The magic macro <code>CHECK_NMSTRT_CASES()</code> accepts this
+character and moves <code>ptr</code> on to examine the next character.</p>
 <div class="highlight"><pre><span></span><span class="k">while</span> <span class="p">(</span><span class="n">HAS_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span> <span class="p">{</span>
   <span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
   <span class="n">CHECK_NAME_CASES</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">nextTokPtr</span><span class="p">)</span>
@@ -238,21 +254,25 @@ instructions to have targets that are "XML", "Xml", "xML" or indeed
 any combination of different letter cases of the word "xml".  It
 therefore returns the correct token for the target, <code>XML_TOK_PI</code> or
 <code>XML_TOK_XML_DECL</code>, through a pointer and its actual return value is a
-boolean; 1 (TRUE) for a valid target and 0 (FALSE) for an invalid one.</p>
+boolean; 1 (success) for a valid target and 0 (failure) for an invalid
+one.</p>
 <div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">upper</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="o">*</span><span class="n">tokPtr</span> <span class="o">=</span> <span class="n">XML_TOK_PI</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">!=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
-  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
 </pre></div>
 
 
 <p>The function keeps a flag to indicate that it has seen an uppercase
 (invalid) character.  <code>upper</code> will remain zero as long as none of "X",
-"M" or "L" are seen in the appropriate character position.  Then the
-code makes the first obvious check; if the name isn't exactly three
-characters long, it can't possibly be "xml" so must be a processing
-instruction target.  We do have three characters, so the parse
-proceeds.</p>
+"M" or "L" are seen in the appropriate character position.</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">!=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Then the code makes the first obvious check; if the name isn't exactly
+three characters long, it can't possibly be "xml" so must be a
+processing instruction target.  We do have three characters, so the
+parse proceeds.</p>
 <div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="n">BYTE_TO_ASCII</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">))</span> <span class="p">{</span>
 <span class="k">case</span> <span class="nl">ASCII_x</span><span class="p">:</span>
   <span class="k">break</span><span class="p">;</span>
@@ -311,30 +331,33 @@ another horribly tangled creature like <code>CHECK_NMSTRT_CASES()</code> that is
 hard to comprehend because of all the subordinate macros.
 Substituting the <code>INVALID_LEAD_CASE</code> macros makes it somewhat easier
 to read:</p>
-<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_LEAD_2</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">BT_LEAD2</span><span class="p">:</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">IS_INVALID_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">{</span>
     <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">XML_TOK_INVALID</span><span class="p">;</span>
+  <span class="p">}</span>
   <span class="n">ptr</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
   <span class="k">break</span><span class="p">;</span>
 
-<span class="k">case</span> <span class="nl">BT_LEAD_3</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_LEAD3</span><span class="p">:</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">IS_INVALID_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="p">{</span>
     <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">XML_TOK_INVALID</span><span class="p">;</span>
+  <span class="p">}</span>
   <span class="n">ptr</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
   <span class="k">break</span><span class="p">;</span>
 
-<span class="k">case</span> <span class="nl">BT_LEAD_4</span><span class="p">:</span>
+<span class="k">case</span> <span class="nl">BT_LEAD4</span><span class="p">:</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">IS_INVALID_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="p">{</span>
     <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">XML_TOK_INVALID</span><span class="p">;</span>
+  <span class="p">}</span>
   <span class="n">ptr</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
   <span class="k">break</span><span class="p">;</span>
 
@@ -346,7 +369,7 @@ to read:</p>
 </pre></div>
 
 
-<p>Let's take those cases in order.  <code>BT_LEAD_2</code>, you may recall,
+<p>Let's take those cases in order.  <code>BT_LEAD2</code>, you may recall,
 indicates a character that is the start of a sequence of two bytes.
 If there are less than two bytes in the input buffer we don't have a
 complete character to examine, so return <code>XML_TOK_PARTIAL_CHAR</code>.  Then
@@ -354,14 +377,14 @@ we call <code>IS_INVALID_CHAR()</code>, which is a macro that takes a little
 disentangling.  It wraps (in this case) the <code>isInvalid2()</code> function in
 the encoding table, which for UTF-8 points to the function
 <code>utf8_isInvalid2()</code>, which calls the macro <code>UTF8_INVALID2()</code>, which
-returns True if the next two bytes of the input do not form a legal
-UTF-8 two byte sequence.  If the sequence isn't valid,
-<code>INVALID_CASES()</code> will update the next token pointer to this sequence
-and return <code>XML_TOK_INVALID</code> to pass on the error.  Failing that, the
-sequence is accepted and the current input pointer is moved on two
-bytes.  <code>BT_LEAD_3</code> and <code>BT_LEAD_4</code> work similarly, checking for
-malformed three and four byte sequences and using <code>utf8_isInvalid3()</code>
-and <code>utf8_isInvalid4()</code> respectively.</p>
+returns 1 (success, i.e. the character is invalid) if the next two
+bytes of the input do not form a legal UTF-8 two byte sequence.  If
+the sequence isn't valid, <code>INVALID_CASES()</code> will update the next token
+pointer to this sequence and return <code>XML_TOK_INVALID</code> to pass on the
+error.  Failing that, the sequence is accepted and the current input
+pointer is moved on two bytes.  <code>BT_LEAD3</code> and <code>BT_LEAD4</code> work
+similarly, checking for malformed three and four byte sequences and
+using <code>utf8_isInvalid3()</code> and <code>utf8_isInvalid4()</code> respectively.</p>
 <p><code>BT_NONXML</code> is the byte type reserved for bytes that cannot form a
 character permitted in XML.  That includes the ASCII <a href="https://en.wikipedia.org/wiki/Control_character">control
 characters</a> other
@@ -371,9 +394,10 @@ codepoint</a> outside the
 permitted range.</p>
 <p><code>BT_MALFORM</code> is slightly different; it is reserved for 0xFE and 0xFF,
 which are never defined for any purpose in UTF-8.</p>
-<p>Finally, <code>BT_TRAIL</code> indicates a byte that would follow a <code>BT_LEAD_n</code>
-byte.  We should never see one of these, because it should always be
-dealt with when processing the relevant leading byte.</p>
+<p>Finally, <code>BT_TRAIL</code> indicates a byte that would follow a <code>BT_LEAD2</code>,
+<code>BT_LEAD3</code> or <code>BT_LEAD4</code> byte.  We should never see one of these,
+because it should always be dealt with when processing the relevant
+leading byte.</p>
 <div class="highlight"><pre><span></span><span class="k">default</span><span class="o">:</span>
   <span class="n">ptr</span> <span class="o">+=</span> <span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span>
   <span class="k">break</span><span class="p">;</span>
@@ -472,7 +496,7 @@ to come.</p>
 <p>The same function handles both XML declarations and text declarations,
 since they are almost identical in form.  The second argument,
 <code>isGeneralTextEntity</code>, distinguishes the two cases.  For us it is
-zero (false), since we are not processing a general text entity.</p>
+zero (<code>XML_FALSE</code>), since we are not processing a general text entity.</p>
 <div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">encodingName</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">storedEncName</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">newEncoding</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -497,7 +521,7 @@ zero (false), since we are not processing a general text entity.</p>
 
 <p>After initializing a whole bunch of local variables, we then choose
 which function to process the declaration with.  <code>ns</code> is a parser
-field that is True if we have a non-standard <em>namespace separator</em>
+field that is <code>XML_TRUE</code> if we have a non-standard <em>namespace separator</em>
 defined, a choice made when creating the parser.  We don't, so
 <code>XmlParseXmlDecl()</code> gets called.  Surprisingly, given that it starts
 "Xml...", this is not a macro.  It is a veneer function from the
@@ -832,9 +856,9 @@ through both the input string <code>ptr1</code> and the comparison string <code>
 checking that it hasn't run out of input string and using
 <code>CHAR_MATCHES()</code> to do encoding-aware comparisons, finishing when it
 runs out of comparison string.  In accordance with its name it returns
-1 (True) if the input text matches the ASCII comparison string, and 0
-(False) if not.  The input text is "version", so in our case we get
-a 1.</p>
+1 (<code>XML_TRUE</code>) if the input text matches the ASCII comparison string,
+and 0 (<code>XML_False</code>) if not.  The input text is "version", so in our
+case we get a 1.</p>
 <p>Back in <code>doParseXmlDecl()</code>, we know we have the <code>version</code>
 pseudo-attribute so we load the passed-in pointers with the version
 number string:</p>
@@ -929,16 +953,16 @@ so a buffer of 128 bytes should be more than enough; if we fail to
 convert the whole of the encoding name, clearly we aren't going to
 match any of the encodings we know about!</p>
 <p>Then there is a little special case to deal with.  <code>streqci()</code> is a
-case-insensitive ASCII string comparison routine returning True if the
-two strings are the same after converting their characters to
-uppercase.  <code>enc-&gt;minBytesPerChar</code> contains the size of the "character
-unit" we referred to earlier, i.e. 2 for UTF-16 and 1 for everything
-else.  The condition <code>streqci(buf, KW_UTF_16) &amp;&amp; enc-&gt;minBytesPerChar
-== 2</code> is therefore asking "Have we been asked for UTF-16 <em>without
-specifying big or little endian</em>, and are we already using UTF-16?"
-If we are, we choose to use the same endianness of UTF-16 that we are
-already using; this must be right, otherwise we couldn't have read the
-declaration in the first place!</p>
+case-insensitive ASCII string comparison routine returning <code>XML_TRUE</code>
+(success) if the two strings are the same after converting their
+characters to uppercase.  <code>enc-&gt;minBytesPerChar</code> contains the size of
+the "character unit" we referred to earlier, i.e. 2 for UTF-16 and 1
+for everything else.  The condition <code>streqci(buf, KW_UTF_16) &amp;&amp;
+enc-&gt;minBytesPerChar == 2</code> is therefore asking "Have we been asked for
+UTF-16 <em>without specifying big or little endian</em>, and are we already
+using UTF-16?"  If we are, we choose to use the same endianness of
+UTF-16 that we are already using; this must be right, otherwise we
+couldn't have read the declaration in the first place!</p>
 <p>Assuming that's not the case, we call <code>getEncodingIndex()</code> to search
 the encodings table for the name.  This is a straightforward array of
 strings rather than anything more complicated; encoding names are
@@ -1056,16 +1080,16 @@ basic checks and transfer these results somewhere more useful.</p>
 
 <p>As previously mentioned, text declarations don't allow the
 pseudo-parameter <code>standalone</code> to be present, so we ignore it if
-<code>isGeneralTextEntity</code> is True.  This is a redundant check;
+<code>isGeneralTextEntity</code> is <code>XML_TRUE</code>.  This is a redundant check;
 <code>standalone</code> will have been left alone (-1) if <code>isGeneralTextEntity</code>
-is True, but a little paranoia doesn't hurt.  Otherwise <code>standalone ==
-1</code> causes us to set the <code>standalone</code> flag in the parser's DTD
-structure.  We also check the parameter entity parsing control, which
-could have been set to parse external entities unless the XML document
-is supposed to be standalone.  Since we know now that it is supposed
-to be standalone, we update that control field to disallow external
-parsing.  External entities are a large topic for another time, so we
-won't go into the ramifications of that now.</p>
+is <code>XML_TRUE</code>, but a little paranoia doesn't hurt.  Otherwise
+<code>standalone == 1</code> causes us to set the <code>standalone</code> flag in the
+parser's DTD structure.  We also check the parameter entity parsing
+control, which could have been set to parse external entities unless
+the XML document is supposed to be standalone.  Since we know now that
+it is supposed to be standalone, we update that control field to
+disallow external parsing.  External entities are a large topic for
+another time, so we won't go into the ramifications of that now.</p>
 <p>If there is an XML declaration handler, or failing that a default
 handler, that gets called next.  Let's assume that we don't have
 handlers and move on to dealing with the encoding.  This is more
@@ -1287,7 +1311,7 @@ Rode the six hundred.</p>
 </blockquote>
 <p>From <em>The Charge of the Light Brigade</em> by Alfred, Lord Tennyson,
 commemorating a suicidal charge at the Battle of Balaclava.</p>
-<p>&mdash;Rhodri James, 13th July 2017</p>
+<p>&mdash;Rhodri James, 28th July 2017</p>
 </div>
         </div>
 
