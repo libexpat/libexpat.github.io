@@ -61,6 +61,7 @@ Wherever you go, Expat is already waiting for you:
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
     * [Native installer](https://sourceforge.net/projects/expat/files/expat_win32/)
     * [NuGet](https://www.nuget.org/packages?q=expat)
+    * [vcpkg](https://github.com/Microsoft/vcpkg/blob/master/ports/expat/CONTROL)
 
 
 See also:
