@@ -6,6 +6,9 @@ url:
 
 # Latest News
 
+* 2017-10-31 —
+  [Expat 2.2.**5**](https://github.com/libexpat/libexpat/blob/R_2_2_5/expat/Changes)
+  has been released
 * 2017-10-21 —
   New article:
   [Writing A Custom Encoding](doc/writing-a-custom-encoding/)
