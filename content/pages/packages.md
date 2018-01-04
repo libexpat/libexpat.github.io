@@ -10,6 +10,8 @@ Thank you!
 
 Wherever you go, Expat is already waiting for you:
 
+* __Cross-platform__
+    * [CPPAN](https://cppan.org/pvt.cppan.demo.expat)
 * __BSD__
     * [DragonFlyBSD](https://github.com/DragonFlyBSD/DPorts/tree/master/textproc/expat2)
     * [FreeBSD](https://svnweb.freebsd.org/ports/head/textproc/expat2/)
