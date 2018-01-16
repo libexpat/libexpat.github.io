@@ -416,7 +416,7 @@ to come.
         enum XML_Error result = processXmlDecl(parser, 0, s, next);
         if (result != XML_ERROR_NONE)
           return result;
-        enc = encoding;
+        enc = parser->m_encoding;
         handleDefault = XML_FALSE;
       }
       break;
@@ -442,13 +442,13 @@ zero (`XML_FALSE`), since we are not processing a general text entity.
     const char *versionend;
     const XML_Char *storedversion = NULL;
     int standalone = -1;
-    if (!(ns
+    if (!(parser->m_ns
           ? XmlParseXmlDeclNS
           : XmlParseXmlDecl)(isGeneralTextEntity,
-                             encoding,
+                             parser->m_encoding,
                              s,
                              next,
-                             &eventPtr,
+                             &parser->m_eventPtr,
                              &version,
                              &versionend,
                              &encodingName,
@@ -456,7 +456,7 @@ zero (`XML_FALSE`), since we are not processing a general text entity.
                              &standalone)) {
 
 After initializing a whole bunch of local variables, we then choose
-which function to process the declaration with.  `ns` is a parser
+which function to process the declaration with.  `parser->m_ns` is a parser
 field that is `XML_TRUE` if we have a non-standard _namespace separator_
 defined, a choice made when creating the parser.  We don't, so
 `XmlParseXmlDecl()` gets called.  Surprisingly, given that it starts
@@ -1023,10 +1023,10 @@ basic checks and transfer these results somewhere more useful.
 
     :::c
     if (!isGeneralTextEntity && standalone == 1) {
-      _dtd->standalone = XML_TRUE;
+      parser->m_dtd->standalone = XML_TRUE;
     #ifdef XML_DTD
-      if (paramEntityParsing == XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE)
-        paramEntityParsing = XML_PARAM_ENTITY_PARSING_NEVER;
+      if (parser->m_paramEntityParsing == XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE)
+        parser->m_paramEntityParsing = XML_PARAM_ENTITY_PARSING_NEVER;
     #endif /* XML_DTD */
     }
 
@@ -1049,18 +1049,20 @@ handlers and move on to dealing with the encoding.  This is more
 complicated than you might hope.
 
     :::c
-    if (protocolEncodingName == NULL) {
+    if (parser->m_protocolEncodingName == NULL) {
       if (newEncoding) {
-        if (newEncoding->minBytesPerChar != encoding->minBytesPerChar) {
-          eventPtr = encodingName;
+        if (newEncoding->minBytesPerChar != parser->m_encoding->minBytesPerChar
+            || (newEncoding->minBYtesPerChar == 2 &&
+                newEncoding != parser->m_encoding)) {
+          parser->m_eventPtr = encodingName;
           return XML_ERROR_INCORRECT_ENCODING;
         }
-        encoding = newEncoding;
+        parser->m_encoding = newEncoding;
       }
 
 If we have previously set an encoding, for example by the user calling
 `XML_SetEncoding()`, that overrides anything the XML declaration might
-say.  We will have the parser field `protocolEncodingName` pointing to
+say.  We will have the parser field `m_protocolEncodingName` pointing to
 the overriding encoding name in that case, so we skip this whole
 section if the field is not NULL.
 
@@ -1068,10 +1070,9 @@ Otherwise if the declaration gave an encoding, i.e. `newEncoding` is
 not NULL (which indeed is correct), we need to check if it's
 compatible with what we've already seen.  In particular, if the
 requested encoding has a different size of "character unit" to the
-encoding we've been using all along, something is wrong.
-
-**There should be checks that UTF-16 encodings have the same
-endianness.**  As [section 4.3.3 of the XML
+encoding we've been using all along, or we have swapped the endianness
+of the UTF-16 encoding we were using, something is wrong.
+As [section 4.3.3 of the XML
 standard](https://www.w3.org/TR/2008/REC-xml-20081126/#charencoding)
 rather wordily puts it,
 
@@ -1081,9 +1082,9 @@ rather wordily puts it,
 > processor in an encoding other than that named in the declaration
 > [...]
 
-If all is well, we update the `encoding` field of the parser structure
+If all is well, we update the `m_encoding` field of the parser structure
 with the new encoding.  From now on, our parsing will expect ASCII
-input.  Notice that we don't update `protocolEncodingName`; that is
+input.  Notice that we don't update `m_protocolEncodingName`; that is
 for overrides only.
 
     :::c
@@ -1091,15 +1092,15 @@ for overrides only.
       enum XML_Error result;
       if (!storedEncName) {
         storedEncName = poolStoreString(
-          &temp2Pool, encoding, encodingName,
-          encodingName + XmlNameLength(encoding, encodingName));
+          &parser->m_temp2Pool, parser->m_encoding, encodingName,
+          encodingName + XmlNameLength(parser->m_encoding, encodingName));
         if (!storedEncName)
           return XML_ERROR_NO_MEMORY;
       }
       result = handleUnknownEncoding(parser, storedEncName);
-      poolClear(&temp2Pool);
+      poolClear(&parser->m_temp2Pool);
       if (result == XML_ERROR_UNKNOWN_ENCODING)
-        eventPtr = encodingName;
+        parser->m_eventPtr = encodingName;
       return result;
     }
 
