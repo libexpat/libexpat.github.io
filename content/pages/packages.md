@@ -45,6 +45,7 @@ Wherever you go, Expat is already waiting for you:
     * [Parabola](https://www.parabola.nu/packages/testing/x86_64/expat/)
     * PCLinuxOS
     * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
+    * [PTXdist](https://git.pengutronix.de/cgit/ptxdist/tree/rules/expat.make)
     * ROSA
     * Slackware
     * [Solus Project](https://dev.solus-project.com/source/expat/)
