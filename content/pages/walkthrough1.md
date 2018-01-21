@@ -61,55 +61,45 @@ Let's assume that we've created our parser, registered all the
 handlers we want to use, and read in the file.  We pick up the story
 as we call `XML_Parse()`, passing the whole file in one go.
 
-## Macro Abuse Part 1
+## Initial Parsing State
 
-Unfortunately the very first code we meet introduces us straight away
-to my least favourite feature of parser code.
+We first indulge ourselves with a little defensive programming:
 
     :::c
     enum XML_Status XMLCALL
     XML_Parse(XML_Parser parser, const char *s, int len, int isFinal)
     {
-      switch (ps_parsing) {
+      if ((parser == NULL) || (len < 0) || ((s == NULL) && (len != 0))) {
+        if (parser != NULL)
+          parser->m_errorCode = XML_ERROR_INVALID_ARGUMENT;
+        return XML_STATUS_ERROR;
+      }
+      switch (parser->m_parsingStatus.parsing) {
       ...
 
-Hang on, you may say at this point, where did `ps_parsing` come from?
-It's not a local variable, and a bit of searching will quickly tell
-you that it isn't a global variable either.  What on earth can it be?
+`XML_Parse()` is called by users, who are notoriously lackadaisical
+and apt to forget that they are supposed to give us correctly-formed
+arguments.  We therefore check to see if our input is nonsensical,
+and if it is we will return `XML_STATUS_ERROR` and, if possible, set
+the `m_errorCode` of the parser structure to something meaningful, in
+this case `XML_ERROR_INVALID_ARGUMENT`.  This is kinder than producing
+alarming address exceptions when we attempt to access non-existant
+memory and the like.
 
-In fact it's a macro for a field of the parser structure you passed
-in, specifically `parser->m_parsingStatus.parsing`.  Every field of
-the parser structure has a macro shadowing it, and throughout the code
-the macro is used instead of the field.  This has several unfortunate
-side-effects.
-
-First, you cannot tell at a glance what is a parser field and what is
-a local variable.  In C++ where there is a similar lack of visible
-distinction between members of a class and local variables in methods,
-there is a custom of prefixing members with `m_` to offer you some
-chance.  This has been done in the Expat code, but _the wrong way
-round._  Every field of the parser structure has a name beginning with
-`m_`, and all of the macros omit that prefix.  (My personal theory is
-that someone heard about C++, tried to write it in C and then hid the
-evidence under the carpet.)
-
-The second problem is that the parser structure in every function
-_must_ be called `parser`.  This is a particular issue when creating
-external entity parsers, but I'll spare you that hideousness in this
-article.
-
-So, armed with the knowledge that the variables we see may be
-something else entirely, let's carry on.  `ps_parsing` is the current
-overall state of the parser.  Since we have a newly-created parser
-structure that hasn't done any parsing yet, it is in the
-`XML_INITIALIZED` state.  That results in a call to the function
-`startParsing()` which creates the salt value used by the hash
-function.  While that is a fascinating exercise all on its own, it is
-beyond the scope of what we want to look at in this article.  Let's
-just assert that it is successful and move on.
+After that, we examine the current overall state of the parser, held
+in the parser field `parser->m_parsingStatus.parsing`.  Since we have
+a newly-created parser structure that hasn't done any parsing yet, it
+is in the `XML_INITIALIZED` state.  That results in a call to the
+function `startParsing()` which creates the salt value used by the
+hash function.  While that is a fascinating exercise all on its own,
+it is beyond the scope of what we want to look at in this article.
+Let's just assert that it is successful and move on.
 
 Once we have started the parser, we naturally update the parser state
-to `XML_PARSING`.  Then we have the following bit of code:
+to `XML_PARSING`.  Then, assuming we actually have some input (`len`
+is not zero) and libexpat has been compiled in the usual way
+(i.e. `XML_CONTEXT_BYTES` is defined) we have the following bit of
+code:
 
     :::c
     void *buff = XML_GetBuffer(parser, len);
@@ -144,32 +134,30 @@ The first thing we see in `XML_ParseBuffer()` is the same dance with
 the parsing state as we saw before.  This time our state is
 `XML_PARSING` so we drop straight through with no more ado.
 
-There is then a lot of setting of pointer variables, most of which are
-parser fields hidden by macros.  The important lesson to take away
-from this section is that the parser deals with its input through
-start and end pointers, rather than NUL termination.  This is
-particularly important when the input is UTF-16 or similar, and zero
-bytes can be expected quite frequently in the input.
+There is then a lot of setting of pointer variables, mostly in parser
+fields.  The important lesson to take away from this section is that
+the parser deals with its input through start and end pointers, rather
+than NUL termination.  This is particularly important when the input
+is UTF-16 or similar, and zero bytes can be expected quite frequently
+in the input.
 
-Then we call `processor()` to do the actual parsing.  This looks
-innocent enough, but again it's a function pointer held in the parser
-structure.  Can you tell why I love this code yet?
+Then we call `parser->m_processor()` to do the actual parsing.  There
+are in fact several processor functions, which provide the high-level
+syntax handling for different situations during parsing.  We start off
+with `prologInitProcessor()`, the processor that handles the start-up
+of parsing and allows for
+an
+[XML prologue](https://www.w3.org/TR/2000/REC-xml-20001006#sec-prolog-dtd) to
+be present.  This does some more initialisation, this time setting up
+the character encoding to use before palming<sup>[3](#palm)</sup> the
+rest of the work off onto `prologProcessor()`.  We will discuss encodings
+in another article; for now, all we need to know is that we haven't
+told the parser in advance what encoding will be used, so it will try
+to deduce the answer from the input text.  The default assumption is
+that the input will
+be [UTF-8 encoded](https://en.wikipedia.org/wiki/UTF-8).
 
-There are in fact several processor functions, which provide the
-high-level syntax handling for different situations during parsing.
-We start off with `prologInitProcessor()`, the processor that handles
-the start-up of parsing and allows for an
-[XML prologue](https://www.w3.org/TR/2000/REC-xml-20001006#sec-prolog-dtd)
-to be present.  This does some more initialisation, this time setting
-up the character encoding to use before palming<sup>[3](#palm)</sup>
-the rest of the work onto `prologProcessor()`.  We will discuss
-encodings in another article; for now, all we need to know is that we
-haven't told the parser in advance what encoding will be used, so it
-will try to deduce the answer from the input text.  The default
-assumption is that the input will be
-[UTF-8 encoded](https://en.wikipedia.org/wiki/UTF-8).
-
-`prologProcessor()` starts off by calling `XmlPrologTok()`.  Again you
+`prologProcessor()` starts off by calling `XmlPrologTok()`.  You
 will look long and hard for a function by that name; it's actually a
 macro hiding one of several function pointers held in the encoding
 structure that invokes an appropriate tokenizer.  The tokenizer's job
@@ -270,7 +258,7 @@ common Unicode characters and four bytes for all the rest, so its
 encoding would have a `MINBPC` of 4.
 
 The code rounds the length of the input down to be an integer number
-of `MINBPC` "units", and the `end` pointer adjusted accordingly.  This
+of `MINBPC` "units", and the `end` pointer is adjusted accordingly.  This
 does not mean that the (potentially shortened) input will only contain
 whole characters &mdash; it could for example end with the first two
 bytes of a four-byte UTF-16 character &mdash; but it does guarantee
@@ -379,15 +367,14 @@ have `XML_TOK_INSTANCE_START`, which is positive and skips all of that
 decision logic.
 
     :::c
-    role = XmlTokenRole(&prologState, tok, s, next, enc);
+    role = XmlTokenRole(&parser->m_prologState, tok, s, next, enc);
     switch (role) {
 
 Instead, `doProlog()` calls `XmlTokenRole()` to find out what role the
 token plays here at the start of our XML.  If you looked at that
 function name and wondered if it was another of the macros hiding a
 function pointer, give yourself a pat on the back.  It calls the
-function pointer `handler` in `prologState`, which is itself a macro
-hiding a field of the parser structure.
+function pointer `handler` in `parser->m_prologState`.
 
 These handler functions effectively implement a state machine for the
 parser.  We start off in `prolog0`.
@@ -421,10 +408,10 @@ it skips down:
     :::c
     case XML_ROLE_INSTANCE_START:
       /* useForeignDTD stuff... */
-      processor = contentProcessor;
+      parser->m_processor = contentProcessor;
       return contentProcessor(parser, s, end, nextPtr);
 
-Setting `processor` (a field of the parser structure, remember) to
+Setting `m_processor` field of the parser structure to
 `contentProcessor` signals the end of the XML prologue and the start of
 the actual content of our XML.  The parser could at this point return
 and let `XML_ParseBuffer()` go round its loop, doing the housekeeping
@@ -497,9 +484,9 @@ BT_HEX` in the source, but alas life is not so simple.  There are many
 byte types that may be legal at the start of an XML name, and in
 particular multi-byte characters in UTF-8 may or may not be legal.  In
 order to cover all these cases without replicating code everywhere, we
-descend into more macro madness.
+descend into macro madness.
 
-## Macro Abuse Part 2
+## Macro Abuse
 
 The `CHECK_NMSTRT_CASES` macro is a horrible, tangled thing that knows
 it is part of a switch statement, and like `REQUIRE_CHAR` can exit the
@@ -677,15 +664,15 @@ parser implements.  Fortunately this one is quite obvious.
         TAG *tag;
         enum XML_Error result;
         XML_Char *toPtr;
-        if (freeTagList) {
-          tag = freeTagList;
-          freeTagList = freeTagList->parent;
+        if (parser->m_freeTagList) {
+          tag = parser->m_freeTagList;
+          parser->m_freeTagList = parser->m_freeTagList->parent;
         }
         else {
-          tag = (TAG *)MALLOC(sizeof(TAG));
+          tag = (TAG *)MALLOC(parser, sizeof(TAG));
           if (!tag)
             return XML_ERROR_NO_MEMORY;
-          tag->buf = (char *)MALLOC(INIT_TAG_BUF_SIZE);
+          tag->buf = (char *)MALLOC(parser, INIT_TAG_BUF_SIZE);
           if (!tag->buf) {
             FREE(tag);
             return XML_ERROR_NO_MEMORY;
@@ -698,8 +685,8 @@ element, so that for example we can recognise its close tag.  We are
 going to need to do this many times for a long parse, freeing the TAG
 structure once we are done with the element.  This means going back to
 the heap allocators a lot, which is not necessarily an efficient thing
-to do.  So instead of freeing the TAG structures, the parser instead
-keeps them on a linked list on the `freeTagList` field of the parser
+to do.  So instead of freeing the TAG structures, the parser keeps
+them on a linked list on the `m_freeTagList` field of the parser
 structure, avoiding all that expensive allocation.
 
 In this case, this is our first TAG structure, so there is nothing on
@@ -738,22 +725,37 @@ masking a function pointer in the encoder structure.
                 const char **fromP, const char *fromLim,
                 char **toP, const char *toLim)
     {
-      char *to;
-      const char *from;
-      const char *fromLimInitial = fromLim;
+      bool input_incomplete = false;
+      bool output_exhausted = false;
 
-      /* Avoid copying partial characters. */
-      align_limit_to_full_utf8_characters(*fromP, &fromLim);
+      /* Avoid copying partial characters (due to limited space). */
+      const ptrdiff_t bytesAvailable = fromLim - *fromP;
+      const ptrdiff_t bytesStorable = toLim - *toP;
+      if (bytesAvailable > bytsStorable) {
+        fromLim = *fromP + bytesStorable;
+        output_exhausted = true;
+      }
 
-      for (to = *toP, from = *fromP; (from < fromLim) && (to < toLim); from++, to++)
-        *to = *from;
-      *fromP = from;
-      *toP = to;
+      /* Avoid copying partial characters (from incomplete input). */
+      {
+        const char * const fromLimBefore = fromLim;
+        _INTERNAL_trim_to_complete_utf8_characters(*fromP, &fromLim);
+        if (fromLim < fromLimBefore) {
+          input_incomplete = true;
+        }
+      }
 
-      if (fromLim < fromLimInitial)
-        return XML_CONVERT_INPUT_INCOMPLETE;
-      else if ((to == toLim) && (from < fromLim))
+      {
+        const ptrdiff_t bytesToCopy = fromLim - *fromP;
+        memcpy(*toP, *fromP, bytesToCopy);
+        *fromP += bytesToCopy;
+        *toP += bytesToCopy;
+      }
+
+      if (output_exhausted) /* needs to go first */
         return XML_CONVERT_OUTPUT_EXHAUSTED;
+      else if (input_incomplete)
+        return XML_CONVERT_INPUT_INCOMPLETE;
       else
         return XML_CONVERT_COMPLETED;
     }
@@ -795,7 +797,7 @@ the hash tables and string pools.
                                            sizeof(ELEMENT_TYPE));
       if (!elementType)
         return XML_ERROR_NO_MEMORY;
-      if (ns && !setElementTypePrefix(parser, elementType))
+      if (parser->m_ns && !setElementTypePrefix(parser, elementType))
         return XML_ERROR_NO_MEMORY;
     }
     nDefaultAtts = elementType->nDefaultAtts;
@@ -835,7 +837,7 @@ is important to the way the hash tables work.
 
     :::c
     /* get the attributes from the tokenizer */
-    n = XmlGetAttributes(enc, attStr, attsSize, atts);
+    n = XmlGetAttributes(enc, attStr, parser->m_attsSize, parser->m_atts);
 
 The actual parsing of the attributes is done by `XmlGetAttribute()`,
 which by now you should have recognised as being really a function
@@ -850,12 +852,12 @@ having done essentially no more.
 ## Back to the Parse (Again)
 
     :::c
-    if (startElementHandler)
-      startElementHandler(handlerArg, tag->name.str,
-                          (const XML_Char **)atts);
-    else if (defaultHandler)
+    if (parser->m_startElementHandler)
+      parser->m_startElementHandler(parser->m_handlerArg, tag->name.str,
+                                    (const XML_Char **)parser->m_atts);
+    else if (parser->m_defaultHandler)
       reportDefault(parser, enc, s, next);
-    poolClear(&tempPool);
+    poolClear(&parser->m_tempPool);
     break;
 
 Back in `doContent()`, there is little more to do for this start
@@ -886,11 +888,11 @@ the space at the start of the next line.
 
     :::c
     case XML_TOK_DATA_NEWLINE:
-      if (characterDataHandler) {
+      if (parser->m_characterDataHandler) {
         XML_Char c = 0xA;
-        characterDataHandler(handlerArg, &c, 1);
+        parser->m_characterDataHandler(parser->m_handlerArg, &c, 1);
       }
-      else if (defaultHandler)
+      else if (parser->m_defaultHandler)
         reportDefault(parser, enc, s, next);
       break;
 
@@ -915,26 +917,26 @@ pointer to point to it and returns `XML_TOK_DATA_CHARS`.
     :::c
     case XML_TOK_DATA_CHARS:
       {
-        XML_CharacterDataHandler charDataHandler = characterDataHandler;
+        XML_CharacterDataHandler charDataHandler = parser->m_characterDataHandler;
         if (charDataHandler) {
           if (MUST_CONVERT(enc, s)) {
             for (;;) {
-              ICHAR *dataPtr = (ICHAR *)dataBuf;
-              const enum XML_Convert_Result convert_res = XmlConvert(enc, &s, next, &dataPtr, (ICHAR *)dataBufEnd);
+              ICHAR *dataPtr = (ICHAR *)parser->m_dataBuf;
+              const enum XML_Convert_Result convert_res = XmlConvert(enc, &s, next, &dataPtr, (ICHAR *)parser->m_dataBufEnd);
               *eventEndPP = s;
-              charDataHandler(handlerArg, dataBuf,
-                              (int)(dataPtr - (ICHAR *)dataBuf));
+              charDataHandler(parser->m_handlerArg, parser->m_dataBuf,
+                              (int)(dataPtr - (ICHAR *)parser->m_dataBuf));
               if ((convert_res == XML_CONVERT_COMPLETED) || (convert_res == XML_CONVERT_INPUT_INCOMPLETE))
                 break;
               *eventPP = s;
             }
           }
           else
-            charDataHandler(handlerArg,
+            charDataHandler(parser->m_handlerArg,
                             (XML_Char *)s,
                             (int)((XML_Char *)next - (XML_Char *)s));
         }
-        else if (defaultHandler)
+        else if (parser->m_defaultHandler)
           reportDefault(parser, enc, s, next);
       }
       break;
@@ -1032,7 +1034,7 @@ to `doContent()`.
 
     :::c
     case XML_TOK_END_TAG:
-      if (tagLevel == startTagLevel)
+      if (parser->m_tagLevel == startTagLevel)
         return XML_ERROR_ASYNC_ENTITY;
 
 The first thing `doContent()` does with an `XML_TOK_END_TAG` is to
@@ -1060,10 +1062,10 @@ is just fine.  In any case we don't have that problem; we have opened
 two tags and are closing one for the first time.
 
     :::c
-    TAG *tag = tagStack;
-    tagStack = tag->parent;
-    tag->parent = freeTagList;
-    freeTagList = tag;
+    TAG *tag = parser->m_tagStack;
+    parser->m_tagStack = tag->parent;
+    tag->parent = parser->m_freeTagList;
+    parser->m_freeTagList = tag;
     rawName = s + enc->minBytesPerChar*2;
     len = XmlNameLength(enc, rawName);
     if (len != tag->rawNameLength
@@ -1071,7 +1073,7 @@ two tags and are closing one for the first time.
       *eventPP = rawName;
       return XML_ERROR_TAG_MISMATCH;
     }
-    --tagLevel;
+    --parser->m_tagLevel;
 
 Confident that we are least starting off on the right foot, the parser
 pops the last tag structure off its list and compares its name to the
@@ -1115,12 +1117,12 @@ point; only comments, processing instructions and whitespace.
                     const char *end,
                     const char **nextPtr)
     {
-      processor = epilogProcessor;
-      eventPtr = s;
+      parser->m_processor = epilogProcessor;
+      parser->m_eventPtr = s;
       for (;;) {
         const char *next = NULL;
-        int tok = XmlPrologTok(encoding, s, end, &next);
-        eventEndPtr = next;
+        int tok = XmlPrologTok(parser->m_encoding, s, end, &next);
+        parser->m_eventEndPtr = next;
         switch (tok) {
 
 `epilogProcessor()` is the last processor that will be invoked in a
@@ -1166,8 +1168,6 @@ to how the code works.  The important observations to take away from
 this are:
 
 * Macro abuse is rife:
-    * Many things that look like local variables (or even functions)
-      are in fact fields of the parser structure.
     * Most (but not all) functions starting with `Xml` are in fact
       macros going through the function table in a character encoding.
     * Some macros can return from a function without warning.
