@@ -12,6 +12,7 @@ Wherever you go, Expat is already waiting for you:
 
 * __Cross-platform__
     * [CPPAN](https://cppan.org/pvt.cppan.demo.expat)
+    * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
 * __BSD__
     * [DragonFlyBSD](https://github.com/DragonFlyBSD/DPorts/tree/master/textproc/expat2)
     * [FreeBSD](https://svnweb.freebsd.org/ports/head/textproc/expat2/)
@@ -23,6 +24,7 @@ Wherever you go, Expat is already waiting for you:
 * __Linux__
     * [Alpine Linux](https://git.alpinelinux.org/cgit/aports/tree/main/expat)
     * [ALT Linux](https://packages.altlinux.org/en/Sisyphus/srpms/expat)
+    * [AOSC](https://packages.aosc.io/packages/expat)
     * [Arch Linux](https://git.archlinux.org/svntogit/packages.git/log/trunk?h=packages/expat)
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
     * [CentOS](http://centos-packages.com/7/package/expat/versions/)
@@ -30,9 +32,12 @@ Wherever you go, Expat is already waiting for you:
     * [Debian](https://packages.debian.org/source/sid/expat)
     * [Exherbo](http://git.exherbo.org/arbor.git/tree/packages/dev-libs/expat)
     * [Fedora](https://apps.fedoraproject.org/packages/expat-devel/overview/)
+    * [Funtoo](https://github.com/funtoo/core-kit/tree/master/dev-libs/expat)
     * [Gentoo](https://packages.gentoo.org/packages/dev-libs/expat)
     * [Gobo Linux](https://github.com/gobolinux/Recipes/tree/master/revisions/Expat)
     * [GuixSD](https://www.gnu.org/software/guix/packages/e.html)
+    * [Hyperbola](https://www.hyperbola.info/packages/core/x86_64/expat/)
+    * [KaOS](https://github.com/KaOSx/apps/tree/master/uriparser)
     * [LEDE](https://github.com/lede-project/source/blob/master/tools/expat/Makefile)
     * [Linuxbrew](http://braumeister.org/formula/expat)
     * [Mageia](https://madb.mageia.org/package/show/name/expat/release/cauldron/application/0/arch/x86_64)
@@ -58,6 +63,7 @@ Wherever you go, Expat is already waiting for you:
     * [Gentoo Prefix](https://packages.gentoo.org/packages/dev-libs/expat)
     * [Homebrew](http://brewformulas.org/Expat)
     * [MacPorts](https://github.com/macports/macports-ports/tree/master/textproc/expat)
+    * [Rudix](http://rudix.org/packages/expat.html)
 * __Solaris__
     * [OpenCSW](https://www.opencsw.org/package/expat/)
 * __Windows__
