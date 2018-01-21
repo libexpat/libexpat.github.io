@@ -478,7 +478,7 @@ to come.</p>
     <span class="k">enum</span> <span class="n">XML_Error</span> <span class="n">result</span> <span class="o">=</span> <span class="n">processXmlDecl</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">XML_ERROR_NONE</span><span class="p">)</span>
       <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-    <span class="n">enc</span> <span class="o">=</span> <span class="n">encoding</span><span class="p">;</span>
+    <span class="n">enc</span> <span class="o">=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span><span class="p">;</span>
     <span class="n">handleDefault</span> <span class="o">=</span> <span class="n">XML_FALSE</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="k">break</span><span class="p">;</span>
@@ -504,13 +504,13 @@ zero (<code>XML_FALSE</code>), since we are not processing a general text entity
 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">versionend</span><span class="p">;</span>
 <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">storedversion</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">standalone</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ns</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_ns</span>
       <span class="o">?</span> <span class="nl">XmlParseXmlDeclNS</span>
       <span class="p">:</span> <span class="n">XmlParseXmlDecl</span><span class="p">)(</span><span class="n">isGeneralTextEntity</span><span class="p">,</span>
-                         <span class="n">encoding</span><span class="p">,</span>
+                         <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span><span class="p">,</span>
                          <span class="n">s</span><span class="p">,</span>
                          <span class="n">next</span><span class="p">,</span>
-                         <span class="o">&amp;</span><span class="n">eventPtr</span><span class="p">,</span>
+                         <span class="o">&amp;</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_eventPtr</span><span class="p">,</span>
                          <span class="o">&amp;</span><span class="n">version</span><span class="p">,</span>
                          <span class="o">&amp;</span><span class="n">versionend</span><span class="p">,</span>
                          <span class="o">&amp;</span><span class="n">encodingName</span><span class="p">,</span>
@@ -520,7 +520,7 @@ zero (<code>XML_FALSE</code>), since we are not processing a general text entity
 
 
 <p>After initializing a whole bunch of local variables, we then choose
-which function to process the declaration with.  <code>ns</code> is a parser
+which function to process the declaration with.  <code>parser-&gt;m_ns</code> is a parser
 field that is <code>XML_TRUE</code> if we have a non-standard <em>namespace separator</em>
 defined, a choice made when creating the parser.  We don't, so
 <code>XmlParseXmlDecl()</code> gets called.  Surprisingly, given that it starts
@@ -1069,10 +1069,10 @@ pointers.</p>
 <code>ascii_encoding</code> and <code>standalone</code> is now 1.  We then perform some
 basic checks and transfer these results somewhere more useful.</p>
 <div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isGeneralTextEntity</span> <span class="o">&amp;&amp;</span> <span class="n">standalone</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">_dtd</span><span class="o">-&gt;</span><span class="n">standalone</span> <span class="o">=</span> <span class="n">XML_TRUE</span><span class="p">;</span>
+  <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_dtd</span><span class="o">-&gt;</span><span class="n">standalone</span> <span class="o">=</span> <span class="n">XML_TRUE</span><span class="p">;</span>
 <span class="cp">#ifdef XML_DTD</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">paramEntityParsing</span> <span class="o">==</span> <span class="n">XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE</span><span class="p">)</span>
-    <span class="n">paramEntityParsing</span> <span class="o">=</span> <span class="n">XML_PARAM_ENTITY_PARSING_NEVER</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_paramEntityParsing</span> <span class="o">==</span> <span class="n">XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_paramEntityParsing</span> <span class="o">=</span> <span class="n">XML_PARAM_ENTITY_PARSING_NEVER</span><span class="p">;</span>
 <span class="cp">#endif </span><span class="cm">/* XML_DTD */</span><span class="cp"></span>
 <span class="p">}</span>
 </pre></div>
@@ -1094,29 +1094,31 @@ another time, so we won't go into the ramifications of that now.</p>
 handler, that gets called next.  Let's assume that we don't have
 handlers and move on to dealing with the encoding.  This is more
 complicated than you might hope.</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">protocolEncodingName</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_protocolEncodingName</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">newEncoding</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">newEncoding</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span> <span class="o">!=</span> <span class="n">encoding</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">eventPtr</span> <span class="o">=</span> <span class="n">encodingName</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">newEncoding</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span> <span class="o">!=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span>
+        <span class="o">||</span> <span class="p">(</span><span class="n">newEncoding</span><span class="o">-&gt;</span><span class="n">minBYtesPerChar</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span>
+            <span class="n">newEncoding</span> <span class="o">!=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span><span class="p">))</span> <span class="p">{</span>
+      <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_eventPtr</span> <span class="o">=</span> <span class="n">encodingName</span><span class="p">;</span>
       <span class="k">return</span> <span class="n">XML_ERROR_INCORRECT_ENCODING</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="n">encoding</span> <span class="o">=</span> <span class="n">newEncoding</span><span class="p">;</span>
+    <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span> <span class="o">=</span> <span class="n">newEncoding</span><span class="p">;</span>
   <span class="p">}</span>
 </pre></div>
 
 
 <p>If we have previously set an encoding, for example by the user calling
 <code>XML_SetEncoding()</code>, that overrides anything the XML declaration might
-say.  We will have the parser field <code>protocolEncodingName</code> pointing to
+say.  We will have the parser field <code>m_protocolEncodingName</code> pointing to
 the overriding encoding name in that case, so we skip this whole
 section if the field is not NULL.</p>
 <p>Otherwise if the declaration gave an encoding, i.e. <code>newEncoding</code> is
 not NULL (which indeed is correct), we need to check if it's
 compatible with what we've already seen.  In particular, if the
 requested encoding has a different size of "character unit" to the
-encoding we've been using all along, something is wrong.</p>
-<p><strong>There should be checks that UTF-16 encodings have the same
-endianness.</strong>  As <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#charencoding">section 4.3.3 of the XML
+encoding we've been using all along, or we have swapped the endianness
+of the UTF-16 encoding we were using, something is wrong.
+As <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#charencoding">section 4.3.3 of the XML
 standard</a>
 rather wordily puts it,</p>
 <blockquote>
@@ -1126,23 +1128,23 @@ including an encoding declaration to be presented to the XML
 processor in an encoding other than that named in the declaration
 [...]</p>
 </blockquote>
-<p>If all is well, we update the <code>encoding</code> field of the parser structure
+<p>If all is well, we update the <code>m_encoding</code> field of the parser structure
 with the new encoding.  From now on, our parsing will expect ASCII
-input.  Notice that we don't update <code>protocolEncodingName</code>; that is
+input.  Notice that we don't update <code>m_protocolEncodingName</code>; that is
 for overrides only.</p>
 <div class="highlight"><pre><span></span><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">encodingName</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">enum</span> <span class="n">XML_Error</span> <span class="n">result</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">storedEncName</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">storedEncName</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span>
-      <span class="o">&amp;</span><span class="n">temp2Pool</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">encodingName</span><span class="p">,</span>
-      <span class="n">encodingName</span> <span class="o">+</span> <span class="n">XmlNameLength</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">encodingName</span><span class="p">));</span>
+      <span class="o">&amp;</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_temp2Pool</span><span class="p">,</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span><span class="p">,</span> <span class="n">encodingName</span><span class="p">,</span>
+      <span class="n">encodingName</span> <span class="o">+</span> <span class="n">XmlNameLength</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span><span class="p">,</span> <span class="n">encodingName</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">storedEncName</span><span class="p">)</span>
       <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="n">result</span> <span class="o">=</span> <span class="n">handleUnknownEncoding</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">storedEncName</span><span class="p">);</span>
-  <span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">temp2Pool</span><span class="p">);</span>
+  <span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_temp2Pool</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">XML_ERROR_UNKNOWN_ENCODING</span><span class="p">)</span>
-    <span class="n">eventPtr</span> <span class="o">=</span> <span class="n">encodingName</span><span class="p">;</span>
+    <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_eventPtr</span> <span class="o">=</span> <span class="n">encodingName</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>

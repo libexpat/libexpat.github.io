@@ -141,49 +141,42 @@ doc
 <p>Let's assume that we've created our parser, registered all the
 handlers we want to use, and read in the file.  We pick up the story
 as we call <code>XML_Parse()</code>, passing the whole file in one go.</p>
-<h2>Macro Abuse Part 1</h2>
-<p>Unfortunately the very first code we meet introduces us straight away
-to my least favourite feature of parser code.</p>
+<h2>Initial Parsing State</h2>
+<p>We first indulge ourselves with a little defensive programming:</p>
 <div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">XML_Status</span> <span class="n">XMLCALL</span>
 <span class="nf">XML_Parse</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">isFinal</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">switch</span> <span class="p">(</span><span class="n">ps_parsing</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">parser</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">((</span><span class="n">s</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">len</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)))</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">parser</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+      <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_errorCode</span> <span class="o">=</span> <span class="n">XML_ERROR_INVALID_ARGUMENT</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_parsingStatus</span><span class="p">.</span><span class="n">parsing</span><span class="p">)</span> <span class="p">{</span>
   <span class="p">...</span>
 </pre></div>
 
 
-<p>Hang on, you may say at this point, where did <code>ps_parsing</code> come from?
-It's not a local variable, and a bit of searching will quickly tell
-you that it isn't a global variable either.  What on earth can it be?</p>
-<p>In fact it's a macro for a field of the parser structure you passed
-in, specifically <code>parser-&gt;m_parsingStatus.parsing</code>.  Every field of
-the parser structure has a macro shadowing it, and throughout the code
-the macro is used instead of the field.  This has several unfortunate
-side-effects.</p>
-<p>First, you cannot tell at a glance what is a parser field and what is
-a local variable.  In C++ where there is a similar lack of visible
-distinction between members of a class and local variables in methods,
-there is a custom of prefixing members with <code>m_</code> to offer you some
-chance.  This has been done in the Expat code, but <em>the wrong way
-round.</em>  Every field of the parser structure has a name beginning with
-<code>m_</code>, and all of the macros omit that prefix.  (My personal theory is
-that someone heard about C++, tried to write it in C and then hid the
-evidence under the carpet.)</p>
-<p>The second problem is that the parser structure in every function
-<em>must</em> be called <code>parser</code>.  This is a particular issue when creating
-external entity parsers, but I'll spare you that hideousness in this
-article.</p>
-<p>So, armed with the knowledge that the variables we see may be
-something else entirely, let's carry on.  <code>ps_parsing</code> is the current
-overall state of the parser.  Since we have a newly-created parser
-structure that hasn't done any parsing yet, it is in the
-<code>XML_INITIALIZED</code> state.  That results in a call to the function
-<code>startParsing()</code> which creates the salt value used by the hash
-function.  While that is a fascinating exercise all on its own, it is
-beyond the scope of what we want to look at in this article.  Let's
-just assert that it is successful and move on.</p>
+<p><code>XML_Parse()</code> is called by users, who are notoriously lackadaisical
+and apt to forget that they are supposed to give us correctly-formed
+arguments.  We therefore check to see if our input is nonsensical,
+and if it is we will return <code>XML_STATUS_ERROR</code> and, if possible, set
+the <code>m_errorCode</code> of the parser structure to something meaningful, in
+this case <code>XML_ERROR_INVALID_ARGUMENT</code>.  This is kinder than producing
+alarming address exceptions when we attempt to access non-existant
+memory and the like.</p>
+<p>After that, we examine the current overall state of the parser, held
+in the parser field <code>parser-&gt;m_parsingStatus.parsing</code>.  Since we have
+a newly-created parser structure that hasn't done any parsing yet, it
+is in the <code>XML_INITIALIZED</code> state.  That results in a call to the
+function <code>startParsing()</code> which creates the salt value used by the
+hash function.  While that is a fascinating exercise all on its own,
+it is beyond the scope of what we want to look at in this article.
+Let's just assert that it is successful and move on.</p>
 <p>Once we have started the parser, we naturally update the parser state
-to <code>XML_PARSING</code>.  Then we have the following bit of code:</p>
+to <code>XML_PARSING</code>.  Then, assuming we actually have some input (<code>len</code>
+is not zero) and libexpat has been compiled in the usual way
+(i.e. <code>XML_CONTEXT_BYTES</code> is defined) we have the following bit of
+code:</p>
 <div class="highlight"><pre><span></span><span class="kt">void</span> <span class="o">*</span><span class="n">buff</span> <span class="o">=</span> <span class="n">XML_GetBuffer</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">buff</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
@@ -214,29 +207,28 @@ parse from any point.</p>
 <p>The first thing we see in <code>XML_ParseBuffer()</code> is the same dance with
 the parsing state as we saw before.  This time our state is
 <code>XML_PARSING</code> so we drop straight through with no more ado.</p>
-<p>There is then a lot of setting of pointer variables, most of which are
-parser fields hidden by macros.  The important lesson to take away
-from this section is that the parser deals with its input through
-start and end pointers, rather than NUL termination.  This is
-particularly important when the input is UTF-16 or similar, and zero
-bytes can be expected quite frequently in the input.</p>
-<p>Then we call <code>processor()</code> to do the actual parsing.  This looks
-innocent enough, but again it's a function pointer held in the parser
-structure.  Can you tell why I love this code yet?</p>
-<p>There are in fact several processor functions, which provide the
-high-level syntax handling for different situations during parsing.
-We start off with <code>prologInitProcessor()</code>, the processor that handles
-the start-up of parsing and allows for an
-<a href="https://www.w3.org/TR/2000/REC-xml-20001006#sec-prolog-dtd">XML prologue</a>
-to be present.  This does some more initialisation, this time setting
-up the character encoding to use before palming<sup><a href="#palm">3</a></sup>
-the rest of the work onto <code>prologProcessor()</code>.  We will discuss
-encodings in another article; for now, all we need to know is that we
-haven't told the parser in advance what encoding will be used, so it
-will try to deduce the answer from the input text.  The default
-assumption is that the input will be
-<a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8 encoded</a>.</p>
-<p><code>prologProcessor()</code> starts off by calling <code>XmlPrologTok()</code>.  Again you
+<p>There is then a lot of setting of pointer variables, mostly in parser
+fields.  The important lesson to take away from this section is that
+the parser deals with its input through start and end pointers, rather
+than NUL termination.  This is particularly important when the input
+is UTF-16 or similar, and zero bytes can be expected quite frequently
+in the input.</p>
+<p>Then we call <code>parser-&gt;m_processor()</code> to do the actual parsing.  There
+are in fact several processor functions, which provide the high-level
+syntax handling for different situations during parsing.  We start off
+with <code>prologInitProcessor()</code>, the processor that handles the start-up
+of parsing and allows for
+an
+<a href="https://www.w3.org/TR/2000/REC-xml-20001006#sec-prolog-dtd">XML prologue</a> to
+be present.  This does some more initialisation, this time setting up
+the character encoding to use before palming<sup><a href="#palm">3</a></sup> the
+rest of the work off onto <code>prologProcessor()</code>.  We will discuss encodings
+in another article; for now, all we need to know is that we haven't
+told the parser in advance what encoding will be used, so it will try
+to deduce the answer from the input text.  The default assumption is
+that the input will
+be <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8 encoded</a>.</p>
+<p><code>prologProcessor()</code> starts off by calling <code>XmlPrologTok()</code>.  You
 will look long and hard for a function by that name; it's actually a
 macro hiding one of several function pointers held in the encoding
 structure that invokes an appropriate tokenizer.  The tokenizer's job
@@ -325,7 +317,7 @@ common Unicode characters and four bytes for all the rest, so its
 <code>MINBPC</code> is 2.  Expat doesn't support UTF-32, but if it did the
 encoding would have a <code>MINBPC</code> of 4.</p>
 <p>The code rounds the length of the input down to be an integer number
-of <code>MINBPC</code> "units", and the <code>end</code> pointer adjusted accordingly.  This
+of <code>MINBPC</code> "units", and the <code>end</code> pointer is adjusted accordingly.  This
 does not mean that the (potentially shortened) input will only contain
 whole characters &mdash; it could for example end with the first two
 bytes of a four-byte UTF-16 character &mdash; but it does guarantee
@@ -430,7 +422,7 @@ it will instead return <code>-XML_TOK_LITERAL</code> and leave the processor
 function to decide whether or not that is good enough.  In our case we
 have <code>XML_TOK_INSTANCE_START</code>, which is positive and skips all of that
 decision logic.</p>
-<div class="highlight"><pre><span></span><span class="n">role</span> <span class="o">=</span> <span class="n">XmlTokenRole</span><span class="p">(</span><span class="o">&amp;</span><span class="n">prologState</span><span class="p">,</span> <span class="n">tok</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">,</span> <span class="n">enc</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><span class="n">role</span> <span class="o">=</span> <span class="n">XmlTokenRole</span><span class="p">(</span><span class="o">&amp;</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_prologState</span><span class="p">,</span> <span class="n">tok</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">,</span> <span class="n">enc</span><span class="p">);</span>
 <span class="k">switch</span> <span class="p">(</span><span class="n">role</span><span class="p">)</span> <span class="p">{</span>
 </pre></div>
 
@@ -439,8 +431,7 @@ decision logic.</p>
 token plays here at the start of our XML.  If you looked at that
 function name and wondered if it was another of the macros hiding a
 function pointer, give yourself a pat on the back.  It calls the
-function pointer <code>handler</code> in <code>prologState</code>, which is itself a macro
-hiding a field of the parser structure.</p>
+function pointer <code>handler</code> in <code>parser-&gt;m_prologState</code>.</p>
 <p>These handler functions effectively implement a state machine for the
 parser.  We start off in <code>prolog0</code>.</p>
 <div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">PTRCALL</span>
@@ -470,12 +461,12 @@ had set the parser up to want an external DTD.  We didn't do that, so
 it skips down:</p>
 <div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">XML_ROLE_INSTANCE_START</span><span class="p">:</span>
   <span class="cm">/* useForeignDTD stuff... */</span>
-  <span class="n">processor</span> <span class="o">=</span> <span class="n">contentProcessor</span><span class="p">;</span>
+  <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_processor</span> <span class="o">=</span> <span class="n">contentProcessor</span><span class="p">;</span>
   <span class="k">return</span> <span class="nf">contentProcessor</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">nextPtr</span><span class="p">);</span>
 </pre></div>
 
 
-<p>Setting <code>processor</code> (a field of the parser structure, remember) to
+<p>Setting <code>m_processor</code> field of the parser structure to
 <code>contentProcessor</code> signals the end of the XML prologue and the start of
 the actual content of our XML.  The parser could at this point return
 and let <code>XML_ParseBuffer()</code> go round its loop, doing the housekeeping
@@ -547,8 +538,8 @@ BT_HEX</code> in the source, but alas life is not so simple.  There are many
 byte types that may be legal at the start of an XML name, and in
 particular multi-byte characters in UTF-8 may or may not be legal.  In
 order to cover all these cases without replicating code everywhere, we
-descend into more macro madness.</p>
-<h2>Macro Abuse Part 2</h2>
+descend into macro madness.</p>
+<h2>Macro Abuse</h2>
 <p>The <code>CHECK_NMSTRT_CASES</code> macro is a horrible, tangled thing that knows
 it is part of a switch statement, and like <code>REQUIRE_CHAR</code> can exit the
 function without further ado.  Let's make it a little more
@@ -714,15 +705,15 @@ parser implements.  Fortunately this one is quite obvious.</p>
     <span class="n">TAG</span> <span class="o">*</span><span class="n">tag</span><span class="p">;</span>
     <span class="k">enum</span> <span class="n">XML_Error</span> <span class="n">result</span><span class="p">;</span>
     <span class="n">XML_Char</span> <span class="o">*</span><span class="n">toPtr</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">freeTagList</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">tag</span> <span class="o">=</span> <span class="n">freeTagList</span><span class="p">;</span>
-      <span class="n">freeTagList</span> <span class="o">=</span> <span class="n">freeTagList</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_freeTagList</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">tag</span> <span class="o">=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_freeTagList</span><span class="p">;</span>
+      <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_freeTagList</span> <span class="o">=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_freeTagList</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="p">{</span>
-      <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="n">TAG</span> <span class="o">*</span><span class="p">)</span><span class="n">MALLOC</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">TAG</span><span class="p">));</span>
+      <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="n">TAG</span> <span class="o">*</span><span class="p">)</span><span class="n">MALLOC</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">TAG</span><span class="p">));</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tag</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
-      <span class="n">tag</span><span class="o">-&gt;</span><span class="n">buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">MALLOC</span><span class="p">(</span><span class="n">INIT_TAG_BUF_SIZE</span><span class="p">);</span>
+      <span class="n">tag</span><span class="o">-&gt;</span><span class="n">buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">MALLOC</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">INIT_TAG_BUF_SIZE</span><span class="p">);</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tag</span><span class="o">-&gt;</span><span class="n">buf</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">FREE</span><span class="p">(</span><span class="n">tag</span><span class="p">);</span>
         <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
@@ -737,8 +728,8 @@ element, so that for example we can recognise its close tag.  We are
 going to need to do this many times for a long parse, freeing the TAG
 structure once we are done with the element.  This means going back to
 the heap allocators a lot, which is not necessarily an efficient thing
-to do.  So instead of freeing the TAG structures, the parser instead
-keeps them on a linked list on the <code>freeTagList</code> field of the parser
+to do.  So instead of freeing the TAG structures, the parser keeps
+them on a linked list on the <code>m_freeTagList</code> field of the parser
 structure, avoiding all that expensive allocation.</p>
 <p>In this case, this is our first TAG structure, so there is nothing on
 the free list for us to reuse, so we have to allocate anyway, using
@@ -769,22 +760,37 @@ masking a function pointer in the encoder structure.</p>
             <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">fromP</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fromLim</span><span class="p">,</span>
             <span class="kt">char</span> <span class="o">**</span><span class="n">toP</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">toLim</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="kt">char</span> <span class="o">*</span><span class="n">to</span><span class="p">;</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">from</span><span class="p">;</span>
-  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fromLimInitial</span> <span class="o">=</span> <span class="n">fromLim</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">input_incomplete</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">output_exhausted</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 
-  <span class="cm">/* Avoid copying partial characters. */</span>
-  <span class="n">align_limit_to_full_utf8_characters</span><span class="p">(</span><span class="o">*</span><span class="n">fromP</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">fromLim</span><span class="p">);</span>
+  <span class="cm">/* Avoid copying partial characters (due to limited space). */</span>
+  <span class="k">const</span> <span class="kt">ptrdiff_t</span> <span class="n">bytesAvailable</span> <span class="o">=</span> <span class="n">fromLim</span> <span class="o">-</span> <span class="o">*</span><span class="n">fromP</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">ptrdiff_t</span> <span class="n">bytesStorable</span> <span class="o">=</span> <span class="n">toLim</span> <span class="o">-</span> <span class="o">*</span><span class="n">toP</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">bytesAvailable</span> <span class="o">&gt;</span> <span class="n">bytsStorable</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fromLim</span> <span class="o">=</span> <span class="o">*</span><span class="n">fromP</span> <span class="o">+</span> <span class="n">bytesStorable</span><span class="p">;</span>
+    <span class="n">output_exhausted</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  <span class="k">for</span> <span class="p">(</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">toP</span><span class="p">,</span> <span class="n">from</span> <span class="o">=</span> <span class="o">*</span><span class="n">fromP</span><span class="p">;</span> <span class="p">(</span><span class="n">from</span> <span class="o">&lt;</span> <span class="n">fromLim</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">to</span> <span class="o">&lt;</span> <span class="n">toLim</span><span class="p">);</span> <span class="n">from</span><span class="o">++</span><span class="p">,</span> <span class="n">to</span><span class="o">++</span><span class="p">)</span>
-    <span class="o">*</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="p">;</span>
-  <span class="o">*</span><span class="n">fromP</span> <span class="o">=</span> <span class="n">from</span><span class="p">;</span>
-  <span class="o">*</span><span class="n">toP</span> <span class="o">=</span> <span class="n">to</span><span class="p">;</span>
+  <span class="cm">/* Avoid copying partial characters (from incomplete input). */</span>
+  <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="k">const</span> <span class="n">fromLimBefore</span> <span class="o">=</span> <span class="n">fromLim</span><span class="p">;</span>
+    <span class="n">_INTERNAL_trim_to_complete_utf8_characters</span><span class="p">(</span><span class="o">*</span><span class="n">fromP</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">fromLim</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fromLim</span> <span class="o">&lt;</span> <span class="n">fromLimBefore</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">input_incomplete</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="n">fromLim</span> <span class="o">&lt;</span> <span class="n">fromLimInitial</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">XML_CONVERT_INPUT_INCOMPLETE</span><span class="p">;</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="n">to</span> <span class="o">==</span> <span class="n">toLim</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">from</span> <span class="o">&lt;</span> <span class="n">fromLim</span><span class="p">))</span>
+  <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">ptrdiff_t</span> <span class="n">bytesToCopy</span> <span class="o">=</span> <span class="n">fromLim</span> <span class="o">-</span> <span class="o">*</span><span class="n">fromP</span><span class="p">;</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="o">*</span><span class="n">toP</span><span class="p">,</span> <span class="o">*</span><span class="n">fromP</span><span class="p">,</span> <span class="n">bytesToCopy</span><span class="p">);</span>
+    <span class="o">*</span><span class="n">fromP</span> <span class="o">+=</span> <span class="n">bytesToCopy</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">toP</span> <span class="o">+=</span> <span class="n">bytesToCopy</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">output_exhausted</span><span class="p">)</span> <span class="cm">/* needs to go first */</span>
     <span class="k">return</span> <span class="n">XML_CONVERT_OUTPUT_EXHAUSTED</span><span class="p">;</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">input_incomplete</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">XML_CONVERT_INPUT_INCOMPLETE</span><span class="p">;</span>
   <span class="k">else</span>
     <span class="k">return</span> <span class="n">XML_CONVERT_COMPLETED</span><span class="p">;</span>
 <span class="p">}</span>
@@ -823,7 +829,7 @@ the hash tables and string pools.</p>
                                        <span class="k">sizeof</span><span class="p">(</span><span class="n">ELEMENT_TYPE</span><span class="p">));</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">elementType</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">ns</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">setElementTypePrefix</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">elementType</span><span class="p">))</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_ns</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">setElementTypePrefix</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">elementType</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="n">nDefaultAtts</span> <span class="o">=</span> <span class="n">elementType</span><span class="o">-&gt;</span><span class="n">nDefaultAtts</span><span class="p">;</span>
@@ -861,7 +867,7 @@ field in the memory is presumed to be a pointer, and will point to the
 key name when the memory is returned.  <strong>DO NOT FIDDLE WITH THIS</strong>, it
 is important to the way the hash tables work.</p>
 <div class="highlight"><pre><span></span><span class="cm">/* get the attributes from the tokenizer */</span>
-<span class="n">n</span> <span class="o">=</span> <span class="n">XmlGetAttributes</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">attStr</span><span class="p">,</span> <span class="n">attsSize</span><span class="p">,</span> <span class="n">atts</span><span class="p">);</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">XmlGetAttributes</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">attStr</span><span class="p">,</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_attsSize</span><span class="p">,</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_atts</span><span class="p">);</span>
 </pre></div>
 
 
@@ -875,12 +881,12 @@ lack-of-definition either, the rest of the function consists of not
 taking a large number of conditional branches, eventually returning
 having done essentially no more.</p>
 <h2>Back to the Parse (Again)</h2>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">startElementHandler</span><span class="p">)</span>
-  <span class="n">startElementHandler</span><span class="p">(</span><span class="n">handlerArg</span><span class="p">,</span> <span class="n">tag</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">.</span><span class="n">str</span><span class="p">,</span>
-                      <span class="p">(</span><span class="k">const</span> <span class="n">XML_Char</span> <span class="o">**</span><span class="p">)</span><span class="n">atts</span><span class="p">);</span>
-<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">defaultHandler</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_startElementHandler</span><span class="p">)</span>
+  <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_startElementHandler</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_handlerArg</span><span class="p">,</span> <span class="n">tag</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">.</span><span class="n">str</span><span class="p">,</span>
+                                <span class="p">(</span><span class="k">const</span> <span class="n">XML_Char</span> <span class="o">**</span><span class="p">)</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_atts</span><span class="p">);</span>
+<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_defaultHandler</span><span class="p">)</span>
   <span class="n">reportDefault</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
-<span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tempPool</span><span class="p">);</span>
+<span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_tempPool</span><span class="p">);</span>
 <span class="k">break</span><span class="p">;</span>
 </pre></div>
 
@@ -911,11 +917,11 @@ byte type of <code>BT_LF</code>.</p>
 <p><code>normal_contentTok()</code> accepts this and sets the next token pointer to
 the space at the start of the next line.</p>
 <div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">XML_TOK_DATA_NEWLINE</span><span class="p">:</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">characterDataHandler</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_characterDataHandler</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">XML_Char</span> <span class="n">c</span> <span class="o">=</span> <span class="mh">0xA</span><span class="p">;</span>
-    <span class="n">characterDataHandler</span><span class="p">(</span><span class="n">handlerArg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_characterDataHandler</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_handlerArg</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
   <span class="p">}</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">defaultHandler</span><span class="p">)</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_defaultHandler</span><span class="p">)</span>
     <span class="n">reportDefault</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
   <span class="k">break</span><span class="p">;</span>
 </pre></div>
@@ -940,26 +946,26 @@ character is also a space, and therefore also skipped.  The next is a
 pointer to point to it and returns <code>XML_TOK_DATA_CHARS</code>.</p>
 <div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">XML_TOK_DATA_CHARS</span><span class="p">:</span>
   <span class="p">{</span>
-    <span class="n">XML_CharacterDataHandler</span> <span class="n">charDataHandler</span> <span class="o">=</span> <span class="n">characterDataHandler</span><span class="p">;</span>
+    <span class="n">XML_CharacterDataHandler</span> <span class="n">charDataHandler</span> <span class="o">=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_characterDataHandler</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">charDataHandler</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">MUST_CONVERT</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span> <span class="p">{</span>
         <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
-          <span class="n">ICHAR</span> <span class="o">*</span><span class="n">dataPtr</span> <span class="o">=</span> <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">dataBuf</span><span class="p">;</span>
-          <span class="k">const</span> <span class="k">enum</span> <span class="n">XML_Convert_Result</span> <span class="n">convert_res</span> <span class="o">=</span> <span class="n">XmlConvert</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dataPtr</span><span class="p">,</span> <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">dataBufEnd</span><span class="p">);</span>
+          <span class="n">ICHAR</span> <span class="o">*</span><span class="n">dataPtr</span> <span class="o">=</span> <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_dataBuf</span><span class="p">;</span>
+          <span class="k">const</span> <span class="k">enum</span> <span class="n">XML_Convert_Result</span> <span class="n">convert_res</span> <span class="o">=</span> <span class="n">XmlConvert</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dataPtr</span><span class="p">,</span> <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_dataBufEnd</span><span class="p">);</span>
           <span class="o">*</span><span class="n">eventEndPP</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
-          <span class="n">charDataHandler</span><span class="p">(</span><span class="n">handlerArg</span><span class="p">,</span> <span class="n">dataBuf</span><span class="p">,</span>
-                          <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">dataPtr</span> <span class="o">-</span> <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">dataBuf</span><span class="p">));</span>
+          <span class="n">charDataHandler</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_handlerArg</span><span class="p">,</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_dataBuf</span><span class="p">,</span>
+                          <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">dataPtr</span> <span class="o">-</span> <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_dataBuf</span><span class="p">));</span>
           <span class="k">if</span> <span class="p">((</span><span class="n">convert_res</span> <span class="o">==</span> <span class="n">XML_CONVERT_COMPLETED</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">convert_res</span> <span class="o">==</span> <span class="n">XML_CONVERT_INPUT_INCOMPLETE</span><span class="p">))</span>
             <span class="k">break</span><span class="p">;</span>
           <span class="o">*</span><span class="n">eventPP</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
         <span class="p">}</span>
       <span class="p">}</span>
       <span class="k">else</span>
-        <span class="n">charDataHandler</span><span class="p">(</span><span class="n">handlerArg</span><span class="p">,</span>
+        <span class="n">charDataHandler</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_handlerArg</span><span class="p">,</span>
                         <span class="p">(</span><span class="n">XML_Char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span>
                         <span class="p">(</span><span class="kt">int</span><span class="p">)((</span><span class="n">XML_Char</span> <span class="o">*</span><span class="p">)</span><span class="n">next</span> <span class="o">-</span> <span class="p">(</span><span class="n">XML_Char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">));</span>
     <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">defaultHandler</span><span class="p">)</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_defaultHandler</span><span class="p">)</span>
       <span class="n">reportDefault</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="k">break</span><span class="p">;</span>
@@ -1055,7 +1061,7 @@ finally reaches the "&gt;".  It sets the "next token" pointer to the
 newline after the "&gt;" and returns <code>XML_TOK_END_TAG</code> all the way back
 to <code>doContent()</code>.</p>
 <div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">XML_TOK_END_TAG</span><span class="p">:</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">tagLevel</span> <span class="o">==</span> <span class="n">startTagLevel</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_tagLevel</span> <span class="o">==</span> <span class="n">startTagLevel</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_ERROR_ASYNC_ENTITY</span><span class="p">;</span>
 </pre></div>
 
@@ -1083,10 +1089,10 @@ an end tag.  The XML document</p>
 
 <p>is just fine.  In any case we don't have that problem; we have opened
 two tags and are closing one for the first time.</p>
-<div class="highlight"><pre><span></span><span class="n">TAG</span> <span class="o">*</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tagStack</span><span class="p">;</span>
-<span class="n">tagStack</span> <span class="o">=</span> <span class="n">tag</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
-<span class="n">tag</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">freeTagList</span><span class="p">;</span>
-<span class="n">freeTagList</span> <span class="o">=</span> <span class="n">tag</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="n">TAG</span> <span class="o">*</span><span class="n">tag</span> <span class="o">=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_tagStack</span><span class="p">;</span>
+<span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_tagStack</span> <span class="o">=</span> <span class="n">tag</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+<span class="n">tag</span><span class="o">-&gt;</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_freeTagList</span><span class="p">;</span>
+<span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_freeTagList</span> <span class="o">=</span> <span class="n">tag</span><span class="p">;</span>
 <span class="n">rawName</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
 <span class="n">len</span> <span class="o">=</span> <span class="n">XmlNameLength</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">rawName</span><span class="p">);</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">!=</span> <span class="n">tag</span><span class="o">-&gt;</span><span class="n">rawNameLength</span>
@@ -1094,7 +1100,7 @@ two tags and are closing one for the first time.</p>
   <span class="o">*</span><span class="n">eventPP</span> <span class="o">=</span> <span class="n">rawName</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">XML_ERROR_TAG_MISMATCH</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="o">--</span><span class="n">tagLevel</span><span class="p">;</span>
+<span class="o">--</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_tagLevel</span><span class="p">;</span>
 </pre></div>
 
 
@@ -1137,12 +1143,12 @@ point; only comments, processing instructions and whitespace.</p>
                 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">,</span>
                 <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">nextPtr</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">processor</span> <span class="o">=</span> <span class="n">epilogProcessor</span><span class="p">;</span>
-  <span class="n">eventPtr</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+  <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_processor</span> <span class="o">=</span> <span class="n">epilogProcessor</span><span class="p">;</span>
+  <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_eventPtr</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
     <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">tok</span> <span class="o">=</span> <span class="n">XmlPrologTok</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">next</span><span class="p">);</span>
-    <span class="n">eventEndPtr</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">tok</span> <span class="o">=</span> <span class="n">XmlPrologTok</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">next</span><span class="p">);</span>
+    <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_eventEndPtr</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">tok</span><span class="p">)</span> <span class="p">{</span>
 </pre></div>
 
@@ -1187,8 +1193,6 @@ to how the code works.  The important observations to take away from
 this are:</p>
 <ul>
 <li>Macro abuse is rife:<ul>
-<li>Many things that look like local variables (or even functions)
-  are in fact fields of the parser structure.</li>
 <li>Most (but not all) functions starting with <code>Xml</code> are in fact
   macros going through the function table in a character encoding.</li>
 <li>Some macros can return from a function without warning.</li>
