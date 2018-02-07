@@ -6,6 +6,9 @@ url:
 
 # Latest News
 
+* 2018-02-07 —
+  New article:
+  [Expat Internals: Encoding](doc/expat-internals-encodings/)
 * 2017-10-31 —
   [Expat 2.2.**5**](https://github.com/libexpat/libexpat/blob/R_2_2_5/expat/Changes)
   has been released
