@@ -55,7 +55,7 @@ Wherever you go, Expat is already waiting for you:
     * [PCLinuxOS](http://ftp.nluug.nl/pub/os/Linux/distr/pclinuxos/pclinuxos/srpms/SRPMS.pclos/)
     * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
     * [PTXdist](https://git.pengutronix.de/cgit/ptxdist/tree/rules/expat.make)
-    * [ROSA Linux](http://mirror.rosalab.ru/rosa/rosa2016.1/repository/SRPMS/main/release/)
+    * [ROSA Linux](https://abf.rosalinux.ru/import/expat)
     * [Slackware](http://slackware.cs.utah.edu/pub/slackware/slackware64-14.2/slackware64/l/)
     * [Solus Project](https://dev.solus-project.com/source/expat/)
     * [T2](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
