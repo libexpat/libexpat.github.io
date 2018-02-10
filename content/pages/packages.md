@@ -16,6 +16,7 @@ Wherever you go, Expat is already waiting for you:
 * __BSD__
     * [DragonFlyBSD](https://github.com/DragonFlyBSD/DPorts/tree/master/textproc/expat2)
     * [FreeBSD](https://svnweb.freebsd.org/ports/head/textproc/expat2/)
+    * [MirOS BSD](https://www.mirbsd.org/cvs.cgi/ports/textproc/expat/)
     * [NetBSD](http://pkgsrc.se/textproc/expat)
     * [OpenBSD](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libexpat/)
     * [Ravenports](https://github.com/jrmarino/Ravenports/blob/master/bucket_31/expat)
@@ -28,31 +29,34 @@ Wherever you go, Expat is already waiting for you:
     * [Arch Linux](https://git.archlinux.org/svntogit/packages.git/log/trunk?h=packages/expat)
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
     * [CentOS](http://centos-packages.com/7/package/expat/versions/)
-    * [CRUX](https://crux.nu/gitweb/?p=ports/compat-32.git;a=tree;f=expat-32;hb=HEAD)
+    * CRUX
+        [[1]](https://crux.nu/gitweb/?p=ports/compat-32.git;a=tree;f=expat-32;hb=HEAD)
+        [[2]](https://crux.nu/gitweb/?p=ports/opt.git;a=tree;f=expat;hb=HEAD)
     * [Debian](https://packages.debian.org/source/sid/expat)
     * [Exherbo](http://git.exherbo.org/arbor.git/tree/packages/dev-libs/expat)
     * [Fedora](https://apps.fedoraproject.org/packages/expat-devel/overview/)
     * [Funtoo](https://github.com/funtoo/core-kit/tree/master/dev-libs/expat)
     * [Gentoo](https://packages.gentoo.org/packages/dev-libs/expat)
     * [Gobo Linux](https://github.com/gobolinux/Recipes/tree/master/revisions/Expat)
-    * [GuixSD](https://www.gnu.org/software/guix/packages/e.html)
+    * [GuixSD](https://www.gnu.org/software/guix/packages/E/page/4/)
     * [Hyperbola](https://www.hyperbola.info/packages/core/x86_64/expat/)
-    * [KaOS](https://github.com/KaOSx/apps/tree/master/uriparser)
+    * [KaOSx](https://github.com/KaOSx/core/blob/master/expat)
     * [LEDE](https://github.com/lede-project/source/blob/master/tools/expat/Makefile)
     * [Linuxbrew](http://braumeister.org/formula/expat)
+    * [Linux Mint](https://community.linuxmint.com/software/view/libexpat1-dev)
+    * [Lunar Linux](https://github.com/lunar-linux/moonbase-core/tree/master/libs/expat)
     * [Mageia](https://madb.mageia.org/package/show/name/expat/release/cauldron/application/0/arch/x86_64)
     * [meta-debian](https://github.com/meta-debian/meta-debian/blob/master/recipes-debian/expat/expat_debian.bb)
-    * Mint
     * [NixOS](https://github.com/NixOS/nixpkgs/commits/master/pkgs/development/libraries/expat/default.nix)
-    * OpenMandriva
+    * [OpenMandriva](https://github.com/OpenMandrivaAssociation/expat)
     * [openSUSE](https://build.opensuse.org/package/show/devel:libraries:c_c++/expat)
     * [OpenWrt](https://github.com/openwrt/packages/blob/master/libs/expat/Makefile)
     * [Parabola](https://www.parabola.nu/packages/testing/x86_64/expat/)
-    * PCLinuxOS
+    * [PCLinuxOS](http://ftp.nluug.nl/pub/os/Linux/distr/pclinuxos/pclinuxos/srpms/SRPMS.pclos/)
     * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
     * [PTXdist](https://git.pengutronix.de/cgit/ptxdist/tree/rules/expat.make)
-    * ROSA
-    * Slackware
+    * [ROSA Linux](http://mirror.rosalab.ru/rosa/rosa2016.1/repository/SRPMS/main/release/)
+    * [Slackware](http://slackware.cs.utah.edu/pub/slackware/slackware64-14.2/slackware64/l/)
     * [Solus Project](https://dev.solus-project.com/source/expat/)
     * [T2](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
@@ -66,9 +70,10 @@ Wherever you go, Expat is already waiting for you:
     * [Rudix](http://rudix.org/packages/expat.html)
 * __Solaris__
     * [OpenCSW](https://www.opencsw.org/package/expat/)
+    * [ORACLE Solaris](http://pkg.oracle.com/solaris/release/en/search.shtml?token=expat&action=Search)
 * __Windows__
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
-    * [Native installer](https://sourceforge.net/projects/expat/files/expat_win32/)
+    * [Native installer](https://github.com/libexpat/libexpat/releases)
     * [NuGet](https://www.nuget.org/packages?q=expat)
     * [vcpkg](https://github.com/Microsoft/vcpkg/blob/master/ports/expat/CONTROL)
 
