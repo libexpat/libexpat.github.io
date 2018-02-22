@@ -58,7 +58,7 @@ Wherever you go, Expat is already waiting for you:
     * [ROSA Linux](https://abf.rosalinux.ru/import/expat)
     * [Slackware](http://slackware.cs.utah.edu/pub/slackware/slackware64-14.2/slackware64/l/)
     * [Solus Project](https://dev.solus-project.com/source/expat/)
-    * [T2](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
+    * [T2 SDE](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/voidlinux/void-packages/tree/master/srcpkgs/expat)
     * [Yocto Project](https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-core/expat)
