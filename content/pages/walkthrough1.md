@@ -8,7 +8,6 @@ Summary: A walk-through of parsing some simple XML
 
 _Written by Rhodri James_
 
-# Expat Internals: A Simple Parse
 
 This is the first in a series of articles intended to demystify the
 internal workings of the Expat library.  Expat is very densely written

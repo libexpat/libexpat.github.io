@@ -8,7 +8,6 @@ Summary: How to manage and extend Expat's coverage tests
 
 _Written by Rhodri James_
 
-# Writing New Tests for Expat
 
 Expat has an extensive suite of tests designed to ensure that its
 functionality is correct, and to cover as much of the large code base

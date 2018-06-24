@@ -8,7 +8,6 @@ Summary: How the parser's hash tables work
 
 _Written by Rhodri James_
 
-# Expat Internals: The Hash Tables
 
 In the [first walkthrough](../expat-internals-a-simple-parse/), I
 mentioned the parser's hash tables without giving much detail.  In

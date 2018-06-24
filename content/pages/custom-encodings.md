@@ -9,7 +9,6 @@ Slug: writing-a-custom-encoding
 
 _Written by Rhodri James_
 
-# Writing A Custom Encoding
 
 This article is an expansion of the comments in `expat.h` surrounding
 the `XML_Encoding` structure and the `XML_UnknownEncodingHandler`

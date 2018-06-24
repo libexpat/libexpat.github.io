@@ -9,7 +9,6 @@ Slug: expat-internals-parsing-xml-declarations
 
 _Written by Rhodri James_
 
-# Expat Internals: Parsing XML Declarations
 
 This article follows on from the [first
 walkthrough](../expat-internals-a-simple-parse/) of the parser's

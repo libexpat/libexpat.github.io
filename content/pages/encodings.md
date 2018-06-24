@@ -8,7 +8,6 @@ Summary: How character encodings work in Expat
 
 _Written by Rhodri James_
 
-# Expat Internals: Encoding
 
 Expat has a comprehensive but confusing system to handle different
 character encodings of its input byte stream.  This article attempts

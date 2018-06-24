@@ -8,7 +8,6 @@ Summary: How the parser's string pools work and why to use them
 
 _Written by Rhodri James_
 
-# Expat Internals: String Pools
 
 The Expat parser frequently needs to make copies of strings that it
 can control the lifetime of.  To do that it uses _string pools_,
