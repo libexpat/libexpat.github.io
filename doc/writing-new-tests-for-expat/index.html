@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Expat XML parser">
+    <meta name="author" content="">
+
+        <title>Writing New Tests for Expat · Expat XML parser</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../3rdparty/bootstrap/3.0.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../3rdparty/bootswatch/paper/bootstrap.min.css" type="text/css">
+
+    <link rel="stylesheet" href="../../theme/css/main.css">
+
+    <link rel="stylesheet" href="../../theme/css/solarized-light.css">
+
+
+    <script src="../../3rdparty/jquery/jquery-1.10.1.min.js"></script>
+
+    <script src="../../3rdparty/jquery/jquery-migrate-1.2.1.min.js"></script>
+
+    <script src="../../3rdparty/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container" id="wrap">
+      <nav id="navbar" class="navbar navbar-default" role="navigation">
+    <div class="container">
+
+      <!--navbar-header-->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../..">Expat XML parser</a>
+      </div> <!--navbar-header-->
+
+      <!-- Search Box -->
+
+      <!--Menuitems, collapable-->
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menuitem-list">
+                <li >
+                  <a href="https://github.com/libexpat/libexpat/blob/master/expat/Changes" >Changelog</a>
+                </li>
+
+                <li >
+                  <a href="https://github.com/libexpat/libexpat/releases" >Download</a>
+                </li>
+
+                <li >
+                  <a href="https://libexpat.github.io/doc/" >Documentation</a>
+                </li>
+
+                <li >
+                  <a href="https://github.com/libexpat/libexpat" >Git Repository</a>
+                </li>
+
+                <li >
+                  <a href="https://libexpat.github.io/doc/users/" >Users</a>
+                </li>
+
+                <li >
+                  <a href="https://github.com/libexpat/libexpat/issues" >Report a Bug</a>
+                </li>
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+
+    </div> <!--container-->
+  </nav>
+
+
+    <div class="container">
+      <div class="col-md-2">
+      </div>
+
+      <div class="col-md-8">
+        <div class="row">
+              <div class="page-header">
+        <h1><a href="../../doc/writing-new-tests-for-expat/">Writing New Tests for Expat</a></h1>
+    </div>
+
+        </div>
+
+        <div class="row">
+<div id="page-content">
+  <p><em>Written by Rhodri James</em></p>
+<h1>Writing New Tests for Expat</h1>
+<p>Expat has an extensive suite of tests designed to ensure that its
+functionality is correct, and to cover as much of the large code base
+as is possible.  Whenever new functionality is added or old bugs are
+discovered and fixed, there will be a need for a test to ensure that
+the resulting code is correct and any bugs do not recur.  This
+document is intended for contributors to Expat, to help them write
+such tests and balance them with the existing test suite.</p>
+<h2>Finding the Test Code</h2>
+<p>The test code can be found in the <code>expat/tests</code> directory of the
+repository.  The tests can be compiled and run by typing</p>
+<div class="highlight"><pre><span></span><span class="gp">$</span> make check
+</pre></div>
+
+
+<p>at a command line, after the usual configuration.  This builds two
+applications, <code>runtests</code> and <code>runtestspp</code>, which are compiled as C and
+C++ respectively.  The two applications will be run automatically and
+should both report passes.  This is all managed by libtool, which
+while very slick goes to some effort to bury the detailed information
+you are likely to need for debugging.  The actual output of the
+applications can be found in the files <code>expat/tests/runtests.log</code> and
+<code>expat/tests/runtestspp.log</code> respectively.</p>
+<p>The test <em>suite</em> is arranged as a set of five <em>test cases</em>, each of
+which consists of many <em>tests</em>.  The source code for the individual
+tests can be found in <code>runtests.c</code>, which is by now a rather large
+file.  Unfortunately it is not easy to split it into more manageable
+chunks, though that would make a worthy project for some brave soul.
+The remaining source files supply the infrastructure for running
+tests, capturing results and comparing them with expected values.</p>
+<p>Test cases are distinguished from each other in how they initialise
+and finalise individual tests.  The five current test cases are:</p>
+<ol>
+<li>
+<p><em>Basic:</em> Basic tests are supplied with a fresh parser created with
+    <code>XML_ParserCreate()</code>, which will be destroyed when the test
+    finishes.  The parser itself is held in the static variable
+    <code>parser</code>.</p>
+<p>There is a strong argument that this test case should be broken
+down thematically into a number of more manageable test cases.</p>
+</li>
+<li>
+<p><em>XML Namespaces:</em>  Namespace tests are supplied with a fresh
+    parser created with <code>XML_ParserCreateNS()</code>, which will again be
+    destroyed when the test finished and is held in the static
+    variable <code>parser</code>.  Namespace tests check elements of XML
+    namespace parsing and processing.</p>
+</li>
+<li>
+<p><em>Miscellaneous:</em>  Misc tests do not have a parser created for
+    them.  They are intended to test issues surrouding the creation of
+    parsers, or which do not directly involve parsers.  If a test
+    creates a parser and places a pointer to it in the static variable
+    <code>parser</code>, the parser will be destroyed when the test exits.</p>
+</li>
+<li>
+<p><em>Allocation:</em>  Allocation tests are supplied with a fresh parser
+    created with <code>XML_ParserCreate_MM()</code> and passed customised
+    allocation functions which can be freely reconfigured to fail on
+    command.  Again the static variable <code>parser</code> is used, and the
+    allocated parser will be destroyed when the test completes.</p>
+</li>
+<li>
+<p><em>NS Allocation:</em>  Namespace Allocation tests combine the features
+    of XML Namespace tests and allocation tests.  They are intended to
+    allow testing of allocation failure paths while processing
+    namespaces.</p>
+</li>
+</ol>
+<p>Unless there is a particular need for a customised parser, most tests
+fit into the Basic test case.</p>
+<h2>Structure of a Test</h2>
+<p>Individual tests are functions, but they must be defined using the
+<code>START_TEST</code> and <code>END_TEST</code> macros:</p>
+<div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">my_test</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">do_some_testing</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="n">END_TEST</span>
+</pre></div>
+
+
+<p><code>START_TEST</code> defines the function as taking no parameters and
+returning void.  It also sets a number of static variables that make
+error reporting easier by stashing the real function name and location
+in the file of the test.  These can be a little clumsy to use, so a
+number of utility functions and macros exist to simplify things.</p>
+<p>To abort a test prematurely, call the <code>fail</code> macro.  This will record
+the test as a failure and output a message, but will still perform the
+standard tidying up for the test case (i.e. the parser will still be
+destroyed).  It will return immediately from the test function
+(actually longjumping out to the test case control loop).  It does not
+affect any future tests, which will still be run as normal.</p>
+<div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">my_test</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">try_foo</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">fail</span><span class="p">(</span><span class="s">&quot;No foo!&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">try_bar</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">fail</span><span class="p">(</span><span class="s">&quot;No bar!&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">END_TEST</span>
+</pre></div>
+
+
+<p>This will print an error message of the form <code>"ERROR: No foo!"</code> if the
+function <code>try_foo()</code> returns false, and will then exit the test without
+even attempting to call <code>try_bar()</code>.  If <code>try_foo()</code> succeeds, then
+<code>try_bar()</code> will be called, and may or may not report a failure
+instead.  Currently the functions underlying the <code>fail</code> macro have the
+file name and line number where the failure was raised, but do not
+make use of them.</p>
+<p>Notice that no particular effort needs to be made to report success;
+simply not calling <code>fail</code> is sufficient!</p>
+<p>If the parser may contain useful information about a failure, call the
+<code>xml_failure</code> macro instead of <code>fail</code>.  This will include the parser
+error code and string and the line and column number in the parsed
+text where the error occured in the error report.</p>
+<div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">my_test</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">enum</span> <span class="n">XML_Status</span> <span class="n">result</span><span class="p">;</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">XML_Parse</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">my_text</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">my_text</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">XML_STATUS_OK</span><span class="p">)</span>
+      <span class="n">xml_failure</span><span class="p">(</span><span class="n">parser</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">END_TEST</span>
+</pre></div>
+
+
+<p>Notice that <code>xml_failure</code> needs to be told which parser to get the
+failure information from.  This will usually be the static variable
+<code>parser</code>, the default set up by most of the test cases, but it is
+useful to be able to specify an external entity parser when those are
+being tested.</p>
+<p>Often you will need to write tests to provoke specific errors.  The
+<code>expect_failure</code> macro provides support for this.  It takes the string
+to parse, the expected error code (as from <code>XML_GetErrorCode</code>), and an
+error message to fail with if the parser does <em>not</em> signal an error.</p>
+<div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">my_test</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">expect_failure</span><span class="p">(</span><span class="n">duff_text</span><span class="p">,</span> <span class="n">xml_error_code</span><span class="p">,</span>
+                   <span class="s">&quot;Didn&#39;t fail on duff text&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">END_TEST</span>
+</pre></div>
+
+
+<h2>Support Macros and Functions</h2>
+<h3>Byte-by-Byte Parsing</h3>
+<p>In order to exercise as many code paths as possible within the parser,
+most tests don't call <code>XML_Parse()</code> directly to do the whole parse in
+one go.  Instead they call the wrapper function
+<code>_XML_Parse_SINGLE_BYTES()</code> which takes the same parameters
+but feeds the input file to <code>XML_Parse()</code> one byte at a time.  This
+ensures that the code paths for incomplete characters and tokens are
+regularly run through.</p>
+<p>Unless you have a specific reason for testing "all-in-one" parsing,
+you should use <code>_XML_Parse_SINGLE_BYTES()</code> in preference to
+<code>XML_Parse()</code> in future tests.</p>
+<h3>Dummy Handlers</h3>
+<p>It is often necessary to register handler functions to trigger particular
+bugs or exercise particular code paths in the library.  Usually these
+handlers don't need to do anything more than exist.</p>
+<p>A number of dummy handler functions are defined for these situations.
+Rather than do nothing at all, they set a bit in the static variable
+<code>dummy_handler_flags</code> so that a test can verify that the handler has
+in fact been called.  (This is currently not universally true, which
+is a historical accident.  An easy introduction to the test system
+might be to add flags for the handlers that don't currently set one,
+and write or alter a test to check they gets set appropriately.)</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">check_start_elt_handler</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&lt;doc&gt;Hello world&lt;/doc&gt;&quot;</span><span class="p">;</span>
+    <span class="n">dummy_handler_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">XML_SetStartElementHandler</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">dummy_start_element</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">_XML_Parse_SINGLE_BYTES</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">text</span><span class="p">),</span>
+                                <span class="n">XML_TRUE</span><span class="p">)</span> <span class="o">==</span> <span class="n">XML_STATUS_ERROR</span><span class="p">)</span>
+        <span class="n">xml_failure</span><span class="p">(</span><span class="n">parsr</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dummy_handler_flags</span> <span class="o">!=</span> <span class="n">DUMMY_START_ELEMENT_HANDLER_FLAG</span><span class="p">)</span>
+        <span class="n">fail</span><span class="p">(</span><span class="s">&quot;Did not invoke start element handler&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">END_TEST</span>
+</pre></div>
+
+
+<h3>Wide Character Support</h3>
+<p>The test suite is intended to be run on both "narrow" (the default)
+and "wide" (compiled with <code>XML_UNICODE</code> defined) versions of the Expat
+library.  More specifically, the test suite must cope with the
+internal representation of text being either (8-bit) <code>char</code> or
+(16-bit) <code>wchar</code>.  This matters because handler functions, for
+example, are passed internal representations rather than simple (byte)
+strings.</p>
+<p>The library helpfully supplies the <code>XML_Char</code> type for internal
+character strings.  However tests will need to define string literals
+of the appropriate type and use the correct comparison functions, and
+even the correct format codes in <code>printf()</code> calls.  To do this, the
+test suite defines the following macros:</p>
+<ul>
+<li><code>XCS(s)</code> (eXpat Character String) turns a string literal into the
+   appropriate type for the internal representation.  <code>XCS("foo")</code>
+   will become <code>L"foo"</code> for wide builds and just <code>"foo"</code> otherwise.</li>
+<li><code>xcstrlen(s)</code> returns the length (in characters) of an XML_Char
+   string.</li>
+<li><code>xcstrcmp(s, t)</code> compares two XML_Char strings, as per <code>strcmp</code> or
+   <code>wcscmp</code>.</li>
+<li><code>xcstrncmp(s, t, n)</code> compares at most <code>n</code> characters of two
+   XML_Char strings.</li>
+<li><code>XML_FMT_CHAR</code> provides the correct format code to <code>printf</code> a
+   single XML_Char character.</li>
+<li><code>XML_FMT_STR</code> provides the correct format code to <code>printf</code> an
+   XML_Char string.</li>
+</ul>
+<p>So for example an unknown encoding handler (which is passed the name
+of the encoding to use as an XML_Char string) begins with:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">xcstrcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">XCS</span><span class="p">(</span><span class="s">&quot;unsupported-encoding&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">...</span>
+</pre></div>
+
+
+<h3>Character Data Accumulation</h3>
+<p>As is often noted, character data handlers are not guaranteed to be
+called by the library with the whole of the text they need to process
+at once.  If we wish to verify in a test that the whole of a cdata
+section is what we expect (for example to show that a general entity
+has been correctly substituted), we must accumulate the characters in
+a buffer and only check them once the cdata section is finished.</p>
+<p>To do this, we use the functions and types found in <code>chardata.c</code> and
+<code>chardata.h</code>.  There are three steps:</p>
+<ol>
+<li>Initialise a <code>CharData</code> structure to buffer the data, using
+    <code>CharData_Init()</code>.</li>
+<li>Add characters to the buffer using <code>CharData_AppendXMLChars()</code>.
+    Notice that this only deals in XML_Char strings, which is almost
+    always what is wanted.</li>
+<li>Test the final result is what we expect with
+    <code>CharData_CheckXMLChars()</code>.</li>
+</ol>
+<p>If a test needs to be repeated, the <code>CharData</code> structure can be
+reinitialised and reused normally.  Any XML_Char data can be
+accumulated this way, not just cdata sections.</p>
+<p>For the common case of testing that the data passed to a character
+data handler is correct, the test suite supplies the macro
+<code>run_character_check()</code>.  This performs the entire test in one go,
+checking that the <code>text</code> parameter it is passed results in the
+XML_Char string <code>expected</code> being accumulated in a character data
+handler, and failing the test (using <code>xml_failure</code>) if not.</p>
+<p>Be careful when writing such tests to remember that the expected
+results will differ depending on whether the internal representation
+is UTF-8 or UTF-16.  For example, <code>test_french_utf8()</code> which tests
+that an e-acute character (U+00E9, or 0xc3 0xa9 in UTF-8) is correctly
+parsed, reads as follows:</p>
+<div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">test_french_utf8</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">text</span> <span class="o">=</span>
+        <span class="s">&quot;&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="s">&quot;&lt;doc&gt;</span><span class="se">\xC3\xA9</span><span class="s">&lt;/doc&gt;&quot;</span><span class="p">;</span>
+<span class="cp">#ifdef XML_UNICODE</span>
+    <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">expected</span> <span class="o">=</span> <span class="n">XCS</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\x00e9</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="cp">#else</span>
+    <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">expected</span> <span class="o">=</span> <span class="n">XCS</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\xC3\xA9</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="n">run_character_check</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">expected</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">END_TEST</span>
+</pre></div>
+
+
+<p>There is also a macro helper for the less common case of checking that
+XML attributes are correctly passed to a start element handler.
+<code>run_attribute_check()</code> parses the text it is passed and checks that
+the attribute <em>values</em> are as expected.  This should only be used with
+single attributes in each tag, as the order in which attributes are
+presented to the start handler is not guaranteed.</p>
+<div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">test_example</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&lt;doc foo=&#39;bar&#39;&gt;Hi&lt;/doc&gt;&quot;</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">expected</span> <span class="o">=</span> <span class="n">XCS</span><span class="p">(</span><span class="s">&quot;bar&quot;</span><span class="p">);</span>
+    <span class="n">run_attribute_check</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">expected</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">END_TEST</span>
+</pre></div>
+
+
+<p>If you need to test multiple attributes, a more capable accumulator
+will be needed.</p>
+<h3>Structured Data Accumulation</h3>
+<p>As a variation on the <code>CharData</code> accumulator, the functions and types
+in <code>structdata.c</code> and <code>structdata.h</code> allow for storing three integer
+values as well as an <code>XML_Char</code> string.  It is marginally more
+complicated to use since the strings are copied to dynamically
+allocated buffers rather than a single fixed buffer, and the table of
+entries is also dynamically allocated.</p>
+<ol>
+<li>Initialise a <code>StructData</code> structure with <code>StructData_Init()</code>.</li>
+<li>Add entries (a string and three integers) using
+    <code>StructData_AddItem()</code>.  Each call to this function adds a single
+    "entry" to the <code>StructData</code>.</li>
+<li>Check the results with <code>StructData_CheckItems()</code>, which takes an
+    array of entries (<code>StructDataEntry</code> structures) to compare against
+    the entries in the <code>StructData</code>.  If the check fails, all the
+    dynamically allocated memory in the <code>StructData</code> will be freed.</li>
+<li>Tidy up the <code>StructData</code> by calling <code>StructData_Dispose()</code>.</li>
+</ol>
+<p>Thus far this mechanism is only used for checking row and column
+numbers are accurately tracked in handler functions, but it could be
+generalised for other uses.</p>
+<h3>Testing External Entities</h3>
+<p>A great number of tests involve the use of external entity parsers.
+Unfortunately there is little coherence in the mechanisms used by
+these tests; many were created on an ad-hoc basis for individual tests
+with little thought to re-use.</p>
+<p>If you need to write a test involving external entity parsing, it is
+worth looking through the existing tests to see if any of them can be
+modified for your purpose.  The external entity handlers all have
+names of the form <code>external_entity_XXXer()</code> (where XXX isn't
+necessarily a helpful description of what the handler does).  It would
+be a fruitful use of someone's time to rationalise the handlers and
+produce a more flexible set.</p>
+<p>Failing finding something that you can subvert, follow these steps:</p>
+<ol>
+<li>Define a structure that can hold the parameters you need to pass
+    to the external entity handler and results you need back from it
+    (if any).</li>
+<li>Write an external entity handler that assumes that structure is
+    the main parser's user data.  Remember to <code>XML_ParserFree()</code> the
+    external entity parser if you create one.</li>
+<li>Write a test which sets the structure as the parser's user data
+    and sets the handler you have just written as the external entity
+    handler.</li>
+</ol>
+<p>The macro <code>run_ext_character_check()</code> and its associated functions
+gives a simple example of this sort of approach.</p>
+<h3>Debug Memory Allocators</h3>
+<p>Tests in the <em>Allocation</em> and <em>NS Allocation</em> test cases, as well as a
+few other <em>Miscellaneous</em> tests, use a pair of custom allocators to
+control memory allocation in the parser.  By default,
+<code>duff_allocator()</code> and <code>duff_reallocator</code> behave exactly as <code>malloc()</code>
+and <code>realloc()</code> do.</p>
+<p>If the static variable <code>allocation_count</code> is set to a value other than
+<code>ALLOC_ALWAYS_SUCCEED</code> (-1), <code>duff_allocator()</code> will return an error
+(i.e. <code>NULL</code>) after that many more calls.  In other words if
+<code>allocation_count</code> is set to zero, <code>duff_allocator()</code> will fail next
+time it is called and all calls thereafter; if <code>allocation_count</code> is
+one, <code>duff_allocator()</code> will succeed once and then fail on the second
+and subsequent calls, and so on.  The static variable
+<code>reallocation_count</code> controls when <code>duff_reallocator()</code> will fail in
+exactly the same way.</p>
+<p>The tests that use these allocators are generally attempting to check
+failure paths within the library.
+Because <a href="../expat-internals-string-pools/">string pools</a> effectively
+cache memory allocations, simply looping around incrementing the
+initial setting of <code>allocation_count</code> or <code>reallocation_count</code> will not
+catch all of the failure cases.  The only robust way to do that is to
+free the existing parser and create a new one each time around the
+loop.  Fortunately there are already functions that will do that for
+us, the functions that are used to tear down and set up each test in
+the test cases: <code>alloc_teardown()</code> and <code>alloc_setup()</code> or
+<code>nsalloc_teardown()</code> and <code>nsalloc_setup()</code> as appropriate.</p>
+<h2>Conclusions</h2>
+<p>Expat's test suite is something of a hodge-podge, as one might expect
+of a system that has been worked on in short bursts by many hands.
+Adding to it is relatively straightforward process once you know the
+structure and support macros, but it could do with some
+rationalisation.</p>
+<p>&mdash; Rhodri James, 3rd June 2018</p>
+</div>
+        </div>
+
+        <div class="row">
+        </div>
+
+      </div>
+
+      <div class="col-md-2">
+      </div>
+    </div>
+
+
+  </div>
+
+    <nav id="footer" class="navbar navbar-default">
+    <div class="container">
+        <p id="footer-text" class="navbar-text text-center">
+          <span id="engine">
+            Compiled using
+            <a href="https://docs.getpelican.com">Pelican</a>
+          </span>
+          <span id="theme">
+            with theme
+            <a href="https://github.com/yuex/pelican-chameleon">Chameleon</a>
+          </span>
+          <span id="bootstrap">
+            on top of
+            <a href="https://getbootstrap.com/">Bootstrap</a>
+          </span>
+        </p>
+      </div>
+    </div>
+  </nav>
+
+
+</body>
+</html>
