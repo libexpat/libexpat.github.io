@@ -1,11 +1,14 @@
 Title: Welcome to Expat!
-Date: 2017-08-23
+Date: 2018-06-24
 License: MIT
 save_as: index.html
 url:
 
 # Latest News
 
+* 2018-06-24 —
+  New article:
+  [Writing New Tests for Expat](doc/writing-new-tests-for-expat/)
 * 2018-02-07 —
   New article:
   [Expat Internals: Encoding](doc/expat-internals-encodings/)

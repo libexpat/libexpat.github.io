@@ -1,9 +1,12 @@
 Title: Expat News
-Date: 2017-08-23
+Date: 2018-06-24
 License: MIT
 slug: news
 
 
+* 2018-06-24 —
+  New article:
+  [Writing New Tests for Expat](../writing-new-tests-for-expat/)
 * 2018-02-07 —
   New article:
   [Expat Internals: Encoding](../expat-internals-encodings/)
