@@ -1,5 +1,5 @@
 Title: Documentation
-Date: 2017-05-11
+Date: 2018-06-24
 License: MIT
 save_as: doc/index.html
 
@@ -26,6 +26,7 @@ Please read:
 1. [Expat Internals: String Pools](expat-internals-string-pools/)
 1. [Expat Internals: Parsing XML Declarations](expat-internals-parsing-xml-declarations/)
 1. [Expat Internals: Encodings](expat-internals-encodings/)
+1. [Writing New Tests for Expat](writing-new-tests-for-expat/)
 1. [Writing A Custom Encoding](writing-a-custom-encoding/)
 
 
