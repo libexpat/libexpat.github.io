@@ -83,7 +83,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [ExactImage](http://exactcode.com/opensource/exactimage/)
     * [Exempi](https://libopenraw.freedesktop.org/wiki/Exempi/)
     * [Exiv2](http://www.exiv2.org/)
-    * [ExternData](https://github.com/tbeu/ExternData)
+    * [ExternData](https://github.com/modelica-3rdparty/ExternData)
     * [ezQuake](https://ezquake.github.io/) — modern QuakeWorld client focused on competitive online play
 * __F__
     * [Far-NetBox](https://github.com/michaellukashov/Far-NetBox) — SFTP/SCP/FTP/FTPS/WebDAV client for [Far Manager](http://farmanager.com/)
