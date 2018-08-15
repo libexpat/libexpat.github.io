@@ -1,9 +1,12 @@
 Title: Expat News
-Date: 2018-06-24
+Date: 2018-08-15
 License: MIT
 slug: news
 
 
+* 2018-08-15 —
+  [Expat 2.2.**6**](https://github.com/libexpat/libexpat/blob/R_2_2_6/expat/Changes)
+  has been released
 * 2018-06-24 —
   New article:
   [Writing New Tests for Expat](../writing-new-tests-for-expat/)
