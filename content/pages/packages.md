@@ -29,6 +29,7 @@ Wherever you go, Expat is already waiting for you:
     * [Arch Linux](https://git.archlinux.org/svntogit/packages.git/log/trunk?h=packages/expat)
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
     * [CentOS](http://centos-packages.com/7/package/expat/versions/)
+    * [Clear Linux](https://github.com/clearlinux-pkgs/expat/commits/master)
     * CRUX
         [[1]](https://crux.nu/gitweb/?p=ports/compat-32.git;a=tree;f=expat-32;hb=HEAD)
         [[2]](https://crux.nu/gitweb/?p=ports/opt.git;a=tree;f=expat;hb=HEAD)
@@ -57,6 +58,7 @@ Wherever you go, Expat is already waiting for you:
     * [PTXdist](https://git.pengutronix.de/cgit/ptxdist/tree/rules/expat.make)
     * [ROSA Linux](https://abf.rosalinux.ru/import/expat)
     * [Slackware](http://slackware.cs.utah.edu/pub/slackware/slackware64-14.2/slackware64/l/)
+    * [SliTaz GNU/Linux](http://mirror1.slitaz.org/packages/next/)
     * [Solus Project](https://dev.solus-project.com/source/expat/)
     * [T2 SDE](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
