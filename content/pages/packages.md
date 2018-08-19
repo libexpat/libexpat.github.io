@@ -1,5 +1,5 @@
 Title: Expat Packages
-Date: 2017-04-30
+Date: 2018-08-19
 License: MIT
 slug: packages
 
@@ -13,6 +13,8 @@ Wherever you go, Expat is already waiting for you:
 * __Cross-platform__
     * [CPPAN](https://cppan.org/pvt.cppan.demo.expat)
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
+* __AIX__
+    * [AIX Open Source Packages](http://www.oss4aix.org/download/SRPMS/expat/)
 * __BSD__
     * [DragonFlyBSD](https://github.com/DragonFlyBSD/DPorts/tree/master/textproc/expat2)
     * [FreeBSD](https://svnweb.freebsd.org/ports/head/textproc/expat2/)
