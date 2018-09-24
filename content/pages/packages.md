@@ -13,6 +13,7 @@ Wherever you go, Expat is already waiting for you:
 * __Cross-platform__
     * [CPPAN](https://cppan.org/pvt.cppan.demo.expat)
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
+    * [vcpkg](https://github.com/Microsoft/vcpkg/blob/master/ports/expat/CONTROL)
 * __AIX__
     * [AIX Open Source Packages](http://www.oss4aix.org/download/SRPMS/expat/)
 * __BSD__
@@ -79,7 +80,6 @@ Wherever you go, Expat is already waiting for you:
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
     * [Native installer](https://github.com/libexpat/libexpat/releases)
     * [NuGet](https://www.nuget.org/packages?q=expat)
-    * [vcpkg](https://github.com/Microsoft/vcpkg/blob/master/ports/expat/CONTROL)
 
 
 See also:
