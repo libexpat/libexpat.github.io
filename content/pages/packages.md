@@ -39,7 +39,7 @@ Wherever you go, Expat is already waiting for you:
         [[2]](https://crux.nu/gitweb/?p=ports/opt.git;a=tree;f=expat;hb=HEAD)
     * [Debian](https://packages.debian.org/source/sid/expat)
     * [Exherbo](http://git.exherbo.org/arbor.git/tree/packages/dev-libs/expat)
-    * [Fedora](https://apps.fedoraproject.org/packages/expat-devel/overview/)
+    * [Fedora](https://apps.fedoraproject.org/packages/expat/overview/)
     * [Funtoo](https://github.com/funtoo/core-kit/tree/master/dev-libs/expat)
     * [Gentoo](https://packages.gentoo.org/packages/dev-libs/expat)
     * [Gobo Linux](https://github.com/gobolinux/Recipes/tree/master/revisions/Expat)
