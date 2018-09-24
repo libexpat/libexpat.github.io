@@ -12,6 +12,7 @@ Wherever you go, Expat is already waiting for you:
 
 * __Cross-platform__
     * [CPPAN](https://cppan.org/pvt.cppan.demo.expat)
+    * [Hunter](https://github.com/ruslo/hunter/blob/master/cmake/projects/Expat/hunter.cmake)
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
     * [vcpkg](https://github.com/Microsoft/vcpkg/blob/master/ports/expat/CONTROL)
 * __AIX__
