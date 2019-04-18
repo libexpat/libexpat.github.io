@@ -8,6 +8,7 @@ GENERATED = '*.html' doc/ theme/
 .PHONY: all
 all:
 	$(PELICAN) -o . -s pelicanconf.py content
+	sed 's,\.\./doc/documentation/,../doc/,' -i doc/index.html
 
 .PHONY: clean
 clean:
