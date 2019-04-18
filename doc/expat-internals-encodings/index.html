@@ -110,7 +110,7 @@ in an XML name, and functions that perform basic parsing such as the
 tokenizers.</p>
 <p>Encoding tables are layered structures, with up to three levels of
 layering depending on whether the encodings are built-in or created by
-the user (see the <a href="../doc/writing-a-custom-encoding/">article on custom
+the user (see the <a href="../../doc/writing-a-custom-encoding/">article on custom
 encodings</a> for more details of the
 latter).  In consequence building the tables is a complex and
 tiresome business, so helper macros are used to ensure that they are
@@ -129,8 +129,8 @@ basic requirements of the parser.</p>
 <p>The <code>scanners</code> (sometimes referred to as <code>tokenizers</code>) are the
 functions implementing the high-level state machine of the parser.  So
 far we have seen two scanners in the
-<a href="../doc/expat-internals-a-simple-parser">walkthrough</a>
-<a href="../doc/expat-internals-parsing-xml-declarations">articles</a>, both
+<a href="../../doc/expat-internals-a-simple-parser">walkthrough</a>
+<a href="../../doc/expat-internals-parsing-xml-declarations">articles</a>, both
 using the "normal" (8-bit predefined) encoding: the prologue tokenizer
 <code>normal_prologTok()</code> parsing the prologue of an XML document, and the
 content tokenizer <code>normal_contentTok()</code> which takes over once the
@@ -279,7 +279,7 @@ Since the internal encoding is chosen as UTF-8 or UTF-16 at compile
 time, you might hope that only one of these functions would have to be
 in the structure.  Unfortunately <code>utf8Convert</code> is used explicitly to
 convert the input to ASCII for processing the XML prologue, as can be
-seen in the <a href="../doc/expat-internals-parsing-xml-declarations">second
+seen in the <a href="../../doc/expat-internals-parsing-xml-declarations">second
 walkthrough</a>.  This
 is slightly irritating; in a UTF-8 build, the <code>utf16Convert</code> function
 must be linked in but will never be called.</p>
