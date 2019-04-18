@@ -50,7 +50,7 @@ basic requirements of the parser.
 The `scanners` (sometimes referred to as `tokenizers`) are the
 functions implementing the high-level state machine of the parser.  So
 far we have seen two scanners in the
-[walkthrough](../../doc/expat-internals-a-simple-parser)
+[walkthrough](../../doc/expat-internals-a-simple-parse)
 [articles](../../doc/expat-internals-parsing-xml-declarations), both
 using the "normal" (8-bit predefined) encoding: the prologue tokenizer
 `normal_prologTok()` parsing the prologue of an XML document, and the
