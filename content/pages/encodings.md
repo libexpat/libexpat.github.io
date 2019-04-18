@@ -29,7 +29,7 @@ tokenizers.
 Encoding tables are layered structures, with up to three levels of
 layering depending on whether the encodings are built-in or created by
 the user (see the [article on custom
-encodings](../doc/writing-a-custom-encoding/) for more details of the
+encodings](../../doc/writing-a-custom-encoding/) for more details of the
 latter).  In consequence building the tables is a complex and
 tiresome business, so helper macros are used to ensure that they are
 set up correctly and consistently.  Helpful as this is for validation,
@@ -50,8 +50,8 @@ basic requirements of the parser.
 The `scanners` (sometimes referred to as `tokenizers`) are the
 functions implementing the high-level state machine of the parser.  So
 far we have seen two scanners in the
-[walkthrough](../doc/expat-internals-a-simple-parser)
-[articles](../doc/expat-internals-parsing-xml-declarations), both
+[walkthrough](../../doc/expat-internals-a-simple-parser)
+[articles](../../doc/expat-internals-parsing-xml-declarations), both
 using the "normal" (8-bit predefined) encoding: the prologue tokenizer
 `normal_prologTok()` parsing the prologue of an XML document, and the
 content tokenizer `normal_contentTok()` which takes over once the
@@ -204,7 +204,7 @@ time, you might hope that only one of these functions would have to be
 in the structure.  Unfortunately `utf8Convert` is used explicitly to
 convert the input to ASCII for processing the XML prologue, as can be
 seen in the [second
-walkthrough](../doc/expat-internals-parsing-xml-declarations).  This
+walkthrough](../../doc/expat-internals-parsing-xml-declarations).  This
 is slightly irritating; in a UTF-8 build, the `utf16Convert` function
 must be linked in but will never be called.
 
