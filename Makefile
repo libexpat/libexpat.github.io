@@ -7,7 +7,7 @@ GENERATED = '*.html' doc/ theme/
 
 .PHONY: all
 all:
-	$(PELICAN) -o . -s pelicanconf.py content 
+	$(PELICAN) -o . -s pelicanconf.py content
 
 .PHONY: clean
 clean:
