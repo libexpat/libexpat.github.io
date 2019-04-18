@@ -189,7 +189,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [NXLog Community Edition](https://nxlog.co/products/nxlog-community-edition)
 * __O__
     * [OGDI](http://ogdi.sourceforge.net/)
-    * [openam](H.323 answering machine) — H.323 answering machine
+    * [openam](https://www.h323plus.org/) — H.323 answering machine
     * [OpenCOLLADA](http://www.opencollada.org/)
     * [OpenSIPS](http://www.opensips.org/) (modules `jabber` and `xmpp`) — very fast and configurable SIP server
     * [OpenVanilla](https://github.com/openvanilla/openvanilla/commit/bac11c8a818c53e020c903c6f32f220e5c48af91) (prior to version 0.7.1)
