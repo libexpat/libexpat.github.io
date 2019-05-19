@@ -170,7 +170,7 @@ a new entry.</p>
 <span class="nf">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">size_t</span> <span class="n">i</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">size_t</span> <span class="n">tsize</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">createSize</span><span class="p">)</span>
       <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -186,16 +186,16 @@ allocated in the table.  For our empty table this is zero, so we next
 check if we are being asked to create a new entry, i.e. whether
 <code>createSize</code> is non-zero.  If we were just trying to look something up
 in an empty table, we would return <code>NULL</code> at this point.</p>
-<div class="highlight"><pre><span></span>    <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">power</span> <span class="o">=</span> <span class="n">INIT_POWER</span><span class="p">;</span>
-    <span class="cm">/* table-&amp;gt;size is a power of 2 */</span>
-    <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="mi">1</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">INIT_POWER</span><span class="p">;</span>
-    <span class="n">tsize</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="n">NAMED</span> <span class="o">*</span><span class="p">);</span>
-    <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">NAMED</span> <span class="o">**</span><span class="p">)</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">mem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">tsize</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight"><pre><span></span>    <span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span> <span class="o">=</span> <span class="n">INIT_POWER</span><span class="p">;</span>
+    <span class="cm">/* table-&gt;size is a power of 2 */</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="mi">1</span> <span class="o">&lt;</span><span class="o">&lt;</span> <span class="n">INIT_POWER</span><span class="p">;</span>
+    <span class="n">tsize</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="n">NAMED</span> <span class="o">*</span><span class="p">);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">NAMED</span> <span class="o">**</span><span class="p">)</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">tsize</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="n">memset</span><span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tsize</span><span class="p">);</span>
+    <span class="n">memset</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tsize</span><span class="p">);</span>
 </pre></div>
 
 
@@ -211,7 +211,7 @@ small parses without wasting too much memory.</p>
 structures using the memory allocation functions held in the table,
 tidying up and returning <code>NULL</code> if we failed.  This new memory is set
 to all zero, giving us a table of <code>NULL</code> pointers.</p>
-<div class="highlight"><pre><span></span>    <span class="n">i</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+<div class="highlight"><pre><span></span>    <span class="n">i</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
   <span class="p">}</span>
 </pre></div>
 
@@ -225,13 +225,13 @@ size a power of two (2<sup>n</sup>-1 will always have the least
 significant <em>n</em> bits set to one and the rest zeroes,
 e.g. 2<sup>6</sup>-1 is <code>0b111111</code> (63)).  The resulting index <code>i</code> is
 the table entry we will pick.</p>
-<div class="highlight"><pre><span></span>  <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">NAMED</span> <span class="o">*</span><span class="p">)</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">mem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">createSize</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<div class="highlight"><pre><span></span>  <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">NAMED</span> <span class="o">*</span><span class="p">)</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">createSize</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="n">memset</span><span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">createSize</span><span class="p">);</span>
-  <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
-  <span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">used</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  <span class="n">memset</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">createSize</span><span class="p">);</span>
+  <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+  <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">used</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -270,20 +270,20 @@ same table entry as "foo" did.</p>
 <span class="nf">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">size_t</span> <span class="n">i</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="cm">/* ... */</span>
   <span class="p">}</span>
   <span class="k">else</span> <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">h</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
-    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
     <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">mask</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">keyeq</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">name</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">keyeq</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">step</span><span class="p">)</span>
-        <span class="n">step</span> <span class="o">=</span> <span class="n">PROBE_STEP</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">power</span><span class="p">);</span>
-      <span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">step</span> <span class="o">?</span> <span class="p">(</span><span class="n">i</span> <span class="o">+=</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">-=</span> <span class="n">step</span><span class="p">);</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="n">PROBE_STEP</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span><span class="p">);</span>
+      <span class="n">i</span> <span class="o">&lt;</span> <span class="n">step</span> <span class="o">?</span> <span class="p">(</span><span class="n">i</span> <span class="o">+=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">-=</span> <span class="n">step</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">createSize</span><span class="p">)</span>
       <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -305,7 +305,7 @@ empty slot or the key we are looking for.  For reasons we will see
 later, this will always terminate.</p>
 <p>The <code>PROBE_STEP</code> macro is defined as follows:</p>
 <div class="highlight"><pre><span></span><span class="cp">#define SECOND_HASH(hash, mask, power) \</span>
-<span class="cp">  ((((hash) &amp;amp; ~(mask)) &amp;gt;&amp;gt; ((power) - 1)) &amp;amp; ((mask) &amp;gt;&amp;gt; 2))</span>
+<span class="cp">  ((((hash) &amp; ~(mask)) &gt;&gt; ((power) - 1)) &amp; ((mask) &gt;&gt; 2))</span>
 <span class="cp">#define PROBE_STEP(hash, mask, power) \</span>
 <span class="cp">  ((unsigned char)((SECOND_HASH(hash, mask, power)) | 1))</span>
 </pre></div>
@@ -327,12 +327,12 @@ haven't completely filled our table, we will find a slot for our key
 eventually.</p>
 <h2>Extending the Table</h2>
 <div class="highlight"><pre><span></span>    <span class="cm">/* check for overflow (table is half full) */</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">used</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">power</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-      <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">newPower</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">power</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="kt">size_t</span> <span class="n">newSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="mi">1</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">newPower</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">used</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+      <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">newPower</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="kt">size_t</span> <span class="n">newSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="mi">1</span> <span class="o">&lt;</span><span class="o">&lt;</span> <span class="n">newPower</span><span class="p">;</span>
       <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">newMask</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">newSize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
       <span class="kt">size_t</span> <span class="n">tsize</span> <span class="o">=</span> <span class="n">newSize</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">NAMED</span> <span class="o">*</span><span class="p">);</span>
-      <span class="n">NAMED</span> <span class="o">**</span><span class="n">newV</span> <span class="o">=</span> <span class="p">(</span><span class="n">NAMED</span> <span class="o">**</span><span class="p">)</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">mem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">tsize</span><span class="p">);</span>
+      <span class="n">NAMED</span> <span class="o">**</span><span class="n">newV</span> <span class="o">=</span> <span class="p">(</span><span class="n">NAMED</span> <span class="o">**</span><span class="p">)</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">tsize</span><span class="p">);</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">newV</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">newV</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tsize</span><span class="p">);</span>
@@ -353,22 +353,22 @@ old entries into their new places.  This is an expensive operation, so
 we don't want to do it too often during a parse!  Ensuring the table
 size is always a power of two gives us exponential growth, which helps
 keep the number of expansions down.</p>
-<div class="highlight"><pre><span></span>      <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
-          <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">newHash</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">name</span><span class="p">);</span>
-          <span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="n">newHash</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">newMask</span><span class="p">;</span>
+<div class="highlight"><pre><span></span>      <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+          <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">newHash</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+          <span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="n">newHash</span> <span class="o">&amp;</span> <span class="n">newMask</span><span class="p">;</span>
           <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
           <span class="k">while</span> <span class="p">(</span><span class="n">newV</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
             <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">step</span><span class="p">)</span>
              <span class="n">step</span> <span class="o">=</span> <span class="n">PROBE_STEP</span><span class="p">(</span><span class="n">newHash</span><span class="p">,</span> <span class="n">newMask</span><span class="p">,</span> <span class="n">newPower</span><span class="p">);</span>
-            <span class="n">j</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">step</span> <span class="o">?</span> <span class="p">(</span><span class="n">j</span> <span class="o">+=</span> <span class="n">newSize</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">j</span> <span class="o">-=</span> <span class="n">step</span><span class="p">);</span>
+            <span class="n">j</span> <span class="o">&lt;</span> <span class="n">step</span> <span class="o">?</span> <span class="p">(</span><span class="n">j</span> <span class="o">+=</span> <span class="n">newSize</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">j</span> <span class="o">-=</span> <span class="n">step</span><span class="p">);</span>
           <span class="p">}</span>
-          <span class="n">newV</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+          <span class="n">newV</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
         <span class="p">}</span>
-      <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">mem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">free_fcn</span><span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">);</span>
-      <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span> <span class="o">=</span> <span class="n">newV</span><span class="p">;</span>
-      <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">power</span> <span class="o">=</span> <span class="n">newPower</span><span class="p">;</span>
-      <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">=</span> <span class="n">newSize</span><span class="p">;</span>
+      <span class="n">table</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">free_fcn</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">);</span>
+      <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span> <span class="o">=</span> <span class="n">newV</span><span class="p">;</span>
+      <span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span> <span class="o">=</span> <span class="n">newPower</span><span class="p">;</span>
+      <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="n">newSize</span><span class="p">;</span>
 </pre></div>
 
 
@@ -381,12 +381,12 @@ time.</p>
 relevant fields of the main <code>HASH_TABLE</code> structure.  At this point we
 have a consistent hash table again, but we haven't yet inserted our
 new entry.</p>
-<div class="highlight"><pre><span></span>      <span class="n">i</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">newMask</span><span class="p">;</span>
+<div class="highlight"><pre><span></span>      <span class="n">i</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&amp;</span> <span class="n">newMask</span><span class="p">;</span>
       <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="k">while</span> <span class="p">(</span><span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+      <span class="k">while</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">step</span><span class="p">)</span>
           <span class="n">step</span> <span class="o">=</span> <span class="n">PROBE_STEP</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">newMask</span><span class="p">,</span> <span class="n">newPower</span><span class="p">);</span>
-        <span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">step</span> <span class="o">?</span> <span class="p">(</span><span class="n">i</span> <span class="o">+=</span> <span class="n">newSize</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">-=</span> <span class="n">step</span><span class="p">);</span>
+        <span class="n">i</span> <span class="o">&lt;</span> <span class="n">step</span> <span class="o">?</span> <span class="p">(</span><span class="n">i</span> <span class="o">+=</span> <span class="n">newSize</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">-=</span> <span class="n">step</span><span class="p">);</span>
       <span class="p">}</span>
 </pre></div>
 
@@ -419,8 +419,8 @@ tell it where to stop.  The functions are similarly simple:</p>
 <div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">FASTCALL</span>
 <span class="nf">hashTableIterInit</span><span class="p">(</span><span class="n">HASH_TABLE_ITER</span> <span class="o">*</span><span class="n">iter</span><span class="p">,</span> <span class="k">const</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">iter</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">p</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">v</span><span class="p">;</span>
-  <span class="n">iter</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">=</span> <span class="n">iter</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">p</span> <span class="o">+</span> <span class="n">table</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span><span class="p">;</span>
+  <span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">;</span>
+  <span class="n">iter</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">+</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -430,8 +430,8 @@ of the table and its end pointer to just past the end of the table.</p>
 <div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">NAMED</span> <span class="o">*</span> <span class="n">FASTCALL</span>
 <span class="nf">hashTableIterNext</span><span class="p">(</span><span class="n">HASH_TABLE_ITER</span> <span class="o">*</span><span class="n">iter</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">iter</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">p</span> <span class="o">!=</span> <span class="n">iter</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">NAMED</span> <span class="o">*</span><span class="n">tem</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">iter</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">p</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">!=</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">NAMED</span> <span class="o">*</span><span class="n">tem</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">tem</span><span class="p">)</span>
       <span class="k">return</span> <span class="n">tem</span><span class="p">;</span>
   <span class="p">}</span>
@@ -446,9 +446,9 @@ pointer" pointing to the next possibility.  Once you run off the end
 of the table, return <code>NULL</code>.  Simples.<sup><a href="#simples">4</a></sup></p>
 <p>The code to run through a hash table is then just:</p>
 <div class="highlight"><pre><span></span><span class="n">HASH_TABLE_ITER</span> <span class="n">foo_iter</span><span class="p">;</span>
-<span class="n">hashTableIterInit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">foo_iter</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">foo_table</span><span class="p">);</span>
+<span class="n">hashTableIterInit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">foo_iter</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">foo_table</span><span class="p">);</span>
 <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
-  <span class="n">FOO_ENTRY</span> <span class="o">*</span><span class="n">foo</span> <span class="o">=</span> <span class="p">(</span><span class="n">FOO_ENTRY</span> <span class="o">*</span><span class="p">)</span><span class="n">hashTableIterNext</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">foo_iter</span><span class="p">);</span>
+  <span class="n">FOO_ENTRY</span> <span class="o">*</span><span class="n">foo</span> <span class="o">=</span> <span class="p">(</span><span class="n">FOO_ENTRY</span> <span class="o">*</span><span class="p">)</span><span class="n">hashTableIterNext</span><span class="p">(</span><span class="o">&amp;</span><span class="n">foo_iter</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">foo</span><span class="p">)</span>
     <span class="k">break</span><span class="p">;</span>
   <span class="n">do_something_with</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
@@ -490,11 +490,11 @@ out here.  Assume that <code>power</code> is 6 (and <code>mask</code> is therefo
 <code>0b111111</code>), and suppose that our hash is <code>0b1111111111111111</code> to make
 the masking stand out (and because I can't be bothered to type more
 than 16 bits).  Therefore:</p>
-<div class="highlight"><pre><span></span>hash &amp;amp; ~mask                                = 0b1111111111000000
+<div class="highlight"><pre><span></span>hash &amp; ~mask                                = 0b1111111111000000
 
-(hash &amp;amp; ~mask) &amp;gt;&amp;gt; (power-1)                 = 0b0000011111111110
+(hash &amp; ~mask) &gt;&gt; (power-1)                 = 0b0000011111111110
 
-((hash &amp;amp; ~mask) &amp;gt;&amp;gt; (power-1)) &amp;amp; (mask &amp;gt;&amp;gt; 2) = 0b0000000000001110
+((hash &amp; ~mask) &gt;&gt; (power-1)) &amp; (mask &gt;&gt; 2) = 0b0000000000001110
 </pre></div>
 
 

@@ -205,7 +205,7 @@ look like this:</p>
 +---------------------------...-+
    ^               ^      ^       ^
    |         start-+      +-ptr   +-end
-   + blocks-&amp;gt;s
+   + blocks-&gt;s
 </pre></div>
 
 
@@ -233,14 +233,14 @@ needs to grow.</p>
 is full, i.e. when <code>pool-&gt;ptr == pool-&gt;end</code>.  This isn't an absolute
 requirement, but a good deal of the following code makes more sense
 when you bear that in mind.</p>
-<div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">freeBlocks</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">freeBlocks</span><span class="p">;</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">freeBlocks</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">freeBlocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">next</span><span class="p">;</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span><span class="p">;</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">+</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span><span class="p">;</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">;</span>
+<div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">+</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">;</span>
       <span class="k">return</span> <span class="n">XML_TRUE</span><span class="p">;</span>
     <span class="p">}</span>
 </pre></div>
@@ -259,16 +259,16 @@ start of the available memory in the block), <code>end</code> (calculated from
 the number of characters available) and <code>ptr</code> (same as <code>start</code>,
 obviously).  Since this is all trivially successful, the function just
 returns success at this point.</p>
-<div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">freeBlocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">BLOCK</span> <span class="o">*</span><span class="n">tem</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">freeBlocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">next</span><span class="p">;</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">freeBlocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="p">;</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">freeBlocks</span><span class="p">;</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">freeBlocks</span> <span class="o">=</span> <span class="n">tem</span><span class="p">;</span>
-      <span class="n">memcpy</span><span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span><span class="p">,</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">,</span>
-             <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">XML_Char</span><span class="p">));</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">);</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span><span class="p">;</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">+</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span><span class="p">;</span>
+<div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">BLOCK</span> <span class="o">*</span><span class="n">tem</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">freeBlocks</span> <span class="o">=</span> <span class="n">tem</span><span class="p">;</span>
+      <span class="n">memcpy</span><span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">,</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span>
+             <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">XML_Char</span><span class="p">));</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">);</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">;</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">+</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
       <span class="k">return</span> <span class="n">XML_TRUE</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">}</span>
@@ -290,7 +290,7 @@ five characters short of being full, and we want to add the string
 <span class="o">|</span> <span class="p">[</span><span class="n">other</span> <span class="n">contents</span><span class="p">]</span> <span class="mi">0</span> <span class="p">.</span> <span class="p">.</span> <span class="p">.</span> <span class="p">.</span> <span class="p">.</span> <span class="o">|</span>
 <span class="o">+-</span><span class="p">...</span><span class="o">--------------------------+</span>
   <span class="o">^</span>                  <span class="o">^</span>           <span class="o">^</span>
-  <span class="o">+</span> <span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span>        <span class="o">+</span> <span class="n">ptr</span>       <span class="o">+</span> <span class="n">end</span>
+  <span class="o">+</span> <span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span>        <span class="o">+</span> <span class="n">ptr</span>       <span class="o">+</span> <span class="n">end</span>
                      <span class="o">+</span> <span class="n">start</span>
 </pre></div>
 
@@ -301,7 +301,7 @@ full:</p>
 <span class="o">|</span> <span class="p">[</span><span class="n">other</span> <span class="n">contents</span><span class="p">]</span> <span class="mi">0</span> <span class="sc">&#39;A&#39;</span> <span class="sc">&#39;B&#39;</span> <span class="sc">&#39;C&#39;</span> <span class="sc">&#39;D&#39;</span> <span class="sc">&#39;E&#39;</span> <span class="o">|</span>
 <span class="o">+-</span><span class="p">...</span><span class="o">------------------------------------+</span>
   <span class="o">^</span>                   <span class="o">^</span>                    <span class="o">^</span>
-  <span class="o">+</span> <span class="n">block</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span>          <span class="o">+</span> <span class="n">start</span>              <span class="o">+</span> <span class="n">end</span>
+  <span class="o">+</span> <span class="n">block</span><span class="o">-&gt;</span><span class="n">s</span>          <span class="o">+</span> <span class="n">start</span>              <span class="o">+</span> <span class="n">end</span>
                                            <span class="o">+</span> <span class="n">ptr</span>
 </pre></div>
 
@@ -329,7 +329,7 @@ block and <code>end</code> calculated from <code>start</code> and the block size
 +--------------------------...-+
    ^                  ^          ^
    + start            + ptr      + end
-   + block-&amp;gt;s
+   + block-&gt;s
 </pre></div>
 
 
@@ -345,7 +345,7 @@ block, but the cost of searching the list and unlinking the block
 starts to outweigh the cost of going to the allocation functions, so
 we don't.  Clearly we will have to allocate more memory one way or
 another.</p>
-<div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
 </pre></div>
 
 
@@ -361,10 +361,10 @@ the rest of the system that point into this block, so we can safely
 use <code>realloc()</code> to expand the memory; even if it moves the block,
 there are no stray pointers that can be confused.</p>
 <div class="highlight"><pre><span></span>    <span class="n">BLOCK</span> <span class="o">*</span><span class="n">temp</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">blockSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)((</span><span class="kt">unsigned</span><span class="p">)(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">)</span><span class="o">*</span><span class="mi">2U</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">blockSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)((</span><span class="kt">unsigned</span><span class="p">)(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">)</span><span class="o">*</span><span class="mi">2U</span><span class="p">);</span>
     <span class="kt">size_t</span> <span class="n">bytesToAllocate</span><span class="p">;</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">blockSize</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">blockSize</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
       <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
 
     <span class="n">bytesToAllocate</span> <span class="o">=</span> <span class="n">poolBytesToAllocateFor</span><span class="p">(</span><span class="n">blockSize</span><span class="p">);</span>
@@ -372,14 +372,14 @@ there are no stray pointers that can be confused.</p>
       <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
 
     <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">BLOCK</span> <span class="o">*</span><span class="p">)</span>
-      <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">mem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">realloc_fcn</span><span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">bytesToAllocate</span><span class="p">);</span>
+      <span class="n">pool</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">realloc_fcn</span><span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">bytesToAllocate</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">temp</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
       <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
-    <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
-    <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">=</span> <span class="n">blockSize</span><span class="p">;</span>
-    <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">);</span>
-    <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span><span class="p">;</span>
-    <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">+</span> <span class="n">blockSize</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="n">blockSize</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">);</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">+</span> <span class="n">blockSize</span><span class="p">;</span>
   <span class="p">}</span>
 </pre></div>
 
@@ -403,17 +403,17 @@ like it was for reusing a free block, except that there is no need to
 copy the unfinished string (since <code>realloc()</code> does that for us).</p>
 <div class="highlight"><pre><span></span><span class="k">else</span> <span class="p">{</span>
   <span class="n">BLOCK</span> <span class="o">*</span><span class="n">tem</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">blockSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">blockSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">);</span>
   <span class="kt">size_t</span> <span class="n">bytesToAllocate</span><span class="p">;</span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="n">blockSize</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">blockSize</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="n">blockSize</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">INIT_BLOCK_SIZE</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">blockSize</span> <span class="o">&lt;</span> <span class="n">INIT_BLOCK_SIZE</span><span class="p">)</span>
     <span class="n">blockSize</span> <span class="o">=</span> <span class="n">INIT_BLOCK_SIZE</span><span class="p">;</span>
   <span class="k">else</span> <span class="p">{</span>
     <span class="cm">/* Detect overflow, avoiding _signed_ overflow undefined behavior */</span>
-    <span class="k">if</span> <span class="p">((</span><span class="kt">int</span><span class="p">)((</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">blockSize</span> <span class="o">*</span> <span class="mi">2U</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">((</span><span class="kt">int</span><span class="p">)((</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">blockSize</span> <span class="o">*</span> <span class="mi">2U</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="n">blockSize</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
@@ -441,18 +441,18 @@ as is used for extending the
 reason.  We wish to avoid calling the allocation functions more often
 than we have to, and this exponential growth strategy is a good
 compromise between wasting memory and wasting time.</p>
-<div class="highlight"><pre><span></span>    <span class="n">tem</span> <span class="o">=</span> <span class="p">(</span><span class="n">BLOCK</span> <span class="o">*</span><span class="p">)</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">mem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">bytesToAllocate</span><span class="p">);</span>
+<div class="highlight"><pre><span></span>    <span class="n">tem</span> <span class="o">=</span> <span class="p">(</span><span class="n">BLOCK</span> <span class="o">*</span><span class="p">)</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">bytesToAllocate</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tem</span><span class="p">)</span>
       <span class="k">return</span> <span class="n">XML_FALSE</span><span class="p">;</span>
-    <span class="n">tem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">size</span> <span class="o">=</span> <span class="n">blockSize</span><span class="p">;</span>
-    <span class="n">tem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span><span class="p">;</span>
-    <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">tem</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">!=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">)</span>
-      <span class="n">memcpy</span><span class="p">(</span><span class="n">tem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span><span class="p">,</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">,</span>
-             <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">XML_Char</span><span class="p">));</span>
-    <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">tem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">);</span>
-    <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span> <span class="o">=</span> <span class="n">tem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span><span class="p">;</span>
-    <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">=</span> <span class="n">tem</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">s</span> <span class="o">+</span> <span class="n">blockSize</span><span class="p">;</span>
+    <span class="n">tem</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="n">blockSize</span><span class="p">;</span>
+    <span class="n">tem</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">tem</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">!=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">)</span>
+      <span class="n">memcpy</span><span class="p">(</span><span class="n">tem</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">,</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span>
+             <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">XML_Char</span><span class="p">));</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">tem</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">);</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">=</span> <span class="n">tem</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">;</span>
+    <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">tem</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="n">blockSize</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="n">XML_TRUE</span><span class="p">;</span>
 <span class="p">}</span>
@@ -473,9 +473,9 @@ to use.</p>
 simplest is to build it character by character using the
 <code>poolAppendChar()</code> macro.</p>
 <div class="highlight"><pre><span></span><span class="cp">#define poolAppendChar(pool, c) \</span>
-<span class="cp">  (((pool)-&amp;gt;ptr == (pool)-&amp;gt;end &amp;amp;&amp;amp; !poolGrow(pool)) \</span>
+<span class="cp">  (((pool)-&gt;ptr == (pool)-&gt;end &amp;&amp; !poolGrow(pool)) \</span>
 <span class="cp">  ? 0 \</span>
-<span class="cp">  : ((*((pool)-&amp;gt;ptr)++ = c), 1))</span>
+<span class="cp">  : ((*((pool)-&gt;ptr)++ = c), 1))</span>
 </pre></div>
 
 
@@ -484,9 +484,9 @@ such can be confusing to read.  It's easiest to describe as if it were
 a function returning a boolean:</p>
 <div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">poolAppendChar</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="n">XML_Char</span> <span class="n">c</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="o">*</span><span class="p">(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span><span class="p">)</span><span class="o">++</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+  <span class="o">*</span><span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">)</span><span class="o">++</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
   <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -550,7 +550,7 @@ convenient function:</p>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">poolAppendChar</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="o">*</span><span class="n">s</span><span class="p">))</span>
       <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="o">++</span><span class="p">);</span>
-  <span class="n">s</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">;</span>
+  <span class="n">s</span> <span class="o">=</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">;</span>
   <span class="n">poolFinish</span><span class="p">(</span><span class="n">pool</span><span class="p">);</span>
   <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
 <span class="p">}</span>
@@ -587,10 +587,10 @@ convenience):</p>
 
 <span class="n">STRING_POOL</span> <span class="n">pool</span><span class="p">;</span>
 <span class="n">XML_Char</span> <span class="o">*</span><span class="n">string</span><span class="p">;</span>
-<span class="n">poolInit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">pool</span><span class="p">);</span>
-<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">pool</span><span class="p">,</span> <span class="s">&quot;ABC&quot;</span><span class="p">);</span>
-<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">pool</span><span class="p">,</span> <span class="s">&quot;DEF&quot;</span><span class="p">);</span>
-<span class="n">string</span> <span class="o">=</span> <span class="n">poolCopyString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">pool</span><span class="p">,</span> <span class="s">&quot;GHI&quot;</span><span class="p">);</span>
+<span class="n">poolInit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">);</span>
+<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span> <span class="s">&quot;ABC&quot;</span><span class="p">);</span>
+<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span> <span class="s">&quot;DEF&quot;</span><span class="p">);</span>
+<span class="n">string</span> <span class="o">=</span> <span class="n">poolCopyString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span> <span class="s">&quot;GHI&quot;</span><span class="p">);</span>
 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;string = %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">);</span>
 </pre></div>
 
@@ -606,7 +606,7 @@ the process somewhat more involved.</p>
 <span class="nf">poolAppend</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
            <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
     <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 </pre></div>
 
@@ -616,9 +616,9 @@ the process somewhat more involved.</p>
 ourselves one.</p>
 <div class="highlight"><pre><span></span>  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
     <span class="k">const</span> <span class="k">enum</span> <span class="n">XML_Convert_Result</span> <span class="n">convert_res</span> <span class="o">=</span>
-      <span class="n">XmlConvert</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span>
-                 <span class="p">(</span><span class="n">ICHAR</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;(</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">ptr</span><span class="p">),</span>
-                 <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">end</span><span class="p">);</span>
+      <span class="n">XmlConvert</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span>
+                 <span class="p">(</span><span class="n">ICHAR</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">),</span>
+                 <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">);</span>
 
     <span class="k">if</span> <span class="p">((</span><span class="n">convert_res</span> <span class="o">==</span> <span class="n">XML_CONVERT_COMPLETED</span><span class="p">)</span> <span class="o">||</span>
         <span class="p">(</span><span class="n">convert_res</span> <span class="o">==</span> <span class="n">XML_CONVERT_INPUT_INCOMPLETE</span><span class="p">))</span>
@@ -654,7 +654,7 @@ shouldn't occur.  We still break out of the loop because there is
 nothing more we can usefully do.  Otherwise we must have run out of
 output buffer, so we call <code>poolGrow()</code> to get ourselves some more and
 loop back to try again.</p>
-<div class="highlight"><pre><span></span>  <span class="k">return</span> <span class="n">pool</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">start</span><span class="p">;</span>
+<div class="highlight"><pre><span></span>  <span class="k">return</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -681,13 +681,13 @@ pools have rather different patterns of use.</p>
 that preserves the strings for a relatively short period.  The
 processing of <code>XML_TOK_EMPTY_ELEMENT_WITH_ATTS</code> is a good example of
 this.</p>
-<div class="highlight"><pre><span></span><span class="n">name</span><span class="p">.</span><span class="n">str</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">tempPool</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">rawName</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><span class="n">name</span><span class="p">.</span><span class="n">str</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tempPool</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">rawName</span><span class="p">,</span>
                            <span class="n">rawName</span> <span class="o">+</span> <span class="n">XmlNameLength</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">rawName</span><span class="p">));</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">name</span><span class="p">.</span><span class="n">str</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
-<span class="n">poolFinish</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">tempPool</span><span class="p">);</span>
+<span class="n">poolFinish</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tempPool</span><span class="p">);</span>
 <span class="cm">/* ... do stuff ... */</span>
-<span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">tempPool</span><span class="p">);</span>
+<span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tempPool</span><span class="p">);</span>
 </pre></div>
 
 
@@ -713,13 +713,13 @@ reset behaviour.</p>
 for converting the input stream, purely to get a temporary
 internally-encoded string.  For example, substituting an entity
 reference involves the following code:</p>
-<div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">dtd</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">pool</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span>
-                        <span class="n">s</span> <span class="o">+</span> <span class="n">enc</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">minBytesPerChar</span><span class="p">,</span>
-                        <span class="n">next</span> <span class="o">-</span> <span class="n">enc</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">minBytesPerChar</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span>
+                        <span class="n">s</span> <span class="o">+</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">,</span>
+                        <span class="n">next</span> <span class="o">-</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">);</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">name</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
-<span class="n">entity</span> <span class="o">=</span> <span class="p">(</span><span class="n">ENTITY</span> <span class="o">*</span><span class="p">)</span><span class="n">lookup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">dtd</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">generalEntities</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-<span class="n">poolDiscard</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">dtd</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">pool</span><span class="p">);</span>
+<span class="n">entity</span> <span class="o">=</span> <span class="p">(</span><span class="n">ENTITY</span> <span class="o">*</span><span class="p">)</span><span class="n">lookup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">generalEntities</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">poolDiscard</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">);</span>
 </pre></div>
 
 
@@ -731,20 +731,20 @@ and immediately discarded.</p>
 lifetime of the parse, at least) of converted input strings, when it
 is needed.  A reasonably self-contained example occurs at the start of
 <code>getAttributeId()</code>, though with a twist:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">poolAppendChar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">dtd</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">pool</span><span class="p">,</span> <span class="n">XML_T</span><span class="p">(</span><span class="sc">&#39;\0&#39;</span><span class="p">)))</span>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">poolAppendChar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">,</span> <span class="n">XML_T</span><span class="p">(</span><span class="sc">&#39;\0&#39;</span><span class="p">)))</span>
   <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="n">name</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">dtd</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">pool</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">name</span><span class="p">)</span>
   <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="cm">/* skip quotation mark - its storage will be re-used (like in name[-1]) */</span>
 <span class="o">++</span><span class="n">name</span><span class="p">;</span>
-<span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="n">ATTRIBUTE_ID</span> <span class="o">*</span><span class="p">)</span><span class="n">lookup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">dtd</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">attributeIds</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ATTRIBUTE_ID</span><span class="p">));</span>
+<span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="n">ATTRIBUTE_ID</span> <span class="o">*</span><span class="p">)</span><span class="n">lookup</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">attributeIds</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ATTRIBUTE_ID</span><span class="p">));</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">id</span><span class="p">)</span>
   <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">)</span>
-  <span class="n">poolDiscard</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">dtd</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">pool</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">id</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">)</span>
+  <span class="n">poolDiscard</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">);</span>
 <span class="k">else</span> <span class="p">{</span>
-  <span class="n">poolFinish</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">dtd</span><span class="o">-&amp;</span><span class="n">gt</span><span class="p">;</span><span class="n">pool</span><span class="p">);</span>
+  <span class="n">poolFinish</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">);</span>
 </pre></div>
 
 
