@@ -270,7 +270,7 @@ and write or alter a test to check they gets set appropriately.)</p>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">check_start_elt_handler</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&amp;lt;doc&amp;gt;Hello world&amp;lt;/doc&amp;gt;&quot;</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&lt;doc&gt;Hello world&lt;/doc&gt;&quot;</span><span class="p">;</span>
     <span class="n">dummy_handler_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="n">XML_SetStartElementHandler</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">dummy_start_element</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">_XML_Parse_SINGLE_BYTES</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">text</span><span class="p">),</span>
@@ -353,8 +353,8 @@ parsed, reads as follows:</p>
 <div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">test_french_utf8</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">text</span> <span class="o">=</span>
-        <span class="s">&quot;&amp;lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&amp;gt;</span><span class="se">\n</span><span class="s">&quot;</span>
-        <span class="s">&quot;&amp;lt;doc&amp;gt;</span><span class="se">\xC3\xA9</span><span class="s">&amp;lt;/doc&amp;gt;&quot;</span><span class="p">;</span>
+        <span class="s">&quot;&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="s">&quot;&lt;doc&gt;</span><span class="se">\xC3\xA9</span><span class="s">&lt;/doc&gt;&quot;</span><span class="p">;</span>
 <span class="cp">#ifdef XML_UNICODE</span>
     <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">expected</span> <span class="o">=</span> <span class="n">XCS</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\x00e9</span><span class="s">&quot;</span><span class="p">);</span>
 <span class="cp">#else</span>
@@ -374,7 +374,7 @@ single attributes in each tag, as the order in which attributes are
 presented to the start handler is not guaranteed.</p>
 <div class="highlight"><pre><span></span><span class="n">START_TEST</span><span class="p">(</span><span class="n">test_example</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&amp;lt;doc foo=&#39;bar&#39;&amp;gt;Hi&amp;lt;/doc&amp;gt;&quot;</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&lt;doc foo=&#39;bar&#39;&gt;Hi&lt;/doc&gt;&quot;</span><span class="p">;</span>
     <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">expected</span> <span class="o">=</span> <span class="n">XCS</span><span class="p">(</span><span class="s">&quot;bar&quot;</span><span class="p">);</span>
     <span class="n">run_attribute_check</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">expected</span><span class="p">);</span>
 <span class="p">}</span>
