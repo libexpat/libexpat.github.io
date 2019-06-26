@@ -27,30 +27,6 @@ url:
 * 2017-10-21 —
   New article:
   [Expat Internals: Parsing XML Declarations](doc/expat-internals-parsing-xml-declarations/)
-* 2017-08-19 —
-  [Expat 2.2.**4**](https://github.com/libexpat/libexpat/blob/R_2_2_4/expat/Changes)
-  has been released
-* 2017-08-02 —
-  [Expat 2.2.**3**](https://github.com/libexpat/libexpat/blob/R_2_2_3/expat/Changes)
-  has been released, includes **security fixes**
-* 2017-07-19 —
-  New article:
-  [Expat Internals: String Pools](doc/expat-internals-string-pools/)
-* 2017-07-13 —
-  [Expat 2.2.**2**](https://github.com/libexpat/libexpat/blob/R_2_2_2/expat/Changes)
-  has been released, includes **security fixes**
-* 2017-06-29 —
-  New article:
-  [Expat Internals: The Hash Tables](doc/expat-internals-the-hash-tables/)
-* 2017-06-23 —
-  New article:
-  [Expat Internals: A Simple Parse](doc/expat-internals-a-simple-parse/)
-* 2017-06-17 —
-  [Expat 2.2.**1**](https://github.com/libexpat/libexpat/blob/R_2_2_1/expat/Changes)
-  has been released, includes **security fixes**
-* 2017-06-17 —
-  __CVE-2017-9233__:
-  [External Entity Vulnerability in Expat 2.2.0 And Earlier](doc/cve-2017-9233/)
 * [Past news entries](doc/news/)
 
 
