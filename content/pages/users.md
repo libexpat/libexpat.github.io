@@ -102,6 +102,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Geant 4](http://geant4.cern.ch/)
     * [GenomeTools](http://genometools.org/) — versatile genome analysis toolkit
     * [gettext](https://www.gnu.org/software/gettext/)
+    * [Ghostscript/GhostPDL](https://git.ghostscript.com/?p=ghostpdl.git;a=blob;f=xps/xpsxml.c;h=02cb845a9e90cb63f53c2f5096b6e85796a2df34;hb=HEAD) — Postscript and PDF interpreter and rendering engine
     * [GIFTI / libgiftiio](http://www.nitrc.org/projects/gifti) — Geometry format under the Neuroimaging Informatics Technology Initiative (NIfTI)
     * [Git](https://www.git-scm.com/)
     * [Gnash](https://www.gnu.org/software/gnash/)
