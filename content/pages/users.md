@@ -234,7 +234,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [StarDict](http://stardict-4.sourceforge.net/)
     * [Stargazer](http://stg.dp.ua/)
     * [Subversion](http://subversion.apache.org/)
-    * [Swift XMPP Client](http://swift.im/)
+    * [Swift XMPP Client](https://github.com/swift/swift/blob/09d8ac653493a0bd16cb69664ca28fbfe3c61bbb/Swiften/Parser/ExpatParser.cpp) — XMPP client and XMPP library
 * __T__
     * [Tandem](http://www.thegpm.org/TANDEM/) — mass spectrometry software for protein identification
     * [TECkit](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&cat_id=TECkit)
