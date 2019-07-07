@@ -58,6 +58,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [claws-mail-feeds-reader](http://www.claws-mail.org/) — feeds (RSS/Atom) reader plugin for Claws Mail
     * [CMake](https://cmake.org/)
     * [cobex](http://cobex.sourceforge.net/)
+    * [CODA](https://github.com/stcorp/coda/blob/eaa9b49974f80814fe14f485052ce782df7d4ce5/libcoda/coda-xml-parser.c#L35) — Common Data Access toolset
     * [Coin3D](https://bitbucket.org/Coin3D/coin/wiki/Home)
     * [Comet MS/MS search engine](https://sourceforge.net/projects/comet-ms/) — Tandem mass spectrometry (MS/MS) search engine
     * [C-Pluff](http://www.c-pluff.org/) — Plug-in framework for C
