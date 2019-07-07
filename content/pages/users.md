@@ -83,7 +83,6 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [ExactImage](http://exactcode.com/opensource/exactimage/)
     * [Exempi](https://libopenraw.freedesktop.org/wiki/Exempi/)
     * [Exiv2](http://www.exiv2.org/)
-    * [ExternData](https://github.com/modelica-3rdparty/ExternData)
     * [ezQuake](https://ezquake.github.io/) — modern QuakeWorld client focused on competitive online play
 * __F__
     * [Far-NetBox](https://github.com/michaellukashov/Far-NetBox) — SFTP/SCP/FTP/FTPS/WebDAV client for [Far Manager](http://farmanager.com/)
@@ -179,6 +178,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [MIRA](http://www.chevreux.org/projects_mira.html)
     * [mod_auth_openid](http://findingscience.com/mod_auth_openid/) — OpenID authentication module for Apache2
     * [mod_dav](http://www.webdav.org/mod_dav/)
+    * [Modelica ExternData](https://github.com/modelica-3rdparty/ExternData)
     * [mstoolkit](https://github.com/mhoopmann/mstoolkit/blob/master/src/mzParser/saxhandler.cpp) — libraries for manipulating mass spectrometry data
     * [Music Player Daemon](https://www.musicpd.org)
     * [mu-conference / jabber-muc](https://gna.org/projects/mu-conference/)
