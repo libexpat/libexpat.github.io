@@ -36,6 +36,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Apache Portable Runtime (apr-util)](http://apr.apache.org/)
     * [aria2](https://aria2.github.io/)
     * [Astropy](http://www.astropy.org/)
+    * [Attract Mode](https://github.com/mickelson/attract/blob/a348c1f5fa125bfb4133e01ce3b03a17138dbea6/src/scraper_base.cpp#L33) — graphical front-end for command line emulators
     * [Audacity](http://web.audacityteam.org/)
     * [Avahi](https://github.com/lathiat/avahi)
 * __B__
