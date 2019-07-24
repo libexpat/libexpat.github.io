@@ -62,7 +62,7 @@ Wherever you go, Expat is already waiting for you:
     * [PTXdist](https://git.pengutronix.de/cgit/ptxdist/tree/rules/expat.make)
     * [ROSA Linux](https://abf.rosalinux.ru/import/expat)
     * [Slackware](http://slackware.osuosl.org/slackware64-current/source/l/expat/)
-    * [SliTaz GNU/Linux](http://mirror1.slitaz.org/packages/next/)
+    * [SliTaz GNU/Linux](http://hg.slitaz.org/wok/file/tip/expat/receipt)
     * [Solus Project](https://dev.solus-project.com/source/expat/)
     * [T2 SDE](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
