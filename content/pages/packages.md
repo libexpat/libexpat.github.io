@@ -27,6 +27,7 @@ Wherever you go, Expat is already waiting for you:
 * __Haiku__
     * [HaikuPorts](https://github.com/haikuports/haikuports/tree/master/dev-libs/expat)
 * __Linux__
+    * [Adélie Linux](https://code.foxkit.us/adelie/packages/blob/master/system/expat/APKBUILD)
     * [Alpine Linux](https://git.alpinelinux.org/cgit/aports/tree/main/expat)
     * [ALT Linux](https://packages.altlinux.org/en/Sisyphus/srpms/expat)
     * [AOSC](https://packages.aosc.io/packages/expat)
