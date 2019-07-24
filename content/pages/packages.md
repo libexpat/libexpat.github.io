@@ -55,7 +55,9 @@ Wherever you go, Expat is already waiting for you:
     * [NixOS](https://github.com/NixOS/nixpkgs/commits/master/pkgs/development/libraries/expat/default.nix)
     * [OpenMandriva](https://github.com/OpenMandrivaAssociation/expat)
     * [openSUSE](https://build.opensuse.org/package/show/devel:libraries:c_c++/expat)
-    * [OpenWrt](https://github.com/openwrt/packages/blob/master/libs/expat/Makefile)
+    * OpenWrt
+        [[1]](https://github.com/openwrt/packages/blob/master/libs/expat/Makefile)
+        [[2]](https://git.openwrt.org/?p=openwrt/openwrt.git;a=blob;f=tools/expat/Makefile)
     * [Parabola](https://www.parabola.nu/packages/testing/x86_64/expat/)
     * [PCLinuxOS](http://ftp.nluug.nl/pub/os/Linux/distr/pclinuxos/pclinuxos/srpms/SRPMS.pclos/)
     * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
