@@ -67,7 +67,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __D__
     * [DACS (Distributed access control)](https://dacs.dss.ca/) — single sign-on and rule-based access control system
     * [Dasher](http://www.inference.org.uk/dasher/) — graphical predictive text input system
-    * [D-Bus](https://www.freedesktop.org/wiki/Software/dbus/)
+    * [D-Bus (dbus)](https://gitlab.freedesktop.org/dbus/dbus/blob/8d8b5eb8a409031e224d088c1e3385bc2874c873/bus/config-loader-expat.c#L199) — message bus system
     * [DFXML / tcpflow](https://github.com/simsong/dfxml/blob/master/src/dfxml_reader.cpp) — Digital Forensics XML project and library
     * [digiKam](https://www.digikam.org/)
     * [discover](https://packages.debian.org/sid/discover) — hardware identification system
