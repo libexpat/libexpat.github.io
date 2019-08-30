@@ -48,6 +48,7 @@ interfaces to Expat from languages other than C.
     * [node-expat](https://github.com/astro/node-expat) — libexpat XML SAX parser binding for node.js
     * [xml-stream](https://github.com/assistunion/xml-stream)
 * __Objective-C__
+    * [MulleObjCExpatFoundation](https://github.com/MulleFoundation/MulleObjCExpatFoundation)
     * [Objective-C interface to Expat](http://expatobjc.sourceforge.net/)
 * __Object Pascal__ (Delphi)
     * [SAX2 Wrapper for using Expat in Delphi,](http://sourceforge.net/projects/kdsxml) based on ["SAX for Pascal"](http://saxforpascal.sourceforge.net) interface specs
