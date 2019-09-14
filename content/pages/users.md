@@ -233,6 +233,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [SDLmame](http://mamedev.org/)
     * [SeaMonkey](http://www.seamonkey-project.org)
     * [simgear](http://simgear.org/)
+    * [sitecopy](https://packages.debian.org/sid/web/sitecopy) (through neon) — program for managing a WWW site via FTP, SFTP, DAV or HTTP
     * [Skia Graphics Library](https://github.com/google/skia/blob/HEAD/src/ports/SkFontMgr_android_parser.cpp)
     * [Soulseek](http://www.soulseekqt.net/)
     * [spatialite-tools](https://www.gaia-gis.it/spatialite)
