@@ -133,7 +133,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __J__
     * [jabberd2](http://jabberd2.org)
     * [JACK Audio Connection Kit](http://jackaudio.org/)
-    * [jggtrans](https://github.com/Jajcus/jggtrans)
+    * [jggtrans](https://github.com/Jajcus/jggtrans) — Jabber to GaduGadu gateway ("transport")
     * [Joe's Window Manager (JWM)](http://joewing.net/projects/jwm/)
 * __K__
     * [K-3D](http://www.k-3d.org/)
