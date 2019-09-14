@@ -128,6 +128,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __I__
     * [Ice](https://zeroc.com/products/ice)
     * [IFrIT (Ionization FRont Interactive Tool)](https://sites.google.com/site/ifrithome/) — powerful tool for visualizing 3-dimensional data sets
+    * [Insight Toolkit (ITK)](https://itk.org/) — suite of software tools for image analysis
     * [ion](https://ion.ocp.ohiou.edu/) — NASA implementation of Delay-Tolerant Networking (DTN)
     * [Ipsumdump](http://read.seas.harvard.edu/~kohler/ipsumdump/)
 * __J__
