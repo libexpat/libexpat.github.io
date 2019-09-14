@@ -39,6 +39,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Attract Mode](https://github.com/mickelson/attract/blob/a348c1f5fa125bfb4133e01ce3b03a17138dbea6/src/scraper_base.cpp#L33) — graphical front-end for command line emulators
     * [Audacity](http://web.audacityteam.org/)
     * [Avahi](https://github.com/lathiat/avahi)
+    * [ayttm](http://ayttm.sourceforge.net/) (through libxode) — universal instant messaging client
 * __B__
     * [Battle Tanks](http://btanks.sourceforge.net/)
     * [biboumi](https://lab.louiz.org/louiz/biboumi/) — XMPP to IRC gateway
