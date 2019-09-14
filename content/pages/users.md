@@ -161,6 +161,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [libwbxml](https://github.com/libwbxml/libwbxml)
     * [libwmf](http://wvware.sourceforge.net/)
     * [libwww](https://www.w3.org/Library/)
+    * [libxode](https://sourceforge.net/projects/libxode/) — DOM wrapper around Expat
     * [libxspf](http://libspiff.sourceforge.net/)
     * [Liquid War 6](https://www.gnu.org/software/liquidwar6/)
     * [litmus](http://www.webdav.org/neon/litmus/)
