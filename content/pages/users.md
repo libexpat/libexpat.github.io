@@ -283,6 +283,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __X__
     * [xkbd](http://trac.hackable1.org/trac/wiki/Xkbd)
     * [XML Copy Editor](http://xml-copy-editor.sourceforge.net/) — fast, free, validating XML editor
+    * [xmlrpc-c](https://sourceforge.net/projects/xmlrpc-c/) — library for writing an XML-RPC server or client in C/C++
     * [xmlrpc-epi](http://xmlrpc-epi.sourceforge.net/)
     * [XPilot NG](http://xpilot.sourceforge.net/) — Multi-player tactical game for X (NG version)
 * __Y__
