@@ -47,6 +47,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Bist](https://gna.org/projects/bist/) — chemical drawing tool
 * __C__
     * [CableSwig](https://itk.org/ITK/resources/CableSwig.html)
+    * [cadaver](http://www.webdav.org/cadaver/) (through neon) — command-line WebDAV client for Unix
     * [cairo tool xml-to-trace](https://cgit.freedesktop.org/cairo/tree/util/xml-to-trace.c) (not cairo itself)
     * [Calf Studio Gear](http://calf-studio-gear.org/)
     * [captagent](http://sipcapture.org/) — HOMER SIP capture agent
