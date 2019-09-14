@@ -204,6 +204,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [osm2pgrouting](https://github.com/pgRouting/osm2pgrouting/blob/master/src/XMLParser.cpp) — Tool to import OpenStreetMap data into a pgRouting database
     * [Osm2pgsql](http://wiki.openstreetmap.org/wiki/Osm2pgsql)
 * __P__
+    * [ParaGUI](https://github.com/pipelka/paragui/blob/c80f5cb737767d44939e1724d78141f3a4ddcb8e/src/themes/themeloader.cpp#L38) — cross-platform widgetset for SDL
     * [ParaView](https://www.paraview.org/)
     * [POCO](https://pocoproject.org/)
     * [Poedit](https://poedit.net)
