@@ -177,6 +177,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [matchbox-keyboard](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-keyboard/) — on-screen 'virtual' or 'software' keyboard, designed for touch-screen devices running X
     * [matchbox-window-manager](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-window-manager/) — window manager for resource-limited systems
     * [matchbox-window-manager 2](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-window-manager-2/) — window manager for resource-limited systems
+    * [Matanza](https://web.archive.org/web/20071226080243/http://bachue.com/matanza/) — real time telnet ASCII multiplayer game
     * [matita](http://matita.cs.unibo.it/) — interactive theorem prover
     * [MediaTomb](http://www.mediatomb.cc/)
     * [Memphis](http://trac.openstreetmap.ch/trac/memphis/)
