@@ -245,6 +245,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Stargazer](http://stg.dp.ua/)
     * [Subversion](http://subversion.apache.org/)
     * [Swift XMPP Client](https://github.com/swift/swift/blob/09d8ac653493a0bd16cb69664ca28fbfe3c61bbb/Swiften/Parser/ExpatParser.cpp) — XMPP client and XMPP library
+    * [Swish-e](https://web.archive.org/web/20061223111433/http://swish-e.org/) — system for indexing collections of Web pages or other files
 * __T__
     * [Tandem](http://www.thegpm.org/TANDEM/) — mass spectrometry software for protein identification
     * [TECkit](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&cat_id=TECkit)
