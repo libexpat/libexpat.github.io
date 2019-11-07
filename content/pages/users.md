@@ -136,6 +136,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Ipsumdump](http://read.seas.harvard.edu/~kohler/ipsumdump/)
 * __J__
     * [jabberd2](http://jabberd2.org)
+    * [JabberWerxC](https://github.com/cisco/JabberWerxC/blob/5a69904922a534e140ef7edb26190e38885aac90/src/libs/jabberwerx/src/util/parser.c) — C API for XMPP connectivity by Cisco Systems
     * [JACK Audio Connection Kit](http://jackaudio.org/)
     * [jggtrans](https://github.com/Jajcus/jggtrans) — Jabber to GaduGadu gateway ("transport")
     * [Joe's Window Manager (JWM)](http://joewing.net/projects/jwm/)
