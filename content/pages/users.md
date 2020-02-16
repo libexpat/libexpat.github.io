@@ -46,8 +46,8 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __B__
     * [Battle Tanks](http://btanks.sourceforge.net/)
     * [biboumi](https://lab.louiz.org/louiz/biboumi/) — XMPP to IRC gateway
-    * [boinctui](https://github.com/suleman1971/boinctui) — Fullscreen text mode manager for Boinc client
     * [Bist](https://gna.org/projects/bist/) — chemical drawing tool
+    * [boinctui](https://github.com/suleman1971/boinctui) — Fullscreen text mode manager for Boinc client
 * __C__
     * [CableSwig](https://itk.org/ITK/resources/CableSwig.html)
     * [cadaver](http://www.webdav.org/cadaver/) (through neon) — command-line WebDAV client for Unix
