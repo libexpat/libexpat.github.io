@@ -108,8 +108,8 @@ multiply-included source files.</p>
 <p>As before, you are welcome to fire up <code>gdb</code> and follow the code paths
 yourself as you read the article.  You will need to copy the following
 lines of XML to a file:</p>
-<div class="highlight"><pre><span></span><span class="ni">&lt;</span>?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?<span class="ni">&gt;</span>
-<span class="ni">&lt;</span>doc<span class="ni">&gt;</span>Hello, world<span class="ni">&lt;</span>/doc<span class="ni">&gt;</span>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="nt">&lt;doc&gt;</span>Hello, world<span class="nt">&lt;/doc&gt;</span>
 </pre></div>
 
 
@@ -127,14 +127,14 @@ input.</p>
 declaration.  According to <a href="https://www.w3.org/TR/2008/REC-xml-20081126/#sec-prolog-dtd">section 2.8 of the XML
 standard</a>,
 an XML declaration is:</p>
-<div class="highlight"><pre><span></span>[23] XMLDecl      ::= &#39;&lt;?xml&#39; VersionInfo EncodingDecl? SDDecl? S? &#39;?&gt;&#39;
-[24] VersionInfo  ::= S &#39;version&#39; Eq (&quot;&#39;&quot; VersionNum &quot;&#39;&quot; | &#39;&quot;&#39; VersionNum &#39;&quot;&#39;)
-[3]  S            ::= (#x20 | #x9 | #xD | #xA)+
-[25] Eq           ::= S? &#39;=&#39; S?
-[26] VersionNum   ::= &#39;1.&#39; [0-9]+
-[80] EncodingDecl ::= S &#39;encoding&#39; Eq (&#39;&quot;&#39; EncName &#39;&quot;&#39; | &quot;&#39;&quot; EncName &quot;&#39;&quot;)
-[81] EncName      ::= [A-Za-z] ([A-Za-z0-9._] | &#39;-&#39;)*
-[32] SDDecl       ::= S &#39;standalone&#39; Eq ((&quot;&#39;&quot; (&#39;yes&#39; | &#39;no&#39;) &quot;&#39;&quot;) | (&#39;&quot;&#39; (&#39;yes&#39; | &#39;no&#39;) &#39;&quot;&#39;))
+<div class="highlight"><pre><span></span><span class="err">[23] XMLDecl      ::= &#39;&lt;?xml&#39; VersionInfo EncodingDecl? SDDecl? S? &#39;?&gt;&#39;</span>
+<span class="err">[24] VersionInfo  ::= S &#39;version&#39; Eq (&quot;&#39;&quot; VersionNum &quot;&#39;&quot; | &#39;&quot;&#39; VersionNum &#39;&quot;&#39;)</span>
+<span class="err">[3]  S            ::= (#x20 | #x9 | #xD | #xA)+</span>
+<span class="err">[25] Eq           ::= S? &#39;=&#39; S?</span>
+<span class="err">[26] VersionNum   ::= &#39;1.&#39; [0-9]+</span>
+<span class="err">[80] EncodingDecl ::= S &#39;encoding&#39; Eq (&#39;&quot;&#39; EncName &#39;&quot;&#39; | &quot;&#39;&quot; EncName &quot;&#39;&quot;)</span>
+<span class="err">[81] EncName      ::= [A-Za-z] ([A-Za-z0-9._] | &#39;-&#39;)*</span>
+<span class="err">[32] SDDecl       ::= S &#39;standalone&#39; Eq ((&quot;&#39;&quot; (&#39;yes&#39; | &#39;no&#39;) &quot;&#39;&quot;) | (&#39;&quot;&#39; (&#39;yes&#39; | &#39;no&#39;) &#39;&quot;&#39;))</span>
 </pre></div>
 
 
@@ -158,9 +158,9 @@ logic.</p>
 <p>Armed with this information, let's see what the parser makes of our
 XML declaration.</p>
 <h2>Prologue Parsing</h2>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;...
-^
-+ ptr
+<div class="highlight"><pre><span></span><span class="err">&lt;?xml version=&quot;1.0&quot;...</span>
+<span class="err">^</span>
+<span class="err">+ ptr</span>
 </pre></div>
 
 
@@ -212,7 +212,7 @@ pointer as it is passed in, in our case pointing to the "x" of "xml".
 If this text turns out to be a processing instruction the parser will
 need to know the name that follows the "&lt;?" characters, called the
 <em>target</em> of the processing instruction.</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
   ^
   + ptr, target
 </pre></div>
@@ -308,7 +308,7 @@ pointer to <code>XML_TOK_XML_DECL</code> and return success.  All fairly
 straightforward, though it looks a little peculiar when laid out as
 it is in the code.</p>
 <h2>Macro Abuse Redux</h2>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
   ^  ^
   |  + ptr
   + target
@@ -431,7 +431,7 @@ on with the search.  Notice that this means that processing
 instructions may not contain the sequence "?&gt;" even in a quoted
 string, which is a correct if perhaps surprising feature of the XML
 standard.</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
   ^                                                       ^
   + target                                    *nextTokPtr +
 </pre></div>
@@ -527,7 +527,7 @@ defined, a choice made when creating the parser.  We don't, so
 multiply-included file <code>xmltok_ns.c</code> that calls <code>doParseXmlDecl()</code>,
 supplying it with the correct function to find any encoding named in
 the declaration, in this case the aptly-named <code>findEncoding()</code>.</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
 ^                                                         ^
 + ptr                                                 end +
 </pre></div>
@@ -563,7 +563,7 @@ is NULL; that will be important later.</p>
 <p>The first thing <code>parsePseudoAttribute()</code> does is to check if there is
 anything to parse.  Recall that the pointers have been moved over the
 fixed parts of the declaration:</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
      ^                                                  ^
      + ptr                                          end +
 </pre></div>
@@ -660,7 +660,7 @@ to skip over any further optional whitespace:</p>
 
 <p>If this puts us at the end of the declaration, again we return with a
 NULL name pointer and let the caller decide whether this is an error.</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
       ^                                                 ^
       + ptr                                         end +
 </pre></div>
@@ -722,7 +722,7 @@ parse gibberish, since we don't explicitly test for <code>ptr</code> reaching
 <code>end</code>.  We can't run off the buffer, as it happens; the conversion
 function will catch that and return an error, so <code>toAscii()</code> will also
 return an error and <code>parsePseudoAttribute()</code> will pass the error on.</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
       ^      ^                                          ^
       |      + ptr                                  end +
       |      + *nameEndPtr
@@ -752,7 +752,7 @@ over any whitespace there might be before the pseudo-attribute value.</p>
   <span class="n">ptr</span> <span class="o">+=</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span><span class="p">;</span>
   <span class="n">c</span> <span class="o">=</span> <span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
 <span class="p">}</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_QUOT</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_APOS</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_QUOT</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_APOS</span><span class="p">)</span> <span class="p">{</span>
   <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
@@ -788,12 +788,12 @@ attributes:</p>
   <span class="n">c</span> <span class="o">=</span> <span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">open</span><span class="p">)</span>
     <span class="k">break</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ASCII_a</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">c</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">ASCII_z</span><span class="p">)</span>
-      <span class="o">&amp;</span><span class="o">&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">ASCII_A</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">c</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">ASCII_Z</span><span class="p">)</span>
-      <span class="o">&amp;</span><span class="o">&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">ASCII_0</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">c</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">ASCII_9</span><span class="p">)</span>
-      <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_PERIOD</span>
-      <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_MINUS</span>
-      <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_UNDERSCORE</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ASCII_a</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_z</span><span class="p">)</span>
+      <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">ASCII_A</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_Z</span><span class="p">)</span>
+      <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">ASCII_0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_9</span><span class="p">)</span>
+      <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_PERIOD</span>
+      <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_MINUS</span>
+      <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">ASCII_UNDERSCORE</span><span class="p">)</span> <span class="p">{</span>
     <span class="o">*</span><span class="n">nextTokPtr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
@@ -803,7 +803,7 @@ attributes:</p>
 
 <p>Once we have found the closing quotes, we can just set the next token
 pointer to the (hopefully) following space and return 1 for success.</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
       ^      ^ ^   ^                                    ^
       |      | |   + *nextTokPtr                    end +
       |      | + *valPtr
@@ -893,7 +893,7 @@ be NULL), since we are an XML declaration not a text declaration
 (i.e. <code>isGeneralTextEntity</code> is zero).  If there wasn't anything after
 the <code>version</code> we would just exit with success here, however in our
 case there is:</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
                     ^       ^ ^        ^                ^
                     |       | + val    + ptr        end +
                     + name  + nameEnd
@@ -905,8 +905,8 @@ and indeed it is.  We are then treated to the ASCII version of
 <code>IS_NMSTRT_CHAR()</code>.</p>
 <div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">XmlNameMatchesAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">nameEnd</span><span class="p">,</span> <span class="n">KW_encoding</span><span class="p">))</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">toAscii</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ASCII_a</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">c</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">ASCII_z</span><span class="p">)</span> <span class="o">&amp;</span><span class="o">&amp;</span>
-      <span class="o">!</span><span class="p">(</span><span class="n">ASCII_A</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">c</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">c</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">ASCII_Z</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">ASCII_a</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_z</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+      <span class="o">!</span><span class="p">(</span><span class="n">ASCII_A</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">ASCII_Z</span><span class="p">))</span> <span class="p">{</span>
     <span class="o">*</span><span class="n">badPtr</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
   <span class="p">}</span>
@@ -935,7 +935,7 @@ encoding name and call the <code>encodingFinder</code> function supplied.</p>
   <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">!=</span> <span class="n">end</span><span class="p">)</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
   <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">streqci</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">KW_UTF_16</span><span class="p">)</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">streqci</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">KW_UTF_16</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">enc</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">enc</span><span class="p">;</span>
   <span class="n">i</span> <span class="o">=</span> <span class="n">getEncodingIndex</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">UNKNOWN_ENC</span><span class="p">)</span>
@@ -1004,7 +1004,7 @@ to return <code>encodings[1]</code>, which is the encoding structure
 <p>With the encoding found (or not, <code>doParseXmlDecl()</code> doesn't actually
 care), we call <code>parsePseudoAttribute()</code> again to see if there is any
 more to do.  Which there is.</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
                                         ^         ^ ^   ^
                                    name + nameEnd + |   + ptr
                                                 val +   + end
@@ -1057,7 +1057,7 @@ and complain if there's anything else in the declaration.</p>
 <h2>Declaration Handling</h2>
 <p>Returning back to <code>processXmlDecl()</code>, we have set up a lot of
 pointers.</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
                ^   ^          ^                           ^
        version +   |          + encodingName        *next +
         versionend +
@@ -1067,7 +1067,7 @@ pointers.</p>
 <p>In addition, <code>newEncoding</code> points to the encoding structure
 <code>ascii_encoding</code> and <code>standalone</code> is now 1.  We then perform some
 basic checks and transfer these results somewhere more useful.</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isGeneralTextEntity</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">standalone</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isGeneralTextEntity</span> <span class="o">&amp;&amp;</span> <span class="n">standalone</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_dtd</span><span class="o">-&gt;</span><span class="n">standalone</span> <span class="o">=</span> <span class="n">XML_TRUE</span><span class="p">;</span>
 <span class="cp">#ifdef XML_DTD</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_paramEntityParsing</span> <span class="o">==</span> <span class="n">XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE</span><span class="p">)</span>
@@ -1096,7 +1096,7 @@ complicated than you might hope.</p>
 <div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_protocolEncodingName</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">newEncoding</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">newEncoding</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span> <span class="o">!=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span><span class="o">-&gt;</span><span class="n">minBytesPerChar</span>
-        <span class="o">||</span> <span class="p">(</span><span class="n">newEncoding</span><span class="o">-&gt;</span><span class="n">minBYtesPerChar</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;</span><span class="o">&amp;</span>
+        <span class="o">||</span> <span class="p">(</span><span class="n">newEncoding</span><span class="o">-&gt;</span><span class="n">minBYtesPerChar</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span>
             <span class="n">newEncoding</span> <span class="o">!=</span> <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_encoding</span><span class="p">))</span> <span class="p">{</span>
       <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_eventPtr</span> <span class="o">=</span> <span class="n">encodingName</span><span class="p">;</span>
       <span class="k">return</span> <span class="n">XML_ERROR_INCORRECT_ENCODING</span><span class="p">;</span>
@@ -1165,10 +1165,10 @@ the new encoding (if there is one) and don't gratuitously call any
 user-defined default handler.  Doing the by-now familiar dance of
 checking the parsing state, we end up calling <code>XmlPrologTok()</code> with
 our updated parse pointers:</p>
-<div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;us-ascii&quot; standalone=&quot;yes&quot;?&gt;</span>
                                                           ^
                                                         s +
-&lt;doc&gt;Hello, world&lt;/doc&gt;
+<span class="nt">&lt;doc&gt;</span>Hello, world<span class="nt">&lt;/doc&gt;</span>
                         ^
                     end +
 </pre></div>
@@ -1236,7 +1236,7 @@ interest in whitespace:</p>
 <p><code>XML_ROLE_NONE</code> means there is nothing to do for this, which
 <code>doProlog()</code> duly does.  Or doesn't.  Whatever.  It then calls the
 tokenizer again to see what's next.</p>
-<div class="highlight"><pre><span></span>&lt;doc&gt;Hello, world&lt;/doc&gt;
+<div class="highlight"><pre><span></span><span class="nt">&lt;doc&gt;</span>Hello, world<span class="nt">&lt;/doc&gt;</span>
 ^                       ^
 + ptr               end +
 </pre></div>

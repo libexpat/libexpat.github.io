@@ -121,9 +121,9 @@ Expat) is German, and has this distressing habit of asking me what I
 actually mean.  Expect footnotes.</p>
 <h2>The Setup</h2>
 <p>We will work with the following few lines of XML:</p>
-<div class="highlight"><pre><span></span><span class="ni">&lt;</span>doc<span class="ni">&gt;</span>
-  <span class="ni">&lt;</span>element<span class="ni">&gt;</span>One<span class="ni">&lt;</span>/element<span class="ni">&gt;</span>
-<span class="ni">&lt;</span>/doc<span class="ni">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;doc&gt;</span>
+  <span class="nt">&lt;element&gt;</span>One<span class="nt">&lt;/element&gt;</span>
+<span class="nt">&lt;/doc&gt;</span>
 </pre></div>
 
 
@@ -131,7 +131,7 @@ actually mean.  Expect footnotes.</p>
 <code>~/test/simple.xml</code>), compile the <code>outline</code> example program and run
 it.</p>
 <div class="highlight"><pre><span></span>$ make examples/outline
-$ examples/outline <span class="p">&lt;</span> ~/test/simple.xml
+$ examples/outline &lt; ~/test/simple.xml
 doc
   element
 </pre></div>
@@ -145,7 +145,7 @@ as we call <code>XML_Parse()</code>, passing the whole file in one go.</p>
 <div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">XML_Status</span> <span class="n">XMLCALL</span>
 <span class="nf">XML_Parse</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">isFinal</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">if</span> <span class="p">((</span><span class="n">parser</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">((</span><span class="n">s</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="p">(</span><span class="n">len</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)))</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">parser</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">((</span><span class="n">s</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">len</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)))</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">parser</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
       <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_errorCode</span> <span class="o">=</span> <span class="n">XML_ERROR_INVALID_ARGUMENT</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
@@ -284,7 +284,7 @@ Sad to say, this is another macro, this time passing us to
 functions I warned you about.  This tokenizer is tuned to recognise
 things that should appear at the very start of a piece of XML.  It
 starts off much like every other tokenizer.</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">end</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">&gt;=</span> <span class="n">end</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">XML_TOK_NONE</span>
 </pre></div>
 
@@ -294,7 +294,7 @@ the input <code>ptr</code> hasn't reached the end of the input at <code>end</cod
 <div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">ptr</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-    <span class="n">n</span> <span class="o">&amp;</span><span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">n</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
       <span class="k">return</span> <span class="n">XML_TOK_PARTIAL</span><span class="p">;</span>
     <span class="n">end</span> <span class="o">=</span> <span class="n">ptr</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span>
@@ -359,9 +359,9 @@ there isn't at least one character left in the input.  Fortunately for
 us there is, so we don't have to deal with that unexpected hidden
 <code>return</code> statement, but bear it in mind for the future: some of the
 "convenience" macros in this file can and will exit your function!</p>
-<div class="highlight"><pre><span></span>&lt;doc&gt;
- ^
- +-- ptr
+<div class="highlight"><pre><span></span><span class="err">&lt;doc&gt;</span>
+<span class="err"> ^</span>
+<span class="err"> +-- ptr</span>
 </pre></div>
 
 
@@ -387,9 +387,9 @@ instructions (both starting with "&lt;?"), a document type declaration or
 comments (both starting with "&lt;!").  Since our example XML has no
 prologue at all, we can be happy that the parser got this right!</p>
 <h2>Processing the Token</h2>
-<div class="highlight"><pre><span></span>&lt;doc&gt;
-^
-+-- s, next
+<div class="highlight"><pre><span></span><span class="err">&lt;doc&gt;</span>
+<span class="err">^</span>
+<span class="err">+-- s, next</span>
 </pre></div>
 
 
@@ -402,7 +402,7 @@ context.</p>
   <span class="n">XML_Bool</span> <span class="n">handleDefault</span> <span class="o">=</span> <span class="n">XML_TRUE</span><span class="p">;</span>
   <span class="o">*</span><span class="n">eventPP</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
   <span class="o">*</span><span class="n">eventEndPP</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">tok</span> <span class="o">&lt;</span><span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">tok</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="cm">/* ... */</span>
 </pre></div>
 
@@ -493,7 +493,7 @@ us into <code>normal_contentTok()</code>.</p>
                    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">,</span>
                    <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">nextTokPtr</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">end</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">&gt;=</span> <span class="n">end</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_TOK_NONE</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
     <span class="cm">/* ... */</span>
@@ -525,9 +525,9 @@ sub-function, <code>normal_scanLt()</code>.</p>
 
 <p>The first thing <code>normal_scanLt()</code> does is to ensure that there is a
 character there for it to check, using <code>REQUIRE_CHAR</code>.</p>
-<div class="highlight"><pre><span></span>&lt;doc&gt;
- ^
- +-- ptr
+<div class="highlight"><pre><span></span><span class="err">&lt;doc&gt;</span>
+<span class="err"> ^</span>
+<span class="err"> +-- ptr</span>
 </pre></div>
 
 
@@ -636,9 +636,9 @@ character would always be invalid.</p>
 <p>So we were parsing the first character of our XML element, "d", which
 has a byte type of <code>BT_HEX</code>.  The <code>CHECK_NMSTRT_CASES</code> macro accepts
 that byte type as described above, and moves the parse pointer on:</p>
-<div class="highlight"><pre><span></span>&lt;doc&gt;
-  ^
-  +-- ptr
+<div class="highlight"><pre><span></span><span class="err">&lt;doc&gt;</span>
+<span class="err">  ^</span>
+<span class="err">  +-- ptr</span>
 </pre></div>
 
 
@@ -658,16 +658,16 @@ least one more character to examine.  We do, so we examine the
 the <code>BT_HEX</code> before it's swept up by <code>CHECK_NAME_CASES</code>, a macro very
 much like <code>CHECK_NMSTRT_CASES</code> except allowing a few more byte types
 through.  It accepts the character and moves the parse pointer on.</p>
-<div class="highlight"><pre><span></span>&lt;doc&gt;
-   ^
-   +-- ptr
+<div class="highlight"><pre><span></span><span class="err">&lt;doc&gt;</span>
+<span class="err">   ^</span>
+<span class="err">   +-- ptr</span>
 </pre></div>
 
 
 <p>The same thing happens for the "c", except that it's a <code>BT_HEX</code> again.</p>
-<div class="highlight"><pre><span></span>&lt;doc&gt;
-    ^
-    +-- ptr
+<div class="highlight"><pre><span></span><span class="err">&lt;doc&gt;</span>
+<span class="err">    ^</span>
+<span class="err">    +-- ptr</span>
 </pre></div>
 
 
@@ -686,10 +686,10 @@ the "&gt;" (the newline at the end of the line), and returns
 <code>XML_TOK_START_TAG_NO_ATTS</code>.  A start tag (element) with no attributes
 is exactly what this is.</p>
 <h2>We Have An Element, Now What?</h2>
-<div class="highlight"><pre><span></span>&lt;doc&gt;
-^    ^
-|    +-- next
-+-- ptr
+<div class="highlight"><pre><span></span><span class="err">&lt;doc&gt;</span>
+<span class="err">^    ^</span>
+<span class="err">|    +-- next</span>
+<span class="err">+-- ptr</span>
 </pre></div>
 
 
@@ -828,7 +828,7 @@ the hash tables and string pools.</p>
                                        <span class="k">sizeof</span><span class="p">(</span><span class="n">ELEMENT_TYPE</span><span class="p">));</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">elementType</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_ns</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="o">!</span><span class="n">setElementTypePrefix</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">elementType</span><span class="p">))</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_ns</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">setElementTypePrefix</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">elementType</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">XML_ERROR_NO_MEMORY</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="n">nDefaultAtts</span> <span class="o">=</span> <span class="n">elementType</span><span class="o">-&gt;</span><span class="n">nDefaultAtts</span><span class="p">;</span>
@@ -883,7 +883,7 @@ having done essentially no more.</p>
 <div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_startElementHandler</span><span class="p">)</span>
   <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_startElementHandler</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_handlerArg</span><span class="p">,</span> <span class="n">tag</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">.</span><span class="n">str</span><span class="p">,</span>
                                 <span class="p">(</span><span class="k">const</span> <span class="n">XML_Char</span> <span class="o">**</span><span class="p">)</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_atts</span><span class="p">);</span>
-<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_defaultHandler</span><span class="p">)</span>
+<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_defaultHandler</span><span class="p">)</span>
   <span class="n">reportDefault</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
 <span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_tempPool</span><span class="p">);</span>
 <span class="k">break</span><span class="p">;</span>
@@ -898,10 +898,10 @@ released (don't ask, it <em>is</em> that complicated), and we finally drop
 out of the big switch statement.  We run through the parsing state
 dance again, doing nothing since we are still <code>XML_PARSING</code>, and then
 go back to the top of the loop and call <code>normal_contentTok()</code> again.</p>
-<div class="highlight"><pre><span></span>&lt;doc&gt;
+<div class="highlight"><pre><span></span><span class="nt">&lt;doc&gt;</span>
      ^
      +-- ptr
-  &lt;element&gt;One&lt;/element&gt;
+  <span class="nt">&lt;element&gt;</span>One<span class="nt">&lt;/element&gt;</span>
 </pre></div>
 
 
@@ -931,7 +931,7 @@ statement to pass a line feed character in the appropriate encoding to
 any character data handler the user may have registered.  Another trip
 around the parsing state dance and we come back to calling
 <code>normal_contentTok()</code> again.</p>
-<div class="highlight"><pre><span></span>  &lt;element&gt;One&lt;/element&gt;
+<div class="highlight"><pre><span></span>  <span class="nt">&lt;element&gt;</span>One<span class="nt">&lt;/element&gt;</span>
 ^
 +-- ptr
 </pre></div>
@@ -982,7 +982,7 @@ character data may be split up to avoid overflowing the internal
 buffer, so it becomes the handler's job to hold whatever state it
 needs between invocations.</p>
 <p>Then we check the parsing state and loop around again.</p>
-<div class="highlight"><pre><span></span>  &lt;element&gt;One&lt;/element&gt;
+<div class="highlight"><pre><span></span>  <span class="nt">&lt;element&gt;</span>One<span class="nt">&lt;/element&gt;</span>
   ^
   +-- ptr
 </pre></div>
@@ -991,7 +991,7 @@ needs between invocations.</p>
 <p>We've already seen how the parser accepts a simple start element tag,
 so we don't need to go through that again.  A few more turns around
 the loop and we have:</p>
-<div class="highlight"><pre><span></span>  &lt;element&gt;One&lt;/element&gt;
+<div class="highlight"><pre><span></span>  <span class="nt">&lt;element&gt;</span>One<span class="nt">&lt;/element&gt;</span>
            ^
            +-- ptr
 </pre></div>
@@ -1009,7 +1009,7 @@ joined to the <code>"  "</code> of the second, but not to the <code>"One"</code>
 third.  It needs help from start and end element handlers to tell what
 data should be joined together and what shouldn't.</p>
 <h2>End Tags</h2>
-<div class="highlight"><pre><span></span>  &lt;element&gt;One&lt;/element&gt;
+<div class="highlight"><pre><span></span>  <span class="nt">&lt;element&gt;</span>One<span class="nt">&lt;/element&gt;</span>
               ^
               +-- ptr
 </pre></div>
@@ -1046,7 +1046,7 @@ causing us to call <code>normal_scanLt()</code>.</p>
 
 
 <p>The start-of-parse pointer <code>ptr</code> has been moved on:</p>
-<div class="highlight"><pre><span></span>  &lt;element&gt;One&lt;/element&gt;
+<div class="highlight"><pre><span></span>  <span class="nt">&lt;element&gt;</span>One<span class="nt">&lt;/element&gt;</span>
                 ^
                 +-- ptr
 </pre></div>
@@ -1069,20 +1069,20 @@ to <code>doContent()</code>.</p>
 check that it hasn't closed more tags than it opened.  This could
 happen, for example if an overly-optimistic general entity expanded to
 an end tag.  The XML document</p>
-<div class="highlight"><pre><span></span><span class="ni">&lt;</span>?xml version=&quot;1.0&quot;?<span class="ni">&gt;</span>
-<span class="ni">&lt;</span>!DOCTYPE foodoc [
-  <span class="ni">&lt;</span>!ENTITY foo &quot;<span class="ni">&lt;</span>b<span class="ni">&gt;</span>text<span class="ni">&lt;</span>/b<span class="ni">&gt;&lt;</span>/a<span class="ni">&gt;</span>&quot;<span class="ni">&gt;</span>
-]<span class="ni">&gt;</span>
-<span class="ni">&lt;</span>a<span class="ni">&gt;&amp;</span>foo;
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE foodoc [</span>
+<span class="cp">  &lt;!ENTITY foo &quot;&lt;b&gt;</span>text<span class="nt">&lt;/b&gt;&lt;/a&gt;</span>&quot;&gt;
+]&gt;
+<span class="nt">&lt;a&gt;</span><span class="ni">&amp;foo;</span>
 </pre></div>
 
 
 <p>trips exactly this test, while</p>
-<div class="highlight"><pre><span></span><span class="ni">&lt;</span>?xml version=&quot;1.0&quot;?<span class="ni">&gt;</span>
-<span class="ni">&lt;</span>!DOCTYPE foodoc [
-  <span class="ni">&lt;</span>!ENTITY foo &quot;<span class="ni">&lt;</span>b<span class="ni">&gt;</span>text<span class="ni">&lt;</span>/b<span class="ni">&gt;</span>&quot;<span class="ni">&gt;</span>
-]<span class="ni">&gt;</span>
-<span class="ni">&lt;</span>a<span class="ni">&gt;&amp;</span>foo;<span class="ni">&lt;</span>/a<span class="ni">&gt;</span>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE foodoc [</span>
+<span class="cp">  &lt;!ENTITY foo &quot;&lt;b&gt;</span>text<span class="nt">&lt;/b&gt;</span>&quot;&gt;
+]&gt;
+<span class="nt">&lt;a&gt;</span><span class="ni">&amp;foo;</span><span class="nt">&lt;/a&gt;</span>
 </pre></div>
 
 
@@ -1115,18 +1115,18 @@ something about it.  Remember that for later.</p>
 handler the user may have registered and tidies up.  That is
 straightforward in our case; we have no namespace bindings confusing
 the issue, and we aren't the root tag.</p>
-<div class="highlight"><pre><span></span>  &lt;element&gt;One&lt;/element&gt;
+<div class="highlight"><pre><span></span>  <span class="nt">&lt;element&gt;</span>One<span class="nt">&lt;/element&gt;</span>
                         ^
                         +-- ptr
-&lt;/doc&gt;
+<span class="nt">&lt;/doc&gt;</span>
 </pre></div>
 
 
 <p>Next we have the newline, which again is just passed to the character
 data handler.</p>
-<div class="highlight"><pre><span></span>&lt;/doc&gt;
-^
-+-- ptr
+<div class="highlight"><pre><span></span><span class="err">&lt;/doc&gt;</span>
+<span class="err">^</span>
+<span class="err">+-- ptr</span>
 </pre></div>
 
 
@@ -1238,7 +1238,7 @@ you needed this footnote, go and add to your education immediately.</p>
 something.</p>
 <p><a name="utf83">7</a>: UTF-8 encodes codepoints U+0800 to U+FFFF into
 three bytes as follows:</p>
-<div class="highlight"><pre><span></span>1110xxxx 10xxxxxx 10xxxxxx
+<div class="highlight"><pre><span></span><span class="err">1110xxxx 10xxxxxx 10xxxxxx</span>
 </pre></div>
 
 

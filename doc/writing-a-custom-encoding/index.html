@@ -404,7 +404,7 @@ complicated only by the fragmentary nature of the table:</p>
 <span class="cm">     * all that is in the map.  s[0] must either lie in the range</span>
 <span class="cm">     * 0x81 to 0x9F or 0xE0 to 0xEF, according to the map.</span>
 <span class="cm">     */</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span><span class="o">=</span> <span class="mh">0x9F</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mh">0x9F</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">second_byte_lo</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0x81</span><span class="p">];</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">second_byte_hi</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0xE0</span><span class="p">];</span>
@@ -586,7 +586,7 @@ in our user-defined data structure <code>PageEncodingData</code>.</p>
     <span class="k">switch</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span>
     <span class="k">case</span> <span class="mh">0x80</span><span class="o">:</span>
         <span class="cm">/* This is a three byte sequence: (0x80, page, offset) */</span>
-        <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span> <span class="o">&lt;</span><span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span>
+        <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">;</span>
         <span class="k">return</span> <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span> <span class="o">|</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">);</span>
 
     <span class="k">case</span> <span class="mh">0x81</span><span class="o">:</span>

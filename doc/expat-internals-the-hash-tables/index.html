@@ -188,8 +188,8 @@ check if we are being asked to create a new entry, i.e. whether
 in an empty table, we would return <code>NULL</code> at this point.</p>
 <div class="highlight"><pre><span></span>    <span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span> <span class="o">=</span> <span class="n">INIT_POWER</span><span class="p">;</span>
     <span class="cm">/* table-&gt;size is a power of 2 */</span>
-    <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="mi">1</span> <span class="o">&lt;</span><span class="o">&lt;</span> <span class="n">INIT_POWER</span><span class="p">;</span>
-    <span class="n">tsize</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">*</span> <span class="nf">sizeof</span><span class="p">(</span><span class="n">NAMED</span> <span class="o">*</span><span class="p">);</span>
+    <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">INIT_POWER</span><span class="p">;</span>
+    <span class="n">tsize</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">NAMED</span> <span class="o">*</span><span class="p">);</span>
     <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">NAMED</span> <span class="o">**</span><span class="p">)</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">tsize</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -327,9 +327,9 @@ haven't completely filled our table, we will find a slot for our key
 eventually.</p>
 <h2>Extending the Table</h2>
 <div class="highlight"><pre><span></span>    <span class="cm">/* check for overflow (table is half full) */</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">used</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">used</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
       <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">newPower</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">power</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="kt">size_t</span> <span class="n">newSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="mi">1</span> <span class="o">&lt;</span><span class="o">&lt;</span> <span class="n">newPower</span><span class="p">;</span>
+      <span class="kt">size_t</span> <span class="n">newSize</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">newPower</span><span class="p">;</span>
       <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">newMask</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">newSize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
       <span class="kt">size_t</span> <span class="n">tsize</span> <span class="o">=</span> <span class="n">newSize</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">NAMED</span> <span class="o">*</span><span class="p">);</span>
       <span class="n">NAMED</span> <span class="o">**</span><span class="n">newV</span> <span class="o">=</span> <span class="p">(</span><span class="n">NAMED</span> <span class="o">**</span><span class="p">)</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">mem</span><span class="o">-&gt;</span><span class="n">malloc_fcn</span><span class="p">(</span><span class="n">tsize</span><span class="p">);</span>
@@ -490,11 +490,11 @@ out here.  Assume that <code>power</code> is 6 (and <code>mask</code> is therefo
 <code>0b111111</code>), and suppose that our hash is <code>0b1111111111111111</code> to make
 the masking stand out (and because I can't be bothered to type more
 than 16 bits).  Therefore:</p>
-<div class="highlight"><pre><span></span>hash &amp; ~mask                                = 0b1111111111000000
+<div class="highlight"><pre><span></span><span class="n">hash</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">mask</span>                                <span class="o">=</span> <span class="mi">0</span><span class="n">b1111111111000000</span>
 
-(hash &amp; ~mask) &gt;&gt; (power-1)                 = 0b0000011111111110
+<span class="p">(</span><span class="n">hash</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">mask</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">power</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>                 <span class="o">=</span> <span class="mi">0</span><span class="n">b0000011111111110</span>
 
-((hash &amp; ~mask) &gt;&gt; (power-1)) &amp; (mask &gt;&gt; 2) = 0b0000000000001110
+<span class="p">((</span><span class="n">hash</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">mask</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">power</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mask</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="n">b0000000000001110</span>
 </pre></div>
 
 

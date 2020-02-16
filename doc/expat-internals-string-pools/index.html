@@ -200,12 +200,12 @@ information are most of what is needed to control the string pool.</p>
 "elt" and we wish to put the string "att" into the pool as well.
 After the first two letters have been inserted, the pool pointers will
 look like this:</p>
-<div class="highlight"><pre><span></span>+---------------------------...-+
-| &#39;e&#39; &#39;l&#39; &#39;t&#39;  0  &#39;a&#39; &#39;t&#39; .     |
-+---------------------------...-+
-   ^               ^      ^       ^
-   |         start-+      +-ptr   +-end
-   + blocks-&gt;s
+<div class="highlight"><pre><span></span><span class="err">+---------------------------...-+</span>
+<span class="err">| &#39;e&#39; &#39;l&#39; &#39;t&#39;  0  &#39;a&#39; &#39;t&#39; .     |</span>
+<span class="err">+---------------------------...-+</span>
+<span class="err">   ^               ^      ^       ^</span>
+<span class="err">   |         start-+      +-ptr   +-end</span>
+<span class="err">   + blocks-&gt;s</span>
 </pre></div>
 
 
@@ -324,12 +324,12 @@ the working pointers is much more interesting.</p>
 pointers; <code>ptr</code> must point <code>end - start</code> characters into
 the new block, then <code>start</code> can be updated to the start of the new
 block and <code>end</code> calculated from <code>start</code> and the block size as before.</p>
-<div class="highlight"><pre><span></span>+--------------------------...-+
-| &#39;A&#39; &#39;B&#39; &#39;C&#39; &#39;D&#39; &#39;E&#39; . . .    |
-+--------------------------...-+
-   ^                  ^          ^
-   + start            + ptr      + end
-   + block-&gt;s
+<div class="highlight"><pre><span></span><span class="err">+--------------------------...-+</span>
+<span class="err">| &#39;A&#39; &#39;B&#39; &#39;C&#39; &#39;D&#39; &#39;E&#39; . . .    |</span>
+<span class="err">+--------------------------...-+</span>
+<span class="err">   ^                  ^          ^</span>
+<span class="err">   + start            + ptr      + end</span>
+<span class="err">   + block-&gt;s</span>
 </pre></div>
 
 
@@ -345,7 +345,7 @@ block, but the cost of searching the list and unlinking the block
 starts to outweigh the cost of going to the allocation functions, so
 we don't.  Clearly we will have to allocate more memory one way or
 another.</p>
-<div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span> <span class="o">&amp;&amp;</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">start</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">blocks</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
 </pre></div>
 
 
@@ -484,7 +484,7 @@ such can be confusing to read.  It's easiest to describe as if it were
 a function returning a boolean:</p>
 <div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">poolAppendChar</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="n">XML_Char</span> <span class="n">c</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
   <span class="o">*</span><span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">)</span><span class="o">++</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
   <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
@@ -606,7 +606,7 @@ the process somewhat more involved.</p>
 <span class="nf">poolAppend</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
            <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
     <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 </pre></div>
 
@@ -617,7 +617,7 @@ ourselves one.</p>
 <div class="highlight"><pre><span></span>  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
     <span class="k">const</span> <span class="k">enum</span> <span class="n">XML_Convert_Result</span> <span class="n">convert_res</span> <span class="o">=</span>
       <span class="n">XmlConvert</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span>
-                 <span class="p">(</span><span class="n">ICHAR</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">),</span>
+                 <span class="p">(</span><span class="n">ICHAR</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">),</span>
                  <span class="p">(</span><span class="n">ICHAR</span> <span class="o">*</span><span class="p">)</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">);</span>
 
     <span class="k">if</span> <span class="p">((</span><span class="n">convert_res</span> <span class="o">==</span> <span class="n">XML_CONVERT_COMPLETED</span><span class="p">)</span> <span class="o">||</span>
