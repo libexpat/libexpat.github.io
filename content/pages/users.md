@@ -48,6 +48,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [biboumi](https://lab.louiz.org/louiz/biboumi/) — XMPP to IRC gateway
     * [Bist](https://gna.org/projects/bist/) — chemical drawing tool
     * [boinctui](https://github.com/suleman1971/boinctui) — Fullscreen text mode manager for Boinc client
+    * [BRLTTY](https://github.com/brltty/brltty/blob/884fd06c65995349240bf93f80da8d2c4d0225c7/Programs/cldr.c#L222) — background process providing access to the Linux/Unix console for a blind person using a refreshable braille display
 * __C__
     * [CableSwig](https://itk.org/ITK/resources/CableSwig.html)
     * [cadaver](http://www.webdav.org/cadaver/) (through neon) — command-line WebDAV client for Unix
@@ -74,6 +75,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [DACS (Distributed access control)](https://dacs.dss.ca/) — single sign-on and rule-based access control system
     * [Dasher](http://www.inference.org.uk/dasher/) — graphical predictive text input system
     * [D-Bus (dbus)](https://gitlab.freedesktop.org/dbus/dbus/blob/8d8b5eb8a409031e224d088c1e3385bc2874c873/bus/config-loader-expat.c#L199) — message bus system
+    * [dbus-broker](https://github.com/bus1/dbus-broker/blob/47562f3582ba5c2605cb137f60296b6034f4c995/src/launch/config.c#L1274)
     * [DFXML / tcpflow](https://github.com/simsong/dfxml/blob/master/src/dfxml_reader.cpp) — Digital Forensics XML project and library
     * [digiKam](https://www.digikam.org/)
     * [discover](https://packages.debian.org/sid/discover) — hardware identification system
@@ -108,6 +110,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [gdigi](http://desowin.org/gdigi/) — utility to control DigiTech effect pedals
     * [Geant 4](http://geant4.cern.ch/)
     * [GenomeTools](http://genometools.org/) — versatile genome analysis toolkit
+    * [Gerbera](https://github.com/gerbera/gerbera/blob/v1.4.0/src/mxml/parser_expat.cc#L156) — UPnP media server
     * [gettext](https://www.gnu.org/software/gettext/)
     * [Ghostscript/GhostPDL](https://git.ghostscript.com/?p=ghostpdl.git;a=blob;f=xps/xpsxml.c;h=02cb845a9e90cb63f53c2f5096b6e85796a2df34;hb=HEAD) — Postscript and PDF interpreter and rendering engine
     * [GIFTI / libgiftiio](http://www.nitrc.org/projects/gifti) — Geometry format under the Neuroimaging Informatics Technology Initiative (NIfTI)
@@ -144,6 +147,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [K-3D](http://www.k-3d.org/)
     * [Kamailio XMPP gateway](https://www.kamailio.org/w/)
     * [Kodi](https://kodi.tv/)
+    * [Kodi inputstream.adaptive](https://github.com/peak3d/inputstream.adaptive/blob/4cb15f0eaab51082eccd687d3c57a99b8f5d86f9/src/parser/PRProtectionParser.cpp#L115) — Kodi inputstream addon for several manifest types
     * [KomodoEdit](https://github.com/Komodo/KomodoEdit)
     * [Kopete](https://userbase.kde.org/Kopete)
 * __L__
@@ -166,6 +170,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [libstrophe](https://github.com/strophe/libstrophe)
     * [libsolv / libzypp](http://doc.opensuse.org/projects/libzypp/HEAD/)
     * [libsynthesis](http://www.synthesis.ch/indefero/index.php/p/libsynthesis/) — library for SyncML-DS (SyncML Data Sync) clients
+    * [libupnpp](https://www.lesbonscomptes.com/upmpdcli) — wraps libupnp for use by upmpdcli and upplay
     * [libwbxml](https://github.com/libwbxml/libwbxml)
     * [libwmf](http://wvware.sourceforge.net/)
     * [libwww](https://www.w3.org/Library/)
@@ -174,6 +179,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Liquid War 6](https://www.gnu.org/software/liquidwar6/)
     * [litmus](http://www.webdav.org/neon/litmus/)
     * [log4c](http://log4c.sourceforge.net/) — C library for flexible logging
+    * [lsp-plugins](https://github.com/sadko4u/lsp-plugins/commit/d444686924312c798c65d2a39a8c37c000527c50) (prior to version 1.1.11) — sound processing effect plug-ins
 * __M__
     * [Magics++ / libmagplus](https://software.ecmwf.int/wiki/display/MAGP/Magics) — latest generation of the ECMWF's Meteorological plotting software MAGICS
     * [MakeMKV](http://www.makemkv.com/)
@@ -258,6 +264,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Tivoli Storage Manager](https://www.ibm.com/cloud-computing/products/devops/it-operations-management/)
     * [TORCS](http://torcs.sourceforge.net/) (uses modified Expat fork "txml")
     * [TortoiseSVN](https://tortoisesvn.net/) — Subversion client, implemented as a Windows shell extension
+    * [TQSL](http://www.arrl.org/tqsl-download) — ARRL Logbook of the World
     * [Trusted QSL](http://sourceforge.net/projects/trustedqsl/) — QSL log signing for the Logbook of the World (LoTW)
 * __U__
     * [UDUNITS](https://www.unidata.ucar.edu/software/udunits/)
