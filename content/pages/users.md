@@ -299,6 +299,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [XML Copy Editor](http://xml-copy-editor.sourceforge.net/) — fast, free, validating XML editor
     * [xmlrpc-c](https://sourceforge.net/projects/xmlrpc-c/) — library for writing an XML-RPC server or client in C/C++
     * [xmlrpc-epi](http://xmlrpc-epi.sourceforge.net/)
+    * [xmp3](https://github.com/BellerophonMobile/xmp3/blob/426cf7ee0ad4f32bea98cadad93b140d6a4c9760/src/xmpp_parser.c) — XMPP Proxy, small Extensible XMPP Server
     * [XPilot NG](http://xpilot.sourceforge.net/) — Multi-player tactical game for X (NG version)
 * __Y__
     * [Ymagine](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c)
