@@ -25,6 +25,7 @@ interfaces to Expat from languages other than C.
     * [Arabica](http://www.jezuk.co.uk/cgi-bin/view/arabica "Arabica" ) \-- an XML Parser toolkit for C++ programmers, with SAX2 implementations based on several parsers, including Expat.
     * [ExpatMM -- C++ interface to Expat](https://github.com/ckane/expatmm)
     * [expatpp](https://sourceforge.net/projects/expatpp/) c++ layer for expat
+    * [libstudxml](https://www.codesynthesis.com/projects/libstudxml/) — modern C++ XML API
 * __C#__
     * [SAXExpat.NET](http://saxdotnet.sourceforge.net/saxexpat.html), a [.NET](http://www.microsoft.com/net/) wrapper for Expat, conforming to the [SAX for .NET](http://saxdotnet.sourceforge.net) specifications.
 * __Eiffel__
