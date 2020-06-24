@@ -218,6 +218,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __P__
     * [ParaGUI](https://github.com/pipelka/paragui/blob/c80f5cb737767d44939e1724d78141f3a4ddcb8e/src/themes/themeloader.cpp#L38) — cross-platform widgetset for SDL
     * [ParaView](https://www.paraview.org/)
+    * [PHP](https://github.com/php/php-src/blob/master/ext/xml/compat.c) — The PHP Interpreter
     * [POCO](https://pocoproject.org/)
     * [Poedit](https://poedit.net)
     * [polkit](https://www.freedesktop.org/wiki/Software/polkit/)
