@@ -167,13 +167,13 @@ idea, it is not enforced in any way by the library.</p>
 <h2>Custom Encoding Components</h2>
 <p>Custom encodings are created when an unknown encoding handler fills in
 the <code>XML_Encoding</code> structure passed to it and returns <code>XML_STATUS_OK</code>.</p>
-<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">map</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
   <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span>
   <span class="kt">int</span> <span class="p">(</span><span class="n">XMLCALL</span> <span class="o">*</span><span class="n">convert</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span>
   <span class="kt">void</span> <span class="p">(</span><span class="n">XMLCALL</span> <span class="o">*</span><span class="n">release</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span>
 <span class="p">}</span> <span class="n">XML_Encoding</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The heart of the <code>XML_Encoding</code> structure is the <code>map</code> array.  This
@@ -223,7 +223,7 @@ therefore be marked as invalid.</p>
 </ol>
 <p>We will write an unknown encoding handler that sets up this encoding
 when it is asked for the encoding named <code>risc-os</code>.</p>
-<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
 <span class="nf">risc_os_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
                          <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">encoding</span><span class="p">,</span>
                          <span class="n">XML_Encoding</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span>
@@ -232,7 +232,7 @@ when it is asked for the encoding named <code>risc-os</code>.</p>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="s">&quot;risc-os&quot;</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The first thing to do is to check which encoding name the parser has
@@ -243,16 +243,16 @@ unknown encoding handler cannot deal with many possible encodings,
 just filling in the <code>info</code> structure appropriately for each one.</p>
 <p>Since this encoding is exactly the same as ASCII for the first 128
 values, we can set the first half of the map easily:</p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>A lot of encodings look like this.  The next part of the map cannot be
 done so algorithmically.  In practise this is probably best done as a
 constant array that we can <code>memcpy</code> into place, but we'll do it the
 hard way here.</p>
-<div class="highlight"><pre><span></span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x20AC</span><span class="p">;</span>   <span class="cm">/* € */</span>
+<div class="highlight"><pre><span></span><code><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x20AC</span><span class="p">;</span>   <span class="cm">/* € */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x81</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0174</span><span class="p">;</span>   <span class="cm">/* Ŵ */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x82</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0175</span><span class="p">;</span>   <span class="cm">/* ŵ */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x83</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>       <span class="cm">/* Resize icon, invalid */</span>
@@ -284,24 +284,24 @@ hard way here.</p>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9D</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2021</span><span class="p">;</span>   <span class="cm">/* ‡ */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9E</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xFB01</span><span class="p">;</span>   <span class="cm">/* ﬁ */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9F</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xFB02</span><span class="p">;</span>   <span class="cm">/* ﬂ */</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>As it happens, the rest of the encoding is the same as Latin-1, so in
 the interests of brevity we will take the obvious short-cut:</p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">160</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">160</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Finally, we don't have a convert function, so we don't need user data
 and we don't need a release function either:</p>
-<div class="highlight"><pre><span></span>    <span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>    <span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">convert</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">release</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">XML_STATUS_OK</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>That's it.  All we have to do to implement this or any other ISO 8859
@@ -328,7 +328,7 @@ custom encoding:</p>
 </ol>
 <p>This time we will use tables of constants to initialise the
 top-bit-set half of our <code>map</code>:</p>
-<div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">int</span> <span class="n">first_byte_hi</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">const</span> <span class="kt">int</span> <span class="n">first_byte_hi</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="cm">/* 0x80 */</span>
     <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="cm">/* 0x88 */</span>
     <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="cm">/* 0x90 */</span>
@@ -354,7 +354,7 @@ top-bit-set half of our <code>map</code>:</p>
     <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="cm">/* 0xF0 */</span>
     <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>   <span class="cm">/* 0xF8 */</span>
 <span class="p">};</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>As you can see, there are a lot of invalid bytes (-1) and two byte
@@ -368,7 +368,7 @@ greater.  We will save a little space in our tables by missing out the
 first 0x40 values and adjust our indices appropriately.</p>
 <p>In the interests of brevity we won't show most of the actual values in
 the tables here:</p>
-<div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">int</span> <span class="n">following_81</span><span class="p">[</span><span class="mi">192</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">const</span> <span class="kt">int</span> <span class="n">following_81</span><span class="p">[</span><span class="mi">192</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="mh">0x3000</span><span class="p">,</span> <span class="mh">0x3001</span><span class="p">,</span> <span class="mh">0x3002</span><span class="p">,</span> <span class="mh">0x002C</span><span class="p">,</span> <span class="cm">/* 0x40 */</span>
     <span class="cm">/* Followed by many more lines of codepoints</span>
 <span class="cm">     * and the occasional -1 for an invalid character.</span>
@@ -390,12 +390,12 @@ the tables here:</p>
     <span class="cm">/* ... */</span>
     <span class="n">following_EF</span>
 <span class="p">};</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The conversion function is then just a simple table lookup,
 complicated only by the fragmentary nature of the table:</p>
-<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
 <span class="nf">convert_jis</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">table</span><span class="p">;</span>
@@ -414,14 +414,14 @@ complicated only by the fragmentary nature of the table:</p>
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">table</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0x40</span><span class="p">];</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Optimising this to remove the sparseness of some of the subtables is
 left as an exercise for the reader.<sup><a href="#lazy">2</a></sup>  That leaves
 us just having to write the unknown encoding handler, which is frankly
 trivial in comparison:</p>
-<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
 <span class="nf">shift_jis_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
                            <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">encoding</span><span class="p">,</span>
                            <span class="n">XML_Encoding</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span>
@@ -441,7 +441,7 @@ trivial in comparison:</p>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">release</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">XML_STATUS_OK</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>While larger and more tedious that the RISC OS encoding example,
@@ -490,7 +490,7 @@ return a codepoint or an error.  There is no option to return "This
 sequence is valid but does not return a codepoint", nor does any
 realistic encoding require such a thing.</p>
 <p>Let's write the unknown encoding handler first this time:</p>
-<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">;</span>
     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">page</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">PageEncodingData</span><span class="p">;</span>
@@ -503,27 +503,27 @@ realistic encoding require such a thing.</p>
     <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
     <span class="n">PageEncodingData</span> <span class="o">*</span><span class="n">page_data</span><span class="p">;</span>
     <span class="n">XML_Parser</span> <span class="n">parser</span> <span class="o">=</span> <span class="p">(</span><span class="n">XML_Parser</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This first bit is a departure from the usual for our encodings.  This
 time we actually use the <code>data</code> parameter to pass user-level
 information into the encoding handler.  We expect to be given the
 parser structure; I'll explain why in a moment.</p>
-<div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="s">&quot;page-and-offset&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="s">&quot;page-and-offset&quot;</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This rejects anything that isn't our new encoding, which we've
 arbitrarily called <code>page-and-offset</code>.  Now we allocate space for our
 recorded page:</p>
-<div class="highlight"><pre><span></span>    <span class="n">page_data</span> <span class="o">=</span> <span class="n">XML_MemMalloc</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">PageEncodingData</span><span class="p">));</span>
+<div class="highlight"><pre><span></span><code>    <span class="n">page_data</span> <span class="o">=</span> <span class="n">XML_MemMalloc</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">PageEncodingData</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">page_data</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
     <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span><span class="p">;</span>
     <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The reason I wanted the parser structure is so that we can allocate
@@ -537,14 +537,14 @@ recognise this encoding name", and that is how it will be reported to
 the user.  This time we would like to report that we are out of
 memory, but unfortunately there is no other way of reporting an
 error.</p>
-<div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
         <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">;</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x81</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x82</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0x83</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
         <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Setting up the map is pretty simple; we have ASCII, one three-byte
@@ -554,12 +554,12 @@ unnecessary.  The map is pre-initialised to have all entries -1 before
 our unknown encoding handler is called, so we never need to explicitly
 set invalid entries.  Doing so makes what is going on a good deal
 clearer, however, and the processing cost is negligible.</p>
-<div class="highlight"><pre><span></span>    <span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">page_data</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>    <span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">page_data</span><span class="p">;</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">convert</span> <span class="o">=</span> <span class="n">page_convert</span><span class="p">;</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">release</span> <span class="o">=</span> <span class="n">page_release</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">XML_STATUS_OK</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Finally we fill in the pointers, happy that for once they aren't a
@@ -568,17 +568,17 @@ collection of NULLs.  All we have to do now is write the functions.</p>
 memory with <code>XML_MemMalloc()</code>, we should release it with
 <code>XML_MemFree()</code>.  That's why we have a pointer to the parser structure
 in our user-defined data structure <code>PageEncodingData</code>.</p>
-<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">XMLCALL</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">void</span> <span class="n">XMLCALL</span>
 <span class="nf">page_release</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">PageEncodingData</span> <span class="o">*</span><span class="n">page_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">PageEncodingData</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
     <span class="n">XML_MemFree</span><span class="p">(</span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">parser</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>All very straightforward.  So, surprisingly, is the convert function:</p>
-<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
 <span class="nf">page_convert</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">PageEncodingData</span> <span class="o">*</span><span class="n">page_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">PageEncodingData</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
@@ -602,7 +602,7 @@ in our user-defined data structure <code>PageEncodingData</code>.</p>
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The only remotely complicated thing here is the amount of masking with
@@ -610,10 +610,10 @@ in our user-defined data structure <code>PageEncodingData</code>.</p>
 extension if <code>char</code> is a signed integer type in your compiler.</p>
 <p>Because we want to pass the parser structure into the handler, we need
 to register it in a slightly different way to normal:</p>
-<div class="highlight"><pre><span></span><span class="n">XML_SetUnknownEncodingHandler</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="n">XML_SetUnknownEncodingHandler</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span>
                               <span class="n">page_encoding_handler</span><span class="p">,</span>
                               <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">parser</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>That's it.  It takes surprisingly little work to implement quite

@@ -121,9 +121,9 @@ it makes the encoding tables markedly harder to read.</p>
 encoding</code> structure, found in <code>xmltok.h</code>.  It consists primarily of
 function pointers and arrays of function pointers for some of the most
 basic requirements of the parser.</p>
-<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">encoding</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="n">encoding</span> <span class="p">{</span>
   <span class="n">SCANNER</span> <span class="n">scanners</span><span class="p">[</span><span class="n">XML_N_STATE</span><span class="p">];</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The <code>scanners</code> (sometimes referred to as <code>tokenizers</code>) are the
@@ -140,8 +140,8 @@ processing text in <code>&lt;![CDATA[...]]&gt;</code> constructions, and the ign
 section tokenizer <code>normal_ignoreSectionTok()</code> used for conditional
 sections.  Other encodings will of course have their own versions of
 these functions.</p>
-<div class="highlight"><pre><span></span>  <span class="n">SCANNER</span> <span class="n">literalScanners</span><span class="p">[</span><span class="n">XML_N_LITERAL_TYPES</span><span class="p">];</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>  <span class="n">SCANNER</span> <span class="n">literalScanners</span><span class="p">[</span><span class="n">XML_N_LITERAL_TYPES</span><span class="p">];</span>
+</code></pre></div>
 
 
 <p>There are in fact two more scanners, effectively substates of the
@@ -156,11 +156,11 @@ fact all of the predefined 8-bit character encodings use the same
 functions in the <code>ENCODING</code> structures.  We will see more about this
 later on.  For now we will carry on assuming that we are looking at
 a "normal" encoding.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">nameMatchesAscii</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">nameMatchesAscii</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
                                   <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr1</span><span class="p">,</span>
                                   <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end1</span><span class="p">,</span>
                                   <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr2</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The <code>nameMatchesAscii</code> function pointer, as its name implies, compares
@@ -172,8 +172,8 @@ the <a href="../expat-internals-parsing-xml-declarations">second walkthrough</a>
 for parsing XML declaration "pseudoattributes".  As explained there,
 all names in an XML declaration must be valid ASCII, so this
 optimised check is well worth while.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">nameLength</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">nameLength</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
+</code></pre></div>
 
 
 <p>The next function pointer in the structure is <code>nameLength</code>, which as
@@ -183,8 +183,8 @@ not need to be NUL-terminated; the function simply counts the bytes of
 all characters found until it comes across a character that is not
 legal in a name.  It can therefore be used directly on the input
 bytestream.</p>
-<div class="highlight"><pre><span></span>  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">skipS</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">ptr</span><span class="o">*</span><span class="p">);</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">skipS</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">ptr</span><span class="o">*</span><span class="p">);</span>
+</code></pre></div>
 
 
 <p>The <code>skipS</code> function pointer does exactly what its name suggests; it
@@ -192,11 +192,11 @@ returns a pointer to the next non-whitespace character in the input
 string.  For this purpose, only a space, tab, carriage return or
 linefeed character are considered whitespace, as required by the XML
 standard.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">getAtts</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">getAtts</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
                      <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span>
                      <span class="kt">int</span> <span class="n">attsMax</span><span class="p">,</span>
                      <span class="n">ATTRIBUTE</span> <span class="o">*</span><span class="n">atts</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The function pointed to by <code>getAtts</code> is a major piece of parsing
@@ -206,12 +206,12 @@ only be called on a known well-formed start tag or empty element tag,
 as it assumes any syntax errors in the input have already been caught.</p>
 <p>This function will be discussed in more detail when we examine
 attribute parsing in a future walkthrough.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">charRefNumber</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">charRefNumber</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
 
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">predefinedEntityName</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
                                       <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span>
                                       <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>A pair of fields deal with the decoding of references.  The field
@@ -227,11 +227,11 @@ function expects to be passed a start pointer pointing to the
 character after the ampersand and an end pointer pointing to the
 semicolon.  It returns the codepoint of the character identified, or
 zero if the name passed in is not one of the predefined entities.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">void</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">updatePosition</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code>  <span class="kt">void</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">updatePosition</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">,</span>
                                  <span class="n">POSITION</span> <span class="o">*</span><span class="n">pos</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The <code>updatePosition</code> field points to a function which takes an input
@@ -243,11 +243,11 @@ item, and starting a new row for each carriage return, linefeed or
 carriage return-linefeed combination.  This should match the
 human-readable input, allowing users to easily and quickly identify
 where problems are.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">isPublicId</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">isPublicId</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
                             <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span>
                             <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">,</span>
                             <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">badPtr</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The <code>isPublicId</code> field points to a function which takes pointers to
@@ -258,7 +258,7 @@ character units from the input text to ensure that they are all
 valid.  If the input text does constitute a value Public ID, the
 function returns 1; otherwise it returns 0 and sets the error pointer
 <code>*badPtr</code> to point to the first invalid character in the input.</p>
-<div class="highlight"><pre><span></span>  <span class="k">enum</span> <span class="nf">XML_Convert_Result</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">utf8Convert</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">enum</span> <span class="nf">XML_Convert_Result</span> <span class="p">(</span><span class="n">PTRCALL</span> <span class="o">*</span><span class="n">utf8Convert</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
                                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">fromP</span><span class="p">,</span>
                                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fromLim</span><span class="p">,</span>
                                                  <span class="kt">char</span> <span class="o">**</span><span class="n">toP</span><span class="p">,</span>
@@ -268,7 +268,7 @@ function returns 1; otherwise it returns 0 and sets the error pointer
                                                   <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fromLim</span><span class="p">,</span>
                                                   <span class="kt">unsigned</span> <span class="kt">short</span> <span class="o">**</span><span class="n">toP</span><span class="p">,</span>
                                                   <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">short</span> <span class="o">*</span><span class="n">toLim</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The final two function pointer fields, <code>utf8Convert</code> and
@@ -283,8 +283,8 @@ seen in the <a href="../../doc/expat-internals-parsing-xml-declarations">second
 walkthrough</a>.  This
 is slightly irritating; in a UTF-8 build, the <code>utf16Convert</code> function
 must be linked in but will never be called.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="n">minBytesPerChar</span><span class="p">;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="n">minBytesPerChar</span><span class="p">;</span>
+</code></pre></div>
 
 
 <p>The number of bytes required to represent the shortest character in
@@ -293,15 +293,15 @@ widely used in <code>xmlparse.c</code> for instance as the amount to increment
 input pointers by, but <code>xmltok_impl.c</code> uses the macro <code>MINBPC(enc)</code>
 instead.  Normal builds of the library hard-coded this macro to 1 or 2
 as appropriate to the encoding, for efficiency reasons.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">char</span> <span class="n">isUtf8</span><span class="p">;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>  <span class="kt">char</span> <span class="n">isUtf8</span><span class="p">;</span>
+</code></pre></div>
 
 
 <p>This field is a flag that indicates exactly what it says; non-zero if
 the encoding is UTF-8 and zero otherwise.  It is used to avoid some
 unnecessary conversions.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">char</span> <span class="n">isUtf16</span><span class="p">;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>  <span class="kt">char</span> <span class="n">isUtf16</span><span class="p">;</span>
+</code></pre></div>
 
 
 <p>The final field looks like it should also be a flag to indicate that
@@ -337,10 +337,10 @@ encoding that drives the parser's internals.  This is then wrapped
 with another structure, <code>struct normal_encoding</code>, which supplies the
 functions and tables that turn a generic 8-bit encoding in a UTF-8
 encoding or a Latin-1 encoding.</p>
-<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">normal_encoding</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="n">normal_encoding</span> <span class="p">{</span>
   <span class="n">ENCODING</span> <span class="n">enc</span><span class="p">;</span>
   <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">type</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>After the base <code>ENCODING</code>, the first and most important item in a
@@ -358,20 +358,20 @@ characters they represent.  Fortunately the possibilities are very
 limited, and the <code>normal_encoding</code> structure contains sets of three
 functions pointers, one for each possible sequence length, that ask
 the three questions the parser is interested in.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isName2</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isName2</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isName3</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isName4</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The first set are the <code>isName</code> functions.  These should return a true
 (non-zero) value if the character can legally be part of an XML name.
 These are implemented as bitmap table lookups, a fast method that
 doesn't take up as much memory as you might assume.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isNmstrt2</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isNmstrt2</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isNmstrt3</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isNmstrt4</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The <code>isNmstrt</code> functions perform a similar check, returning a true
@@ -379,10 +379,10 @@ doesn't take up as much memory as you might assume.</p>
 number of character can be in a name as long as they don't start it,
 so separate functions are needed.  Again, these functions are
 implemented as bitmap table lookups.</p>
-<div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isInvalid2</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isInvalid2</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isInvalid3</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isInvalid4</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The final set of functions detect invalid byte sequences.  They return
@@ -408,7 +408,7 @@ make extensive use of <code>PREFIX()</code> to ensure the same consistency of
 names.</p>
 <p>A majority of the definitions of each <code>ENCODING</code> structure is then
 handled by a single macro:</p>
-<div class="highlight"><pre><span></span><span class="cp">#define IGNORE_SECTION_TOK_VTABLE , PREFIX(ignoreSectionTok)</span>
+<div class="highlight"><pre><span></span><code><span class="cp">#define IGNORE_SECTION_TOK_VTABLE , PREFIX(ignoreSectionTok)</span>
 <span class="cp">#define VTABLE1 \</span>
 <span class="cp">  { PREFIX(prologTok), PREFIX(contentTok), \</span>
 <span class="cp">    PREFIX(cdataSectionTok) IGNORE_SECTION_TOK_VTABLE }, \</span>
@@ -421,7 +421,7 @@ handled by a single macro:</p>
 <span class="cp">  PREFIX(predefinedEntityName), \</span>
 <span class="cp">  PREFIX(updatePosition), \</span>
 <span class="cp">  PREFIX(isPublicId)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>(The odd layered definition of <code>IGNORE_SECTION_TOK_VTABLE</code> is so that
@@ -438,8 +438,8 @@ right; all the other 8-bit functions in the tables are the familiar
 <p>Since we only have two built-in 16-bit encodings, little- and
 big-endian UTF-16, there is a further macro to help build those
 <code>ENCODING</code> structures:</p>
-<div class="highlight"><pre><span></span><span class="cp">#define VTABLE VTABLE1, PREFIX(toUtf8), PREFIX(toUtf16)</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="cp">#define VTABLE VTABLE1, PREFIX(toUtf8), PREFIX(toUtf16)</span>
+</code></pre></div>
 
 
 <p>For the <code>struct normal_encoding</code> structures that wrap the <code>ENCODINGs</code>,
@@ -450,7 +450,7 @@ library.<sup><a href="#stdvtable">1</a></sup>  In normal builds, the macro
 substitutes away to nothing.</p>
 <p><code>NORMAL_VTABLE()</code> is rather more useful, as it fills in the nine
 function pointers with function names having a common prefix:</p>
-<div class="highlight"><pre><span></span><span class="cp">#define NORMAL_VTABLE(E) \</span>
+<div class="highlight"><pre><span></span><code><span class="cp">#define NORMAL_VTABLE(E) \</span>
 <span class="cp">  E ## isName2, \</span>
 <span class="cp">  E ## isName3, \</span>
 <span class="cp">  E ## isName4, \</span>
@@ -460,7 +460,7 @@ function pointers with function names having a common prefix:</p>
 <span class="cp">  E ## isInvalid2, \</span>
 <span class="cp">  E ## isInvalid3, \</span>
 <span class="cp">  E ## isInvalid4</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><code>NORMAL_VTABLE()</code> does its own prefixing rather than using the
@@ -481,7 +481,7 @@ i.e. when the compile-time symbol <code>XML_NS</code> is
 defined.<sup><a href="#ns">2</a></sup></p>
 <h3>UTF-8 Encoding</h3>
 <p>The basic encoding table for UTF-8 input is as follows:</p>
-<div class="highlight"><pre><span></span>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">utf8_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">utf8_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span> <span class="n">VTABLE1</span><span class="p">,</span> <span class="n">utf8_toUtf8</span><span class="p">,</span> <span class="n">utf8_toUtf16</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
     <span class="p">{</span>
 <span class="cp">#define BT_COLON BT_NMSTRT</span>
@@ -491,7 +491,7 @@ defined.<sup><a href="#ns">2</a></sup></p>
     <span class="p">},</span>
     <span class="n">STANDARD_VTABLE</span><span class="p">(</span><span class="n">sb_</span><span class="p">)</span> <span class="n">NORMAL_VTABLE</span><span class="p">(</span><span class="n">utf8_</span><span class="p">)</span>
   <span class="p">};</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The redefinition of <code>BT_COLON</code> as <code>BT_NMSTRT</code> looks a little odd, but
@@ -504,7 +504,7 @@ in a separate file and include it here because it is less ugly than
 defining huge macros.</p>
 <p>Substituting the macros we mentioned above (but leaving the include
 files alone; the byte types really aren't that interesting), we get:</p>
-<div class="highlight"><pre><span></span>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">utf8_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">utf8_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span>
       <span class="p">{</span> <span class="n">normal_prologTok</span><span class="p">,</span> <span class="n">normal_contentTok</span><span class="p">,</span>
         <span class="n">normal_cdataSectionTok</span><span class="p">,</span> <span class="n">normal_ignoreSectionTok</span> <span class="p">},</span>
@@ -538,7 +538,7 @@ files alone; the byte types really aren't that interesting), we get:</p>
     <span class="n">utf8_isInvalid3</span><span class="p">,</span>
     <span class="n">utf8_isInvalid4</span>
   <span class="p">};</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><code>utf8_toUtf8</code> and <code>utf8_toUtf16</code> are defined a little further up
@@ -563,7 +563,7 @@ the special casing isn't needed any more.</p>
 <p>Because of it's popularity and simplicity, Expat has a built-in
 encoding to handle ISO 8859-1, better known as Latin-1.  It's encoding
 structure looks like this:</p>
-<div class="highlight"><pre><span></span>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">latin1_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">latin1_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span>
       <span class="p">{</span> <span class="n">normal_prologTok</span><span class="p">,</span> <span class="n">normal_contentTok</span><span class="p">,</span>
         <span class="n">normal_cdataSectionTok</span><span class="p">,</span> <span class="n">normal_ignoreSectionTok</span> <span class="p">},</span>
@@ -597,7 +597,7 @@ structure looks like this:</p>
     <span class="nb">NULL</span><span class="p">,</span>
     <span class="nb">NULL</span>
   <span class="p">};</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This all looks very straightforward until you meet that large section
@@ -618,7 +618,7 @@ in seven bits, and again is character for character mapped onto
 Unicode codepoints U+0000 to U+007F.  It won't surprise you that the
 Expat encoding structure for ASCII is almost identical to that for
 Latin-1:</p>
-<div class="highlight"><pre><span></span>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">ascii_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">ascii_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span>
       <span class="p">{</span> <span class="n">normal_prologTok</span><span class="p">,</span> <span class="n">normal_contentTok</span><span class="p">,</span>
         <span class="n">normal_cdataSectionTok</span><span class="p">,</span> <span class="n">normal_ignoreSectionTok</span> <span class="p">},</span>
@@ -651,7 +651,7 @@ Latin-1:</p>
     <span class="nb">NULL</span><span class="p">,</span>
     <span class="nb">NULL</span>
   <span class="p">};</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>It is worth noting that the <code>isUtf8</code> field is set to 1; all valid
@@ -665,7 +665,7 @@ variants.  (If anyone else feels faintly ill after reading the macro
 will concentrate on little-endian UTF-16; big-endian UTF-16 is exactly
 the same except for reversing the order of the input bytes.</p>
 <p>The encoding structure doesn't look too outrageous:</p>
-<div class="highlight"><pre><span></span>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">little2_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">little2_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span>
       <span class="p">{</span> <span class="n">little2_prologTok</span><span class="p">,</span> <span class="n">little2_contentTok</span><span class="p">,</span>
         <span class="n">little2_cdataSectionTok</span><span class="p">,</span> <span class="n">little2_ignoreSectionTok</span> <span class="p">},</span>
@@ -700,7 +700,7 @@ the same except for reversing the order of the input bytes.</p>
     <span class="nb">NULL</span><span class="p">,</span>
     <span class="nb">NULL</span>
   <span class="p">};</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Other than the slightly unexpected setting of <code>isUTF16</code>, this is
@@ -716,10 +716,10 @@ call a function pointer.</p>
 <p>Let's start with the <code>BYTE_TYPE()</code> macro, which in simpler encodings
 just indexes into the <code>type</code> array.  In this case what it actually
 turns into, reduced to its simplest version, is the expression:</p>
-<div class="highlight"><pre><span></span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span>
+<div class="highlight"><pre><span></span><code><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span>
   <span class="n">little2_encoding</span><span class="p">.</span><span class="n">type</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">:</span>
   <span class="n">unicode_byte_type</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>where <code>p</code> is the two-byte sequence being decoded.  In English, and
