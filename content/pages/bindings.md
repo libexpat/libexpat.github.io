@@ -21,9 +21,9 @@ interfaces to Expat from languages other than C.
     * [expat-dom](https://github.com/kolotsey/expat-dom) — Easy-to-use DOM interface written in C
     * The [Simple C Expat Wrapper](http://www.nongnu.org/scew/) is a wrapper around Expat that provides a light-weight object model somewhat like a DOM.
 * __C++__
-    * [ExpatMM -- C++ interface to Expat](https://github.com/ckane/expatmm)
     * _[C++ Wrappers for the Expat XML Parser](http://www.codeproject.com/soap/expatimpl.asp "C++ Wrappers for the Expat XML Parser" )_, an article by Tim Smith providing object-oriented wrappers for Expat. The wrappers use some MFC-biased naming, but look interesting.
     * [Arabica](http://www.jezuk.co.uk/cgi-bin/view/arabica "Arabica" ) \-- an XML Parser toolkit for C++ programmers, with SAX2 implementations based on several parsers, including Expat.
+    * [ExpatMM -- C++ interface to Expat](https://github.com/ckane/expatmm)
     * [expatpp](https://sourceforge.net/projects/expatpp/) c++ layer for expat
 * __C#__
     * [SAXExpat.NET](http://saxdotnet.sourceforge.net/saxexpat.html), a [.NET](http://www.microsoft.com/net/) wrapper for Expat, conforming to the [SAX for .NET](http://saxdotnet.sourceforge.net) specifications.
@@ -54,8 +54,8 @@ interfaces to Expat from languages other than C.
 * __Object Pascal__ (Delphi)
     * [SAX2 Wrapper for using Expat in Delphi,](http://sourceforge.net/projects/kdsxml) based on ["SAX for Pascal"](http://saxforpascal.sourceforge.net) interface specs
 * __OCaml__
-    * [whitequark/ocaml-expat](https://github.com/whitequark/ocaml-expat)
     * [OCaml Expat](http://www.xs4all.nl/~mmzeeman/ocaml/) is a wrapper around Expat for the [Objective Caml](http://www.ocaml.org) language.
+    * [whitequark/ocaml-expat](https://github.com/whitequark/ocaml-expat)
 * __Perl__
     * Perl's `XML::Parser` module is a wrapper built around a binding to Expat in the `XML::Parser::Expat` module.
     * [XML-Generator](http://search.cpan.org/dist/XML-Generator/) — Perl extension for generating XML
@@ -65,8 +65,8 @@ interfaces to Expat from languages other than C.
 * __PHP__
     * [Article on using Expat from PHP](http://www.phpbuilder.com/columns/justin20000428.php3) on [&lt;?PHPBuilder?&gt;](http://www.phpbuilder.com/)
 * __Python__
-    * [Documentation for the Python interface to Expat](http://www.python.org/doc/current/lib/module-xml.parsers.expat.html), part of the standard documentation for Python.
     * [cElementTree](http://effbot.org/zone/celementtree.htm)
+    * [Documentation for the Python interface to Expat](http://www.python.org/doc/current/lib/module-xml.parsers.expat.html), part of the standard documentation for Python.
 * __R__
     * [rdyncall demo for Expat](https://rdrr.io/rforge/rdyncall/src/demo/expat.R)
 * __Ruby__
