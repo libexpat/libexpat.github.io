@@ -37,6 +37,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Apache httpd tools](https://httpd.apache.org/)
     * [Apache OpenOffice](https://www.openoffice.org/)
     * [Apache Portable Runtime (apr-util)](http://apr.apache.org/)
+    * [Arabica](https://github.com/jezhiggins/arabica/blob/cd99dba691b99e5401315bf752a3300874060c28/src/SAX/wrappers/saxexpat.cpp#L129) — XML and HTML processing toolkit
     * [aria2](https://aria2.github.io/)
     * [Astropy](http://www.astropy.org/)
     * [Attract Mode](https://github.com/mickelson/attract/blob/a348c1f5fa125bfb4133e01ce3b03a17138dbea6/src/scraper_base.cpp#L33) — graphical front-end for command line emulators
