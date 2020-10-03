@@ -14,6 +14,7 @@ Wherever you go, Expat is already waiting for you:
     * [CPPAN](https://cppan.org/pvt.cppan.demo.expat)
     * [Hunter](https://github.com/ruslo/hunter/blob/master/cmake/projects/Expat/hunter.cmake)
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
+    * [sw Software Network](https://software-network.org/org.sw.demo.expat)
     * [vcpkg](https://github.com/Microsoft/vcpkg/blob/master/ports/expat/CONTROL)
 * __AIX__
     * [AIX Open Source Packages](http://www.oss4aix.org/download/SRPMS/expat/)
