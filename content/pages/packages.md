@@ -34,6 +34,7 @@ Wherever you go, Expat is already waiting for you:
     * [AOSC](https://packages.aosc.io/packages/expat)
     * [Arch Linux](https://git.archlinux.org/svntogit/packages.git/log/trunk?h=packages/expat)
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
+    * [Carbs Linux](https://github.com/CarbsLinux/repository/tree/master/extra/expat)
     * [CentOS](http://centos-packages.com/7/package/expat/versions/)
     * [Clear Linux](https://github.com/clearlinux-pkgs/expat/commits/master)
     * CRUX
