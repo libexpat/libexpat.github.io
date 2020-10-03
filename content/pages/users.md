@@ -304,6 +304,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [xmlrpc-epi](http://xmlrpc-epi.sourceforge.net/)
     * [xmp3](https://github.com/BellerophonMobile/xmp3/blob/426cf7ee0ad4f32bea98cadad93b140d6a4c9760/src/xmpp_parser.c) — XMPP Proxy, small Extensible XMPP Server
     * [XPilot NG](http://xpilot.sourceforge.net/) — Multi-player tactical game for X (NG version)
+    * [XLSX I/O](https://github.com/brechtsanders/xlsxio/blob/cfd9ed517417000f5ffce428f2a4a7da0847c145/lib/xlsxio_read.c#L157) — library for reading and writing `.xlsx` files
 * __Y__
     * [Ymagine](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c)
 * __Z__
