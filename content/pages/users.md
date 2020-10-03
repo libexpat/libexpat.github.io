@@ -159,6 +159,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [libgadu](http://libgadu.net/)
     * [libisds](http://xpisar.wz.cz/libisds/) — Czech Data Boxes access library
     * [libkml](https://github.com/google/libkml/blob/8609edf7c8d13ae2ddb6eac2bca7c8e49c67a5f8/src/kml/base/expat_parser.cc)
+    * [liblcf](https://github.com/EasyRPG/liblcf/blob/b76e7391aca2fd41b730812de4cb48038da4d5fb/src/lcf/reader_xml.h#L110) — Library to handle RPG Maker 2000/2003 and EasyRPG projects
     * [libmesode](https://github.com/boothj5/libmesode)
     * [libmetalink](https://launchpad.net/libmetalink)
     * [libnih / nih-dbus-tool](https://launchpad.net/libnih)
