@@ -201,7 +201,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [mod_dav](http://www.webdav.org/mod_dav/)
     * [Modelica ExternData](https://github.com/modelica-3rdparty/ExternData)
     * [mstoolkit](https://github.com/mhoopmann/mstoolkit/blob/master/src/mzParser/saxhandler.cpp) — libraries for manipulating mass spectrometry data
-    * [Music Player Daemon](https://www.musicpd.org)
+    * [Music Player Daemon (MPD)](https://www.musicpd.org) — Server-side application for playing music
     * [mu-conference / jabber-muc](https://gna.org/projects/mu-conference/)
 * __N__
     * [neon](http://www.webdav.org/neon/)
