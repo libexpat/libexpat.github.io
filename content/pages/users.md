@@ -184,6 +184,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __M__
     * [Magics++ / libmagplus](https://software.ecmwf.int/wiki/display/MAGP/Magics) — latest generation of the ECMWF's Meteorological plotting software MAGICS
     * [MakeMKV](http://www.makemkv.com/)
+    * [MAME](https://github.com/mamedev/mame/blob/ea75c97d6d91f19f10292a79ffc2cb358555434e/src/lib/util/xmlfile.cpp#L77) — multi-purpose emulation framework
     * [mamory](https://sourceforge.net/projects/mamory/)
     * [MapServer](http://mapserver.org/)
     * [matchbox-keyboard](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-keyboard/) — on-screen 'virtual' or 'software' keyboard, designed for touch-screen devices running X
