@@ -54,6 +54,7 @@ Wherever you go, Expat is already waiting for you:
     * [Hyperbola](https://www.hyperbola.info/packages/core/x86_64/expat/)
     * [KaOSx](https://github.com/KaOSx/core/blob/master/expat)
     * [LEDE](https://github.com/lede-project/source/blob/master/tools/expat/Makefile)
+    * [LiGurOS](https://gitlab.com/liguros/core-kit/-/tree/21.1-release/dev-libs/expat)
     * [Linux Mint](https://community.linuxmint.com/software/view/libexpat1-dev)
     * [Lunar Linux](https://github.com/lunar-linux/moonbase-core/tree/master/libs/expat)
     * [Mageia](https://madb.mageia.org/package/show/name/expat/release/cauldron/application/0/arch/x86_64)
