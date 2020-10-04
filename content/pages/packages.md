@@ -91,6 +91,7 @@ Wherever you go, Expat is already waiting for you:
     * [Rudix](https://github.com/rudix-mac/rudix/blob/master/Ports/expat/Makefile)
 * __Solaris__
     * [OpenCSW](https://www.opencsw.org/package/expat/)
+    * [OpenIndiana](https://github.com/OpenIndiana/oi-userland/tree/oi/hipster/components/library/libexpat)
     * [ORACLE Solaris](http://pkg.oracle.com/solaris/release/en/search.shtml?token=expat&action=Search)
 * __Windows__
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
