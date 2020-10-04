@@ -105,6 +105,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __G__
     * [GANGI](http://www.gamgi.org/) — General Atomistic Modelling Graphic Interface
     * [Ganglia](http://ganglia.sourceforge.net/)
+    * [gawkextlib (gawk-xml)](https://sourceforge.net/p/gawkextlib/code/ci/master/tree/xml/xml_puller.c) —  extension libraries for GNU AWK
     * [GCDM / gdcmexpat](http://gdcm.sourceforge.net/) — Grassroots DICOM library
     * [GDAL](http://www.gdal.org/)
     * [GDB](https://sourceware.org/gdb/)
