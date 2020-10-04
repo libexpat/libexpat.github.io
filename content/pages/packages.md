@@ -40,6 +40,7 @@ Wherever you go, Expat is already waiting for you:
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
     * [Carbs Linux](https://github.com/CarbsLinux/repository/tree/master/extra/expat)
     * [CentOS](http://centos-packages.com/7/package/expat/versions/)
+    * [Chakra Linux](https://code.chakralinux.org/chakra/packages/core/-/blob/master/expat/PKGBUILD)
     * [Clear Linux](https://github.com/clearlinux-pkgs/expat/commits/master)
     * CRUX
         [[1]](https://crux.nu/gitweb/?p=ports/compat-32.git;a=tree;f=expat-32;hb=HEAD)
