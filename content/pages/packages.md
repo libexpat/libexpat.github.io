@@ -37,6 +37,7 @@ Wherever you go, Expat is already waiting for you:
     * [ALT Linux](https://packages.altlinux.org/en/Sisyphus/srpms/expat)
     * [AOSC](https://packages.aosc.io/packages/expat)
     * [Arch Linux](https://git.archlinux.org/svntogit/packages.git/log/trunk?h=packages/expat)
+    * [Ataraxia Linux](https://github.com/ataraxialinux/ataraxia/blob/master/packages/expat/KagamiBuild)
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
     * [Carbs Linux](https://github.com/CarbsLinux/repository/tree/master/extra/expat)
     * [CentOS](http://centos-packages.com/7/package/expat/versions/)
