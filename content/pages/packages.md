@@ -53,6 +53,7 @@ Wherever you go, Expat is already waiting for you:
     * [GuixSD](https://www.gnu.org/software/guix/packages/E/page/4/)
     * [Hyperbola](https://www.hyperbola.info/packages/core/x86_64/expat/)
     * [KaOSx](https://github.com/KaOSx/core/blob/master/expat)
+    * [KISS Linux](https://github.com/kisslinux/repo/tree/master/extra/expat)
     * [LEDE](https://github.com/lede-project/source/blob/master/tools/expat/Makefile)
     * [LiGurOS](https://gitlab.com/liguros/core-kit/-/tree/21.1-release/dev-libs/expat)
     * [Linux Mint](https://community.linuxmint.com/software/view/libexpat1-dev)
