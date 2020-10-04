@@ -12,6 +12,7 @@ Wherever you go, Expat is already waiting for you:
 
 * __Cross-platform__
     * [Anaconda Cloud](https://anaconda.org/anaconda/expat)
+    * [Conan Center](https://github.com/conan-io/conan-center-index/tree/master/recipes/expat)
     * [CPPAN](https://cppan.org/pvt.cppan.demo.expat)
     * [Hunter](https://github.com/ruslo/hunter/blob/master/cmake/projects/Expat/hunter.cmake)
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
