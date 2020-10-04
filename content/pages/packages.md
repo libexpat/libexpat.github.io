@@ -65,6 +65,7 @@ Wherever you go, Expat is already waiting for you:
     * [Mageia](https://madb.mageia.org/package/show/name/expat/release/cauldron/application/0/arch/x86_64)
     * [meta-debian](https://github.com/meta-debian/meta-debian/blob/master/recipes-debian/expat/expat_debian.bb)
     * [NixOS](https://github.com/NixOS/nixpkgs/commits/master/pkgs/development/libraries/expat/default.nix)
+    * [OpenEuler](https://gitee.com/src-openeuler/expat/)
     * [OpenMandriva](https://github.com/OpenMandrivaAssociation/expat)
     * [openSUSE](https://build.opensuse.org/package/show/devel:libraries:c_c++/expat)
     * OpenWrt
