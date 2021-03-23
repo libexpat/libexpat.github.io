@@ -66,6 +66,7 @@ Wherever you go, Expat is already waiting for you:
     * [meta-debian](https://github.com/meta-debian/meta-debian/blob/master/recipes-debian/expat/expat_debian.bb)
     * [NixOS](https://github.com/NixOS/nixpkgs/commits/master/pkgs/development/libraries/expat/default.nix)
     * [OpenEuler](https://gitee.com/src-openeuler/expat/)
+    * [openmamba](https://openmamba.org/en/packages/?tag=devel&pkg=expat.source)
     * [OpenMandriva](https://github.com/OpenMandrivaAssociation/expat)
     * [openSUSE](https://build.opensuse.org/package/show/devel:libraries:c_c++/expat)
     * OpenWrt
