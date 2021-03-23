@@ -121,10 +121,9 @@ it makes the encoding tables markedly harder to read.</p>
 encoding</code> structure, found in <code>xmltok.h</code>.  It consists primarily of
 function pointers and arrays of function pointers for some of the most
 basic requirements of the parser.</p>
-<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="n">encoding</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="nc">encoding</span> <span class="p">{</span>
   <span class="n">SCANNER</span> <span class="n">scanners</span><span class="p">[</span><span class="n">XML_N_STATE</span><span class="p">];</span>
 </code></pre></div>
-
 
 <p>The <code>scanners</code> (sometimes referred to as <code>tokenizers</code>) are the
 functions implementing the high-level state machine of the parser.  So
@@ -142,7 +141,6 @@ sections.  Other encodings will of course have their own versions of
 these functions.</p>
 <div class="highlight"><pre><span></span><code>  <span class="n">SCANNER</span> <span class="n">literalScanners</span><span class="p">[</span><span class="n">XML_N_LITERAL_TYPES</span><span class="p">];</span>
 </code></pre></div>
-
 
 <p>There are in fact two more scanners, effectively substates of the
 parser which is why they are not in the <code>scanners</code> array.  The first
@@ -162,7 +160,6 @@ a "normal" encoding.</p>
                                   <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr2</span><span class="p">);</span>
 </code></pre></div>
 
-
 <p>The <code>nameMatchesAscii</code> function pointer, as its name implies, compares
 an XML name against a NUL-terminated ASCII string.  It takes a pointer
 to the start and end of the input string to be compared, allowing the
@@ -175,7 +172,6 @@ optimised check is well worth while.</p>
 <div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">nameLength</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span>
 </code></pre></div>
 
-
 <p>The next function pointer in the structure is <code>nameLength</code>, which as
 you might imagine counts the number of <em>bytes</em> (not codepoints or
 character units) in the XML name passed as a parameter.  The name does
@@ -185,7 +181,6 @@ legal in a name.  It can therefore be used directly on the input
 bytestream.</p>
 <div class="highlight"><pre><span></span><code>  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">skipS</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">ptr</span><span class="o">*</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>The <code>skipS</code> function pointer does exactly what its name suggests; it
 returns a pointer to the next non-whitespace character in the input
@@ -197,7 +192,6 @@ standard.</p>
                      <span class="kt">int</span> <span class="n">attsMax</span><span class="p">,</span>
                      <span class="n">ATTRIBUTE</span> <span class="o">*</span><span class="n">atts</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>The function pointed to by <code>getAtts</code> is a major piece of parsing
 logic; it's job is to extract the names and values of all the
@@ -212,7 +206,6 @@ attribute parsing in a future walkthrough.</p>
                                       <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span>
                                       <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>A pair of fields deal with the decoding of references.  The field
 <code>charRefNumber</code> points to a function that parses a numerical character
@@ -233,7 +226,6 @@ zero if the name passed in is not one of the predefined entities.</p>
                                  <span class="n">POSITION</span> <span class="o">*</span><span class="n">pos</span><span class="p">);</span>
 </code></pre></div>
 
-
 <p>The <code>updatePosition</code> field points to a function which takes an input
 stream (with start and end pointers) and a pointer to a <code>POSITION</code>
 structure (row and column coordinates) which is assumed to be
@@ -248,7 +240,6 @@ where problems are.</p>
                             <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">,</span>
                             <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">badPtr</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>The <code>isPublicId</code> field points to a function which takes pointers to
 the quotes at the start and end of a Public ID field, and a pointer to
@@ -270,7 +261,6 @@ function returns 1; otherwise it returns 0 and sets the error pointer
                                                   <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">short</span> <span class="o">*</span><span class="n">toLim</span><span class="p">);</span>
 </code></pre></div>
 
-
 <p>The final two function pointer fields, <code>utf8Convert</code> and
 <code>utf16Convert</code>, are the character conversion functions that we have
 met before in the guise of <code>XmlConvert</code>.  The primary use of these
@@ -286,7 +276,6 @@ must be linked in but will never be called.</p>
 <div class="highlight"><pre><span></span><code>  <span class="kt">int</span> <span class="n">minBytesPerChar</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>The number of bytes required to represent the shortest character in
 the encoding, this field is used somewhat inconsistently.  It is
 widely used in <code>xmlparse.c</code> for instance as the amount to increment
@@ -296,13 +285,11 @@ as appropriate to the encoding, for efficiency reasons.</p>
 <div class="highlight"><pre><span></span><code>  <span class="kt">char</span> <span class="n">isUtf8</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>This field is a flag that indicates exactly what it says; non-zero if
 the encoding is UTF-8 and zero otherwise.  It is used to avoid some
 unnecessary conversions.</p>
 <div class="highlight"><pre><span></span><code>  <span class="kt">char</span> <span class="n">isUtf16</span><span class="p">;</span>
 </code></pre></div>
-
 
 <p>The final field looks like it should also be a flag to indicate that
 the encoding is UTF-16.  It is slightly more complicated than that; it
@@ -337,11 +324,10 @@ encoding that drives the parser's internals.  This is then wrapped
 with another structure, <code>struct normal_encoding</code>, which supplies the
 functions and tables that turn a generic 8-bit encoding in a UTF-8
 encoding or a Latin-1 encoding.</p>
-<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="n">normal_encoding</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="nc">normal_encoding</span> <span class="p">{</span>
   <span class="n">ENCODING</span> <span class="n">enc</span><span class="p">;</span>
   <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">type</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
 </code></pre></div>
-
 
 <p>After the base <code>ENCODING</code>, the first and most important item in a
 <code>normal_encoding</code> is the <code>type</code> table.  This is an array of "byte
@@ -363,7 +349,6 @@ the three questions the parser is interested in.</p>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isName4</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
 </code></pre></div>
 
-
 <p>The first set are the <code>isName</code> functions.  These should return a true
 (non-zero) value if the character can legally be part of an XML name.
 These are implemented as bitmap table lookups, a fast method that
@@ -372,7 +357,6 @@ doesn't take up as much memory as you might assume.</p>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isNmstrt3</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isNmstrt4</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>The <code>isNmstrt</code> functions perform a similar check, returning a true
 (non-zero) value if the character can legally start an XML name.  A
@@ -383,7 +367,6 @@ implemented as bitmap table lookups.</p>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isInvalid3</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
   <span class="kt">int</span> <span class="p">(</span><span class="n">PTRFASTCALL</span> <span class="o">*</span><span class="n">isInvalid4</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>The final set of functions detect invalid byte sequences.  They return
 a true (non-zero) value if the byte sequence does not decode into a
@@ -423,7 +406,6 @@ handled by a single macro:</p>
 <span class="cp">  PREFIX(isPublicId)</span>
 </code></pre></div>
 
-
 <p>(The odd layered definition of <code>IGNORE_SECTION_TOK_VTABLE</code> is so that
 it can be easily omitted in builds of the library that have DTD
 parsing permanantly disabled.  We have ignored that option to date
@@ -440,7 +422,6 @@ big-endian UTF-16, there is a further macro to help build those
 <code>ENCODING</code> structures:</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#define VTABLE VTABLE1, PREFIX(toUtf8), PREFIX(toUtf16)</span>
 </code></pre></div>
-
 
 <p>For the <code>struct normal_encoding</code> structures that wrap the <code>ENCODINGs</code>,
 there are three more macros defined.  One of them,
@@ -462,7 +443,6 @@ function pointers with function names having a common prefix:</p>
 <span class="cp">  E ## isInvalid4</span>
 </code></pre></div>
 
-
 <p><code>NORMAL_VTABLE()</code> does its own prefixing rather than using the
 <code>PREFIX()</code> macro to allow for variation.  In fact the prefix used most
 commonly is "utf8_", as you may recall from the walkthroughs.</p>
@@ -481,7 +461,7 @@ i.e. when the compile-time symbol <code>XML_NS</code> is
 defined.<sup><a href="#ns">2</a></sup></p>
 <h3>UTF-8 Encoding</h3>
 <p>The basic encoding table for UTF-8 input is as follows:</p>
-<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">utf8_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="nc">normal_encoding</span> <span class="n">utf8_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span> <span class="n">VTABLE1</span><span class="p">,</span> <span class="n">utf8_toUtf8</span><span class="p">,</span> <span class="n">utf8_toUtf16</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span>
     <span class="p">{</span>
 <span class="cp">#define BT_COLON BT_NMSTRT</span>
@@ -493,7 +473,6 @@ defined.<sup><a href="#ns">2</a></sup></p>
   <span class="p">};</span>
 </code></pre></div>
 
-
 <p>The redefinition of <code>BT_COLON</code> as <code>BT_NMSTRT</code> looks a little odd, but
 it's part of the support for <code>XML_NS</code> (which needs to react to colons
 differently in some way), so we can ignore it for now.  The two
@@ -504,7 +483,7 @@ in a separate file and include it here because it is less ugly than
 defining huge macros.</p>
 <p>Substituting the macros we mentioned above (but leaving the include
 files alone; the byte types really aren't that interesting), we get:</p>
-<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">utf8_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="nc">normal_encoding</span> <span class="n">utf8_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span>
       <span class="p">{</span> <span class="n">normal_prologTok</span><span class="p">,</span> <span class="n">normal_contentTok</span><span class="p">,</span>
         <span class="n">normal_cdataSectionTok</span><span class="p">,</span> <span class="n">normal_ignoreSectionTok</span> <span class="p">},</span>
@@ -540,7 +519,6 @@ files alone; the byte types really aren't that interesting), we get:</p>
   <span class="p">};</span>
 </code></pre></div>
 
-
 <p><code>utf8_toUtf8</code> and <code>utf8_toUtf16</code> are defined a little further up
 <code>xmltok.h</code> from this definition, and the <code>normal_</code> functions are all
 defined in one of the inclusions of <code>xmltok_impl.c</code>.  The other
@@ -563,7 +541,7 @@ the special casing isn't needed any more.</p>
 <p>Because of it's popularity and simplicity, Expat has a built-in
 encoding to handle ISO 8859-1, better known as Latin-1.  It's encoding
 structure looks like this:</p>
-<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">latin1_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="nc">normal_encoding</span> <span class="n">latin1_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span>
       <span class="p">{</span> <span class="n">normal_prologTok</span><span class="p">,</span> <span class="n">normal_contentTok</span><span class="p">,</span>
         <span class="n">normal_cdataSectionTok</span><span class="p">,</span> <span class="n">normal_ignoreSectionTok</span> <span class="p">},</span>
@@ -599,7 +577,6 @@ structure looks like this:</p>
   <span class="p">};</span>
 </code></pre></div>
 
-
 <p>This all looks very straightforward until you meet that large section
 of NULL pointers at the end.  Those should be pointing to functions to
 check 2-, 3- and 4-byte sequences for various properties.  Won't the
@@ -618,7 +595,7 @@ in seven bits, and again is character for character mapped onto
 Unicode codepoints U+0000 to U+007F.  It won't surprise you that the
 Expat encoding structure for ASCII is almost identical to that for
 Latin-1:</p>
-<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">ascii_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="nc">normal_encoding</span> <span class="n">ascii_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span>
       <span class="p">{</span> <span class="n">normal_prologTok</span><span class="p">,</span> <span class="n">normal_contentTok</span><span class="p">,</span>
         <span class="n">normal_cdataSectionTok</span><span class="p">,</span> <span class="n">normal_ignoreSectionTok</span> <span class="p">},</span>
@@ -653,7 +630,6 @@ Latin-1:</p>
   <span class="p">};</span>
 </code></pre></div>
 
-
 <p>It is worth noting that the <code>isUtf8</code> field is set to 1; all valid
 ASCII is automatically also valid UTF-8.</p>
 <h3>UTF-16 Encoding</h3>
@@ -665,7 +641,7 @@ variants.  (If anyone else feels faintly ill after reading the macro
 will concentrate on little-endian UTF-16; big-endian UTF-16 is exactly
 the same except for reversing the order of the input bytes.</p>
 <p>The encoding structure doesn't look too outrageous:</p>
-<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">normal_encoding</span> <span class="n">little2_encoding</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="nc">normal_encoding</span> <span class="n">little2_encoding</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span>
       <span class="p">{</span> <span class="n">little2_prologTok</span><span class="p">,</span> <span class="n">little2_contentTok</span><span class="p">,</span>
         <span class="n">little2_cdataSectionTok</span><span class="p">,</span> <span class="n">little2_ignoreSectionTok</span> <span class="p">},</span>
@@ -702,7 +678,6 @@ the same except for reversing the order of the input bytes.</p>
   <span class="p">};</span>
 </code></pre></div>
 
-
 <p>Other than the slightly unexpected setting of <code>isUTF16</code>, this is
 mostly understandable.  The NULL pointers are a cause for concern this
 time, though; UTF-16 consists entirely of two-byte and four-byte
@@ -720,7 +695,6 @@ turns into, reduced to its simplest version, is the expression:</p>
   <span class="n">little2_encoding</span><span class="p">.</span><span class="n">type</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">:</span>
   <span class="n">unicode_byte_type</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </code></pre></div>
-
 
 <p>where <code>p</code> is the two-byte sequence being decoded.  In English, and
 considering the input as one sixteen-bit value rather than two bytes,

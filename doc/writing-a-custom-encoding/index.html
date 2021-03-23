@@ -175,7 +175,6 @@ the <code>XML_Encoding</code> structure passed to it and returns <code>XML_STATU
 <span class="p">}</span> <span class="n">XML_Encoding</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>The heart of the <code>XML_Encoding</code> structure is the <code>map</code> array.  This
 table defines what an individual byte of an encoding means.</p>
 <ul>
@@ -224,7 +223,7 @@ therefore be marked as invalid.</p>
 <p>We will write an unknown encoding handler that sets up this encoding
 when it is asked for the encoding named <code>risc-os</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="nf">risc_os_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
+<span class="n">risc_os_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
                          <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">encoding</span><span class="p">,</span>
                          <span class="n">XML_Encoding</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span>
 <span class="p">{</span>
@@ -233,7 +232,6 @@ when it is asked for the encoding named <code>risc-os</code>.</p>
     <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="s">&quot;risc-os&quot;</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
 </code></pre></div>
-
 
 <p>The first thing to do is to check which encoding name the parser has
 been presented with.  We are only dealing with the <code>risc-os</code> encoding,
@@ -247,7 +245,6 @@ values, we can set the first half of the map easily:</p>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>A lot of encodings look like this.  The next part of the map cannot be
 done so algorithmically.  In practise this is probably best done as a
 constant array that we can <code>memcpy</code> into place, but we'll do it the
@@ -255,15 +252,15 @@ hard way here.</p>
 <div class="highlight"><pre><span></span><code><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x20AC</span><span class="p">;</span>   <span class="cm">/* € */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x81</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0174</span><span class="p">;</span>   <span class="cm">/* Ŵ */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x82</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0175</span><span class="p">;</span>   <span class="cm">/* ŵ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x83</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>       <span class="cm">/* Resize icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x84</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>       <span class="cm">/* Close icon, invalid */</span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x83</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Resize icon, invalid */</span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x84</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Close icon, invalid */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x85</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0176</span><span class="p">;</span>   <span class="cm">/* Ŷ */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x86</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0177</span><span class="p">;</span>   <span class="cm">/* ŷ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x87</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>       <span class="cm">/* &quot;87&quot; */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x88</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>       <span class="cm">/* Left arrow icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x89</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>       <span class="cm">/* Right arrow icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8A</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>       <span class="cm">/* Up arrow icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8B</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>       <span class="cm">/* Down arrow icon, invalid */</span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x87</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* &quot;87&quot; */</span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x88</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Left arrow icon, invalid */</span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x89</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Right arrow icon, invalid */</span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8A</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Up arrow icon, invalid */</span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8B</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Down arrow icon, invalid */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8C</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2026</span><span class="p">;</span>   <span class="cm">/* … */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8D</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2122</span><span class="p">;</span>   <span class="cm">/* ™ */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8E</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2030</span><span class="p">;</span>   <span class="cm">/* ‰ */</span>
@@ -286,13 +283,11 @@ hard way here.</p>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9F</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xFB02</span><span class="p">;</span>   <span class="cm">/* ﬂ */</span>
 </code></pre></div>
 
-
 <p>As it happens, the rest of the encoding is the same as Latin-1, so in
 the interests of brevity we will take the obvious short-cut:</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">160</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 </code></pre></div>
-
 
 <p>Finally, we don't have a convert function, so we don't need user data
 and we don't need a release function either:</p>
@@ -302,7 +297,6 @@ and we don't need a release function either:</p>
     <span class="k">return</span> <span class="n">XML_STATUS_OK</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>That's it.  All we have to do to implement this or any other ISO 8859
 variant is to fill <code>info-&gt;map</code> in with the right values and we're
@@ -329,11 +323,11 @@ custom encoding:</p>
 <p>This time we will use tables of constants to initialise the
 top-bit-set half of our <code>map</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">const</span> <span class="kt">int</span> <span class="n">first_byte_hi</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="cm">/* 0x80 */</span>
-    <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="cm">/* 0x88 */</span>
-    <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="cm">/* 0x90 */</span>
-    <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="cm">/* 0x98 */</span>
-    <span class="o">-</span><span class="mi">1</span><span class="p">,</span>     <span class="mh">0xFF61</span><span class="p">,</span> <span class="mh">0xFF62</span><span class="p">,</span> <span class="mh">0xFF63</span><span class="p">,</span>  <span class="cm">/* 0xA0 */</span>
+    <span class="mi">-1</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0x80 */</span>
+    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0x88 */</span>
+    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0x90 */</span>
+    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0x98 */</span>
+    <span class="mi">-1</span><span class="p">,</span>     <span class="mh">0xFF61</span><span class="p">,</span> <span class="mh">0xFF62</span><span class="p">,</span> <span class="mh">0xFF63</span><span class="p">,</span>  <span class="cm">/* 0xA0 */</span>
     <span class="mh">0xFF64</span><span class="p">,</span> <span class="mh">0xFF65</span><span class="p">,</span> <span class="mh">0xFF66</span><span class="p">,</span> <span class="mh">0xFF67</span><span class="p">,</span>  <span class="cm">/* 0xA4 */</span>
     <span class="mh">0xFF68</span><span class="p">,</span> <span class="mh">0xFF69</span><span class="p">,</span> <span class="mh">0xFF6A</span><span class="p">,</span> <span class="mh">0xFF6B</span><span class="p">,</span>  <span class="cm">/* 0xA8 */</span>
     <span class="mh">0xFF6C</span><span class="p">,</span> <span class="mh">0xFF6D</span><span class="p">,</span> <span class="mh">0xFF6E</span><span class="p">,</span> <span class="mh">0xFF6F</span><span class="p">,</span>  <span class="cm">/* 0xAC */</span>
@@ -349,13 +343,12 @@ top-bit-set half of our <code>map</code>:</p>
     <span class="mh">0xFF94</span><span class="p">,</span> <span class="mh">0xFF95</span><span class="p">,</span> <span class="mh">0xFF96</span><span class="p">,</span> <span class="mh">0xFF97</span><span class="p">,</span>  <span class="cm">/* 0xD4 */</span>
     <span class="mh">0xFF98</span><span class="p">,</span> <span class="mh">0xFF99</span><span class="p">,</span> <span class="mh">0xFF9A</span><span class="p">,</span> <span class="mh">0xFF9B</span><span class="p">,</span>  <span class="cm">/* 0xD8 */</span>
     <span class="mh">0xFF9C</span><span class="p">,</span> <span class="mh">0xFF9D</span><span class="p">,</span> <span class="mh">0xFF9E</span><span class="p">,</span> <span class="mh">0xFF9F</span><span class="p">,</span>  <span class="cm">/* 0xDC */</span>
-    <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="cm">/* 0xE0 */</span>
-    <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="cm">/* 0xE8 */</span>
-    <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="cm">/* 0xF0 */</span>
-    <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>   <span class="cm">/* 0xF8 */</span>
+    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0xE0 */</span>
+    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0xE8 */</span>
+    <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span>  <span class="cm">/* 0xF0 */</span>
+    <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span>   <span class="cm">/* 0xF8 */</span>
 <span class="p">};</span>
 </code></pre></div>
-
 
 <p>As you can see, there are a lot of invalid bytes (-1) and two byte
 sequences (-2) alongside the
@@ -392,11 +385,10 @@ the tables here:</p>
 <span class="p">};</span>
 </code></pre></div>
 
-
 <p>The conversion function is then just a simple table lookup,
 complicated only by the fragmentary nature of the table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="nf">convert_jis</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+<span class="n">convert_jis</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">table</span><span class="p">;</span>
 
@@ -411,18 +403,17 @@ complicated only by the fragmentary nature of the table:</p>
     <span class="p">}</span>
     <span class="cm">/* There are no legal two-byte sequences with s[1] &lt; 0x40 */</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mh">0x40</span><span class="p">)</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">table</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0x40</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>Optimising this to remove the sparseness of some of the subtables is
 left as an exercise for the reader.<sup><a href="#lazy">2</a></sup>  That leaves
 us just having to write the unknown encoding handler, which is frankly
 trivial in comparison:</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="nf">shift_jis_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
+<span class="n">shift_jis_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
                            <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">encoding</span><span class="p">,</span>
                            <span class="n">XML_Encoding</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span>
 <span class="p">{</span>
@@ -442,7 +433,6 @@ trivial in comparison:</p>
     <span class="k">return</span> <span class="n">XML_STATUS_OK</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>While larger and more tedious that the RISC OS encoding example,
 encoding Shift JIS is not actually a great deal more complicated.  We
@@ -496,7 +486,7 @@ realistic encoding require such a thing.</p>
 <span class="p">}</span> <span class="n">PageEncodingData</span><span class="p">;</span>
 
 <span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="nf">page_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
+<span class="n">page_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
                       <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">encoding</span><span class="p">,</span>
                       <span class="n">XML_Encoding</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span>
 <span class="p">{</span>
@@ -505,7 +495,6 @@ realistic encoding require such a thing.</p>
     <span class="n">XML_Parser</span> <span class="n">parser</span> <span class="o">=</span> <span class="p">(</span><span class="n">XML_Parser</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>This first bit is a departure from the usual for our encodings.  This
 time we actually use the <code>data</code> parameter to pass user-level
 information into the encoding handler.  We expect to be given the
@@ -513,7 +502,6 @@ parser structure; I'll explain why in a moment.</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="s">&quot;page-and-offset&quot;</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
 </code></pre></div>
-
 
 <p>This rejects anything that isn't our new encoding, which we've
 arbitrarily called <code>page-and-offset</code>.  Now we allocate space for our
@@ -524,7 +512,6 @@ recorded page:</p>
     <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span><span class="p">;</span>
     <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
-
 
 <p>The reason I wanted the parser structure is so that we can allocate
 memory using <code>XML_MemMalloc()</code>.  This will use the same allocation
@@ -539,13 +526,12 @@ memory, but unfortunately there is no other way of reporting an
 error.</p>
 <div class="highlight"><pre><span></span><code>    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
         <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x81</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x82</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-3</span><span class="p">;</span>
+    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x81</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-2</span><span class="p">;</span>
+    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x82</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-2</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0x83</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
 </code></pre></div>
-
 
 <p>Setting up the map is pretty simple; we have ASCII, one three-byte
 sequence, two two-byte sequences, and everything else is invalid.  In
@@ -561,7 +547,6 @@ clearer, however, and the processing cost is negligible.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Finally we fill in the pointers, happy that for once they aren't a
 collection of NULLs.  All we have to do now is write the functions.</p>
 <p>Let's take the release function first.  Since we allocated the user
@@ -569,17 +554,16 @@ memory with <code>XML_MemMalloc()</code>, we should release it with
 <code>XML_MemFree()</code>.  That's why we have a pointer to the parser structure
 in our user-defined data structure <code>PageEncodingData</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">void</span> <span class="n">XMLCALL</span>
-<span class="nf">page_release</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
+<span class="n">page_release</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">PageEncodingData</span> <span class="o">*</span><span class="n">page_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">PageEncodingData</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
     <span class="n">XML_MemFree</span><span class="p">(</span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">parser</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>All very straightforward.  So, surprisingly, is the convert function:</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="nf">page_convert</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+<span class="n">page_convert</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">PageEncodingData</span> <span class="o">*</span><span class="n">page_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">PageEncodingData</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
 
@@ -599,11 +583,10 @@ in our user-defined data structure <code>PageEncodingData</code>.</p>
 
     <span class="k">default</span><span class="o">:</span>
         <span class="cm">/* This should never happen */</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>The only remotely complicated thing here is the amount of masking with
 <code>0xff</code> that goes on, which avoids potential problems with sign
@@ -614,7 +597,6 @@ to register it in a slightly different way to normal:</p>
                               <span class="n">page_encoding_handler</span><span class="p">,</span>
                               <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">parser</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>That's it.  It takes surprisingly little work to implement quite
 complex encodings; rather more complex than the XML standard really

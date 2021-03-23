@@ -144,7 +144,6 @@ so on.  These tables all use a single common set of data structures:</p>
 <span class="p">}</span> <span class="n">HASH_TABLE</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>The important field here is <code>v</code>; this is the actual table, implemented
 as an array of pointers to <code>NAMED</code> structures, which are themselves
 pointers to the key for each entry.  There is heavy use of pointers
@@ -167,7 +166,7 @@ to find entries as you might expect and to add new ones.  Let's walk
 through what the code does when we call <code>lookup()</code> asking it to insert
 a new entry.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="n">NAMED</span> <span class="o">*</span>
-<span class="nf">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
+<span class="n">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">size_t</span> <span class="n">i</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
@@ -175,7 +174,6 @@ a new entry.</p>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">createSize</span><span class="p">)</span>
       <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 </code></pre></div>
-
 
 <p>Let's assume that we have "foo" as a key (i.e. <code>name == "foo"</code>, and
 let's also assume that our internal representation is UTF-8 for
@@ -198,7 +196,6 @@ in an empty table, we would return <code>NULL</code> at this point.</p>
     <span class="n">memset</span><span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tsize</span><span class="p">);</span>
 </code></pre></div>
 
-
 <p>Having decided we need a new table, we create it.  As the comment in
 the code says, our table size is always a power of two for general
 convenience later on.  To help with that, as well as keeping the
@@ -214,7 +211,6 @@ to all zero, giving us a table of <code>NULL</code> pointers.</p>
 <div class="highlight"><pre><span></span><code>    <span class="n">i</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
   <span class="p">}</span>
 </code></pre></div>
-
 
 <p>Our last act when creating a new table is to pass the key "foo" to the
 hashing algorithm, which will convert it into an <code>unsigned long</code>.
@@ -234,7 +230,6 @@ the table entry we will pick.</p>
   <span class="k">return</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>Finally we create the entry, allocating the requested number of bytes
 and returning <code>NULL</code> if we fail to get them.  We clear the allocated
@@ -267,7 +262,7 @@ through <code>lookup()</code> again to insert the key "bar", and assume that by
 some horrible mischance<sup><a href="#mischance">2</a></sup> it hashes to the
 same table entry as "foo" did.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="n">NAMED</span> <span class="o">*</span>
-<span class="nf">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
+<span class="n">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">size_t</span> <span class="n">i</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
@@ -289,7 +284,6 @@ same table entry as "foo" did.</p>
       <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>We start off by creating our candidate index <code>i</code> as before, hashing
 the key and masking it down to the size of the table.  If this gives
 us a slot in the table that already has an entry, we check to see if
@@ -309,7 +303,6 @@ later, this will always terminate.</p>
 <span class="cp">#define PROBE_STEP(hash, mask, power) \</span>
 <span class="cp">  ((unsigned char)((SECOND_HASH(hash, mask, power)) | 1))</span>
 </code></pre></div>
-
 
 <p>Remember that our original index calculation was to take the least
 significant <code>table-&gt;power</code> bits of the hash value.  <code>SECOND_HASH()</code>
@@ -337,7 +330,6 @@ eventually.</p>
         <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
       <span class="n">memset</span><span class="p">(</span><span class="n">newV</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tsize</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>"Eventually", of course, could be a very long time in a large
 almost-full table.  To increase our chances of finding an empty slot
@@ -371,7 +363,6 @@ keep the number of expansions down.</p>
       <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="n">newSize</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>This looks almost exactly like the hash-mask-and-step routine we just
 saw, mostly because it is exactly the same routine.  It may result in
 different keys getting their preferred index slot as opposed to having
@@ -389,7 +380,6 @@ new entry.</p>
         <span class="n">i</span> <span class="o">&lt;</span> <span class="n">step</span> <span class="o">?</span> <span class="p">(</span><span class="n">i</span> <span class="o">+=</span> <span class="n">newSize</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">-=</span> <span class="n">step</span><span class="p">);</span>
       <span class="p">}</span>
 </code></pre></div>
-
 
 <p>One more time around the hash-mask-and-step routine, this time using
 the hash value for our new key (calculated early on in the function)
@@ -412,23 +402,21 @@ functions <code>hashTableIterInit()</code> and <code>hashTableIterNext()</code>.
 <span class="p">}</span> <span class="n">HASH_TABLE_ITER</span><span class="p">;</span>
 </code></pre></div>
 
-
 <p>A hash table iterator is a simple beast.  All it contains is a
 "current pointer" <code>p</code> into the table and an "end pointer" <code>end</code> to
 tell it where to stop.  The functions are similarly simple:</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">void</span> <span class="n">FASTCALL</span>
-<span class="nf">hashTableIterInit</span><span class="p">(</span><span class="n">HASH_TABLE_ITER</span> <span class="o">*</span><span class="n">iter</span><span class="p">,</span> <span class="k">const</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">)</span>
+<span class="n">hashTableIterInit</span><span class="p">(</span><span class="n">HASH_TABLE_ITER</span> <span class="o">*</span><span class="n">iter</span><span class="p">,</span> <span class="k">const</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">=</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">;</span>
   <span class="n">iter</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">=</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">+</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>You initialise an iterator by setting its current pointer to the start
 of the table and its end pointer to just past the end of the table.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="n">NAMED</span> <span class="o">*</span> <span class="n">FASTCALL</span>
-<span class="nf">hashTableIterNext</span><span class="p">(</span><span class="n">HASH_TABLE_ITER</span> <span class="o">*</span><span class="n">iter</span><span class="p">)</span>
+<span class="n">hashTableIterNext</span><span class="p">(</span><span class="n">HASH_TABLE_ITER</span> <span class="o">*</span><span class="n">iter</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">!=</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">NAMED</span> <span class="o">*</span><span class="n">tem</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
@@ -438,7 +426,6 @@ of the table and its end pointer to just past the end of the table.</p>
   <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>You get the next entry out of your iterator by returning the contents
 of the first non-empty slot you come across, leaving the "current
@@ -454,7 +441,6 @@ of the table, return <code>NULL</code>.  Simples.<sup><a href="#simples">4</a></
   <span class="n">do_something_with</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <h2>Final Notes</h2>
 <p>In general, hash tables as the Expat library uses them are not such
@@ -490,13 +476,12 @@ out here.  Assume that <code>power</code> is 6 (and <code>mask</code> is therefo
 <code>0b111111</code>), and suppose that our hash is <code>0b1111111111111111</code> to make
 the masking stand out (and because I can't be bothered to type more
 than 16 bits).  Therefore:</p>
-<div class="highlight"><pre><span></span><code><span class="n">hash</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">mask</span>                                <span class="o">=</span> <span class="mi">0</span><span class="n">b1111111111000000</span>
+<div class="highlight"><pre><span></span><code>hash &amp; ~mask                                = 0b1111111111000000
 
-<span class="p">(</span><span class="n">hash</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">mask</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">power</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>                 <span class="o">=</span> <span class="mi">0</span><span class="n">b0000011111111110</span>
+(hash &amp; ~mask) &gt;&gt; (power-1)                 = 0b0000011111111110
 
-<span class="p">((</span><span class="n">hash</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">mask</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">power</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mask</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="n">b0000000000001110</span>
+((hash &amp; ~mask) &gt;&gt; (power-1)) &amp; (mask &gt;&gt; 2) = 0b0000000000001110
 </code></pre></div>
-
 
 <p>So we use the next three (<code>power-3</code>) bits of the hash, shifted left
 one bit.  The least significant bit will then be set to one by

@@ -105,9 +105,8 @@ such tests and balance them with the existing test suite.</p>
 <h2>Finding the Test Code</h2>
 <p>The test code can be found in the <code>expat/tests</code> directory of the
 repository.  The tests can be compiled and run by typing</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$</span> make check
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>make check
 </code></pre></div>
-
 
 <p>at a command line, after the usual configuration.  This builds two
 applications, <code>runtests</code> and <code>runtestspp</code>, which are compiled as C and
@@ -175,7 +174,6 @@ fit into the Basic test case.</p>
 <span class="n">END_TEST</span>
 </code></pre></div>
 
-
 <p><code>START_TEST</code> defines the function as taking no parameters and
 returning void.  It also sets a number of static variables that make
 error reporting easier by stashing the real function name and location
@@ -201,7 +199,6 @@ affect any future tests, which will still be run as normal.</p>
 <span class="n">END_TEST</span>
 </code></pre></div>
 
-
 <p>This will print an error message of the form <code>"ERROR: No foo!"</code> if the
 function <code>try_foo()</code> returns false, and will then exit the test without
 even attempting to call <code>try_bar()</code>.  If <code>try_foo()</code> succeeds, then
@@ -225,7 +222,6 @@ text where the error occured in the error report.</p>
 <span class="n">END_TEST</span>
 </code></pre></div>
 
-
 <p>Notice that <code>xml_failure</code> needs to be told which parser to get the
 failure information from.  This will usually be the static variable
 <code>parser</code>, the default set up by most of the test cases, but it is
@@ -242,7 +238,6 @@ error message to fail with if the parser does <em>not</em> signal an error.</p>
 <span class="p">}</span>
 <span class="n">END_TEST</span>
 </code></pre></div>
-
 
 <h2>Support Macros and Functions</h2>
 <h3>Byte-by-Byte Parsing</h3>
@@ -282,7 +277,6 @@ and write or alter a test to check they gets set appropriately.)</p>
 <span class="n">END_TEST</span>
 </code></pre></div>
 
-
 <h3>Wide Character Support</h3>
 <p>The test suite is intended to be run on both "narrow" (the default)
 and "wide" (compiled with <code>XML_UNICODE</code> defined) versions of the Expat
@@ -316,7 +310,6 @@ of the encoding to use as an XML_Char string) begins with:</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="p">(</span><span class="n">xcstrcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">XCS</span><span class="p">(</span><span class="s">&quot;unsupported-encoding&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
   <span class="p">...</span>
 </code></pre></div>
-
 
 <h3>Character Data Accumulation</h3>
 <p>As is often noted, character data handlers are not guaranteed to be
@@ -365,7 +358,6 @@ parsed, reads as follows:</p>
 <span class="n">END_TEST</span>
 </code></pre></div>
 
-
 <p>There is also a macro helper for the less common case of checking that
 XML attributes are correctly passed to a start element handler.
 <code>run_attribute_check()</code> parses the text it is passed and checks that
@@ -380,7 +372,6 @@ presented to the start handler is not guaranteed.</p>
 <span class="p">}</span>
 <span class="n">END_TEST</span>
 </code></pre></div>
-
 
 <p>If you need to test multiple attributes, a more capable accumulator
 will be needed.</p>
