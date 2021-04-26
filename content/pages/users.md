@@ -251,6 +251,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [simgear](http://simgear.org/)
     * [sitecopy](https://packages.debian.org/sid/web/sitecopy) (through neon) — program for managing a WWW site via FTP, SFTP, DAV or HTTP
     * [Skia Graphics Library](https://github.com/google/skia/blob/HEAD/src/ports/SkFontMgr_android_parser.cpp)
+    * [Slic3r](https://github.com/slic3r/Slic3r/blob/master/xs/src/libslic3r/IO/TMF.hpp) — 3D printing toolbox
     * [Soulseek](http://www.soulseekqt.net/)
     * [spatialite-tools](https://www.gaia-gis.it/spatialite)
     * [Speed Dreams](http://www.speed-dreams.org/) (uses modified Expat fork "txml")
