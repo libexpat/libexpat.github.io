@@ -60,7 +60,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [CEGUI](http://cegui.org.uk/)
     * [CenterIM](http://www.centerim.org/index.php/Main_Page)
     * [Ceph / librgw](https://github.com/ceph/ceph/blob/master/src/rgw/rgw_xml.cc) — Ceph RADOS Gateway client library
-    * [Chromium](http://chromium.org/)
+    * [Chromium / libjingle_xmpp / xmllite](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/libjingle_xmpp/xmllite/xmlparser.h#18)
     * [Citadel](http://www.citadel.org/doku.php) — groupware server
     * [clamz](https://code.google.com/archive/p/clamz/) — command-line program to download MP3s from Amazon
     * [claws-mail-feeds-reader](http://www.claws-mail.org/) — feeds (RSS/Atom) reader plugin for Claws Mail
