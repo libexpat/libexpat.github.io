@@ -75,6 +75,7 @@ Wherever you go, Expat is already waiting for you:
         [[2]](https://git.openwrt.org/?p=openwrt/openwrt.git;a=blob;f=tools/expat/Makefile)
     * [Parabola](https://www.parabola.nu/packages/core/x86_64/expat/)
     * [PCLinuxOS](http://ftp.nluug.nl/pub/os/Linux/distr/pclinuxos/pclinuxos/srpms/SRPMS.pclos/)
+    * [Pisi GNU/Linux](https://github.com/pisilinux/core/blob/master/system/base/expat/pspec.xml)
     * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
     * [PTXdist](https://git.pengutronix.de/cgit/ptxdist/tree/rules/expat.make)
     * [ROSA Linux](https://abf.rosalinux.ru/import/expat)
