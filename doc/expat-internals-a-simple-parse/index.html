@@ -178,7 +178,7 @@ code:</p>
   <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
 <span class="k">else</span> <span class="p">{</span>
   <span class="n">memcpy</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
-  <span class="k">return</span> <span class="nf">XML_ParseBuffer</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">isFinal</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">XML_ParseBuffer</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">isFinal</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -446,7 +446,7 @@ it skips down:</p>
 <div class="highlight"><pre><span></span><code><span class="k">case</span> <span class="nl">XML_ROLE_INSTANCE_START</span><span class="p">:</span>
   <span class="cm">/* useForeignDTD stuff... */</span>
   <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_processor</span> <span class="o">=</span> <span class="n">contentProcessor</span><span class="p">;</span>
-  <span class="k">return</span> <span class="nf">contentProcessor</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">nextPtr</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">contentProcessor</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">nextPtr</span><span class="p">);</span>
 </code></pre></div>
 
 <p>Setting <code>m_processor</code> field of the parser structure to
@@ -760,7 +760,7 @@ masking a function pointer in the encoder structure.</p>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">output_exhausted</span><span class="p">)</span> <span class="cm">/* needs to go first */</span>
     <span class="k">return</span> <span class="n">XML_CONVERT_OUTPUT_EXHAUSTED</span><span class="p">;</span>
-  <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">input_incomplete</span><span class="p">)</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">input_incomplete</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">XML_CONVERT_INPUT_INCOMPLETE</span><span class="p">;</span>
   <span class="k">else</span>
     <span class="k">return</span> <span class="n">XML_CONVERT_COMPLETED</span><span class="p">;</span>
@@ -852,7 +852,7 @@ having done essentially no more.</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_startElementHandler</span><span class="p">)</span>
   <span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_startElementHandler</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_handlerArg</span><span class="p">,</span> <span class="n">tag</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">.</span><span class="n">str</span><span class="p">,</span>
                                 <span class="p">(</span><span class="k">const</span> <span class="n">XML_Char</span> <span class="o">**</span><span class="p">)</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_atts</span><span class="p">);</span>
-<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_defaultHandler</span><span class="p">)</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_defaultHandler</span><span class="p">)</span>
   <span class="n">reportDefault</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">enc</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
 <span class="n">poolClear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_tempPool</span><span class="p">);</span>
 <span class="k">break</span><span class="p">;</span>

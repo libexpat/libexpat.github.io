@@ -166,7 +166,7 @@ to find entries as you might expect and to add new ones.  Let's walk
 through what the code does when we call <code>lookup()</code> asking it to insert
 a new entry.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="n">NAMED</span> <span class="o">*</span>
-<span class="n">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
+<span class="nf">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">size_t</span> <span class="n">i</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
@@ -262,7 +262,7 @@ through <code>lookup()</code> again to insert the key "bar", and assume that by
 some horrible mischance<sup><a href="#mischance">2</a></sup> it hashes to the
 same table entry as "foo" did.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="n">NAMED</span> <span class="o">*</span>
-<span class="n">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
+<span class="nf">lookup</span><span class="p">(</span><span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">,</span> <span class="n">HASH_TABLE</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="n">KEY</span> <span class="n">name</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">createSize</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">size_t</span> <span class="n">i</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>

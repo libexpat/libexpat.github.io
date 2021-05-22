@@ -468,7 +468,7 @@ simplest is to build it character by character using the
 <p>This is a macro for efficiency reasons (it is used frequently), and as
 such can be confusing to read.  It's easiest to describe as if it were
 a function returning a boolean:</p>
-<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">poolAppendChar</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="n">XML_Char</span> <span class="n">c</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="nf">poolAppendChar</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="n">XML_Char</span> <span class="n">c</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">==</span> <span class="n">pool</span><span class="o">-&gt;</span><span class="n">end</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -583,7 +583,7 @@ convenient terminator.  To avoid confusion, <code>poolAppend()</code> always
 converts the input to use the internal character encoding, which makes
 the process somewhat more involved.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="n">XML_Char</span> <span class="o">*</span>
-<span class="n">poolAppend</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
+<span class="nf">poolAppend</span><span class="p">(</span><span class="n">STRING_POOL</span> <span class="o">*</span><span class="n">pool</span><span class="p">,</span> <span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span>
            <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pool</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">poolGrow</span><span class="p">(</span><span class="n">pool</span><span class="p">))</span>

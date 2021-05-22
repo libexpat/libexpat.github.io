@@ -571,7 +571,7 @@ character isn't legal ASCII.  After that, <code>isSpace()</code> (note the
 capital 'S') compares that against the short list of whitespace
 characters.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span>
-<span class="n">toAscii</span><span class="p">(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
+<span class="nf">toAscii</span><span class="p">(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
   <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">buf</span><span class="p">;</span>
@@ -877,7 +877,7 @@ on them.  Assuming we pass the test, we stash a pointer to the
 encoding name and call the <code>encodingFinder</code> function supplied.</p>
 <h2>Encoding Names</h2>
 <div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span>
-<span class="n">NS</span><span class="p">(</span><span class="n">findEncoding</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
+<span class="nf">NS</span><span class="p">(</span><span class="n">findEncoding</span><span class="p">)(</span><span class="k">const</span> <span class="n">ENCODING</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">end</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="cp">#define ENCODING_MAX 128</span>
   <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">ENCODING_MAX</span><span class="p">];</span>
@@ -892,7 +892,7 @@ encoding name and call the <code>encodingFinder</code> function supplied.</p>
   <span class="n">i</span> <span class="o">=</span> <span class="n">getEncodingIndex</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">UNKNOWN_ENC</span><span class="p">)</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">return</span> <span class="nf">NS</span><span class="p">(</span><span class="n">encodings</span><span class="p">)[</span><span class="n">i</span><span class="p">];</span>
+  <span class="k">return</span> <span class="n">NS</span><span class="p">(</span><span class="n">encodings</span><span class="p">)[</span><span class="n">i</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1074,7 +1074,7 @@ processor in an encoding other than that named in the declaration
 with the new encoding.  From now on, our parsing will expect ASCII
 input.  Notice that we don't update <code>m_protocolEncodingName</code>; that is
 for overrides only.</p>
-<div class="highlight"><pre><span></span><code><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">encodingName</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">encodingName</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">enum</span> <span class="n">XML_Error</span> <span class="n">result</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">storedEncName</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">storedEncName</span> <span class="o">=</span> <span class="n">poolStoreString</span><span class="p">(</span>
