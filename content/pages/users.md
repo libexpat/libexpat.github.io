@@ -71,6 +71,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Comet MS/MS search engine](https://sourceforge.net/projects/comet-ms/) — Tandem mass spectrometry (MS/MS) search engine
     * [C-Pluff](http://www.c-pluff.org/) — Plug-in framework for C
     * [CSVfix](https://bitbucket.org/neilb/csvfix)
+    * [Cubrid](https://github.com/CUBRID/cubrid/blob/387b846895fc6490cfdbca6b5e967c1719f894c6/src/base/xml_parser.h#L34) — relational database management system for Web Applications
     * [CURL example code](https://github.com/curl/curl/blob/HEAD/docs/examples/xmlstream.c) (not CURL itself)
 * __D__
     * [DACS (Distributed access control)](https://dacs.dss.ca/) — single sign-on and rule-based access control system
