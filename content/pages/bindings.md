@@ -25,9 +25,12 @@ interfaces to Expat from languages other than C.
     * [Arabica](http://www.jezuk.co.uk/cgi-bin/view/arabica "Arabica" ) \-- an XML Parser toolkit for C++ programmers, with SAX2 implementations based on several parsers, including Expat.
     * [ExpatMM -- C++ interface to Expat](https://github.com/ckane/expatmm)
     * [expatpp](https://sourceforge.net/projects/expatpp/) c++ layer for expat
+    * [libexpatpp](https://github.com/gittiver/libexpatpp) — a modern C++ xml parser toolkit
     * [libstudxml](https://www.codesynthesis.com/projects/libstudxml/) — modern C++ XML API
 * __C#__
     * [SAXExpat.NET](http://saxdotnet.sourceforge.net/saxexpat.html), a [.NET](http://www.microsoft.com/net/) wrapper for Expat, conforming to the [SAX for .NET](http://saxdotnet.sourceforge.net) specifications.
+* __Dart__
+    * [expat.dart](https://github.com/jpnurmi/expat.dart) — Dart FFI bindings
 * __Eiffel__
     * [EuExpat](https://github.com/dhodgkin/euexpat)
     * The [GOBO project](http://sourceforge.net/projects/gobo-eiffel/) is working on an Eiffel binding for Expat. Development is active and the package is fully supported in GOBO 3.0 and 3.1, though there isn't much status information about the Expat bindings on the website. (Most activity is reportedly on the relevant mailing lists.)
@@ -76,6 +79,7 @@ interfaces to Expat from languages other than C.
     * [ffi-expat](https://rubygems.org/gems/ffi-expat/) — Very thin wrapper around expat using the Ruby FFI library
 * __Rust__
     * [expat-sys CARGO package](https://crates.io/crates/expat-sys/versions)
+    * [rexpat](https://github.com/immunant/rexpat) — a libexpat compatible Rust crate
 * __Simkin__
     * [Simkin](http://www.simkin.co.uk/) is an open source scripting language available under the GNU LGPL. It can be embedded in XML and supports a DOM-like API backed by Expat.
 * __S-Lang__
