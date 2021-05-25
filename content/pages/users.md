@@ -246,6 +246,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [s3backer](https://github.com/archiecobbs/s3backer)
     * [Sablotron](https://sourceforge.net/projects/sablotron/)
     * [sblg](https://kristaps.bsd.lv/sblg/)
+    * [scidb](https://sourceforge.net/p/scidb/code/HEAD/tree/trunk/src/util/u_html.cpp#l603) — chess database application
     * [Scorched3D](http://www.scorched3d.co.uk/)
     * [SDLmame](http://mamedev.org/)
     * [SeaMonkey](http://www.seamonkey-project.org)
