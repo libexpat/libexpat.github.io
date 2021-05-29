@@ -308,6 +308,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __X__
     * [xkbd](http://trac.hackable1.org/trac/wiki/Xkbd)
     * [XML Copy Editor](http://xml-copy-editor.sourceforge.net/) — fast, free, validating XML editor
+    * [xmlppm](https://sourceforge.net/p/xmlppm/code/HEAD/tree/src/EncodeSax.cpp#l387) — XML data compression program
     * [xmlrpc-c](https://sourceforge.net/projects/xmlrpc-c/) — library for writing an XML-RPC server or client in C/C++
     * [xmlrpc-epi](http://xmlrpc-epi.sourceforge.net/)
     * [xmp3](https://github.com/BellerophonMobile/xmp3/blob/426cf7ee0ad4f32bea98cadad93b140d6a4c9760/src/xmpp_parser.c) — XMPP Proxy, small Extensible XMPP Server
