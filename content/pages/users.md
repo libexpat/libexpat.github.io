@@ -180,6 +180,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [libsolv / libzypp](http://doc.opensuse.org/projects/libzypp/HEAD/)
     * [libsynthesis](http://www.synthesis.ch/indefero/index.php/p/libsynthesis/) — library for SyncML-DS (SyncML Data Sync) clients
     * [libupnpp](https://www.lesbonscomptes.com/upmpdcli) — wraps libupnp for use by upmpdcli and upplay
+    * [libvips](https://github.com/libvips/libvips/blob/889ca9664808cd02321b78eb881adf84d156644b/libvips/iofuncs/vips.c#L575) — image processing library
     * [libwbxml](https://github.com/libwbxml/libwbxml)
     * [libwmf](http://wvware.sourceforge.net/)
     * [libwww](https://www.w3.org/Library/)
