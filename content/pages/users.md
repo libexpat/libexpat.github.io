@@ -39,6 +39,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Apache Portable Runtime (apr-util)](http://apr.apache.org/)
     * [Arabica](https://github.com/jezhiggins/arabica/blob/cd99dba691b99e5401315bf752a3300874060c28/src/SAX/wrappers/saxexpat.cpp#L129) — XML and HTML processing toolkit
     * [aria2](https://aria2.github.io/)
+    * [asdcplib](https://github.com/cinecert/asdcplib/blob/f9d7fbc33aa571c547d916b145712469efd9f4b8/src/KM_xml.cpp#L561) — AS-DCP and AS-02 File Access Library
     * [Astropy](http://www.astropy.org/)
     * [Attract Mode](https://github.com/mickelson/attract/blob/a348c1f5fa125bfb4133e01ce3b03a17138dbea6/src/scraper_base.cpp#L33) — graphical front-end for command line emulators
     * [Audacity](http://web.audacityteam.org/)
