@@ -277,6 +277,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __U__
     * [UDUNITS](https://www.unidata.ucar.edu/software/udunits/)
     * [uim](https://github.com/uim/uim/)
+    * [ulxmlrpcpp](https://sourceforge.net/p/ulxmlrpcpp/code/HEAD/tree/trunk/ulxmlrpcpp/ulxmlrpcpp/ulxr_expatwrap.cpp#l136) — xml-rpc lib for C++
     * [Unbound](http://unbound.net/)
     * [urfkill](http://www.freedesktop.org/wiki/Software/urfkill) — wireless killswitch management daemon for laptops
     * [uWSGI](http://projects.unbit.it/uwsgi/)
