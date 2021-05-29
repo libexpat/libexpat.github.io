@@ -102,6 +102,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [FlightGear](https://sourceforge.net/p/flightgear/fgrun/) — Flight Gear Flight Simulator
     * [Firefox](https://www.mozilla.org/en-US/firefox/)
     * [Fontconfig](http://fontconfig.org/)
+    * [frag_find](https://github.com/simsong/frag_find/blob/d52334de62ff38b802bf5f24b0e12764ac9b1bd7/src/dfxml.cpp#L172) — hash-based carver tool
     * [fre:ac CDK / BoCA](https://github.com/enzo1982/BoCA/tree/master/components/playlist/xspf/expat) — Free audio converter and CD ripper
 * __G__
     * [GANGI](http://www.gamgi.org/) — General Atomistic Modelling Graphic Interface
