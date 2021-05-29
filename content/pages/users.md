@@ -283,6 +283,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [ulxmlrpcpp](https://sourceforge.net/p/ulxmlrpcpp/code/HEAD/tree/trunk/ulxmlrpcpp/ulxmlrpcpp/ulxr_expatwrap.cpp#l136) — xml-rpc lib for C++
     * [Unbound](http://unbound.net/)
     * [urfkill](http://www.freedesktop.org/wiki/Software/urfkill) — wireless killswitch management daemon for laptops
+    * [uterus](https://github.com/hroptatyr/uterus/blob/76e4781f326186f48b568dc530faee4eaebd37c2/src/ibhist.c#L350) — universal tick encoder library
     * [uWSGI](http://projects.unbit.it/uwsgi/)
 * __V__
     * [vdr-rssreader](http://www.saunalahti.fi/~rahrenbe/vdr/rssreader/)
