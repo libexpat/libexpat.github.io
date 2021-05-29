@@ -184,6 +184,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [litmus](http://www.webdav.org/neon/litmus/)
     * [log4c](http://log4c.sourceforge.net/) — C library for flexible logging
     * [lsp-plugins](https://github.com/sadko4u/lsp-plugins/commit/d444686924312c798c65d2a39a8c37c000527c50) (prior to version 1.1.11) — sound processing effect plug-ins
+    * [lwpr](https://sourceforge.net/p/lwpr/code/HEAD/tree/trunk/src/lwpr_xml.c#l894) — Locally Weighted Projection Regression (LWPR)
 * __M__
     * [Magics++ / libmagplus](https://software.ecmwf.int/wiki/display/MAGP/Magics) — latest generation of the ECMWF's Meteorological plotting software MAGICS
     * [MakeMKV](http://www.makemkv.com/)
