@@ -159,6 +159,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [libarchive](http://www.libarchive.org/)
     * [libcutl](http://www.codesynthesis.com/projects/libcutl/)
     * [LibDOM / NetSurf](http://www.netsurf-browser.org/projects/libdom/)
+    * [libfixc](https://github.com/hroptatyr/libfixc/blob/a406c71aad62f8d85dae30ff1c74fc9346c51173/src/fixml-rd.c#L719) — fix&lt;-&gt;fixml&lt;-&gt;memory converter
     * [libgadu](http://libgadu.net/)
     * [libisds](http://xpisar.wz.cz/libisds/) — Czech Data Boxes access library
     * [libkml](https://github.com/google/libkml/blob/8609edf7c8d13ae2ddb6eac2bca7c8e49c67a5f8/src/kml/base/expat_parser.cc)
