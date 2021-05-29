@@ -158,6 +158,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [ladish](http://ladish.org/) — session management system for JACK applications
     * [LFTP](http://lftp.tech/)
     * [libarchive](http://www.libarchive.org/)
+    * [libcmml](https://sources.debian.org/src/libcmml/0.9.4-1/src/cmml.c/#L205) — handling of documents written in CMML (Continuous Media Markup Language)
     * [libcutl](http://www.codesynthesis.com/projects/libcutl/)
     * [LibDOM / NetSurf](http://www.netsurf-browser.org/projects/libdom/)
     * [libfixc](https://github.com/hroptatyr/libfixc/blob/a406c71aad62f8d85dae30ff1c74fc9346c51173/src/fixml-rd.c#L719) — fix&lt;-&gt;fixml&lt;-&gt;memory converter
