@@ -44,9 +44,7 @@ Wherever you go, Expat is already waiting for you:
     * [CentOS](http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/)
     * [Chakra Linux](https://code.chakralinux.org/chakra/packages/core/-/blob/master/expat/PKGBUILD)
     * [Clear Linux](https://github.com/clearlinux-pkgs/expat/commits/master)
-    * CRUX
-        [[1]](https://crux.nu/gitweb/?p=ports/compat-32.git;a=tree;f=expat-32;hb=HEAD)
-        [[2]](https://crux.nu/gitweb/?p=ports/opt.git;a=tree;f=expat;hb=HEAD)
+    * [CRUX](https://crux.nu/gitweb/?p=ports/compat-32.git;a=tree;f=expat-32;hb=HEAD)
     * [Debian](https://packages.debian.org/source/sid/expat)
     * [Entware](https://github.com/Entware/Entware/blob/master/tools/expat/Makefile)
     * [Exherbo](http://git.exherbo.org/arbor.git/tree/packages/dev-libs/expat)
