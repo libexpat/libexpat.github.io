@@ -86,7 +86,7 @@ Wherever you go, Expat is already waiting for you:
 * __macOS__
     * [Fink](http://pdb.finkproject.org/pdb/package.php/expat1)
     * [Gentoo Prefix](https://packages.gentoo.org/packages/dev-libs/expat)
-    * [Homebrew](http://brewformulas.org/Expat)
+    * [Homebrew](https://formulae.brew.sh/formula/expat#default)
     * [MacPorts](https://github.com/macports/macports-ports/blob/master/textproc/expat/Portfile)
     * [Rudix](https://github.com/rudix-mac/rudix/blob/master/Ports/expat/Makefile)
 * __Solaris__
