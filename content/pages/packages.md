@@ -48,7 +48,7 @@ Wherever you go, Expat is already waiting for you:
     * [Debian](https://packages.debian.org/source/sid/expat)
     * [Entware](https://github.com/Entware/Entware/blob/master/tools/expat/Makefile)
     * [Exherbo](http://git.exherbo.org/arbor.git/tree/packages/dev-libs/expat)
-    * [Fedora](https://apps.fedoraproject.org/packages/expat/overview/)
+    * [Fedora](https://src.fedoraproject.org/rpms/expat)
     * [Funtoo](https://github.com/funtoo/core-kit/tree/master/dev-libs/expat)
     * [Gentoo](https://packages.gentoo.org/packages/dev-libs/expat)
     * [Gobo Linux](https://github.com/gobolinux/Recipes/tree/master/revisions/Expat)
