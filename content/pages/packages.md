@@ -41,7 +41,7 @@ Wherever you go, Expat is already waiting for you:
     * [Ataraxia Linux](https://github.com/ataraxialinux/ataraxia/blob/master/packages/expat/KagamiBuild)
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
     * [Carbs Linux](https://github.com/CarbsLinux/repository/tree/master/extra/expat)
-    * [CentOS](http://centos-packages.com/7/package/expat/versions/)
+    * [CentOS](http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/)
     * [Chakra Linux](https://code.chakralinux.org/chakra/packages/core/-/blob/master/expat/PKGBUILD)
     * [Clear Linux](https://github.com/clearlinux-pkgs/expat/commits/master)
     * CRUX
