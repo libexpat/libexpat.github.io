@@ -15,6 +15,7 @@ Wherever you go, Expat is already waiting for you:
     * [Conan Center](https://github.com/conan-io/conan-center-index/tree/master/recipes/expat)
     * [Hunter](https://github.com/ruslo/hunter/blob/master/cmake/projects/Expat/hunter.cmake)
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
+    * [Spack](https://github.com/spack/spack/blob/develop/var/spack/repos/builtin/packages/expat/package.py)
     * [sw Software Network](https://software-network.org/org.sw.demo.expat)
     * [vcpkg](https://github.com/Microsoft/vcpkg/blob/master/ports/expat/CONTROL)
 * __AIX__
