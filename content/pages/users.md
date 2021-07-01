@@ -222,6 +222,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [OGDI](http://ogdi.sourceforge.net/)
     * [openam](https://www.h323plus.org/) — H.323 answering machine
     * [OpenCOLLADA](http://www.opencollada.org/)
+    * [OpenColorIO](https://github.com/AcademySoftwareFoundation/OpenColorIO/blob/0021372b4dba3444e21a36d846b327efad054f8d/src/OpenColorIO/fileformats/FileFormatIridasLook.cpp#L138) — color management framework
     * [OpenSIPS](http://www.opensips.org/) (modules `jabber` and `xmpp`) — very fast and configurable SIP server
     * [OpenVanilla](https://github.com/openvanilla/openvanilla/commit/bac11c8a818c53e020c903c6f32f220e5c48af91) (prior to version 0.7.1)
     * [ophcrack](http://ophcrack.sourceforge.net/) — Microsoft Windows password cracker using rainbow tables
