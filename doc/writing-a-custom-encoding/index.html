@@ -167,12 +167,12 @@ idea, it is not enforced in any way by the library.</p>
 <h2>Custom Encoding Components</h2>
 <p>Custom encodings are created when an unknown encoding handler fills in
 the <code>XML_Encoding</code> structure passed to it and returns <code>XML_STATUS_OK</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">map</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
-  <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="p">(</span><span class="n">XMLCALL</span> <span class="o">*</span><span class="n">convert</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span>
-  <span class="kt">void</span> <span class="p">(</span><span class="n">XMLCALL</span> <span class="o">*</span><span class="n">release</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span>
-<span class="p">}</span> <span class="n">XML_Encoding</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">map</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="n">XMLCALL</span><span class="w"> </span><span class="o">*</span><span class="n">convert</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="n">XMLCALL</span><span class="w"> </span><span class="o">*</span><span class="n">release</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">XML_Encoding</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>The heart of the <code>XML_Encoding</code> structure is the <code>map</code> array.  This
@@ -222,15 +222,15 @@ therefore be marked as invalid.</p>
 </ol>
 <p>We will write an unknown encoding handler that sets up this encoding
 when it is asked for the encoding named <code>risc-os</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="n">risc_os_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
-                         <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">encoding</span><span class="p">,</span>
-                         <span class="n">XML_Encoding</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
+<span class="n">risc_os_encoding_handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">encoding</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">XML_Encoding</span><span class="w"> </span><span class="o">*</span><span class="n">info</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="s">&quot;risc-os&quot;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;risc-os&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_ERROR</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>The first thing to do is to check which encoding name the parser has
@@ -241,61 +241,61 @@ unknown encoding handler cannot deal with many possible encodings,
 just filling in the <code>info</code> structure appropriately for each one.</p>
 <p>Since this encoding is exactly the same as ASCII for the first 128
 values, we can set the first half of the map easily:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">128</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>A lot of encodings look like this.  The next part of the map cannot be
 done so algorithmically.  In practise this is probably best done as a
 constant array that we can <code>memcpy</code> into place, but we'll do it the
 hard way here.</p>
-<div class="highlight"><pre><span></span><code><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x20AC</span><span class="p">;</span>   <span class="cm">/* € */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x81</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0174</span><span class="p">;</span>   <span class="cm">/* Ŵ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x82</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0175</span><span class="p">;</span>   <span class="cm">/* ŵ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x83</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Resize icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x84</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Close icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x85</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0176</span><span class="p">;</span>   <span class="cm">/* Ŷ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x86</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0177</span><span class="p">;</span>   <span class="cm">/* ŷ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x87</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* &quot;87&quot; */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x88</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Left arrow icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x89</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Right arrow icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8A</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Up arrow icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8B</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>       <span class="cm">/* Down arrow icon, invalid */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8C</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2026</span><span class="p">;</span>   <span class="cm">/* … */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8D</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2122</span><span class="p">;</span>   <span class="cm">/* ™ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8E</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2030</span><span class="p">;</span>   <span class="cm">/* ‰ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8F</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2022</span><span class="p">;</span>   <span class="cm">/* • (Bullet) */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x90</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2018</span><span class="p">;</span>   <span class="cm">/* ‘ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x91</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2019</span><span class="p">;</span>   <span class="cm">/* ’ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x92</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2039</span><span class="p">;</span>   <span class="cm">/* ‹ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x93</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x203A</span><span class="p">;</span>   <span class="cm">/* › */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x94</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x201C</span><span class="p">;</span>   <span class="cm">/* “ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x95</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x201D</span><span class="p">;</span>   <span class="cm">/* ” */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x96</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x201E</span><span class="p">;</span>   <span class="cm">/* „ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x97</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2013</span><span class="p">;</span>   <span class="cm">/* – (n-dash) */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x98</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2014</span><span class="p">;</span>   <span class="cm">/* — (m-dash) */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x99</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2212</span><span class="p">;</span>   <span class="cm">/* − (minus) */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9A</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0152</span><span class="p">;</span>   <span class="cm">/* Œ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9B</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x0153</span><span class="p">;</span>   <span class="cm">/* œ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9C</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2020</span><span class="p">;</span>   <span class="cm">/* † */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9D</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x2021</span><span class="p">;</span>   <span class="cm">/* ‡ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9E</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xFB01</span><span class="p">;</span>   <span class="cm">/* ﬁ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9F</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xFB02</span><span class="p">;</span>   <span class="cm">/* ﬂ */</span>
+<div class="highlight"><pre><span></span><code><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x20AC</span><span class="p">;</span><span class="w">   </span><span class="cm">/* € */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x81</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0174</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Ŵ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x82</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0175</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ŵ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x83</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Resize icon, invalid */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x84</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Close icon, invalid */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x85</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0176</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Ŷ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x86</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0177</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ŷ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x87</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* &quot;87&quot; */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x88</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Left arrow icon, invalid */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x89</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Right arrow icon, invalid */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8A</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Up arrow icon, invalid */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8B</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Down arrow icon, invalid */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8C</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2026</span><span class="p">;</span><span class="w">   </span><span class="cm">/* … */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8D</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2122</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ™ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8E</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2030</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ‰ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8F</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2022</span><span class="p">;</span><span class="w">   </span><span class="cm">/* • (Bullet) */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x90</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2018</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ‘ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x91</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2019</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ’ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x92</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2039</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ‹ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x93</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x203A</span><span class="p">;</span><span class="w">   </span><span class="cm">/* › */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x94</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x201C</span><span class="p">;</span><span class="w">   </span><span class="cm">/* “ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x95</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x201D</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ” */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x96</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x201E</span><span class="p">;</span><span class="w">   </span><span class="cm">/* „ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x97</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2013</span><span class="p">;</span><span class="w">   </span><span class="cm">/* – (n-dash) */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x98</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2014</span><span class="p">;</span><span class="w">   </span><span class="cm">/* — (m-dash) */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x99</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2212</span><span class="p">;</span><span class="w">   </span><span class="cm">/* − (minus) */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9A</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0152</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Œ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9B</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0153</span><span class="p">;</span><span class="w">   </span><span class="cm">/* œ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9C</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2020</span><span class="p">;</span><span class="w">   </span><span class="cm">/* † */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9D</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2021</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ‡ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9E</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFB01</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ﬁ */</span><span class="w"></span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x9F</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFB02</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ﬂ */</span><span class="w"></span>
 </code></pre></div>
 
 <p>As it happens, the rest of the encoding is the same as Latin-1, so in
 the interests of brevity we will take the obvious short-cut:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">160</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">160</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>Finally, we don't have a convert function, so we don't need user data
 and we don't need a release function either:</p>
-<div class="highlight"><pre><span></span><code>    <span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">convert</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">release</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">XML_STATUS_OK</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">convert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">release</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>That's it.  All we have to do to implement this or any other ISO 8859
@@ -322,32 +322,32 @@ custom encoding:</p>
 </ol>
 <p>This time we will use tables of constants to initialise the
 top-bit-set half of our <code>map</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">const</span> <span class="kt">int</span> <span class="n">first_byte_hi</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="mi">-1</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0x80 */</span>
-    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0x88 */</span>
-    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0x90 */</span>
-    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0x98 */</span>
-    <span class="mi">-1</span><span class="p">,</span>     <span class="mh">0xFF61</span><span class="p">,</span> <span class="mh">0xFF62</span><span class="p">,</span> <span class="mh">0xFF63</span><span class="p">,</span>  <span class="cm">/* 0xA0 */</span>
-    <span class="mh">0xFF64</span><span class="p">,</span> <span class="mh">0xFF65</span><span class="p">,</span> <span class="mh">0xFF66</span><span class="p">,</span> <span class="mh">0xFF67</span><span class="p">,</span>  <span class="cm">/* 0xA4 */</span>
-    <span class="mh">0xFF68</span><span class="p">,</span> <span class="mh">0xFF69</span><span class="p">,</span> <span class="mh">0xFF6A</span><span class="p">,</span> <span class="mh">0xFF6B</span><span class="p">,</span>  <span class="cm">/* 0xA8 */</span>
-    <span class="mh">0xFF6C</span><span class="p">,</span> <span class="mh">0xFF6D</span><span class="p">,</span> <span class="mh">0xFF6E</span><span class="p">,</span> <span class="mh">0xFF6F</span><span class="p">,</span>  <span class="cm">/* 0xAC */</span>
-    <span class="mh">0xFF70</span><span class="p">,</span> <span class="mh">0xFF71</span><span class="p">,</span> <span class="mh">0xFF72</span><span class="p">,</span> <span class="mh">0xFF73</span><span class="p">,</span>  <span class="cm">/* 0xB0 */</span>
-    <span class="mh">0xFF74</span><span class="p">,</span> <span class="mh">0xFF75</span><span class="p">,</span> <span class="mh">0xFF76</span><span class="p">,</span> <span class="mh">0xFF77</span><span class="p">,</span>  <span class="cm">/* 0xB4 */</span>
-    <span class="mh">0xFF78</span><span class="p">,</span> <span class="mh">0xFF79</span><span class="p">,</span> <span class="mh">0xFF7A</span><span class="p">,</span> <span class="mh">0xFF7B</span><span class="p">,</span>  <span class="cm">/* 0xB8 */</span>
-    <span class="mh">0xFF7C</span><span class="p">,</span> <span class="mh">0xFF7D</span><span class="p">,</span> <span class="mh">0xFF7E</span><span class="p">,</span> <span class="mh">0xFF7F</span><span class="p">,</span>  <span class="cm">/* 0xBC */</span>
-    <span class="mh">0xFF80</span><span class="p">,</span> <span class="mh">0xFF81</span><span class="p">,</span> <span class="mh">0xFF82</span><span class="p">,</span> <span class="mh">0xFF83</span><span class="p">,</span>  <span class="cm">/* 0xC0 */</span>
-    <span class="mh">0xFF84</span><span class="p">,</span> <span class="mh">0xFF85</span><span class="p">,</span> <span class="mh">0xFF86</span><span class="p">,</span> <span class="mh">0xFF87</span><span class="p">,</span>  <span class="cm">/* 0xC4 */</span>
-    <span class="mh">0xFF88</span><span class="p">,</span> <span class="mh">0xFF89</span><span class="p">,</span> <span class="mh">0xFF8A</span><span class="p">,</span> <span class="mh">0xFF8B</span><span class="p">,</span>  <span class="cm">/* 0xC8 */</span>
-    <span class="mh">0xFF8C</span><span class="p">,</span> <span class="mh">0xFF8D</span><span class="p">,</span> <span class="mh">0xFF8E</span><span class="p">,</span> <span class="mh">0xFF8F</span><span class="p">,</span>  <span class="cm">/* 0xCC */</span>
-    <span class="mh">0xFF90</span><span class="p">,</span> <span class="mh">0xFF91</span><span class="p">,</span> <span class="mh">0xFF92</span><span class="p">,</span> <span class="mh">0xFF93</span><span class="p">,</span>  <span class="cm">/* 0xD0 */</span>
-    <span class="mh">0xFF94</span><span class="p">,</span> <span class="mh">0xFF95</span><span class="p">,</span> <span class="mh">0xFF96</span><span class="p">,</span> <span class="mh">0xFF97</span><span class="p">,</span>  <span class="cm">/* 0xD4 */</span>
-    <span class="mh">0xFF98</span><span class="p">,</span> <span class="mh">0xFF99</span><span class="p">,</span> <span class="mh">0xFF9A</span><span class="p">,</span> <span class="mh">0xFF9B</span><span class="p">,</span>  <span class="cm">/* 0xD8 */</span>
-    <span class="mh">0xFF9C</span><span class="p">,</span> <span class="mh">0xFF9D</span><span class="p">,</span> <span class="mh">0xFF9E</span><span class="p">,</span> <span class="mh">0xFF9F</span><span class="p">,</span>  <span class="cm">/* 0xDC */</span>
-    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0xE0 */</span>
-    <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span> <span class="mi">-2</span><span class="p">,</span>  <span class="cm">/* 0xE8 */</span>
-    <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span>  <span class="cm">/* 0xF0 */</span>
-    <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span>   <span class="cm">/* 0xF8 */</span>
-<span class="p">};</span>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">first_byte_hi</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0x80 */</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0x88 */</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0x90 */</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0x98 */</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-1</span><span class="p">,</span><span class="w">     </span><span class="mh">0xFF61</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF62</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF63</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xA0 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF64</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF65</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF66</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF67</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xA4 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF68</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF69</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF6A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF6B</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xA8 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF6C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF6D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF6E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF6F</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xAC */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF70</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF71</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF72</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF73</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xB0 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF74</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF75</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF76</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF77</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xB4 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF78</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF79</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF7A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF7B</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xB8 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF7C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF7D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF7E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF7F</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xBC */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF80</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF81</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF82</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF83</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xC0 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF84</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF85</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF86</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF87</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xC4 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF88</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF89</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF8A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF8B</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xC8 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF8C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF8D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF8E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF8F</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xCC */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF90</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF91</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF92</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF93</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xD0 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF94</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF95</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF96</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF97</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xD4 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF98</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF99</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF9A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF9B</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xD8 */</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0xFF9C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF9D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF9E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF9F</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xDC */</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xE0 */</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xE8 */</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w">  </span><span class="cm">/* 0xF0 */</span><span class="w"></span>
+<span class="w">    </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="w">   </span><span class="cm">/* 0xF8 */</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </code></pre></div>
 
 <p>As you can see, there are a lot of invalid bytes (-1) and two byte
@@ -361,77 +361,77 @@ greater.  We will save a little space in our tables by missing out the
 first 0x40 values and adjust our indices appropriately.</p>
 <p>In the interests of brevity we won't show most of the actual values in
 the tables here:</p>
-<div class="highlight"><pre><span></span><code><span class="k">const</span> <span class="kt">int</span> <span class="n">following_81</span><span class="p">[</span><span class="mi">192</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="mh">0x3000</span><span class="p">,</span> <span class="mh">0x3001</span><span class="p">,</span> <span class="mh">0x3002</span><span class="p">,</span> <span class="mh">0x002C</span><span class="p">,</span> <span class="cm">/* 0x40 */</span>
-    <span class="cm">/* Followed by many more lines of codepoints</span>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">following_81</span><span class="p">[</span><span class="mi">192</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="mh">0x3000</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3001</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3002</span><span class="p">,</span><span class="w"> </span><span class="mh">0x002C</span><span class="p">,</span><span class="w"> </span><span class="cm">/* 0x40 */</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* Followed by many more lines of codepoints</span>
 <span class="cm">     * and the occasional -1 for an invalid character.</span>
-<span class="cm">     */</span>
-<span class="p">};</span>
+<span class="cm">     */</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="cm">/* ...and the other tables... */</span>
+<span class="cm">/* ...and the other tables... */</span><span class="w"></span>
 
-<span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">second_byte_lo</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">following_81</span><span class="p">,</span>
-    <span class="n">following_82</span><span class="p">,</span>
-    <span class="cm">/* ... */</span>
-    <span class="n">following_9F</span>
-<span class="p">};</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">second_byte_lo</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">following_81</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">following_82</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* ... */</span><span class="w"></span>
+<span class="w">    </span><span class="n">following_9F</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">second_byte_hi</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">following_E0</span><span class="p">,</span>
-    <span class="n">following_E1</span><span class="p">,</span>
-    <span class="cm">/* ... */</span>
-    <span class="n">following_EF</span>
-<span class="p">};</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">second_byte_hi</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">following_E0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">following_E1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* ... */</span><span class="w"></span>
+<span class="w">    </span><span class="n">following_EF</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </code></pre></div>
 
 <p>The conversion function is then just a simple table lookup,
 complicated only by the fragmentary nature of the table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="n">convert_jis</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">table</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
+<span class="n">convert_jis</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">table</span><span class="p">;</span><span class="w"></span>
 
-    <span class="cm">/* &#39;s&#39; will always be a two byte string, because that&#39;s</span>
+<span class="w">    </span><span class="cm">/* &#39;s&#39; will always be a two byte string, because that&#39;s</span>
 <span class="cm">     * all that is in the map.  s[0] must either lie in the range</span>
 <span class="cm">     * 0x81 to 0x9F or 0xE0 to 0xEF, according to the map.</span>
-<span class="cm">     */</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mh">0x9F</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="n">second_byte_lo</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0x81</span><span class="p">];</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="n">second_byte_hi</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0xE0</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="cm">/* There are no legal two-byte sequences with s[1] &lt; 0x40 */</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mh">0x40</span><span class="p">)</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">table</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0x40</span><span class="p">];</span>
-<span class="p">}</span>
+<span class="cm">     */</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0x9F</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">second_byte_lo</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0x81</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">second_byte_hi</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0xE0</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* There are no legal two-byte sequences with s[1] &lt; 0x40 */</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mh">0x40</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">table</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0x40</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>Optimising this to remove the sparseness of some of the subtables is
 left as an exercise for the reader.<sup><a href="#lazy">2</a></sup>  That leaves
 us just having to write the unknown encoding handler, which is frankly
 trivial in comparison:</p>
-<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="n">shift_jis_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
-                           <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">encoding</span><span class="p">,</span>
-                           <span class="n">XML_Encoding</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
+<span class="n">shift_jis_encoding_handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">encoding</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="n">XML_Encoding</span><span class="w"> </span><span class="o">*</span><span class="n">info</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="s">&quot;shift-jis&quot;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mi">92</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x00A5</span><span class="p">;</span> <span class="cm">/* Replace Backslash with Yen */</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mi">126</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x203E</span><span class="p">;</span> <span class="cm">/* Replace Tilde with Overline */</span>
-    <span class="cm">/* Copy in the table for the upper half of map */</span>
-    <span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mi">128</span><span class="p">],</span> <span class="n">first_byte_hi</span><span class="p">,</span> <span class="mi">128</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">convert</span> <span class="o">=</span> <span class="n">convert_jis</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">release</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">XML_STATUS_OK</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;shift-jis&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_ERROR</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">128</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mi">92</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00A5</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Replace Backslash with Yen */</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mi">126</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x203E</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Replace Tilde with Overline */</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* Copy in the table for the upper half of map */</span><span class="w"></span>
+<span class="w">    </span><span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mi">128</span><span class="p">],</span><span class="w"> </span><span class="n">first_byte_hi</span><span class="p">,</span><span class="w"> </span><span class="mi">128</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">convert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">convert_jis</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">release</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>While larger and more tedious that the RISC OS encoding example,
@@ -480,37 +480,37 @@ return a codepoint or an error.  There is no option to return "This
 sequence is valid but does not return a codepoint", nor does any
 realistic encoding require such a thing.</p>
 <p>Let's write the unknown encoding handler first this time:</p>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">XML_Parser</span> <span class="n">parser</span><span class="p">;</span>
-    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">page</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">PageEncodingData</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">XML_Parser</span><span class="w"> </span><span class="n">parser</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">page</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">PageEncodingData</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="n">page_encoding_handler</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
-                      <span class="k">const</span> <span class="n">XML_Char</span> <span class="o">*</span><span class="n">encoding</span><span class="p">,</span>
-                      <span class="n">XML_Encoding</span> <span class="o">*</span><span class="n">info</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-    <span class="n">PageEncodingData</span> <span class="o">*</span><span class="n">page_data</span><span class="p">;</span>
-    <span class="n">XML_Parser</span> <span class="n">parser</span> <span class="o">=</span> <span class="p">(</span><span class="n">XML_Parser</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
+<span class="n">page_encoding_handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
+<span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">encoding</span><span class="p">,</span><span class="w"></span>
+<span class="w">                      </span><span class="n">XML_Encoding</span><span class="w"> </span><span class="o">*</span><span class="n">info</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">PageEncodingData</span><span class="w"> </span><span class="o">*</span><span class="n">page_data</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">XML_Parser</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">XML_Parser</span><span class="p">)</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>This first bit is a departure from the usual for our encodings.  This
 time we actually use the <code>data</code> parameter to pass user-level
 information into the encoding handler.  We expect to be given the
 parser structure; I'll explain why in a moment.</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="s">&quot;page-and-offset&quot;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;page-and-offset&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_ERROR</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>This rejects anything that isn't our new encoding, which we've
 arbitrarily called <code>page-and-offset</code>.  Now we allocate space for our
 recorded page:</p>
-<div class="highlight"><pre><span></span><code>    <span class="n">page_data</span> <span class="o">=</span> <span class="n">XML_MemMalloc</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">PageEncodingData</span><span class="p">));</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">page_data</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
-    <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span><span class="p">;</span>
-    <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">page_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XML_MemMalloc</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">PageEncodingData</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">page_data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_ERROR</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parser</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>The reason I wanted the parser structure is so that we can allocate
@@ -524,13 +524,13 @@ recognise this encoding name", and that is how it will be reported to
 the user.  This time we would like to report that we are out of
 memory, but unfortunately there is no other way of reporting an
 error.</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-3</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x81</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-2</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x82</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-2</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0x83</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">128</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x80</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-3</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x81</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x82</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x83</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>Setting up the map is pretty simple; we have ASCII, one three-byte
@@ -540,11 +540,11 @@ unnecessary.  The map is pre-initialised to have all entries -1 before
 our unknown encoding handler is called, so we never need to explicitly
 set invalid entries.  Doing so makes what is going on a good deal
 clearer, however, and the processing cost is negligible.</p>
-<div class="highlight"><pre><span></span><code>    <span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">page_data</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">convert</span> <span class="o">=</span> <span class="n">page_convert</span><span class="p">;</span>
-    <span class="n">info</span><span class="o">-&gt;</span><span class="n">release</span> <span class="o">=</span> <span class="n">page_release</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">XML_STATUS_OK</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page_data</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">convert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page_convert</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">release</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page_release</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>Finally we fill in the pointers, happy that for once they aren't a
@@ -553,39 +553,39 @@ collection of NULLs.  All we have to do now is write the functions.</p>
 memory with <code>XML_MemMalloc()</code>, we should release it with
 <code>XML_MemFree()</code>.  That's why we have a pointer to the parser structure
 in our user-defined data structure <code>PageEncodingData</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">void</span> <span class="n">XMLCALL</span>
-<span class="n">page_release</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">PageEncodingData</span> <span class="o">*</span><span class="n">page_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">PageEncodingData</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
-    <span class="n">XML_MemFree</span><span class="p">(</span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">parser</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
+<span class="n">page_release</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">PageEncodingData</span><span class="w"> </span><span class="o">*</span><span class="n">page_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">PageEncodingData</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">XML_MemFree</span><span class="p">(</span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>All very straightforward.  So, surprisingly, is the convert function:</p>
-<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="kt">int</span> <span class="n">XMLCALL</span>
-<span class="n">page_convert</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">PageEncodingData</span> <span class="o">*</span><span class="n">page_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">PageEncodingData</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
+<span class="n">page_convert</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">PageEncodingData</span><span class="w"> </span><span class="o">*</span><span class="n">page_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">PageEncodingData</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">switch</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="mh">0x80</span><span class="o">:</span>
-        <span class="cm">/* This is a three byte sequence: (0x80, page, offset) */</span>
-        <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span> <span class="o">|</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">);</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mh">0x80</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* This is a three byte sequence: (0x80, page, offset) */</span><span class="w"></span>
+<span class="w">        </span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xff</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span><span class="w"></span>
 
-    <span class="k">case</span> <span class="mh">0x81</span><span class="o">:</span>
-        <span class="cm">/* This is a two byte sequence: (0x81, offset) */</span>
-        <span class="k">return</span> <span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span> <span class="o">|</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">);</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mh">0x81</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* This is a two byte sequence: (0x81, offset) */</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">page</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xff</span><span class="p">);</span><span class="w"></span>
 
-    <span class="k">case</span> <span class="mh">0x82</span><span class="o">:</span>
-        <span class="cm">/* This is a two bytes sequence: (0x82, value) */</span>
-        <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mh">0x82</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* This is a two bytes sequence: (0x82, value) */</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xff</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">default</span><span class="o">:</span>
-        <span class="cm">/* This should never happen */</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* This should never happen */</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>The only remotely complicated thing here is the amount of masking with
@@ -593,9 +593,9 @@ in our user-defined data structure <code>PageEncodingData</code>.</p>
 extension if <code>char</code> is a signed integer type in your compiler.</p>
 <p>Because we want to pass the parser structure into the handler, we need
 to register it in a slightly different way to normal:</p>
-<div class="highlight"><pre><span></span><code><span class="n">XML_SetUnknownEncodingHandler</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span>
-                              <span class="n">page_encoding_handler</span><span class="p">,</span>
-                              <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">parser</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="n">XML_SetUnknownEncodingHandler</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="n">page_encoding_handler</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">parser</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 
 <p>That's it.  It takes surprisingly little work to implement quite
