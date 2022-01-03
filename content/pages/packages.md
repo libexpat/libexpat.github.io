@@ -55,6 +55,9 @@ Wherever you go, Expat is already waiting for you:
     * [Gobo Linux](https://github.com/gobolinux/Recipes/tree/master/Expat)
     * [GuixSD](https://www.gnu.org/software/guix/packages/E/page/4/)
     * [Hyperbola](https://www.hyperbola.info/packages/core/x86_64/expat/)
+    * IPFire
+        [[2.x]](https://git.ipfire.org/?p=ipfire-2.x.git;a=blob;f=lfs/expat;hb=HEAD)
+        [[3.x]](https://git.ipfire.org/?p=ipfire-3.x.git;a=blob;f=expat/expat.nm;hb=HEAD)
     * [KaOSx](https://github.com/KaOSx/core/blob/master/expat)
     * [KISS Linux](https://github.com/kisslinux/repo/tree/master/extra/expat)
     * [LEDE](https://github.com/lede-project/source/blob/master/tools/expat/Makefile)
