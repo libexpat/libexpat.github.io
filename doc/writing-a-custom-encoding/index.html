@@ -167,7 +167,7 @@ idea, it is not enforced in any way by the library.</p>
 <h2>Custom Encoding Components</h2>
 <p>Custom encodings are created when an unknown encoding handler fills in
 the <code>XML_Encoding</code> structure passed to it and returns <code>XML_STATUS_OK</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">map</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"></span>
 <span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="n">XMLCALL</span><span class="w"> </span><span class="o">*</span><span class="n">convert</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
@@ -223,7 +223,7 @@ therefore be marked as invalid.</p>
 <p>We will write an unknown encoding handler that sets up this encoding
 when it is asked for the encoding named <code>risc-os</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
-<span class="n">risc_os_encoding_handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
+<span class="nf">risc_os_encoding_handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
 <span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">encoding</span><span class="p">,</span><span class="w"></span>
 <span class="w">                         </span><span class="n">XML_Encoding</span><span class="w"> </span><span class="o">*</span><span class="n">info</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
@@ -388,7 +388,7 @@ the tables here:</p>
 <p>The conversion function is then just a simple table lookup,
 complicated only by the fragmentary nature of the table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
-<span class="n">convert_jis</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+<span class="nf">convert_jis</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">table</span><span class="p">;</span><span class="w"></span>
 
@@ -413,7 +413,7 @@ left as an exercise for the reader.<sup><a href="#lazy">2</a></sup>  That leaves
 us just having to write the unknown encoding handler, which is frankly
 trivial in comparison:</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
-<span class="n">shift_jis_encoding_handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
+<span class="nf">shift_jis_encoding_handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
 <span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">encoding</span><span class="p">,</span><span class="w"></span>
 <span class="w">                           </span><span class="n">XML_Encoding</span><span class="w"> </span><span class="o">*</span><span class="n">info</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
@@ -480,13 +480,13 @@ return a codepoint or an error.  There is no option to return "This
 sequence is valid but does not return a codepoint", nor does any
 realistic encoding require such a thing.</p>
 <p>Let's write the unknown encoding handler first this time:</p>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">XML_Parser</span><span class="w"> </span><span class="n">parser</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">page</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"> </span><span class="n">PageEncodingData</span><span class="p">;</span><span class="w"></span>
 
 <span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
-<span class="n">page_encoding_handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
+<span class="nf">page_encoding_handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
 <span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">encoding</span><span class="p">,</span><span class="w"></span>
 <span class="w">                      </span><span class="n">XML_Encoding</span><span class="w"> </span><span class="o">*</span><span class="n">info</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
@@ -554,7 +554,7 @@ memory with <code>XML_MemMalloc()</code>, we should release it with
 <code>XML_MemFree()</code>.  That's why we have a pointer to the parser structure
 in our user-defined data structure <code>PageEncodingData</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
-<span class="n">page_release</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"></span>
+<span class="nf">page_release</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">PageEncodingData</span><span class="w"> </span><span class="o">*</span><span class="n">page_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">PageEncodingData</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="n">XML_MemFree</span><span class="p">(</span><span class="n">page_data</span><span class="o">-&gt;</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span><span class="w"></span>
@@ -563,7 +563,7 @@ in our user-defined data structure <code>PageEncodingData</code>.</p>
 
 <p>All very straightforward.  So, surprisingly, is the convert function:</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">XMLCALL</span><span class="w"></span>
-<span class="n">page_convert</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+<span class="nf">page_convert</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">PageEncodingData</span><span class="w"> </span><span class="o">*</span><span class="n">page_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">PageEncodingData</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
 

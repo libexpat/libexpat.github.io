@@ -132,8 +132,8 @@ of that as required.</p>
 structures that together make up a string pool, and see how they fit
 together.</p>
 <h3>Data Structures</h3>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="nc">block</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">struct</span> <span class="nc">block</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">block</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">block</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">XML_Char</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
 <span class="p">}</span><span class="w"> </span><span class="n">BLOCK</span><span class="p">;</span><span class="w"></span>
@@ -166,7 +166,7 @@ became standardised; the presence of <code>s</code> in the structure declaration
 ensures that memory will be correctly aligned for the <code>XML_Char</code> type,
 so any additional memory allocated beyond the end of the structure
 must also be correctly aligned.</p>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">BLOCK</span><span class="w"> </span><span class="o">*</span><span class="n">blocks</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">BLOCK</span><span class="w"> </span><span class="o">*</span><span class="n">freeBlocks</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">end</span><span class="p">;</span><span class="w"></span>
@@ -316,12 +316,12 @@ the working pointers is much more interesting.</p>
 pointers; <code>ptr</code> must point <code>end - start</code> characters into
 the new block, then <code>start</code> can be updated to the start of the new
 block and <code>end</code> calculated from <code>start</code> and the block size as before.</p>
-<div class="highlight"><pre><span></span><code><span class="o">+--------------------------</span><span class="p">...</span><span class="o">-+</span>
-<span class="o">|</span> <span class="s">&#39;A&#39;</span> <span class="s">&#39;B&#39;</span> <span class="s">&#39;C&#39;</span> <span class="s">&#39;D&#39;</span> <span class="s">&#39;E&#39;</span> <span class="p">.</span> <span class="p">.</span> <span class="p">.</span>    <span class="o">|</span>
-<span class="o">+--------------------------</span><span class="p">...</span><span class="o">-+</span>
-   <span class="o">^</span>                  <span class="o">^</span>          <span class="o">^</span>
-   <span class="o">+</span> <span class="n">start</span>            <span class="o">+</span> <span class="n">ptr</span>      <span class="o">+</span> <span class="kd">end</span>
-   <span class="o">+</span> <span class="n">block</span><span class="o">-&gt;</span><span class="n">s</span>
+<div class="highlight"><pre><span></span><code><span class="o">+--------------------------</span><span class="p">...</span><span class="o">-+</span><span class="w"></span>
+<span class="o">|</span><span class="w"> </span><span class="s">&#39;A&#39;</span><span class="w"> </span><span class="s">&#39;B&#39;</span><span class="w"> </span><span class="s">&#39;C&#39;</span><span class="w"> </span><span class="s">&#39;D&#39;</span><span class="w"> </span><span class="s">&#39;E&#39;</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w">    </span><span class="o">|</span><span class="w"></span>
+<span class="o">+--------------------------</span><span class="p">...</span><span class="o">-+</span><span class="w"></span>
+<span class="w">   </span><span class="o">^</span><span class="w">                  </span><span class="o">^</span><span class="w">          </span><span class="o">^</span><span class="w"></span>
+<span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">start</span><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">ptr</span><span class="w">      </span><span class="o">+</span><span class="w"> </span><span class="kd">end</span>
+<span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">block</span><span class="o">-&gt;</span><span class="n">s</span><span class="w"></span>
 </code></pre></div>
 
 <p>Again we are done, so we just return success.  The calling code will

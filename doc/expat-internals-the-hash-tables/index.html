@@ -131,11 +131,11 @@ held in a hash table, for instance, as are
 so on.  These tables all use a single common set of data structures:</p>
 <div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">KEY</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">KEY</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"> </span><span class="n">NAMED</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">NAMED</span><span class="w"> </span><span class="o">**</span><span class="n">v</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">power</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"></span>
@@ -396,7 +396,7 @@ the library has with hash tables, but not quite all.  Sometimes the
 code needs to loop through all entries in a hash table for some
 reason.  To do this, it uses a <code>HASH_TABLE_ITER</code> structure and the
 functions <code>hashTableIterInit()</code> and <code>hashTableIterNext()</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">NAMED</span><span class="w"> </span><span class="o">**</span><span class="n">p</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">NAMED</span><span class="w"> </span><span class="o">**</span><span class="n">end</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"> </span><span class="n">HASH_TABLE_ITER</span><span class="p">;</span><span class="w"></span>
@@ -406,7 +406,7 @@ functions <code>hashTableIterInit()</code> and <code>hashTableIterNext()</code>.
 "current pointer" <code>p</code> into the table and an "end pointer" <code>end</code> to
 tell it where to stop.  The functions are similarly simple:</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">FASTCALL</span><span class="w"></span>
-<span class="n">hashTableIterInit</span><span class="p">(</span><span class="n">HASH_TABLE_ITER</span><span class="w"> </span><span class="o">*</span><span class="n">iter</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">HASH_TABLE</span><span class="w"> </span><span class="o">*</span><span class="n">table</span><span class="p">)</span><span class="w"></span>
+<span class="nf">hashTableIterInit</span><span class="p">(</span><span class="n">HASH_TABLE_ITER</span><span class="w"> </span><span class="o">*</span><span class="n">iter</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">HASH_TABLE</span><span class="w"> </span><span class="o">*</span><span class="n">table</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table</span><span class="o">-&gt;</span><span class="n">v</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">iter</span><span class="o">-&gt;</span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iter</span><span class="o">-&gt;</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span><span class="w"></span>

@@ -121,7 +121,7 @@ it makes the encoding tables markedly harder to read.</p>
 encoding</code> structure, found in <code>xmltok.h</code>.  It consists primarily of
 function pointers and arrays of function pointers for some of the most
 basic requirements of the parser.</p>
-<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="nc">encoding</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">encoding</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">SCANNER</span><span class="w"> </span><span class="n">scanners</span><span class="p">[</span><span class="n">XML_N_STATE</span><span class="p">];</span><span class="w"></span>
 </code></pre></div>
 
@@ -324,7 +324,7 @@ encoding that drives the parser's internals.  This is then wrapped
 with another structure, <code>struct normal_encoding</code>, which supplies the
 functions and tables that turn a generic 8-bit encoding in a UTF-8
 encoding or a Latin-1 encoding.</p>
-<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="nc">normal_encoding</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">normal_encoding</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">ENCODING</span><span class="w"> </span><span class="n">enc</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">type</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"></span>
 </code></pre></div>
@@ -461,7 +461,7 @@ i.e. when the compile-time symbol <code>XML_NS</code> is
 defined.<sup><a href="#ns">2</a></sup></p>
 <h3>UTF-8 Encoding</h3>
 <p>The basic encoding table for UTF-8 input is as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span> <span class="nc">normal_encoding</span><span class="w"> </span><span class="n">utf8_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">normal_encoding</span><span class="w"> </span><span class="n">utf8_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">VTABLE1</span><span class="p">,</span><span class="w"> </span><span class="n">utf8_toUtf8</span><span class="p">,</span><span class="w"> </span><span class="n">utf8_toUtf16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
 <span class="w">    </span><span class="p">{</span><span class="w"></span>
 <span class="cp">#define BT_COLON BT_NMSTRT</span>
@@ -483,7 +483,7 @@ in a separate file and include it here because it is less ugly than
 defining huge macros.</p>
 <p>Substituting the macros we mentioned above (but leaving the include
 files alone; the byte types really aren't that interesting), we get:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span> <span class="nc">normal_encoding</span><span class="w"> </span><span class="n">utf8_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">normal_encoding</span><span class="w"> </span><span class="n">utf8_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="n">normal_prologTok</span><span class="p">,</span><span class="w"> </span><span class="n">normal_contentTok</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="n">normal_cdataSectionTok</span><span class="p">,</span><span class="w"> </span><span class="n">normal_ignoreSectionTok</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
@@ -541,7 +541,7 @@ the special casing isn't needed any more.</p>
 <p>Because of it's popularity and simplicity, Expat has a built-in
 encoding to handle ISO 8859-1, better known as Latin-1.  It's encoding
 structure looks like this:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span> <span class="nc">normal_encoding</span><span class="w"> </span><span class="n">latin1_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">normal_encoding</span><span class="w"> </span><span class="n">latin1_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="n">normal_prologTok</span><span class="p">,</span><span class="w"> </span><span class="n">normal_contentTok</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="n">normal_cdataSectionTok</span><span class="p">,</span><span class="w"> </span><span class="n">normal_ignoreSectionTok</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
@@ -595,7 +595,7 @@ in seven bits, and again is character for character mapped onto
 Unicode codepoints U+0000 to U+007F.  It won't surprise you that the
 Expat encoding structure for ASCII is almost identical to that for
 Latin-1:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span> <span class="nc">normal_encoding</span><span class="w"> </span><span class="n">ascii_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">normal_encoding</span><span class="w"> </span><span class="n">ascii_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="n">normal_prologTok</span><span class="p">,</span><span class="w"> </span><span class="n">normal_contentTok</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="n">normal_cdataSectionTok</span><span class="p">,</span><span class="w"> </span><span class="n">normal_ignoreSectionTok</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
@@ -641,7 +641,7 @@ variants.  (If anyone else feels faintly ill after reading the macro
 will concentrate on little-endian UTF-16; big-endian UTF-16 is exactly
 the same except for reversing the order of the input bytes.</p>
 <p>The encoding structure doesn't look too outrageous:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span> <span class="nc">normal_encoding</span><span class="w"> </span><span class="n">little2_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">normal_encoding</span><span class="w"> </span><span class="n">little2_encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="n">little2_prologTok</span><span class="p">,</span><span class="w"> </span><span class="n">little2_contentTok</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="n">little2_cdataSectionTok</span><span class="p">,</span><span class="w"> </span><span class="n">little2_ignoreSectionTok</span><span class="w"> </span><span class="p">},</span><span class="w"></span>

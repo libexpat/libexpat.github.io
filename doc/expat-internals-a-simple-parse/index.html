@@ -420,7 +420,7 @@ function pointer <code>handler</code> in <code>parser-&gt;m_prologState</code>.<
 <p>These handler functions effectively implement a state machine for the
 parser.  We start off in <code>prolog0</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">PTRCALL</span><span class="w"></span>
-<span class="n">prolog0</span><span class="p">(</span><span class="n">PROLOG_STATE</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">,</span><span class="w"></span>
+<span class="nf">prolog0</span><span class="p">(</span><span class="n">PROLOG_STATE</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">tok</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"></span>
 <span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">end</span><span class="p">,</span><span class="w"></span>
@@ -472,7 +472,7 @@ the processor then calls the tokenizer <code>XmlContentTok()</code>, yet another
 macro hiding a function pointer in the encoding structure which throws
 us into <code>normal_contentTok()</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">PTRCALL</span><span class="w"></span>
-<span class="n">PREFIX</span><span class="p">(</span><span class="n">contentTok</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="n">ENCODING</span><span class="w"> </span><span class="o">*</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"></span>
+<span class="nf">PREFIX</span><span class="p">(</span><span class="n">contentTok</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="n">ENCODING</span><span class="w"> </span><span class="o">*</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"></span>
 <span class="w">                   </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">end</span><span class="p">,</span><span class="w"></span>
 <span class="w">                   </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">nextTokPtr</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
@@ -493,7 +493,7 @@ of the first character, which is again <code>BT_LT</code>.  However in this case
 it hands the work of dealing with an XML element off to a
 sub-function, <code>normal_scanLt()</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">PTRCALL</span><span class="w"></span>
-<span class="n">PREFIX</span><span class="p">(</span><span class="n">scanLt</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="n">ENCODING</span><span class="w"> </span><span class="o">*</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">end</span><span class="p">,</span><span class="w"></span>
+<span class="nf">PREFIX</span><span class="p">(</span><span class="n">scanLt</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="n">ENCODING</span><span class="w"> </span><span class="o">*</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">end</span><span class="p">,</span><span class="w"></span>
 <span class="w">               </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">nextTokPtr</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="cp">#ifdef XML_NS</span>
@@ -986,7 +986,7 @@ causing us to call <code>normal_scanLt()</code>.</p>
 <code>BT_SOL</code><sup><a href="#solidus">8</a></sup>, which drops us into
 <code>normal_scanEndTag()</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">PTRCALL</span><span class="w"></span>
-<span class="n">PREFIX</span><span class="p">(</span><span class="n">scanEndTag</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="n">ENCODING</span><span class="w"> </span><span class="o">*</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"></span>
+<span class="nf">PREFIX</span><span class="p">(</span><span class="n">scanEndTag</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="n">ENCODING</span><span class="w"> </span><span class="o">*</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"></span>
 <span class="w">                   </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">nextTokPtr</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">REQUIRE_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">);</span><span class="w"></span>
@@ -1187,7 +1187,7 @@ you needed this footnote, go and add to your education immediately.</p>
 something.</p>
 <p><a name="utf83">7</a>: UTF-8 encodes codepoints U+0800 to U+FFFF into
 three bytes as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="mf">1110</span><span class="n">xxxx</span> <span class="mf">10</span><span class="n">xxxxxx</span> <span class="mf">10</span><span class="n">xxxxxx</span>
+<div class="highlight"><pre><span></span><code><span class="mf">1110</span><span class="n">xxxx</span><span class="w"> </span><span class="mf">10</span><span class="n">xxxxxx</span><span class="w"> </span><span class="mf">10</span><span class="n">xxxxxx</span><span class="w"></span>
 </code></pre></div>
 
 <p>So U+FFFF would become the sequence <code>0xEF 0xBF 0xBF</code>.</p>
