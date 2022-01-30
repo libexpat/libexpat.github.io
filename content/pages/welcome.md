@@ -6,6 +6,9 @@ url:
 
 # Latest News
 
+* 2022-01-30 —
+  [Expat 2.4.**4**](https://github.com/libexpat/libexpat/blob/R_2_4_4/expat/Changes)
+  has been released, includes **security fixes**
 * 2022-01-16 —
   [Expat 2.4.**3**](https://github.com/libexpat/libexpat/blob/R_2_4_3/expat/Changes)
   has been released, includes **security fixes**
