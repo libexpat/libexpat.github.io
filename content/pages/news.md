@@ -1,5 +1,5 @@
 Title: Expat News
-Date: 2022-01-16
+Date: 2022-01-30
 License: MIT
 slug: news
 
@@ -14,7 +14,7 @@ slug: news
   [Expat 2.4.**1**](https://github.com/libexpat/libexpat/blob/R_2_4_1/expat/Changes)
   has been released
 * 2021-05-23 —
-  [Expat 2.**4**.**0**](https://github.com/libexpat/libexpat/blob/R_2_4_0/expat/Changes)
+  [Expat 2.**4**.0](https://github.com/libexpat/libexpat/blob/R_2_4_0/expat/Changes)
   has been released, includes **security fixes**
 * 2021-03-25 —
   [Expat 2.**3**.**0**](https://github.com/libexpat/libexpat/blob/R_2_3_0/expat/Changes)
