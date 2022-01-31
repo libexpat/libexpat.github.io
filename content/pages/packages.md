@@ -99,7 +99,9 @@ Wherever you go, Expat is already waiting for you:
     * [ORACLE Solaris](http://pkg.oracle.com/solaris/release/en/search.shtml?token=expat&action=Search)
 * __Windows__
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
-    * [MSYS2](https://github.com/msys2/MINGW-packages/blob/master/mingw-w64-expat/PKGBUILD)
+    * MSYS2
+        [[1]](https://github.com/msys2/MINGW-packages/blob/master/mingw-w64-expat/PKGBUILD)
+        [[2]](https://github.com/msys2/MSYS2-packages/blob/master/expat/PKGBUILD)
     * [Native installer](https://github.com/libexpat/libexpat/releases)
     * [NuGet](https://www.nuget.org/packages?q=expat)
 
