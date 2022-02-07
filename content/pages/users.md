@@ -37,6 +37,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Apache httpd tools](https://httpd.apache.org/)
     * [Apache OpenOffice](https://www.openoffice.org/)
     * [Apache Portable Runtime (apr-util)](http://apr.apache.org/)
+    * [Apache Subversion](http://subversion.apache.org/)
     * [Arabica](https://github.com/jezhiggins/arabica/blob/cd99dba691b99e5401315bf752a3300874060c28/src/SAX/wrappers/saxexpat.cpp#L129) — XML and HTML processing toolkit
     * [aria2](https://aria2.github.io/)
     * [asdcplib](https://github.com/cinecert/asdcplib/blob/f9d7fbc33aa571c547d916b145712469efd9f4b8/src/KM_xml.cpp#L561) — AS-DCP and AS-02 File Access Library
@@ -269,7 +270,6 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Squid](http://www.squid-cache.org/)
     * [StarDict](http://stardict-4.sourceforge.net/)
     * [Stargazer](http://stg.dp.ua/)
-    * [Subversion](http://subversion.apache.org/)
     * [Swift XMPP Client](https://github.com/swift/swift/blob/09d8ac653493a0bd16cb69664ca28fbfe3c61bbb/Swiften/Parser/ExpatParser.cpp) — XMPP client and XMPP library
     * [Swish-e](https://web.archive.org/web/20061223111433/http://swish-e.org/) — system for indexing collections of Web pages or other files
 * __T__
