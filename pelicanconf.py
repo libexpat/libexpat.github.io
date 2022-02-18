@@ -19,6 +19,7 @@ MENUITEMS = (
     ('Changelog', _github('/blob/master/expat/Changes')),
     ('Download', 'https://github.com/libexpat/libexpat/releases'),
     ('Documentation', SITEURL + '/%s/' % _DOC_MASTER),
+    ('API', SITEURL + '/%s/api/latest/' % _DOC_MASTER),
     ('Git Repository', _github()),
     ('Users', SITEURL + '/' + PAGE_URL.format(slug='users')),
     ('Report a Bug', _github('/issues')),
