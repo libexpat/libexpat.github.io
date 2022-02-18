@@ -1,5 +1,5 @@
 Title: Documentation
-Date: 2018-06-24
+Date: 2022-02-18
 License: MIT
 save_as: doc/index.html
 
@@ -10,6 +10,7 @@ Please read:
 1. [Getting Started](getting-started/)
 1. [XML Security](xml-security/)
 1. [Common Pitfalls](common-pitfalls/)
+1. [API Documentation](api/latest/)
 
 
 # Other Resources
