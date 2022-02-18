@@ -1,11 +1,14 @@
 Title: Welcome to Expat!
-Date: 2022-01-30
+Date: 2022-02-18
 License: MIT
 save_as: index.html
 url:
 
 # Latest News
 
+* 2022-02-18 —
+  The [API documentation](doc/api/latest/) included with Expat
+  is now also served as part of this website.
 * 2022-01-30 —
   [Expat 2.4.**4**](https://github.com/libexpat/libexpat/blob/R_2_4_4/expat/Changes)
   has been released, includes **security fixes**

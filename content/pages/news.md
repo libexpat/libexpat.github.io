@@ -1,9 +1,12 @@
 Title: Expat News
-Date: 2022-01-30
+Date: 2022-02-18
 License: MIT
 slug: news
 
 
+* 2022-02-18 —
+  The [API documentation](api/latest/) included with Expat
+  is now also served as part of this website.
 * 2022-01-30 —
   [Expat 2.4.**4**](https://github.com/libexpat/libexpat/blob/R_2_4_4/expat/Changes)
   has been released, includes **security fixes**
