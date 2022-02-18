@@ -13,13 +13,6 @@ This page is meant to serve as an index of Documentation on Expat.
 1. [API Documentation](api/latest/)
 
 
-# Other Resources
-
-* [Expat Packages](packages/)
-* [Software using Expat](users/)
-* [Bindings & 3rd-party Wrappers](bindings/)
-
-
 # In Depth
 
 1. [Expat Internals: A Simple Parse](expat-internals-a-simple-parse/)
@@ -29,6 +22,13 @@ This page is meant to serve as an index of Documentation on Expat.
 1. [Expat Internals: Encodings](expat-internals-encodings/)
 1. [Writing New Tests for Expat](writing-new-tests-for-expat/)
 1. [Writing A Custom Encoding](writing-a-custom-encoding/)
+
+
+# Other Resources
+
+* [Expat Packages](packages/)
+* [Software using Expat](users/)
+* [Bindings & 3rd-party Wrappers](bindings/)
 
 
 # External Articles and References
