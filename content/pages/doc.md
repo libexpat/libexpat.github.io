@@ -5,7 +5,7 @@ save_as: doc/index.html
 
 This page is meant to serve as an index of Documentation on Expat.
 
-Please read:
+# Please Read
 
 1. [Getting Started](getting-started/)
 1. [XML Security](xml-security/)
