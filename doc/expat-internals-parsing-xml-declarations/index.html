@@ -173,7 +173,7 @@ assumption.  It is only once <code>normal_prologTok()</code> takes control that
 things start to differ.  The code performs the familiar checks for
 whether there is any input and making sure it only has whole
 characters, then switches on the byte type of "&lt;".</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_LT</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_LT</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">REQUIRE_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">);</span><span class="w"></span>
@@ -183,7 +183,7 @@ characters, then switches on the byte type of "&lt;".</p>
 <p>As before, "&lt;" is perfectly acceptable, so the code goes on to
 consider the next character, "?".  This has a byte type of <code>BT_QUEST</code>,
 which has its own case in the switch statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_QUEST</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_QUEST</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">PREFIX</span><span class="p">(</span><span class="n">scanPi</span><span class="p">)(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">),</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">nextTokPtr</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 
@@ -232,7 +232,7 @@ continue to have a valid name.  The character "m" and "l", both also
 having byte type <code>BT_NMSTRT</code>, are considered acceptable for a name by
 <code>CHECK_NAME_CASES()</code>.  Then we get to the space, which has a byte type
 of <code>BT_S</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_S</span><span class="p">:</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">BT_CR</span><span class="o">:</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">BT_LF</span><span class="o">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_S</span><span class="p">:</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="no">BT_CR</span><span class="p">:</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="no">BT_LF</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">PREFIX</span><span class="p">(</span><span class="n">checkPiTarget</span><span class="p">)(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tok</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 </code></pre></div>
 
@@ -266,9 +266,9 @@ three characters long, it can't possibly be "xml" so must be a
 processing instruction target.  We do have three characters, so the
 parse proceeds.</p>
 <div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">BYTE_TO_ASCII</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">ASCII_x</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">ASCII_x</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">ASCII_X</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">ASCII_X</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="n">upper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -319,7 +319,7 @@ another horribly tangled creature like <code>CHECK_NMSTRT_CASES()</code> that is
 hard to comprehend because of all the subordinate macros.
 Substituting the <code>INVALID_LEAD_CASE</code> macros makes it somewhat easier
 to read:</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_LEAD2</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_LEAD2</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_INVALID_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -329,7 +329,7 @@ to read:</p>
 <span class="w">  </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_LEAD3</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_LEAD3</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_INVALID_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -339,7 +339,7 @@ to read:</p>
 <span class="w">  </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_LEAD4</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_LEAD4</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_INVALID_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -349,9 +349,9 @@ to read:</p>
 <span class="w">  </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_NONXML</span><span class="p">:</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_MALFORM</span><span class="p">:</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_TRAIL</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_NONXML</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_MALFORM</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_TRAIL</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="o">*</span><span class="n">nextTokPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_INVALID</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
@@ -396,7 +396,7 @@ leading byte.</p>
 looking for is a question mark, <code>BT_QUEST</code>, and if we don't find it we
 just move on to look at the next byte.  If we do find it, more
 interesting things happen.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_QUEST</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_QUEST</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span><span class="w"></span>
 <span class="w">  </span><span class="n">REQUIRE_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">);</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CHAR_MATCHES</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="n">ASCII_GT</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -444,7 +444,7 @@ at the start of the parse, <code>XmlTokenRole()</code> translates to the
 <span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">tok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="cm">/* ... */</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nl">XML_TOK_XML_DECL</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">XML_TOK_XML_DECL</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prolog1</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_ROLE_XML_DECL</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
@@ -456,7 +456,7 @@ You might suspect that we will stay with the prologue processor this
 time, and you'd be right.  There may, after all, be more XML prologue
 to come.</p>
 <div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">role</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">XML_ROLE_XML_DECL</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">XML_ROLE_XML_DECL</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="n">XML_Error</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">processXmlDecl</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">next</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">XML_ERROR_NONE</span><span class="p">)</span><span class="w"></span>
@@ -605,10 +605,10 @@ because those are the only UTF-8 characters that fit in a single byte.</p>
 <span class="nf">isSpace</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mh">0x20</span><span class="o">:</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mh">0xD</span><span class="o">:</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mh">0xA</span><span class="o">:</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mh">0x9</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mh">0x20</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mh">0xD</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mh">0xA</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mh">0x9</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
@@ -1127,7 +1127,7 @@ regardless of their internal differences.</p>
 <p>After ensuring that there is text to parse, which there is, and that
 we only deal in whole character units, <code>normal_prologTok()</code> switches
 on the byte type of the newline character.  This is <code>BT_LF</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_S</span><span class="p">:</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">BT_LF</span><span class="o">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_S</span><span class="p">:</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="no">BT_LF</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="w"> </span><span class="n">HAS_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">))</span><span class="w"></span>
@@ -1139,12 +1139,12 @@ on the byte type of the newline character.  This is <code>BT_LF</code>:</p>
 further spaces, tabs or newlines that we find.  This is complicated a
 little by having to deal with carriage return/linefeed pairs, which
 are used as line endings on some operating systems.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_S</span><span class="p">:</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">BT_LF</span><span class="o">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_S</span><span class="p">:</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="no">BT_LF</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>Spaces and line feeds (newlines) are easy, we just ignore them.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_CR</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_CR</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="cm">/* don&#39;t split CR/LF pair */</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
@@ -1169,7 +1169,7 @@ what <code>XML_TOK_PROLOG_S</code> means in this context.  <code>XmlTokenRole()<
 now the handler <code>prolog1()</code> if you recall, and that has no particular
 interest in whitespace:</p>
 <div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">tok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">XML_TOK_PROLOG_S</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">XML_TOK_PROLOG_S</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">XML_ROLE_NONE</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
@@ -1183,12 +1183,12 @@ tokenizer again to see what's next.</p>
 
 <p><code>normal_prologTok()</code> sees the "&lt;" and as before looks at the next
 character "d".  This has a byte type of <code>BT_HEX</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_NMSTRT</span><span class="p">:</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_HEX</span><span class="p">:</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_NONASCII</span><span class="p">:</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_LEAD2</span><span class="p">:</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_LEAD3</span><span class="p">:</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_LEAD4</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_NMSTRT</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_HEX</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_NONASCII</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_LEAD2</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_LEAD3</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_LEAD4</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="o">*</span><span class="n">nextTokPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_INSTANCE_START</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1198,7 +1198,7 @@ character "d".  This has a byte type of <code>BT_HEX</code>:</p>
 walkthrough</a>, but then we were
 using <code>prolog0()</code> as the handler.  This time we have <code>prolog1()</code>, so
 we can't necessarily expect it will tell us the same role.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">XML_TOK_INSTANCE_START</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">XML_TOK_INSTANCE_START</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">XML_ROLE_INSTANCE_START</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>

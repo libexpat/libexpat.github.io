@@ -340,7 +340,7 @@ include files.  The UTF-8 encoding uses <code>asciitab.h</code> for characters
 0x00 to 0x7f, and <code>utf8tab.h</code> for characters 0x80 to 0xff.  If you
 look up "&lt;" (0x3c) in <code>asciitab.h</code>, you will find it listed as <code>BT_LT</code>
 (Byte Type Less Than, obviously).</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_LT</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_LT</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="n">REQUIRE_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">);</span><span class="w"></span>
@@ -363,7 +363,7 @@ us there is, so we don't have to deal with that unexpected hidden
 is a <code>BT_HEX</code>, a character that could legitimately be a hexadecimal
 digit.  It can also legitimately be the start of an XML element name,
 which is the important thing here.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_HEX</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_HEX</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="cm">/* ... */</span><span class="w"></span>
 <span class="w">  </span><span class="o">*</span><span class="n">nextTokPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_INSTANCE_START</span><span class="p">;</span><span class="w"></span>
@@ -380,9 +380,9 @@ instructions (both starting with "&lt;?"), a document type declaration or
 comments (both starting with "&lt;!").  Since our example XML has no
 prologue at all, we can be happy that the parser got this right!</p>
 <h2>Processing the Token</h2>
-<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nv">doc</span><span class="o">&gt;</span>
-<span class="o">^</span>
-<span class="o">+--</span> <span class="nv">s</span>, <span class="k">next</span>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nv">doc</span><span class="o">&gt;</span><span class="w"></span>
+<span class="o">^</span><span class="w"></span>
+<span class="o">+--</span><span class="w"> </span><span class="nv">s</span>,<span class="w"> </span><span class="k">next</span><span class="w"></span>
 </code></pre></div>
 
 <p>We return all the way back to <code>prologProcessor()</code>, which now has its
@@ -432,7 +432,7 @@ parser.  We start off in <code>prolog0</code>.</p>
 <span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">tok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="cm">/* ... */</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nl">XML_TOK_INSTANCE_START</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">XML_TOK_INSTANCE_START</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_ROLE_INSTANCE_START</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
@@ -447,7 +447,7 @@ to return an error if this ever happens.</p>
 wodge<sup><a href="#wodge">6</a></sup> of code that only kicks into life if we
 had set the parser up to want an external DTD.  We didn't do that, so
 it skips down:</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">XML_ROLE_INSTANCE_START</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">XML_ROLE_INSTANCE_START</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="cm">/* useForeignDTD stuff... */</span><span class="w"></span>
 <span class="w">  </span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_processor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contentProcessor</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">contentProcessor</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">nextPtr</span><span class="p">);</span><span class="w"></span>
@@ -486,7 +486,7 @@ us into <code>normal_contentTok()</code>.</p>
 <span class="w">    </span><span class="cm">/* ... */</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nl">BT_LT</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">BT_LT</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">PREFIX</span><span class="p">(</span><span class="n">scanLt</span><span class="p">)(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">),</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">nextTokPtr</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 
@@ -528,18 +528,18 @@ it is part of a switch statement, and like <code>REQUIRE_CHAR</code> can exit th
 function without further ado.  Let's make it a little more
 comprehensible by substituting the <code>CHECK_NMSTART_CASE</code> macros in as
 well:</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_NONASCII</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_NONASCII</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">IS_NMSTRT_CHAR_MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="o">*</span><span class="n">nextTokPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_INVALID</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_NMSTRT</span><span class="p">:</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_HEX</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_NMSTRT</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_HEX</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span><span class="w"></span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_LEAD2</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_LEAD2</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">IS_NMSTRT_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -549,7 +549,7 @@ well:</p>
 <span class="w">  </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_LEAD3</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_LEAD3</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">IS_NMSTRT_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -559,7 +559,7 @@ well:</p>
 <span class="w">  </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">case</span><span class="w"> </span><span class="nl">BT_LEAD4</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">BT_LEAD4</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_PARTIAL_CHAR</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">IS_NMSTRT_CHAR</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -651,7 +651,7 @@ through.  It accepts the character and moves the parse pointer on.</p>
 </code></pre></div>
 
 <p>The "&gt;" has a byte type of <code>BT_GT</code>, which has its own case at last.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_GT</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_GT</span><span class="p">:</span><span class="w"></span>
 <span class="nl">gt</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="o">*</span><span class="n">nextTokPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_START_TAG_NO_ATTS</span><span class="p">;</span><span class="w"></span>
@@ -664,19 +664,19 @@ the "&gt;" (the newline at the end of the line), and returns
 <code>XML_TOK_START_TAG_NO_ATTS</code>.  A start tag (element) with no attributes
 is exactly what this is.</p>
 <h2>We Have An Element, Now What?</h2>
-<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nv">doc</span><span class="o">&gt;</span>
-<span class="o">^</span>    <span class="o">^</span>
-<span class="o">|</span>    <span class="o">+--</span> <span class="k">next</span>
-<span class="o">+--</span> <span class="nv">ptr</span>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nv">doc</span><span class="o">&gt;</span><span class="w"></span>
+<span class="o">^</span><span class="w">    </span><span class="o">^</span><span class="w"></span>
+<span class="o">|</span><span class="w">    </span><span class="o">+--</span><span class="w"> </span><span class="k">next</span><span class="w"></span>
+<span class="o">+--</span><span class="w"> </span><span class="nv">ptr</span><span class="w"></span>
 </code></pre></div>
 
 <p>We return out to <code>doContent()</code>, which promptly switches on the token
 that has been returned.  <code>XML_TOK_START_TAG_NO_ATTS</code> leads us to a
 large chunk of code that introduces another efficiency saving that the
 parser implements.  Fortunately this one is quite obvious.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">XML_TOK_START_TAG_NO_ATTS</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">XML_TOK_START_TAG_NO_ATTS</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="cm">/* fall through */</span><span class="w"></span>
-<span class="k">case</span><span class="w"> </span><span class="nl">XML_TOK_START_TAG_WITH_ATTS</span><span class="p">:</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">XML_TOK_START_TAG_WITH_ATTS</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">TAG</span><span class="w"> </span><span class="o">*</span><span class="n">tag</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="n">XML_Error</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
@@ -878,14 +878,14 @@ go back to the top of the loop and call <code>normal_contentTok()</code> again.<
 
 <p>This time we examine the newline after the <code>&lt;doc&gt;</code> tag, which has a
 byte type of <code>BT_LF</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_LF</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_LF</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="o">*</span><span class="n">nextTokPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_DATA_NEWLINE</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p><code>normal_contentTok()</code> accepts this and sets the next token pointer to
 the space at the start of the next line.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">XML_TOK_DATA_NEWLINE</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">XML_TOK_DATA_NEWLINE</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_characterDataHandler</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">XML_Char</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xA</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_characterDataHandler</span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_handlerArg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
@@ -911,7 +911,7 @@ input characters one by one while there are any left.  The next
 character is also a space, and therefore also skipped.  The next is a
 "&lt;", which is different, so the function updates the next token
 pointer to point to it and returns <code>XML_TOK_DATA_CHARS</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">XML_TOK_DATA_CHARS</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">XML_TOK_DATA_CHARS</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">XML_CharacterDataHandler</span><span class="w"> </span><span class="n">charDataHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_characterDataHandler</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">charDataHandler</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -982,7 +982,7 @@ data should be joined together and what shouldn't.</p>
 <p>Moving on, we call <code>normal_contentTok()</code> with something a bit
 different.  The initial "&lt;" is recognised as a <code>BT_LT</code> like before,
 causing us to call <code>normal_scanLt()</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">BT_SOL</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">BT_SOL</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">PREFIX</span><span class="p">(</span><span class="n">scanEndTag</span><span class="p">)(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">),</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">nextTokPtr</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 
@@ -1002,7 +1002,7 @@ causing us to call <code>normal_scanLt()</code>.</p>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">BYTE_TYPE</span><span class="p">(</span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">CHECK_NAME_CASES</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">nextTokPtr</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="cm">/* ... */</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">BT_GT</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">BT_GT</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="o">*</span><span class="n">nextTokPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MINBPC</span><span class="p">(</span><span class="n">enc</span><span class="p">);</span><span class="w"></span>
 <span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">XML_TOK_END_TAG</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
@@ -1020,7 +1020,7 @@ characters, accepting them through <code>CHECK_NAME_CASES()</code> until it
 finally reaches the "&gt;".  It sets the "next token" pointer to the
 newline after the "&gt;" and returns <code>XML_TOK_END_TAG</code> all the way back
 to <code>doContent()</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="nl">XML_TOK_END_TAG</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">XML_TOK_END_TAG</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">parser</span><span class="o">-&gt;</span><span class="n">m_tagLevel</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">startTagLevel</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XML_ERROR_ASYNC_ENTITY</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
