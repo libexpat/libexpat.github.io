@@ -86,6 +86,7 @@ Wherever you go, Expat is already waiting for you:
     * [T2 SDE](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/void-linux/void-packages/blob/master/srcpkgs/expat/template)
+    * [yiffOS](https://gitlab.com/yiffos/packaging/packages/-/blob/knot/expat/PKGINFO)
     * [Yocto Project](https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-core/expat)
 * __macOS__
     * [Fink](http://pdb.finkproject.org/pdb/package.php/expat1)
