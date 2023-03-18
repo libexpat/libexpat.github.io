@@ -317,6 +317,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [xmlppm](https://sourceforge.net/p/xmlppm/code/HEAD/tree/src/EncodeSax.cpp#l387) — XML data compression program
     * [xmlrpc-c](https://sourceforge.net/projects/xmlrpc-c/) — library for writing an XML-RPC server or client in C/C++
     * [xmlrpc-epi](http://xmlrpc-epi.sourceforge.net/)
+    * [XMP-Toolkit-SDK](https://github.com/adobe/XMP-Toolkit-SDK/blob/main/XMPCore/source/ExpatAdapter.cpp#L83) — Adobe's toolkit offering XMP functionality for appliations
     * [xmp3](https://github.com/BellerophonMobile/xmp3/blob/426cf7ee0ad4f32bea98cadad93b140d6a4c9760/src/xmpp_parser.c) — XMPP Proxy, small Extensible XMPP Server
     * [XPilot NG](http://xpilot.sourceforge.net/) — Multi-player tactical game for X (NG version)
     * [XLSX I/O](https://github.com/brechtsanders/xlsxio/blob/cfd9ed517417000f5ffce428f2a4a7da0847c145/lib/xlsxio_read.c#L157) — library for reading and writing `.xlsx` files
