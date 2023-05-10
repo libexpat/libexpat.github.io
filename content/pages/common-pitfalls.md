@@ -9,6 +9,7 @@ License: MIT
 * [External entity sub-parsers must be created after parsing has started](#nested-parser-creation-time)
 * [Strings passed to handlers are only temporary](#temporary-strings)
 * [Element declaration handlers must free their content models](#free-content-model)
+* [XML 1.1 and XML 1.0 Fifth Edition are not supported](#xml-version)
 
 
 # <a name="split-character-data"></a> Character data may be split across multiple handler calls
@@ -82,3 +83,16 @@ Note that this does not mean that the content model must be freed in
 the element declaration handler itself.  If the user wishes to keep
 content models around, for example to validate elements later on, they
 are perfectly at liberty to do so.
+
+
+# <a name="xml-version"></a> XML 1.1 and XML 1.0 Fifth Edition are not supported
+
+Expat supports [XML 1.0 Fourth Edition](https://www.w3.org/TR/2006/REC-xml-20060816/).
+It does *not* support:
+
+- [XML 1.1](https://www.w3.org/TR/xml11/)
+- [XML 1.0 Fifth Edition](https://www.w3.org/TR/2008/REC-xml-20081126/)
+
+If Expat is asked to parse documents that are targetting
+a version of the XML standard younger than XML 1.0 Fourth Edition,
+you may receive parse errors.
