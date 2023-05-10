@@ -104,6 +104,7 @@
 <li><a href="#nested-parser-creation-time">External entity sub-parsers must be created after parsing has started</a></li>
 <li><a href="#temporary-strings">Strings passed to handlers are only temporary</a></li>
 <li><a href="#free-content-model">Element declaration handlers must free their content models</a></li>
+<li><a href="#xml-version">XML 1.1 and XML 1.0 Fifth Edition are not supported</a></li>
 </ul>
 <h1><a name="split-character-data"></a> Character data may be split across multiple handler calls</h1>
 <p>If you register a character data handler with
@@ -163,6 +164,16 @@ used for the model.</p>
 the element declaration handler itself.  If the user wishes to keep
 content models around, for example to validate elements later on, they
 are perfectly at liberty to do so.</p>
+<h1><a name="xml-version"></a> XML 1.1 and XML 1.0 Fifth Edition are not supported</h1>
+<p>Expat supports <a href="https://www.w3.org/TR/2006/REC-xml-20060816/">XML 1.0 Fourth Edition</a>.
+It does <em>not</em> support:</p>
+<ul>
+<li><a href="https://www.w3.org/TR/xml11/">XML 1.1</a></li>
+<li><a href="https://www.w3.org/TR/2008/REC-xml-20081126/">XML 1.0 Fifth Edition</a></li>
+</ul>
+<p>If Expat is asked to parse documents that are targetting
+a version of the XML standard younger than XML 1.0 Fourth Edition,
+you may receive parse errors.</p>
 </div>
         </div>
 
