@@ -43,7 +43,7 @@ Wherever you go, Expat is already waiting for you:
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
     * [Carbs Linux](https://github.com/CarbsLinux/repository/tree/master/extra/expat)
     * [CentOS](http://mirror.stream.centos.org/9-stream/AppStream/x86_64/os/Packages/)
-    * [Clear Linux](https://github.com/clearlinux-pkgs/expat/commits/master)
+    * [Clear Linux](https://github.com/clearlinux-pkgs/expat/blob/main/expat.spec)
     * [CRUX](https://crux.nu/gitweb/?p=ports/compat-32.git;a=tree;f=expat-32;hb=HEAD)
     * [Debian](https://packages.debian.org/source/sid/expat)
     * [Entware](https://github.com/Entware/entware-packages/blob/master/libs/expat/Makefile)
