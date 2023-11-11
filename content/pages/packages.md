@@ -83,7 +83,7 @@ Wherever you go, Expat is already waiting for you:
     * [ROSA Linux](https://abf.rosalinux.ru/import/expat)
     * [Slackware](http://slackware.osuosl.org/slackware64-current/source/l/expat/)
     * [SliTaz GNU/Linux](http://hg.slitaz.org/wok/file/tip/expat/receipt)
-    * [Solus Project](https://dev.getsol.us/source/expat/browse/master/package.yml)
+    * [Solus Project](https://github.com/getsolus/packages/blob/main/packages/e/expat/package.yml)
     * [T2 SDE](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/void-linux/void-packages/blob/master/srcpkgs/expat/template)
