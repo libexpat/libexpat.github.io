@@ -47,7 +47,7 @@ Wherever you go, Expat is already waiting for you:
     * [CRUX](https://crux.nu/gitweb/?p=ports/compat-32.git;a=tree;f=expat-32;hb=HEAD)
     * [Debian](https://packages.debian.org/source/sid/expat)
     * [Entware](https://github.com/Entware/entware-packages/blob/master/libs/expat/Makefile)
-    * [Exherbo](http://git.exherbo.org/arbor.git/tree/packages/dev-libs/expat)
+    * [Exherbo](https://gitlab.exherbo.org/exherbo/arbor/-/tree/master/packages/dev-libs/expat)
     * [Fedora](https://src.fedoraproject.org/rpms/expat)
     * [Funtoo](https://github.com/funtoo/core-kit/tree/master/dev-libs/expat)
     * [Gentoo](https://packages.gentoo.org/packages/dev-libs/expat)
