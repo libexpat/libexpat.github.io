@@ -60,7 +60,7 @@ Wherever you go, Expat is already waiting for you:
     * [KaOSx](https://github.com/KaOSx/core/blob/master/expat)
     * [KISS Linux](https://github.com/kisslinux/repo/tree/master/extra/expat)
     * [LEDE](https://github.com/lede-project/source/blob/master/tools/expat/Makefile)
-    * [LiGurOS](https://gitlab.com/liguros/core-kit/-/tree/21.1-release/dev-libs/expat)
+    * [LiGurOS](https://gitlab.com/liguros/liguros-repo/-/tree/develop/dev-libs/expat)
     * [Linux Mint](https://community.linuxmint.com/software/view/libexpat1-dev)
     * [Lunar Linux](https://github.com/lunar-linux/moonbase-core/tree/master/libs/expat)
     * [Mageia](https://madb.mageia.org/package/show/name/expat/release/cauldron/application/0/arch/x86_64)
