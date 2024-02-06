@@ -1,11 +1,14 @@
 Title: Welcome to Expat!
-Date: 2022-10-25
+Date: 2024-02-06
 License: MIT
 save_as: index.html
 url:
 
 # Latest News
 
+* 2024-02-06 —
+  [Expat 2.**6**.0](https://github.com/libexpat/libexpat/blob/R_2_6_0/expat/Changes)
+  has been released, includes **security fixes**
 * 2022-10-25 —
   [Expat 2.**5**.0](https://github.com/libexpat/libexpat/blob/R_2_5_0/expat/Changes)
   has been released, includes **security fixes**
