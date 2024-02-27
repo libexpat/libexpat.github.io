@@ -68,7 +68,7 @@ interfaces to Expat from languages other than C.
     * [XML-SAX-ExpatXS](http://search.cpan.org/dist/XML-SAX-ExpatXS/) — Perl SAX 2 XS extension to Expat parser
     * [XML-Twig](http://search.cpan.org/dist/XML-Twig/) — Perl module for processing huge XML documents in tree mode
 * __PHP__
-    * [Article on using Expat from PHP](http://www.phpbuilder.com/columns/justin20000428.php3) on [&lt;?PHPBuilder?&gt;](http://www.phpbuilder.com/)
+    * [XML Parser Extension](https://www.php.net/manual/en/book.xml.php) — can optionally [be built with expat backend](https://www.php.net/manual/en/xml.requirements.php).
 * __Python__
     * [cElementTree](http://effbot.org/zone/celementtree.htm)
     * [Documentation for the Python interface to Expat](http://www.python.org/doc/current/lib/module-xml.parsers.expat.html), part of the standard documentation for Python.
