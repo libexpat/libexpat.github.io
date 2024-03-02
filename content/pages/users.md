@@ -236,6 +236,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [POCO](https://pocoproject.org/)
     * [Poedit](https://poedit.net)
     * [polkit](https://www.freedesktop.org/wiki/Software/polkit/)
+    * [Prosody](https://prosody.im/) — XMPP instant messaging server
     * [ptlib (Portable Tools Library)](http://www.opalvoip.org/)
     * [PyPy](http://pypy.org/)
     * [Python](https://www.python.org/)
