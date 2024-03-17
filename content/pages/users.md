@@ -11,7 +11,7 @@ __NOTE__: For [bindings and 3rd-party wrappers](../bindings/), please check
 the [dedicated page](../bindings/).
 
 
-# Software
+# <a name="softward"></a> Software
 
 To be included in this list, the related piece of software needs to be
 [Open Source](https://opensource.org/osd-annotated)
@@ -329,7 +329,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [ZeroC Ice](https://github.com/zeroc-ice/ice/blob/master/cpp/src/IceXML/Parser.cpp)
 
 
-# Hardware
+# <a name="hardware"></a> Hardware
 
 * [Brother VC-500W](https://download.brother.com/welcome/docp100375/cv_vc500w_eng_license_101.pdf)
 * [Casio Classpad II](https://edu.casio.com/freetrial/files/CPManager_Subscription_G.pdf)
