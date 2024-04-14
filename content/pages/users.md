@@ -337,7 +337,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Daimler Mercedes-Benz C-Class 205](https://moba.i.daimler.com/bai-cars/ba/foss/content/en/pdfs/FOSS_License_C-Class_205.pdf)
 * [Dell EMC Storage Systems](https://dl.dell.com/topicspdf/dell-emc-metro-node_administrator-guide2_en-us.pdf)
 * [Domino Printing Large Character Inkjet Printer Cx350i](https://www.domino-printing.com/resources/english/legal/foss/cx350i%20oss%20licence%20and%20copyright%20notice%2020210318v1.0.pdf)
-* [eq-3 CCU3](https://www.eq-3.de/Downloads/Software/CCU3-Firmware/CCU3-3.37.8/CCU3-Changelog.3.37.8.pdf)
+* [eQ-3 CCU3](https://www.eq-3.de/Downloads/Software/CCU3-Firmware/CCU3-3.37.8/CCU3-Changelog.3.37.8.pdf)
 * [Ford FG4 CHR](https://corporate.ford.com/content/dam/corporate/us/en-us/documents/legal/open-source/fg4-chr-oss-disclosure.pdf)
 * [HARMAN Car Multimedia](https://www.harman.com/Compliance/Toyota.pdf)
 * [HP LaserJet Pro M12a Printer](http://196.205.136.50/hpM12a/Open%20Source%20Licenses.pdf)
