@@ -378,4 +378,4 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [X-Rite Ci7XX0](https://www.xrite.com/-/media/xrite/files/manuals_and_userguides/c/i/ci7xx0_manual_de.pdf)
 * [Yamaha RX-Vx73](https://de.yamaha.com/files/download/other_assets/0/326180/RX-Vx73_sl_En.pdf)
 * [Yokogawa Daqstation DX1002](https://web-material3.yokogawa.com/IM04L41B01-81Z1.pdf)
-* [Zyxel WSR30](ftp://ftp.zyxel.com/WSR30/firmware/WSR30_V1.00%28ABMY.7%29C0-foss.pdf)
+* [Zyxel WSR30](https://device.report/m/28caa32e7a238f6c82d0ba7014cbec2f3bb3e9ec1dce33de47dcbfb082106f0b.pdf)
