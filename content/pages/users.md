@@ -348,6 +348,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Humax HB-1100S Freesat](https://gzhls.at/blob/ldb/7/e/5/2/02c0f6b854b954c6e9b3cf4897835089a9b0.pdf)
 * [Humax HDR-1010S Freesat+](https://uk.humaxdigital.com/wp-content/uploads/sites/6/2016/09/HDR-1010S_Manual.pdf)
 * [Intel True Scale Fabric](https://www.intel.com/content/dam/www/public/us/en/documents/pdf/intel-true-scale-products-third-party-readme.pdf)
+* [Intermec PC23/PC43 Desktop Printer](http://ipsiscan.com/wp-content/uploads/2017/01/UG-PC_series.pdf)
 * [Kathrein UFS 946/CI+](https://shop.antenne-holm.de/media/pdf/6d/f8/d4/20210222-2.pdf)
 * [Kyocera FS-C1020MFP](https://www.kyocera.cct.hu/letoltesek/dokumentum/FS-C1020MFP_AOG_ENG.pdf)
 * [Lantronix EDS1100/EDS2100/MatchPort AR/XPort Pro](ftp://ftp.lantronix.com/pub/Linux_SDK/SDK2_0_0_3/Linux_SDK_License_List_2_0_0_3.pdf)
