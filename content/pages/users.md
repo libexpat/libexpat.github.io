@@ -336,6 +336,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Brother VC-500W](https://download.brother.com/welcome/docp100375/cv_vc500w_eng_license_101.pdf)
 * [BSH Hausgeräte GmbH SmartDock](https://media3.neff-international.com/Documents/8001281544_E.pdf)
 * [Casio ClassPad II](https://edu.casio.com/freetrial/files/CPManager_Subscription_G.pdf)
+* [Cisco Remote PHY](https://www.cisco.com/c/dam/en_us/about/doing_business/open_source/docs/remote-phy-node_1_1.pdf)
 * [Daimler Mercedes-Benz C-Class 205](https://moba.i.daimler.com/bai-cars/ba/foss/content/en/pdfs/FOSS_License_C-Class_205.pdf)
 * [Dell EMC Storage Systems](https://dl.dell.com/topicspdf/dell-emc-metro-node_administrator-guide2_en-us.pdf)
 * [Domino Printing Large Character Inkjet Printer Cx350i](https://www.domino-printing.com/resources/english/legal/foss/cx350i%20oss%20licence%20and%20copyright%20notice%2020210318v1.0.pdf)
