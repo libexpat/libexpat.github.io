@@ -343,7 +343,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [HP LaserJet Pro M12a Printer](http://196.205.136.50/hpM12a/Open%20Source%20Licenses.pdf)
 * [HP Photosmart 8000](http://h10032.www1.hp.com/ctg/Manual/c00459067.pdf)
 * [Intel True Scale Fabric](https://www.intel.com/content/dam/www/public/us/en/documents/pdf/intel-true-scale-products-third-party-readme.pdf)
-* [Kyocera FS-C1020MFP](https://www.kyoceradocumentsolutions.de/dlc/de/documentation/usermanual/fs-c1020mfp-aog-de0.-downloadcenteritem-Single-File.downloadcenteritem.tmp/FS-C1020MFP-AOG-DE.pdf)
+* [Kyocera FS-C1020MFP](https://www.kyocera.cct.hu/letoltesek/dokumentum/FS-C1020MFP_AOG_ENG.pdf)
 * [Lantronix EDS1100/EDS2100/MatchPort AR/XPort Pro](ftp://ftp.lantronix.com/pub/Linux_SDK/SDK2_0_0_3/Linux_SDK_License_List_2_0_0_3.pdf)
 * [LG Wireless Sound Bar](http://partner.lge.com/us/portal/download/download/mobileExternalFileDownload.lge?fileId=AvBysHiYIZLxI1CV0Yxog&content=manual)
 * [marantz NA6006](https://www.marantz.de/DocumentMaster/DE/NA6006_Bedienungsanleitung_22082018.pdf)
