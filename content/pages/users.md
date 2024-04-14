@@ -376,6 +376,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Timemaster Terminal plus7](https://www.timemaster.de/files/download/plus7/Timemaster_Plus7_Open_Source_Lizenzen_V2.0.pdf)
 * [Trend Micro Threat Protection System](https://docs.trendmicro.com/all/tip/tps/v4.2.0/en-us/tps_4.2.0_os_licenses.pdf)
 * [Trend Micro TippingPoint® Security Management System](https://ohc.blob.core.windows.net/o-help/manual/595c8f82-e1ba-42ba-989c-ccc0be02169e/SMS_6.3.0_3P_Licenses.pdf)
+* [Universal Audio OX Amp Top Box](https://media.uaudio.com/support/ox/OX-Open-Source-License-Information.pdf)
 * [VacuuBrand Vacuu Select Vacuum Controller](https://www.vacuubrand.com/context/other_documents/Open_Source_Software_license_information.pdf)
 * [Verizon Router CR1000B](https://www.verizon.com/supportresources/content/dam/verizon/support/consumer/documents/open-source/Verizon_Router_%28CR1000B%29_open_source_disclosure.pdf)
 * [Vodafone EasyBox 804](https://www.vodafone.de/downloadarea/open-source-software-easybox804-01-05.pdf)
