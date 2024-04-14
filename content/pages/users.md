@@ -343,6 +343,8 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [HARMAN Car Multimedia](https://www.harman.com/Compliance/Toyota.pdf)
 * [HP LaserJet Pro M12a Printer](http://196.205.136.50/hpM12a/Open%20Source%20Licenses.pdf)
 * [HP Photosmart 8000](http://h10032.www1.hp.com/ctg/Manual/c00459067.pdf)
+* [Humax HB-1100S Freesat](https://gzhls.at/blob/ldb/7/e/5/2/02c0f6b854b954c6e9b3cf4897835089a9b0.pdf)
+* [Humax HDR-1010S Freesat+](https://uk.humaxdigital.com/wp-content/uploads/sites/6/2016/09/HDR-1010S_Manual.pdf)
 * [Intel True Scale Fabric](https://www.intel.com/content/dam/www/public/us/en/documents/pdf/intel-true-scale-products-third-party-readme.pdf)
 * [Kathrein UFS 946/CI+](https://shop.antenne-holm.de/media/pdf/6d/f8/d4/20210222-2.pdf)
 * [Kyocera FS-C1020MFP](https://www.kyocera.cct.hu/letoltesek/dokumentum/FS-C1020MFP_AOG_ENG.pdf)
