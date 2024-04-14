@@ -352,6 +352,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Kathrein UFS 946/CI+](https://shop.antenne-holm.de/media/pdf/6d/f8/d4/20210222-2.pdf)
 * [Kyocera FS-C1020MFP](https://www.kyocera.cct.hu/letoltesek/dokumentum/FS-C1020MFP_AOG_ENG.pdf)
 * [Lantronix EDS1100/EDS2100/MatchPort AR/XPort Pro](ftp://ftp.lantronix.com/pub/Linux_SDK/SDK2_0_0_3/Linux_SDK_License_List_2_0_0_3.pdf)
+* [LG HelloVision UCE4027LGH (Vantiva)](https://www.vantiva.com/app/uploads/2024/04/UCE4027LGH_1.04.02_COSP-2033_external.pdf)
 * [LG Wireless Sound Bar](http://partner.lge.com/us/portal/download/download/mobileExternalFileDownload.lge?fileId=AvBysHiYIZLxI1CV0Yxog&content=manual)
 * [marantz NA6006](https://www.marantz.de/DocumentMaster/DE/NA6006_Bedienungsanleitung_22082018.pdf)
 * [Mazda NB1](http://download.tomtom.com/open/manuals/Mazda_Navigation_System_NB1/Mazda_NB1_getting_started/refman/Mazda-NB1-6G-Guide-en-gb.pdf)
