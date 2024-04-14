@@ -331,6 +331,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 
 # <a name="hardware"></a> Hardware
 
+* [Bosch Nyon](https://www.bosch-ebike.com/fileadmin/EBC/eBike-Connect/Nyon_OpenSourceSoftware_MY19_used_licenses.pdf)
 * [Brother VC-500W](https://download.brother.com/welcome/docp100375/cv_vc500w_eng_license_101.pdf)
 * [BSH Hausgeräte GmbH SmartDock](https://media3.neff-international.com/Documents/8001281544_E.pdf)
 * [Casio ClassPad II](https://edu.casio.com/freetrial/files/CPManager_Subscription_G.pdf)
