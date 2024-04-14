@@ -368,6 +368,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [STIHL iMOW IA01 Robotic Lawn Mower](https://datastorosrbr.blob.core.windows.net/documents/imow-license-notices_v6.4.10.pdf)
 * [STILL iGO neo](https://data.still.de/assets/products/Vehicles/Order_Pickers/igo_neo_CX_20/pdfs/161216_STILL_License_Overview_iGo.pdf?mod=1529914548&download=1&s=21ab18daadd32e20c62972bdb29f8df9)
 * [TCS FBI6119/FBI6121/FBI6122](https://www.tcsag.de/fileadmin/user_upload/TCS_DE/Metanavigation/Downloads/Software/Open_Source_Dokumente/Information_Open-Source-Software_FBI6119_21_22_Version_0.6.5.pdf)
+* [Teac WS-A70 Network Music System](https://teac.jp/downloads/products/teac/ws-a70/WS-A70_OM_E_vA4.pdf)
 * [TechniSat TECHNINET BS5 Profressional](https://www.technisat.com/assets/medias/docus/76/IMPORTINFO_Lizenztexte_fuer_Open_Source_Licenses_0000+5990.pdf)
 * [Theben IP Schnittstelle KNX](https://www.theben.de/ocsmedia/optimized/full/o4242v42%20Interface%20-%20Handbuch.PDF)
 * [Timemaster Terminal plus7](https://www.timemaster.de/files/download/plus7/Timemaster_Plus7_Open_Source_Lizenzen_V2.0.pdf)
