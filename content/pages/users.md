@@ -331,6 +331,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 
 # <a name="hardware"></a> Hardware
 
+* [Bosch Coach mediaRouter](https://oss.bosch-cm.com/download/coach/2019_08%20Coach%20Media%20Router1162/2019-07-07_FOSS-INF_BCMR-1.1.1162docx.pdf)
 * [Bosch Nyon](https://www.bosch-ebike.com/fileadmin/EBC/eBike-Connect/Nyon_OpenSourceSoftware_MY19_used_licenses.pdf)
 * [Brother VC-500W](https://download.brother.com/welcome/docp100375/cv_vc500w_eng_license_101.pdf)
 * [BSH Hausgeräte GmbH SmartDock](https://media3.neff-international.com/Documents/8001281544_E.pdf)
