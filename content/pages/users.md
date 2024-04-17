@@ -388,4 +388,5 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Yamaha RX-Vx73](https://de.yamaha.com/files/download/other_assets/0/326180/RX-Vx73_sl_En.pdf)
 * [Yokogawa Daqstation DX1002](https://web-material3.yokogawa.com/IM04L41B01-81Z1.pdf)
 * [Zyxel Speedlink 5501 (Telekom)](https://www.telekom.de/hilfe/downloads/end-user-license-agreement-zyxel-speedlink-5501-v4.38.2.12.09.pdf)
+* [Zyxel VMG3006-D70A VDSL2 Modem Router (Telekom)](https://www.telekom.de/hilfe/downloads/end-user-license-agreement-zyxel-vmg3006-d70a-v17.39.14.2.pdf)
 * [Zyxel WSR30](https://device.report/m/28caa32e7a238f6c82d0ba7014cbec2f3bb3e9ec1dce33de47dcbfb082106f0b.pdf)
