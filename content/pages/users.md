@@ -379,6 +379,8 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [TCS FBI6119/FBI6121/FBI6122](https://www.tcsag.de/fileadmin/user_upload/TCS_DE/Metanavigation/Downloads/Software/Open_Source_Dokumente/Information_Open-Source-Software_FBI6119_21_22_Version_0.6.5.pdf)
 * [Teac WS-A70 Network Music System](https://teac.jp/downloads/products/teac/ws-a70/WS-A70_OM_E_vA4.pdf)
 * [TechniSat TECHNINET BS5 Profressional](https://www.technisat.com/assets/medias/docus/76/IMPORTINFO_Lizenztexte_fuer_Open_Source_Licenses_0000+5990.pdf)
+* [Telekom 5G-Empfänger SE](https://www.telekom.de/hilfe/downloads/lizenztexte-5g-empfaenger.pdf)
+* [Telekom Speedport Pro Plus](https://www.telekom.de/hilfe/downloads/lizenztexte-speedport-pro-plus.pdf)
 * [Theben IP Schnittstelle KNX](https://www.theben.de/ocsmedia/optimized/full/o4242v42%20Interface%20-%20Handbuch.PDF)
 * [Timemaster Terminal plus7](https://www.timemaster.de/files/download/plus7/Timemaster_Plus7_Open_Source_Lizenzen_V2.0.pdf)
 * [Trend Micro Threat Protection System](https://docs.trendmicro.com/all/tip/tps/v4.2.0/en-us/tps_4.2.0_os_licenses.pdf)
