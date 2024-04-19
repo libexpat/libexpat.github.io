@@ -385,6 +385,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Trend Micro TippingPoint® Security Management System](https://ohc.blob.core.windows.net/o-help/manual/595c8f82-e1ba-42ba-989c-ccc0be02169e/SMS_6.3.0_3P_Licenses.pdf)
 * [Universal Audio OX Amp Top Box](https://media.uaudio.com/support/ox/OX-Open-Source-License-Information.pdf)
 * [VacuuBrand Vacuu Select Vacuum Controller](https://www.vacuubrand.com/context/other_documents/Open_Source_Software_license_information.pdf)
+* [Verizon Internet Gateway ARC-XCI55AX](https://www.verizon.com/supportresources/content/dam/verizon/support/consumer/documents/open-source/XCI55AX_Open_Source_Release_3_1_1_17.pdf)
 * [Verizon Router CR1000B](https://www.verizon.com/supportresources/content/dam/verizon/support/consumer/documents/open-source/Verizon_Router_%28CR1000B%29_open_source_disclosure.pdf)
 * [Vodafone EasyBox 804](https://www.vodafone.de/downloadarea/open-source-software-easybox804-01-05.pdf)
 * [X-Rite Ci7XX0](https://www.xrite.com/-/media/xrite/files/manuals_and_userguides/c/i/ci7xx0_manual_de.pdf)
