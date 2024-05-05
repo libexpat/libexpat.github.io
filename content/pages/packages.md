@@ -27,7 +27,7 @@ Wherever you go, Expat is already waiting for you:
     * [MidnightBSD](https://github.com/MidnightBSD/mports/blob/master/textproc/expat2/Makefile)
     * [MirOS BSD](https://www.mirbsd.org/cvs.cgi/ports/textproc/expat/)
     * [NetBSD](http://pkgsrc.se/textproc/expat)
-    * [OpenBSD](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/lib/libexpat/)
+    * [OpenBSD](https://github.com/openbsd/src/tree/master/lib/libexpat)
     * [Ravenports](https://github.com/jrmarino/Ravenports/blob/master/bucket_31/expat)
 * __Haiku__
     * [HaikuPorts](https://github.com/haikuports/haikuports/tree/master/dev-libs/expat)
