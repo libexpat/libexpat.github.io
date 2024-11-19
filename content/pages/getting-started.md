@@ -1,5 +1,5 @@
 Title: Getting Started With Expat
-Date: 2017-04-30
+Date: 2024-11-19
 License: MIT
 slug: getting-started
 
@@ -10,10 +10,11 @@ An [introductory article](https://www.xml.com/pub/1999/09/expat/index.html)
 on using Expat is available on
 [xml.com](https://www.xml.com/pub/1999/09/expat/index.html).
 
-There are also two examples coming with Expat
+There are also three examples coming with Expat
 (but they provide little background):
 
 * [`elements.c`](https://github.com/libexpat/libexpat/blob/master/expat/examples/elements.c)
+* [`element_declarations.c`](https://github.com/libexpat/libexpat/blob/master/expat/examples/element_declarations.c)
 * [`outline.c`](https://github.com/libexpat/libexpat/blob/master/expat/examples/outline.c)
 
 
