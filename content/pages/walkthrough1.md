@@ -559,7 +559,7 @@ sequence of three bytes.  Its case checks that there are at least
 three bytes available, then calls through the `isNmstrt3` function
 pointer in the encoding.  This time `utf8_isNmstrt3()` as it becomes
 is a real function, one that uses macros to turn the UTF-8 into
-a [Unicode codepoint](http://unicode.org/glossary/#code_point) and
+a [Unicode codepoint](https://unicode.org/glossary/#code_point) and
 look up that codepoint (an integer in the range 0&ndash;1114111
 (0x10ffff in hexadecimal), or rather 2048&ndash;65535
 (0x0800&ndash;0xffff in hex) given that it comes from a three-byte

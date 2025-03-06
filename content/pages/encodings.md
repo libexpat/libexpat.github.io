@@ -19,7 +19,7 @@ maintainers understand what it does.
 
 A _character encoding_ in Expat is a combination of tables and
 functions that translates a sequence of bytes into [Unicode
-codepoints](http://unicode.org/glossary/#code_point) and from there
+codepoints](https://unicode.org/glossary/#code_point) and from there
 to UTF-8 or UTF-16 (as configured at compile time).  This includes
 functions to determine various syntactic elements of XML, such as
 whether a byte sequence translates to a codepoint that would be valid
@@ -329,7 +329,7 @@ use them.  The macro definitions for the 16-bit encodings still use
 the `type` table as an optimisation, but use the function
 `unicode_byte_type()` to convert the input into a byte type.  Slightly
 different logic is used to deal with [surrogate
-pairs](http://unicode.org/glossary/#surrogate_pair), and as a result
+pairs](https://unicode.org/glossary/#surrogate_pair), and as a result
 none of the functions are needed.
 
 

@@ -321,7 +321,7 @@ character permitted in XML.  That includes the ASCII [control
 characters](https://en.wikipedia.org/wiki/Control_character) other
 than whitespace characters, and bytes that would start a four byte
 sequence that would encode a [Unicode
-codepoint](http://unicode.org/glossary/#code_point) outside the
+codepoint](https://unicode.org/glossary/#code_point) outside the
 permitted range.
 
 `BT_MALFORM` is slightly different; it is reserved for 0xFE and 0xFF,
