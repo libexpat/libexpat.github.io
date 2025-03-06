@@ -105,7 +105,7 @@ to dispel some of the confusion surrounding the system and help future
 maintainers understand what it does.</p>
 <h2>What Is A Character Encoding?</h2>
 <p>A <em>character encoding</em> in Expat is a combination of tables and
-functions that translates a sequence of bytes into <a href="http://unicode.org/glossary/#code_point">Unicode
+functions that translates a sequence of bytes into <a href="https://unicode.org/glossary/#code_point">Unicode
 codepoints</a> and from there
 to UTF-8 or UTF-16 (as configured at compile time).  This includes
 functions to determine various syntactic elements of XML, such as
@@ -381,7 +381,7 @@ applied to all of the basic encodings, only 8-bit encodings actually
 use them.  The macro definitions for the 16-bit encodings still use
 the <code>type</code> table as an optimisation, but use the function
 <code>unicode_byte_type()</code> to convert the input into a byte type.  Slightly
-different logic is used to deal with <a href="http://unicode.org/glossary/#surrogate_pair">surrogate
+different logic is used to deal with <a href="https://unicode.org/glossary/#surrogate_pair">surrogate
 pairs</a>, and as a result
 none of the functions are needed.</p>
 <h2>Table-Building Macros</h2>
