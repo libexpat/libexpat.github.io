@@ -21,7 +21,7 @@ encoding.
 
 A _character encoding_ in Expat is a combination of tables and
 functions that translates a sequence of bytes into [Unicode
-codepoints](http://unicode.org/glossary/#code_point) and from there to
+codepoints](https://unicode.org/glossary/#code_point) and from there to
 UTF-8 or UTF-16 (as configured at compile time) for the library's
 internal use.  Expat natively understands several encodings: UTF-8,
 ASCII, Latin-1 (aka ISO/IEC 8859-1) and UTF-16 (big- and little-endian).

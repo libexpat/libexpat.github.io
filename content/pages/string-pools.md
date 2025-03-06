@@ -185,7 +185,7 @@ block can be hanging off `blocks`.  That makes linking and unlinking
 simple.
 
 The pointer-fiddling for `pool->blocks` and `pool->freeBlocks` is
-[fairly standard linked-list](http://www.learn-c.org/en/Linked_lists)
+[fairly standard linked-list](https://www.learn-c.org/en/Linked_lists)
 stuff.  More interesting is the initialisation of `start` (to the
 start of the available memory in the block), `end` (calculated from
 the number of characters available) and `ptr` (same as `start`,
@@ -762,7 +762,7 @@ usage patterns unnecessarily hard, as in this case.
 <a name="cunning">3</a>: something is described as cunning if it is
 very clever, often deceitful.  In recent years it has come to have
 sarcastic overtones, thanks to
-[Blackadder](http://www.bbc.co.uk/programmes/b006xxw3); Baldrick's cry
+[Blackadder](https://www.bbc.co.uk/programmes/b006xxw3); Baldrick's cry
 of "I have a cunning plan, milord" generally introduced a bizarre,
 complicated and very stupid suggestion.
 

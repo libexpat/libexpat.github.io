@@ -34,5 +34,5 @@ This page is meant to serve as an index of Documentation on Expat.
 # External Articles and References
 
 * [James Clark's original Expat page](http://www.jclark.com/xml/expat.html), for Expat 1.2 and earlier
-* [Introductory article "Using Expat"](http://www.xml.com/pub/1999/09/expat/index.html)
+* [Introductory article "Using Expat"](https://www.xml.com/pub/1999/09/expat/index.html)
   by [Clark Cooper](https://www.xml.com/pub/au/43)
