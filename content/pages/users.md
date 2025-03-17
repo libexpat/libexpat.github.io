@@ -24,11 +24,11 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __A__
     * [AbiWord](https://www.abisource.com/) — efficient, featureful word processor with collaboration
     * [ACOVEA](https://github.com/Acovea/libacovea)
-    * [Advanced Strategic Command (asc)](http://www.asc-hq.org/)
-    * [AdvanceMAME](http://www.advancemame.it/)
+    * [Advanced Strategic Command (asc)](https://www.asc-hq.org/)
+    * [AdvanceMAME](https://www.advancemame.it/)
     * [afflib](https://github.com/sshock/AFFLIBv3/)
     * [Aleph One](https://alephone.lhowon.org/)
-    * [AmphetaDesk](http://www.disobey.com/amphetadesk/)
+    * [AmphetaDesk](https://www.disobey.com/amphetadesk/)
     * [Android / core-libart](https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java)
     * [Android Asset Packaging Tool (aapt)](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt/XMLNode.h)
     * [Android Asset Packaging Tool (aapt2)](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt2/xml/XmlDom.cpp)
@@ -36,38 +36,38 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Apache httpd / mod_dav](https://httpd.apache.org/) (prior to 2.0.12)
     * [Apache httpd tools](https://httpd.apache.org/)
     * [Apache OpenOffice](https://www.openoffice.org/)
-    * [Apache Portable Runtime (apr-util)](http://apr.apache.org/)
-    * [Apache Subversion](http://subversion.apache.org/)
+    * [Apache Portable Runtime (apr-util)](https://apr.apache.org/)
+    * [Apache Subversion](https://subversion.apache.org/)
     * [Arabica](https://github.com/jezhiggins/arabica/blob/cd99dba691b99e5401315bf752a3300874060c28/src/SAX/wrappers/saxexpat.cpp#L129) — XML and HTML processing toolkit
     * [aria2](https://aria2.github.io/)
     * [asdcplib](https://github.com/cinecert/asdcplib/blob/f9d7fbc33aa571c547d916b145712469efd9f4b8/src/KM_xml.cpp#L561) — AS-DCP and AS-02 File Access Library
-    * [Astropy](http://www.astropy.org/)
+    * [Astropy](https://www.astropy.org/)
     * [Attract Mode](https://github.com/mickelson/attract/blob/a348c1f5fa125bfb4133e01ce3b03a17138dbea6/src/scraper_base.cpp#L33) — graphical front-end for command line emulators
-    * [Audacity](http://web.audacityteam.org/)
+    * [Audacity](https://www.audacityteam.org/)
     * [Avahi](https://github.com/lathiat/avahi)
-    * [ayttm](http://ayttm.sourceforge.net/) (through libxode) — universal instant messaging client
+    * [ayttm](https://ayttm.sourceforge.net/) (through libxode) — universal instant messaging client
 * __B__
-    * [Battle Tanks](http://btanks.sourceforge.net/)
+    * [Battle Tanks](https://btanks.sourceforge.net/)
     * [biboumi](https://lab.louiz.org/louiz/biboumi/) — XMPP to IRC gateway
     * [Bist](https://gna.org/projects/bist/) — chemical drawing tool
     * [boinctui](https://github.com/suleman1971/boinctui) — Fullscreen text mode manager for Boinc client
     * [BRLTTY](https://github.com/brltty/brltty/blob/884fd06c65995349240bf93f80da8d2c4d0225c7/Programs/cldr.c#L222) — background process providing access to the Linux/Unix console for a blind person using a refreshable braille display
 * __C__
     * [CableSwig](https://itk.org/ITK/resources/CableSwig.html)
-    * [cadaver](http://www.webdav.org/cadaver/) (through neon) — command-line WebDAV client for Unix
+    * [cadaver](https://notroj.github.io/cadaver/) (through neon) — command-line WebDAV client for Unix
     * [cairo tool xml-to-trace](https://cgit.freedesktop.org/cairo/tree/util/xml-to-trace.c) (not cairo itself)
-    * [Calf Studio Gear](http://calf-studio-gear.org/)
-    * [captagent](http://sipcapture.org/) — HOMER SIP capture agent
-    * [CDuce](http://www.cduce.org/) — programming language adapted to the manipulation of XML data
+    * [Calf Studio Gear](https://calf-studio-gear.org/)
+    * [captagent](https://sipcapture.org/) — HOMER SIP capture agent
+    * [CDuce](https://www.cduce.org/) — programming language adapted to the manipulation of XML data
     * [CEGUI](http://cegui.org.uk/)
     * [CenterIM](http://www.centerim.org/index.php/Main_Page)
     * [Ceph / librgw](https://github.com/ceph/ceph/blob/master/src/rgw/rgw_xml.cc) — Ceph RADOS Gateway client library
     * [Chromium / libjingle_xmpp / xmllite](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/libjingle_xmpp/xmllite/xmlparser.h#18)
-    * [Citadel](http://www.citadel.org/doku.php) — groupware server
+    * [Citadel](https://www.citadel.org/) — groupware server
     * [clamz](https://code.google.com/archive/p/clamz/) — command-line program to download MP3s from Amazon
-    * [claws-mail-feeds-reader](http://www.claws-mail.org/) — feeds (RSS/Atom) reader plugin for Claws Mail
+    * [claws-mail-feeds-reader](https://www.claws-mail.org/) — feeds (RSS/Atom) reader plugin for Claws Mail
     * [CMake](https://cmake.org/)
-    * [cobex](http://cobex.sourceforge.net/)
+    * [cobex](https://cobex.sourceforge.net/)
     * [CODA](https://github.com/stcorp/coda/blob/eaa9b49974f80814fe14f485052ce782df7d4ce5/libcoda/coda-xml-parser.c#L35) — Common Data Access toolset
     * [Coin3D](https://bitbucket.org/Coin3D/coin/wiki/Home)
     * [Comet MS/MS search engine](https://sourceforge.net/projects/comet-ms/) — Tandem mass spectrometry (MS/MS) search engine
@@ -83,43 +83,43 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [DFXML / tcpflow](https://github.com/simsong/dfxml/blob/master/src/dfxml_reader.cpp) — Digital Forensics XML project and library
     * [digiKam](https://www.digikam.org/)
     * [discover](https://packages.debian.org/sid/discover) — hardware identification system
-    * [Dovecot SOLR plug-in](http://www.dovecot.org/)
-    * [DRadio](http://thrysoee.dk/dradio/) — Danmarks Radio netradio, podcast, and TV player
+    * [Dovecot SOLR plug-in](https://www.dovecot.org/)
+    * [DRadio](https://thrysoee.dk/dradio/) — Danmarks Radio netradio, podcast, and TV player
     * [drumgizmo](https://www.drumgizmo.org/wiki/) — audio sampler plugin and stand-alone app that simulates a real drum kit
 * __E__
-    * [EasySoap++](http://easysoap.sourceforge.net/)
+    * [EasySoap++](https://easysoap.sourceforge.net/)
     * [eegdev](http://cnbi.epfl.ch/software/eegdev.html) — biosignal acquisition device library
     * [ejabberd / erlang-p1-xml / fast_xml](https://github.com/processone/fast_xml) — XML utilities for Erlang
     * [EKG2](http://www.ekg2.org)
     * [Electron](https://electron.atom.io/)
     * [ELinks](http://elinks.or.cz/)
-    * [EMBOSS](http://emboss.sourceforge.net/)
-    * [ExactImage](http://exactcode.com/opensource/exactimage/)
+    * [EMBOSS](https://emboss.sourceforge.net/)
+    * [ExactImage](https://exactcode.com/opensource/exactimage/)
     * [Exempi](https://libopenraw.freedesktop.org/wiki/Exempi/)
-    * [Exiv2](http://www.exiv2.org/)
+    * [Exiv2](https://exiv2.org/)
     * [ezQuake](https://ezquake.github.io/) — modern QuakeWorld client focused on competitive online play
 * __F__
     * [Far-NetBox](https://github.com/michaellukashov/Far-NetBox) — SFTP/SCP/FTP/FTPS/WebDAV client for [Far Manager](http://farmanager.com/)
     * [FBReader](https://fbreader.org/)
     * [FlightGear](https://sourceforge.net/p/flightgear/fgrun/) — Flight Gear Flight Simulator
     * [Firefox](https://www.mozilla.org/en-US/firefox/)
-    * [Fontconfig](http://fontconfig.org/)
+    * [Fontconfig](https://fontconfig.org/)
     * [frag_find](https://github.com/simsong/frag_find/blob/d52334de62ff38b802bf5f24b0e12764ac9b1bd7/src/dfxml.cpp#L172) — hash-based carver tool
     * [fre:ac CDK / BoCA](https://github.com/enzo1982/BoCA/tree/master/components/playlist/xspf/expat) — Free audio converter and CD ripper
 * __G__
     * [GANGI](http://www.gamgi.org/) — General Atomistic Modelling Graphic Interface
-    * [Ganglia](http://ganglia.sourceforge.net/)
+    * [Ganglia](https://ganglia.sourceforge.net/)
     * [gawkextlib (gawk-xml)](https://sourceforge.net/p/gawkextlib/code/ci/master/tree/xml/xml_puller.c) —  extension libraries for GNU AWK
-    * [GCDM / gdcmexpat](http://gdcm.sourceforge.net/) — Grassroots DICOM library
-    * [GDAL](http://www.gdal.org/)
+    * [GCDM / gdcmexpat](https://gdcm.sourceforge.net/) — Grassroots DICOM library
+    * [GDAL](https://gdal.org/)
     * [GDB](https://sourceware.org/gdb/)
-    * [gdigi](http://desowin.org/gdigi/) — utility to control DigiTech effect pedals
+    * [gdigi](https://desowin.org/gdigi/) — utility to control DigiTech effect pedals
     * [Geant 4](http://geant4.cern.ch/)
-    * [GenomeTools](http://genometools.org/) — versatile genome analysis toolkit
+    * [GenomeTools](https://genometools.org/) — versatile genome analysis toolkit
     * [Gerbera](https://github.com/gerbera/gerbera/blob/v1.4.0/src/mxml/parser_expat.cc#L156) — UPnP media server
     * [gettext](https://www.gnu.org/software/gettext/)
     * [Ghostscript/GhostPDL](https://git.ghostscript.com/?p=ghostpdl.git;a=blob;f=xps/xpsxml.c;h=02cb845a9e90cb63f53c2f5096b6e85796a2df34;hb=HEAD) — Postscript and PDF interpreter and rendering engine
-    * [GIFTI / libgiftiio](http://www.nitrc.org/projects/gifti) — Geometry format under the Neuroimaging Informatics Technology Initiative (NIfTI)
+    * [GIFTI / libgiftiio](https://www.nitrc.org/projects/gifti) — Geometry format under the Neuroimaging Informatics Technology Initiative (NIfTI)
     * [Git](https://www.git-scm.com/)
     * [Gnash](https://www.gnu.org/software/gnash/)
     * [GNU Gatekeeper](https://www.gnugk.org/) — OpenH323 Gatekeeper (IP telephony (VOIP), video conferencing)
@@ -127,22 +127,22 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Godot](https://godotengine.org/)
     * [Goggles Music Manager](https://gogglesmm.github.io/)
     * [Google Earth Enterprise / libsgl](https://github.com/google/earthenterprise/blob/HEAD/earth_enterprise/src/third_party/sgl/v0_8_6/src/SkXMLParser_expat.cpp)
-    * [Gpick](http://www.gpick.org/) — advanced GTK+ color picker
-    * [GPSBabel](http://www.gpsbabel.org/)
+    * [Gpick](https://www.gpick.org/) — advanced GTK+ color picker
+    * [GPSBabel](https://www.gpsbabel.org/)
     * [gpx2shp](http://gpx2shp.osdn.jp/) — convert GPS or GPX file to ESRI Shape file
     * [graph-tool](https://graph-tool.skewed.de/)
-    * [Graphviz](http://www.graphviz.org/)
+    * [Graphviz](https://www.graphviz.org/)
     * [Grive2](https://github.com/vitalif/grive2)
-    * [GXMame](http://gxmame.sourceforge.net/)
+    * [GXMame](https://gxmame.sourceforge.net/)
 * __H__
-    * [HHVM](http://hhvm.com/) — HipHop Virtual Machine, a JIT replacement for PHP
-    * [HTCondor](http://research.cs.wisc.edu/htcondor/) — distributed workload management system
+    * [HHVM](https://hhvm.com/) — HipHop Virtual Machine, a JIT replacement for PHP
+    * [HTCondor](https://research.cs.wisc.edu/htcondor/) — distributed workload management system
 * __I__
     * [Ice](https://zeroc.com/products/ice)
     * [IFrIT (Ionization FRont Interactive Tool)](https://sites.google.com/site/ifrithome/) — powerful tool for visualizing 3-dimensional data sets
     * [Insight Toolkit (ITK)](https://itk.org/) — suite of software tools for image analysis
     * [ion](https://ion.ocp.ohiou.edu/) — NASA implementation of Delay-Tolerant Networking (DTN)
-    * [Ipsumdump](http://read.seas.harvard.edu/~kohler/ipsumdump/)
+    * [Ipsumdump](https://read.seas.harvard.edu/~kohler/ipsumdump/)
 * __J__
     * [jabberd2](http://jabberd2.org)
     * [JabberWerxC](https://github.com/cisco/JabberWerxC/blob/5a69904922a534e140ef7edb26190e38885aac90/src/libs/jabberwerx/src/util/parser.c) — C API for XMPP connectivity by Cisco Systems
