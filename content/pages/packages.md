@@ -41,6 +41,7 @@ Wherever you go, Expat is already waiting for you:
     * [Arch Linux](https://github.com/archlinux/svntogit-packages/blob/packages/expat/trunk/PKGBUILD)
     * [Arch Linux AUR](https://aur.archlinux.org/packages/?O=0&K=expat)
     * [Ataraxia Linux](https://github.com/ataraxialinux/ataraxia/blob/master/packages/expat/KagamiBuild)
+    * [Azure Linux](https://github.com/microsoft/azurelinux/blob/main/SPECS/expat/expat.spec)
     * [Buildroot](https://git.busybox.net/buildroot/tree/package/expat)
     * [Carbs Linux](https://github.com/CarbsLinux/repository/tree/master/extra/expat)
     * [CentOS](https://mirror.stream.centos.org/9-stream/AppStream/x86_64/os/Packages/)
