@@ -144,11 +144,11 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [ion](https://ion.ocp.ohiou.edu/) — NASA implementation of Delay-Tolerant Networking (DTN)
     * [Ipsumdump](https://read.seas.harvard.edu/~kohler/ipsumdump/)
 * __J__
-    * [jabberd2](http://jabberd2.org)
+    * [jabberd2](https://jabberd2.org/)
     * [JabberWerxC](https://github.com/cisco/JabberWerxC/blob/5a69904922a534e140ef7edb26190e38885aac90/src/libs/jabberwerx/src/util/parser.c) — C API for XMPP connectivity by Cisco Systems
-    * [JACK Audio Connection Kit](http://jackaudio.org/)
+    * [JACK Audio Connection Kit](https://jackaudio.org/)
     * [jggtrans](https://github.com/Jajcus/jggtrans) — Jabber to GaduGadu gateway ("transport")
-    * [Joe's Window Manager (JWM)](http://joewing.net/projects/jwm/)
+    * [Joe's Window Manager (JWM)](https://joewing.net/projects/jwm/)
 * __K__
     * [K-3D](http://www.k-3d.org/)
     * [Kamailio XMPP gateway](https://www.kamailio.org/w/)
@@ -157,14 +157,14 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [KomodoEdit](https://github.com/Komodo/KomodoEdit)
     * [Kopete](https://userbase.kde.org/Kopete)
 * __L__
-    * [ladish](http://ladish.org/) — session management system for JACK applications
-    * [LFTP](http://lftp.tech/)
-    * [libarchive](http://www.libarchive.org/)
+    * [ladish](https://ladish.org/) — session management system for JACK applications
+    * [LFTP](https://lftp.yar.ru/)
+    * [libarchive](https://www.libarchive.org/)
     * [libcmml](https://sources.debian.org/src/libcmml/0.9.4-1/src/cmml.c/#L205) — handling of documents written in CMML (Continuous Media Markup Language)
-    * [libcutl](http://www.codesynthesis.com/projects/libcutl/)
-    * [LibDOM / NetSurf](http://www.netsurf-browser.org/projects/libdom/)
+    * [libcutl](https://www.codesynthesis.com/projects/libcutl/)
+    * [LibDOM / NetSurf](https://www.netsurf-browser.org/projects/libdom/)
     * [libfixc](https://github.com/hroptatyr/libfixc/blob/a406c71aad62f8d85dae30ff1c74fc9346c51173/src/fixml-rd.c#L719) — fix&lt;-&gt;fixml&lt;-&gt;memory converter
-    * [libgadu](http://libgadu.net/)
+    * [libgadu](https://libgadu.net/)
     * [libisds](http://xpisar.wz.cz/libisds/) — Czech Data Boxes access library
     * [libkml](https://github.com/google/libkml/blob/8609edf7c8d13ae2ddb6eac2bca7c8e49c67a5f8/src/kml/base/expat_parser.cc)
     * [liblcf](https://github.com/EasyRPG/liblcf/blob/b76e7391aca2fd41b730812de4cb48038da4d5fb/src/lcf/reader_xml.h#L110) — Library to handle RPG Maker 2000/2003 and EasyRPG projects
@@ -173,41 +173,41 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [libnih / nih-dbus-tool](https://launchpad.net/libnih)
     * [libnpupnp](https://framagit.org/medoc92/npupnp/-/blob/master/src/inc/expatmm.hxx#L80) — C++ interface for upmpdcli and upplay
     * [LibOFA](https://code.google.com/p/musicip-libofa/)
-    * [libopkele](http://kin.klever.net/libopkele/) — OpenID support library in C++
-    * [libosmium](http://osmcode.org/libosmium/) — C++ framework for working with OSM data files
+    * [libopkele](https://kin.klever.net/libopkele/) — OpenID support library in C++
+    * [libosmium](https://osmcode.org/libosmium/) — C++ framework for working with OSM data files
     * [libprotobuf-mutator](https://github.com/google/libprotobuf-mutator/blob/HEAD/examples/expat/expat_example.cc)
-    * [LibreOffice](http://www.libreoffice.org)
+    * [LibreOffice](https://www.libreoffice.org/)
     * [libstrophe](https://github.com/strophe/libstrophe)
-    * [libsolv / libzypp](http://doc.opensuse.org/projects/libzypp/HEAD/)
-    * [libsynthesis](http://www.synthesis.ch/indefero/index.php/p/libsynthesis/) — library for SyncML-DS (SyncML Data Sync) clients
+    * [libsolv / libzypp](https://doc.opensuse.org/projects/libzypp/HEAD/)
+    * [libsynthesis](https://www.synthesis.ch/indefero/index.php/p/libsynthesis/) — library for SyncML-DS (SyncML Data Sync) clients
     * [libupnpp](https://www.lesbonscomptes.com/upmpdcli) — wraps libupnp for use by upmpdcli and upplay
     * [libvips](https://github.com/libvips/libvips/blob/889ca9664808cd02321b78eb881adf84d156644b/libvips/iofuncs/vips.c#L575) — image processing library
     * [libwbxml](https://github.com/libwbxml/libwbxml)
-    * [libwmf](http://wvware.sourceforge.net/)
+    * [libwmf](https://wvware.sourceforge.net/)
     * [libwww](https://www.w3.org/Library/)
     * [libxode](https://sourceforge.net/projects/libxode/) — DOM wrapper around Expat
-    * [libxspf](http://libspiff.sourceforge.net/)
+    * [libxspf](https://libspiff.sourceforge.net/)
     * [Liquid War 6](https://www.gnu.org/software/liquidwar6/)
     * [litmus](http://www.webdav.org/neon/litmus/)
-    * [log4c](http://log4c.sourceforge.net/) — C library for flexible logging
+    * [log4c](https://log4c.sourceforge.net/) — C library for flexible logging
     * [lsp-plugins](https://github.com/sadko4u/lsp-plugins/commit/d444686924312c798c65d2a39a8c37c000527c50) (prior to version 1.1.11) — sound processing effect plug-ins
     * [lwpr](https://sourceforge.net/p/lwpr/code/HEAD/tree/trunk/src/lwpr_xml.c#l894) — Locally Weighted Projection Regression (LWPR)
 * __M__
     * [Magics++ / libmagplus](https://software.ecmwf.int/wiki/display/MAGP/Magics) — latest generation of the ECMWF's Meteorological plotting software MAGICS
-    * [MakeMKV](http://www.makemkv.com/)
+    * [MakeMKV](https://www.makemkv.com/)
     * [MAME](https://github.com/mamedev/mame/blob/ea75c97d6d91f19f10292a79ffc2cb358555434e/src/lib/util/xmlfile.cpp#L77) — multi-purpose emulation framework
     * [mamory](https://sourceforge.net/projects/mamory/)
-    * [MapServer](http://mapserver.org/)
-    * [matchbox-keyboard](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-keyboard/) — on-screen 'virtual' or 'software' keyboard, designed for touch-screen devices running X
-    * [matchbox-window-manager](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-window-manager/) — window manager for resource-limited systems
+    * [MapServer](https://mapserver.org/)
+    * [matchbox-keyboard](https://git.yoctoproject.org/matchbox-keyboard/) — on-screen 'virtual' or 'software' keyboard, designed for touch-screen devices running X
+    * [matchbox-window-manager](https://git.yoctoproject.org/matchbox-window-manager/) — window manager for resource-limited systems
     * [matchbox-window-manager 2](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-window-manager-2/) — window manager for resource-limited systems
     * [Matanza](https://web.archive.org/web/20071226080243/http://bachue.com/matanza/) — real time telnet ASCII multiplayer game
     * [matita](http://matita.cs.unibo.it/) — interactive theorem prover
     * [MediaTomb](http://www.mediatomb.cc/)
-    * [Memphis](http://trac.openstreetmap.ch/trac/memphis/)
+    * [Memphis](https://github.com/jiuka/memphis/)
     * [Mesa 3D Graphics Library / libgbm](https://www.mesa3d.org/)
-    * [MIRA](http://www.chevreux.org/projects_mira.html)
-    * [mod_auth_openid](http://findingscience.com/mod_auth_openid/) — OpenID authentication module for Apache2
+    * [MIRA](https://www.chevreux.org/projects.html)
+    * [mod_auth_openid](https://findingscience.com/mod_auth_openid/) — OpenID authentication module for Apache2
     * [mod_dav](http://www.webdav.org/mod_dav/)
     * [Modelica ExternData](https://github.com/modelica-3rdparty/ExternData)
     * [mstoolkit](https://github.com/mhoopmann/mstoolkit/blob/master/src/mzParser/saxhandler.cpp) — libraries for manipulating mass spectrometry data
@@ -217,18 +217,18 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [neon](http://www.webdav.org/neon/)
     * [nginx-dav-ext-module](https://github.com/arut/nginx-dav-ext-module)
     * [nrss](http://www.codezen.org/nrss/) — ncurses-based RSS reader
-    * [NuSMV](http://nusmv.fbk.eu/)
+    * [NuSMV](https://nusmv.fbk.eu/)
     * [NXLog Community Edition](https://nxlog.co/products/nxlog-community-edition)
 * __O__
-    * [OGDI](http://ogdi.sourceforge.net/)
+    * [OGDI](https://ogdi.sourceforge.net/)
     * [openam](https://www.h323plus.org/) — H.323 answering machine
     * [OpenCOLLADA](http://www.opencollada.org/)
     * [OpenColorIO](https://github.com/AcademySoftwareFoundation/OpenColorIO/blob/0021372b4dba3444e21a36d846b327efad054f8d/src/OpenColorIO/fileformats/FileFormatIridasLook.cpp#L138) — color management framework
-    * [OpenSIPS](http://www.opensips.org/) (modules `jabber` and `xmpp`) — very fast and configurable SIP server
+    * [OpenSIPS](https://www.opensips.org/) (modules `jabber` and `xmpp`) — very fast and configurable SIP server
     * [OpenVanilla](https://github.com/openvanilla/openvanilla/commit/bac11c8a818c53e020c903c6f32f220e5c48af91) (prior to version 0.7.1)
-    * [ophcrack](http://ophcrack.sourceforge.net/) — Microsoft Windows password cracker using rainbow tables
+    * [ophcrack](https://ophcrack.sourceforge.io/) — Microsoft Windows password cracker using rainbow tables
     * [osm2pgrouting](https://github.com/pgRouting/osm2pgrouting/blob/master/src/XMLParser.cpp) — Tool to import OpenStreetMap data into a pgRouting database
-    * [Osm2pgsql](http://wiki.openstreetmap.org/wiki/Osm2pgsql)
+    * [Osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql)
 * __P__
     * [ParaGUI](https://github.com/pipelka/paragui/blob/c80f5cb737767d44939e1724d78141f3a4ddcb8e/src/themes/themeloader.cpp#L38) — cross-platform widgetset for SDL
     * [ParaView](https://www.paraview.org/)
@@ -238,19 +238,19 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [polkit](https://www.freedesktop.org/wiki/Software/polkit/)
     * [Prosody](https://prosody.im/) — XMPP instant messaging server
     * [ptlib (Portable Tools Library)](http://www.opalvoip.org/)
-    * [PyPy](http://pypy.org/)
+    * [PyPy](https://pypy.org/)
     * [Python](https://www.python.org/)
-    * [pyxml](http://pyxml.sourceforge.net/)
+    * [pyxml](https://pyxml.sourceforge.net/)
 * __Q__
-    * [QGIS](http://www.qgis.org/en/site/)
+    * [QGIS](https://www.qgis.org/)
     * [QtWebEngine](https://www.qt.io/)
 * __R__
-    * [Raptor RDF Syntax Library](http://librdf.org/raptor/) (prior to version 2.0.7)
+    * [Raptor RDF Syntax Library](https://librdf.org/raptor/) (prior to version 2.0.7)
     * [RATS](https://code.google.com/p/rough-auditing-tool-for-security/)
-    * [RawTherapee](http://www.rawtherapee.com/)
+    * [RawTherapee](https://www.rawtherapee.com/)
     * [readosm](https://www.gaia-gis.it/spatialite)
-    * [Redland RDF Library](http://librdf.org/)
-    * [rfdump](http://www.rfdump.org/) — tool to decode RFID tag data
+    * [Redland RDF Library](https://librdf.org/)
+    * [rfdump](https://www.rfdump.org/) — tool to decode RFID tag data
     * [RNV](https://github.com/hartwork/rnv)
 * __S__
     * [s3backer](https://github.com/archiecobbs/s3backer)
