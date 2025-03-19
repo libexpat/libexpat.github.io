@@ -161,6 +161,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [LFTP](https://lftp.yar.ru/)
     * [libarchive](https://www.libarchive.org/)
     * [libcmml](https://sources.debian.org/src/libcmml/0.9.4-1/src/cmml.c/#L205) — handling of documents written in CMML (Continuous Media Markup Language)
+    * [libcomps](https://github.com/rpm-software-management/libcomps/blob/51fc7782472cdfb1905aa48f405c0f192ba6c373/libcomps/src/comps_parse.c#L52) — alternative for yum.comps library
     * [libcutl](https://www.codesynthesis.com/projects/libcutl/)
     * [LibDOM / NetSurf](https://www.netsurf-browser.org/projects/libdom/)
     * [libfixc](https://github.com/hroptatyr/libfixc/blob/a406c71aad62f8d85dae30ff1c74fc9346c51173/src/fixml-rd.c#L719) — fix&lt;-&gt;fixml&lt;-&gt;memory converter
