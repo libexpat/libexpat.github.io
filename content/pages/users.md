@@ -259,74 +259,74 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [sblg](https://kristaps.bsd.lv/sblg/)
     * [scidb](https://sourceforge.net/p/scidb/code/HEAD/tree/trunk/src/util/u_html.cpp#l603) — chess database application
     * [Scorched3D](http://www.scorched3d.co.uk/)
-    * [SDLmame](http://mamedev.org/)
-    * [SeaMonkey](http://www.seamonkey-project.org)
-    * [simgear](http://simgear.org/)
+    * [SDLmame](https://sdlmame.lngn.net/)
+    * [SeaMonkey](https://www.seamonkey-project.org/)
+    * [simgear](https://wiki.flightgear.org/SimGear)
     * [sitecopy](https://packages.debian.org/sid/web/sitecopy) (through neon) — program for managing a WWW site via FTP, SFTP, DAV or HTTP
     * [Skia Graphics Library](https://github.com/google/skia/blob/HEAD/src/ports/SkFontMgr_android_parser.cpp)
     * [Slic3r](https://github.com/slic3r/Slic3r/blob/master/xs/src/libslic3r/IO/TMF.hpp) — 3D printing toolbox
-    * [Soulseek](http://www.soulseekqt.net/)
+    * [Soulseek](https://www.slsknet.org/)
     * [spatialite-tools](https://www.gaia-gis.it/spatialite)
     * [Speed Dreams](http://www.speed-dreams.org/) (uses modified Expat fork "txml")
-    * [Sphinx](http://www.sphinxsearch.com/)
-    * [Squid](http://www.squid-cache.org/)
-    * [StarDict](http://stardict-4.sourceforge.net/)
+    * [Sphinx](https://sphinxsearch.com/)
+    * [Squid](https://www.squid-cache.org/)
+    * [StarDict](https://stardict-4.sourceforge.net/)
     * [Stargazer](http://stg.dp.ua/)
     * [Swift XMPP Client](https://github.com/swift/swift/blob/09d8ac653493a0bd16cb69664ca28fbfe3c61bbb/Swiften/Parser/ExpatParser.cpp) — XMPP client and XMPP library
     * [Swish-e](https://web.archive.org/web/20061223111433/http://swish-e.org/) — system for indexing collections of Web pages or other files
 * __T__
-    * [Tandem](http://www.thegpm.org/TANDEM/) — mass spectrometry software for protein identification
-    * [TECkit](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&cat_id=TECkit)
+    * [Tandem](https://www.thegpm.org/TANDEM/) — mass spectrometry software for protein identification
+    * [TECkit](https://software.sil.org/teckit/)
     * [thin-provisioning-tools](https://github.com/jthornber/thin-provisioning-tools)
     * [Thunderbird](https://www.mozilla.org/en-US/thunderbird/)
     * [Tivoli Storage Manager](https://www.ibm.com/cloud-computing/products/devops/it-operations-management/)
-    * [TORCS](http://torcs.sourceforge.net/) (uses modified Expat fork "txml")
+    * [TORCS](https://torcs.sourceforge.net/) (uses modified Expat fork "txml")
     * [TortoiseSVN](https://tortoisesvn.net/) — Subversion client, implemented as a Windows shell extension
-    * [TQSL](http://www.arrl.org/tqsl-download) — ARRL Logbook of the World
-    * [Trusted QSL](http://sourceforge.net/projects/trustedqsl/) — QSL log signing for the Logbook of the World (LoTW)
+    * [TQSL](https://www.arrl.org/tqsl-download) — ARRL Logbook of the World
+    * [Trusted QSL](https://sourceforge.net/projects/trustedqsl/) — QSL log signing for the Logbook of the World (LoTW)
 * __U__
     * [UDUNITS](https://www.unidata.ucar.edu/software/udunits/)
     * [uim](https://github.com/uim/uim/)
     * [ulxmlrpcpp](https://sourceforge.net/p/ulxmlrpcpp/code/HEAD/tree/trunk/ulxmlrpcpp/ulxmlrpcpp/ulxr_expatwrap.cpp#l136) — xml-rpc lib for C++
-    * [Unbound](http://unbound.net/)
-    * [urfkill](http://www.freedesktop.org/wiki/Software/urfkill) — wireless killswitch management daemon for laptops
+    * [Unbound](https://nlnetlabs.nl/projects/unbound/about/)
+    * [urfkill](https://www.freedesktop.org/wiki/Software/urfkill/) — wireless killswitch management daemon for laptops
     * [uterus](https://github.com/hroptatyr/uterus/blob/76e4781f326186f48b568dc530faee4eaebd37c2/src/ibhist.c#L350) — universal tick encoder library
-    * [uWSGI](http://projects.unbit.it/uwsgi/)
+    * [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/)
 * __V__
     * [vdr-rssreader](http://www.saunalahti.fi/~rahrenbe/vdr/rssreader/)
     * [Viking](https://sourceforge.net/projects/viking/)
     * [VirtualBox](https://www.virtualbox.org/)
-    * [VMD](http://www.ks.uiuc.edu/Research/vmd/)
+    * [VMD](https://www.ks.uiuc.edu/Research/vmd/)
     * [VOMS](https://wiki.italiangrid.it/VOMS) — Virtual Organization Membership Service
-    * [VOTCA](http://www.votca.org)
+    * [VOTCA](https://www.votca.org/)
     * [vstgui](https://github.com/steinbergmedia/vstgui)
-    * [Virtuoso Open-Source Edition](http://vos.openlinksw.com/owiki/wiki/VOS/) — high-performance object-relational SQL database
-    * [VTK](http://www.vtk.org/)
+    * [Virtuoso Open-Source Edition](https://vos.openlinksw.com/owiki/wiki/VOS/) — high-performance object-relational SQL database
+    * [VTK](https://vtk.org/)
 * __W__
     * [Wayland](https://wayland.freedesktop.org/)
     * [WebKit / libwebrtc](https://github.com/WebKit/webkit/blob/master/Source/ThirdParty/libwebrtc/Source/third_party/expat/files/lib)
       (prior to [this commit](https://github.com/WebKit/webkit/commit/7c6bc1c04c2c64c95f0adfcdc504d94c5beee927))
-    * [white_dune](http://wdune.ourproject.org/) — graphical VRML97/X3D viewer, editor, 3D modeller and animation tool
-    * [WinMerge 2](http://winmerge.org/)
+    * [white_dune](https://wdune.ourproject.org/) — graphical VRML97/X3D viewer, editor, 3D modeller and animation tool
+    * [WinMerge 2](https://winmerge.org/)
     * [WinSCP](https://winscp.net/eng/index.php)
     * [WinSparkle](https://github.com/vslavik/winsparkle/tree/master/3rdparty)
     * [wvWare / libwv](http://www.abisource.com/projects/) — library which allows access to Microsoft Word files
-    * [wxWidgets](http://wxwidgets.org/)
-    * [wxSVG](http://wxsvg.sourceforge.net/)
+    * [wxWidgets](https://wxwidgets.org/)
+    * [wxSVG](https://wxsvg.sourceforge.io/)
 * __X__
     * [xkbd](http://trac.hackable1.org/trac/wiki/Xkbd)
-    * [XML Copy Editor](http://xml-copy-editor.sourceforge.net/) — fast, free, validating XML editor
+    * [XML Copy Editor](https://xml-copy-editor.sourceforge.io/) — fast, free, validating XML editor
     * [xmlppm](https://sourceforge.net/p/xmlppm/code/HEAD/tree/src/EncodeSax.cpp#l387) — XML data compression program
     * [xmlrpc-c](https://sourceforge.net/projects/xmlrpc-c/) — library for writing an XML-RPC server or client in C/C++
-    * [xmlrpc-epi](http://xmlrpc-epi.sourceforge.net/)
+    * [xmlrpc-epi](https://xmlrpc-epi.sourceforge.net/)
     * [XMP-Toolkit-SDK](https://github.com/adobe/XMP-Toolkit-SDK/blob/main/XMPCore/source/ExpatAdapter.cpp#L83) — Adobe's toolkit offering XMP functionality for appliations
     * [xmp3](https://github.com/BellerophonMobile/xmp3/blob/426cf7ee0ad4f32bea98cadad93b140d6a4c9760/src/xmpp_parser.c) — XMPP Proxy, small Extensible XMPP Server
-    * [XPilot NG](http://xpilot.sourceforge.net/) — Multi-player tactical game for X (NG version)
+    * [XPilot NG](https://xpilot.sourceforge.net/) — Multi-player tactical game for X (NG version)
     * [XLSX I/O](https://github.com/brechtsanders/xlsxio/blob/cfd9ed517417000f5ffce428f2a4a7da0847c145/lib/xlsxio_read.c#L157) — library for reading and writing `.xlsx` files
 * __Y__
     * [Ymagine](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c)
 * __Z__
-    * [Zebra / idzebra](http://www.indexdata.com/zebra)
+    * [Zebra / idzebra](https://www.indexdata.com/resources/software/zebra/)
     * [ZeroC Ice](https://github.com/zeroc-ice/ice/blob/master/cpp/src/IceXML/Parser.cpp)
 
 
@@ -345,7 +345,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Ford Gen 4.0 radio](https://corporate.ford.com/content/dam/corporate/us/en-us/documents/legal/open-source/fg4-chr-oss-disclosure.pdf)
 * [HARMAN Car Multimedia](https://www.harman.com/Compliance/Toyota.pdf)
 * [HP LaserJet Pro M12a Printer](http://196.205.136.50/hpM12a/Open%20Source%20Licenses.pdf)
-* [HP Photosmart 8000](http://h10032.www1.hp.com/ctg/Manual/c00459067.pdf)
+* [HP Photosmart 8000](https://h10032.www1.hp.com/ctg/Manual/c00459067.pdf)
 * [Humax HB-1100S Freesat](https://gzhls.at/blob/ldb/7/e/5/2/02c0f6b854b954c6e9b3cf4897835089a9b0.pdf)
 * [Humax HDR-1010S Freesat+](https://uk.humaxdigital.com/wp-content/uploads/sites/6/2016/09/HDR-1010S_Manual.pdf)
 * [Intel True Scale Fabric](https://www.intel.com/content/dam/www/public/us/en/documents/pdf/intel-true-scale-products-third-party-readme.pdf)
@@ -356,15 +356,15 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Kyocera FS-C1020MFP](https://www.kyocera.cct.hu/letoltesek/dokumentum/FS-C1020MFP_AOG_ENG.pdf)
 * [Lantronix EDS1100/EDS2100/MatchPort AR/XPort Pro](ftp://ftp.lantronix.com/pub/Linux_SDK/SDK2_0_0_3/Linux_SDK_License_List_2_0_0_3.pdf)
 * [LG HelloVision UCE4027LGH (Vantiva)](https://www.vantiva.com/app/uploads/2024/04/UCE4027LGH_1.04.02_COSP-2033_external.pdf)
-* [LG Wireless Sound Bar](http://partner.lge.com/us/portal/download/download/mobileExternalFileDownload.lge?fileId=AvBysHiYIZLxI1CV0Yxog&content=manual)
+* [LG Wireless Sound Bar](https://partner.lge.com/us/portal/download/download/mobileExternalFileDownload.lge?fileId=AvBysHiYIZLxI1CV0Yxog&content=manual)
 * [marantz NA6006](https://www.marantz.de/DocumentMaster/DE/NA6006_Bedienungsanleitung_22082018.pdf)
-* [Mazda NB1](http://download.tomtom.com/open/manuals/Mazda_Navigation_System_NB1/Mazda_NB1_getting_started/refman/Mazda-NB1-6G-Guide-en-gb.pdf)
+* [Mazda NB1](https://download.tomtom.com/open/manuals/Mazda_Navigation_System_NB1/Mazda_NB1_getting_started/refman/Mazda-NB1-6G-Guide-en-gb.pdf)
 * [Mercedes-Benz C-Class 205](https://moba.i.daimler.com/bai-cars/ba/foss/content/en/pdfs/FOSS_License_C-Class_205.pdf)
 * [NetApp HCI mNode](https://library.netapp.com/ecm/ecm_download_file/ECMLP2871178)
 * [Onkyo BD-SP809](https://www.onkyo.com/manual/oss/bdsp809.pdf)
-* [Palm mobile device](http://fastupload.panel.sk/uploads/open%20source%20information.pdf)
+* [Palm mobile device](https://fastupload.panel.sk/uploads/open%20source%20information.pdf)
 * [Panasonic pro-av](https://eww.pass.panasonic.co.jp/pro-av/support/content/download/EN/user/MIT.pdf)
-* [Ricoh SP 311DN/311DNw](http://support.ricoh.com/bb_v1oi/pub_e/oi/0001048/0001048470/VM15486xx/M1548651_de.pdf)
+* [Ricoh SP 311DN/311DNw](https://support.ricoh.com/bb_v1oi/pub_e/oi/0001048/0001048470/VM15486xx/M1548651_de.pdf)
 * [Romi Conversation AI Robot](https://romi.ai/wp-content/uploads/2019/11/Romi-V0101-license-701-1050.pdf)
 * [R&S® FPC Spectrum Analyzer](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_osa/FPC_OpenSourceAcknowledgment_en_2.pdf)
 * [R&S® TCE901 Series xx9 Transmitter](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_software/pdf_2/TCE901_Open_Source_Acknowledgment_1910.pdf)
@@ -403,7 +403,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Zyxel Speedlink 6501 (Telekom)](https://www.telekom.de/hilfe/downloads/end-user-license-agreement-speedlink-6501-v4.38.2.12.09.pdf)
 * [Zyxel VMG1312-B10D](https://usermanual.wiki/m/40d05bc0dd36159e7a29a68e7b28ecf6897523d7bb8bafa37c3a942cfda1fcb3.pdf)
 * [Zyxel VMG3006-D70A VDSL2 Modem Router (Telekom)](https://www.telekom.de/hilfe/downloads/end-user-license-agreement-zyxel-vmg3006-d70a-v17.39.14.2.pdf)
-* [Zyxel VMG3625-T20A](http://m.manuals.plus/m/c78c15552864e906c974b17403ac19db5ad0a5fe4e06376504eddc30d571920b.pdf)
+* [Zyxel VMG3625-T20A](https://manuals.plus/m/c78c15552864e906c974b17403ac19db5ad0a5fe4e06376504eddc30d571920b.pdf)
 * [Zyxel VMG8823-BX0B](https://usermanual.wiki/m/57755782a185b246ab5470e3f510296840cd934c520a6087453d69f82c204a66.pdf)
 * [Zyxel VMG8924-B10D](https://usermanual.wiki/m/3a7ed658d8322c5d5e866f0a20429015962e1a881612b9c082f541892f9946fe.pdf)
 * [Zyxel WSR30](https://device.report/m/28caa32e7a238f6c82d0ba7014cbec2f3bb3e9ec1dce33de47dcbfb082106f0b.pdf)
