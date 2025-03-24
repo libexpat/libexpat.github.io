@@ -35,6 +35,8 @@ files_to_copy=(
 )
 mkdir -p "${abstargetdir}"
 ( cd "${abstempdir}"/libexpat/expat/doc/ && cp -v "${files_to_copy[@]}" "${abstargetdir}" )
+sed 's,href="../,href="https://github.com/libexpat/libexpat/blob/HEAD/expat/,' -i.bak "${abstargetdir}"/reference.html
+rm "${abstargetdir}"/reference.html.bak
 mv -v "${abstargetdir}"/{reference,index}.html 
 rm -Rf "${abstempdir}"
 
