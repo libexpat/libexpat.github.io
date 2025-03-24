@@ -16,6 +16,7 @@ Wherever you go, Expat is already waiting for you:
     * [Conan Center](https://github.com/conan-io/conan-center-index/tree/master/recipes/expat)
     * <s>[Hunter](https://github.com/ruslo/hunter/blob/master/cmake/projects/Expat/hunter.cmake)</s>
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
+    * [pkgsrc](https://pkgsrc.se/textproc/expat)
     * [Spack](https://github.com/spack/spack/blob/develop/var/spack/repos/builtin/packages/expat/package.py)
     * [sw Software Network](https://software-network.org/org.sw.demo.expat)
     * [vcpkg](https://github.com/microsoft/vcpkg/blob/master/ports/expat/portfile.cmake)
@@ -26,7 +27,6 @@ Wherever you go, Expat is already waiting for you:
     * [FreeBSD](https://cgit.freebsd.org/ports/tree/textproc/expat2/Makefile)
     * [MidnightBSD](https://github.com/MidnightBSD/mports/blob/master/textproc/expat2/Makefile)
     * [MirOS BSD](https://www.mirbsd.org/cvs.cgi/ports/textproc/expat/)
-    * [NetBSD](https://pkgsrc.se/textproc/expat)
     * [OpenBSD](https://github.com/openbsd/src/tree/master/lib/libexpat)
     * [Ravenports](https://github.com/jrmarino/Ravenports/blob/master/bucket_31/expat)
 * __Haiku__
