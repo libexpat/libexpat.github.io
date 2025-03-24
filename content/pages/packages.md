@@ -83,6 +83,7 @@ Wherever you go, Expat is already waiting for you:
     * [Pisi GNU/Linux](https://github.com/pisilinux/core/blob/master/system/base/expat/pspec.xml)
     * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
     * [PTXdist](https://git.pengutronix.de/cgit/ptxdist/tree/rules/expat.make)
+    * [PureOS](https://software.pureos.net/package/src/pureos/landing/expat)
     * [ROSA Linux](https://abf.rosalinux.ru/import/expat)
     * [Slackware](https://slackware.osuosl.org/slackware64-current/source/l/expat/)
     * [SliTaz GNU/Linux](https://hg.slitaz.org/wok/file/tip/expat/receipt)
