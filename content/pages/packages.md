@@ -103,6 +103,7 @@ Wherever you go, Expat is already waiting for you:
     * [OpenCSW](https://www.opencsw.org/package/expat/)
     * [OpenIndiana](https://github.com/OpenIndiana/oi-userland/tree/oi/hipster/components/library/libexpat)
     * [ORACLE Solaris](http://pkg.oracle.com/solaris/release/en/search.shtml?token=expat&action=Search)
+    * [Tribblix](https://github.com/tribblix/build/blob/master/TRIBlib-expat/build.sh)
 * __Windows__
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
     * MSYS2
