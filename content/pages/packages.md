@@ -25,6 +25,9 @@ Wherever you go, Expat is already waiting for you:
 * __BSD__
     * [DragonFlyBSD](https://github.com/DragonFlyBSD/DPorts/tree/master/textproc/expat2)
     * [FreeBSD](https://cgit.freebsd.org/ports/tree/textproc/expat2/Makefile)
+    * HardenedBSD
+        [[1]](https://github.com/HardenedBSD/hardenedBSD/tree/HEAD/lib/libexpat)
+        [[2]](https://github.com/HardenedBSD/hardenedBSD/tree/HEAD/contrib/expat)
     * [MidnightBSD](https://github.com/MidnightBSD/mports/blob/master/textproc/expat2/Makefile)
     * [MirOS BSD](https://www.mirbsd.org/cvs.cgi/ports/textproc/expat/)
     * [NetBSD](https://github.com/NetBSD/src/tree/trunk/external/mit/expat)
