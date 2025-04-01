@@ -14,6 +14,7 @@ Wherever you go, Expat is already waiting for you:
     * [Anaconda Cloud](https://anaconda.org/anaconda/expat)
     * [conda-forge](https://github.com/conda-forge/expat-feedstock/blob/main/recipe/meta.yaml)
     * [Conan Center](https://github.com/conan-io/conan-center-index/tree/master/recipes/expat)
+    * [cpp.js](https://github.com/bugra9/cpp.js/blob/HEAD/packages/cppjs-package-expat/package.json)
     * <s>[Hunter](https://github.com/ruslo/hunter/blob/master/cmake/projects/Expat/hunter.cmake)</s>
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
     * [pkgsrc](https://pkgsrc.se/textproc/expat)
