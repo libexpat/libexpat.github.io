@@ -105,6 +105,7 @@ Wherever you go, Expat is already waiting for you:
     * [MacPorts](https://github.com/macports/macports-ports/blob/master/textproc/expat/Portfile)
     * [Rudix](https://github.com/rudix-mac/rudix/blob/master/Ports/expat/Makefile)
 * __Solaris__
+    * [OmniOS Community Edition](https://github.com/omniosorg/omnios-build/blob/HEAD/build/expat/build.sh)
     * [OpenCSW](https://www.opencsw.org/package/expat/)
     * [OpenIndiana](https://github.com/OpenIndiana/oi-userland/tree/oi/hipster/components/library/libexpat)
     * [Oracle Solaris](http://pkg.oracle.com/solaris/release/en/search.shtml?token=expat&action=Search)
