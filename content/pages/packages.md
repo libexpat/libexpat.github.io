@@ -21,6 +21,7 @@ Wherever you go, Expat is already waiting for you:
     * [Spack](https://github.com/spack/spack/blob/develop/var/spack/repos/builtin/packages/expat/package.py)
     * [sw Software Network](https://software-network.org/org.sw.demo.expat)
     * [vcpkg](https://github.com/microsoft/vcpkg/blob/master/ports/expat/portfile.cmake)
+    * [Xmake](https://github.com/xmake-io/xmake-repo/blob/HEAD/packages/e/expat/xmake.lua)
 * __AIX__
     * [AIX Open Source Packages](http://www.oss4aix.org/download/SRPMS/expat/)
 * __BSD__
@@ -51,6 +52,7 @@ Wherever you go, Expat is already waiting for you:
     * [Carbs Linux](https://github.com/CarbsLinux/repository/tree/master/extra/expat)
     * [CentOS](https://mirror.stream.centos.org/9-stream/AppStream/x86_64/os/Packages/)
     * [Chimera Linux](https://github.com/chimera-linux/cports/blob/master/main/libexpat/template.py)
+    * [Chromebrew](https://github.com/chromebrew/chromebrew/blob/HEAD/packages/expat.rb)
     * [Clear Linux](https://github.com/clearlinux-pkgs/expat/blob/main/expat.spec)
     * [CRUX](https://git.crux.nu/ports/compat-32/src/branch/3.7/expat-32)
     * [Debian](https://packages.debian.org/source/sid/expat)
@@ -112,6 +114,7 @@ Wherever you go, Expat is already waiting for you:
     * [Tribblix](https://github.com/tribblix/build/blob/master/TRIBlib-expat/build.sh)
 * __Windows__
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
+    * [EWPI](https://github.com/vtorri/ewpi/tree/HEAD/packages/expat)
     * MSYS2
         [[1]](https://github.com/msys2/MINGW-packages/blob/master/mingw-w64-expat/PKGBUILD)
         [[2]](https://github.com/msys2/MSYS2-packages/blob/master/expat/PKGBUILD)
