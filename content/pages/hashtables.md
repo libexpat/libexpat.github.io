@@ -420,16 +420,16 @@ pre-allocated and not have to do the expensive table expansion again.
 
 ## Footnotes
 
-<a name="C">1</a>: the best description I've heard of C is "it's an
+<a id="C">1</a>: the best description I've heard of C is "it's an
 excellent macro-assembler."  C language constructs map to a relatively
 small number of assembler language instructions on most
 microprocessors.  As a result, it's not at all uncommon for embedded C
 programmers to take careful note of the assembly language output of
 their compilers.
 
-<a name="mischance">2</a>: bad luck.
+<a id="mischance">2</a>: bad luck.
 
-<a name="hashcalc">3</a>: the calculation in `SECOND_HASH()` is a bit
+<a id="hashcalc">3</a>: the calculation in `SECOND_HASH()` is a bit
 confusing (I misread it the first time I studied it!), so let's lay it
 out here.  Assume that `power` is 6 (and `mask` is therefore
 `0b111111`), and suppose that our hash is `0b1111111111111111` to make
@@ -447,7 +447,7 @@ So we use the next three (`power-3`) bits of the hash, shifted left
 one bit.  The least significant bit will then be set to one by
 `PROBE_STEP()`, so no information is wasted.
 
-<a name="simples">4</a>: I'm sorry, I appear to have become infested
+<a id="simples">4</a>: I'm sorry, I appear to have become infested
 with [meerkats](https://en.wikipedia.org/wiki/Compare_the_Meerkat).
 
 &mdash;Rhodri James, 29th June 2017

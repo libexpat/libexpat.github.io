@@ -572,14 +572,14 @@ probably just as well.
 
 ## Footnotes
 
-<a name="xmlunicode">1:</a> for simplicity, we are assuming that the
+<a id="xmlunicode">1:</a> for simplicity, we are assuming that the
 library has been compiled to use UTF-8 internally.  If it has been
 compiled for UTF-16 (generally on Windows), we would have to use the
 wide string comparison function `wcscmp()` and a wide string literal.
 A properly paranoid program would use macros defined conditionally on
 `XML_UNICODE`, but that is more work that I want to do for an example.
 
-<a name="lazy">2:</a> in other words, I can't be bothered to do it.
+<a id="lazy">2:</a> in other words, I can't be bothered to do it.
 
 
 &mdash; Rhodri James, 30 August 2017

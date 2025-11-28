@@ -12,7 +12,7 @@ License: MIT
 * [XML 1.1 and XML 1.0 Fifth Edition are not supported](#xml-version)
 
 
-# <a name="split-character-data"></a> Character data may be split across multiple handler calls
+# <a id="split-character-data"></a> Character data may be split across multiple handler calls
 
 If you register a character data handler with
 `XML_SetCharacterDataHandler()`, you might expect that you would be
@@ -33,7 +33,7 @@ and end element handlers.  If you know how your character data will be
 structured, you may well be able to do better than that.
 
 
-# <a name="nested-parser-creation-time"></a> External entity sub-parsers must be created *after* parsing has started
+# <a id="nested-parser-creation-time"></a> External entity sub-parsers must be created *after* parsing has started
 
 There is a note in the description of
 `XML_ExternalEntityParserCreate()` in `expat.h` that is easy to miss:
@@ -55,7 +55,7 @@ handler is called.  The test suite has a lot of examples of creating
 and disposing of parsers in the `ExternalEntityRefHandler` itself.
 
 
-# <a name="temporary-strings"></a> Strings pass to handlers are only temporary
+# <a id="temporary-strings"></a> Strings pass to handlers are only temporary
 
 Most of the handlers that users register are passed strings of one
 form or another.  A start element handler, for instance, is passed the
@@ -66,7 +66,7 @@ really need one of these string parameters for later, make a copy of
 the string itself (and remember to free that when you're done!).
 
 
-# <a name="free-content-model"></a> Element declaration handlers must free their content models
+# <a id="free-content-model"></a> Element declaration handlers must free their content models
 
 The description of the `XML_ElementDeclHandler` type in `expat.h`
 includes the following remark:
@@ -85,7 +85,7 @@ content models around, for example to validate elements later on, they
 are perfectly at liberty to do so.
 
 
-# <a name="xml-version"></a> XML 1.1 and XML 1.0 Fifth Edition are not supported
+# <a id="xml-version"></a> XML 1.1 and XML 1.0 Fifth Edition are not supported
 
 Expat supports [XML 1.0 Fourth Edition](https://www.w3.org/TR/2006/REC-xml-20060816/).
 It does *not* support:

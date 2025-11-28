@@ -747,19 +747,19 @@ the right encoding.
 
 ## Footnotes
 
-<a name="hanging">1</a>: a common image of a linked list is as a
+<a id="hanging">1</a>: a common image of a linked list is as a
 chain, with each link in the chain being an element of the list.  If
 you think of the list head pointer as a loop bolted to the wall, the
 rest of the chain hangs down from that loop.  Linked lists (and other
 structures) are therefore sometimes said to "hang off" their head
 pointers.
 
-<a name="wart">2</a>: "Wart" is used as a term for an unfortunate and
+<a id="wart">2</a>: "Wart" is used as a term for an unfortunate and
 ugly feature in a program, language or similar.  A wart is not
 necessarily a bug, it may simply make certain types of development or
 usage patterns unnecessarily hard, as in this case.
 
-<a name="cunning">3</a>: something is described as cunning if it is
+<a id="cunning">3</a>: something is described as cunning if it is
 very clever, often deceitful.  In recent years it has come to have
 sarcastic overtones, thanks to
 [Blackadder](https://www.bbc.co.uk/programmes/b006xxw3); Baldrick's cry

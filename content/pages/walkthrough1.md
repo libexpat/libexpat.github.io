@@ -1191,32 +1191,32 @@ me know if you would like an explanation of anything in particular.
 
 ## Footnotes
 
-<a name="bendknee">1</a>: to kneel or submit, figuratively in this
+<a id="bendknee">1</a>: to kneel or submit, figuratively in this
 case.  A relic of our feudal past.
 
-<a name="poobah">2</a>: a humorous title derived from the character
+<a id="poobah">2</a>: a humorous title derived from the character
 Pooh-Bah in Gilbert and Sullivan's opera _The Mikado_, who listed
 among his various titles "Lord High Everything Else".  Sometimes used
 to mock overly self-important people, but Sebastian really does do
 everything else!
 
-<a name="palm">3</a>: "to palm something off on someone" means to pass
+<a id="palm">3</a>: "to palm something off on someone" means to pass
 responsibility for something to someone.  It is usually used in the
 sense of selling a fake or counterfeit object, though not here.
 
-<a name="hats">4</a>: get ready for a surprise.  Comes from the days
+<a id="hats">4</a>: get ready for a surprise.  Comes from the days
 when men commonly wore hats (think of all those fedora-wearing private
 eyes and investigative reporters of the pulp-era stories and films),
 and you would need to hold on to it if you took a wild journey in an
 open-topped car.
 
-<a name="rabbit">5</a>: _Alice in Wonderland_ by Lewis Carroll.  If
+<a id="rabbit">5</a>: _Alice in Wonderland_ by Lewis Carroll.  If
 you needed this footnote, go and add to your education immediately.
 
-<a name="wodge">6</a>: an undefined but significant amount of
+<a id="wodge">6</a>: an undefined but significant amount of
 something.
 
-<a name="utf83">7</a>: UTF-8 encodes codepoints U+0800 to U+FFFF into
+<a id="utf83">7</a>: UTF-8 encodes codepoints U+0800 to U+FFFF into
 three bytes as follows:
 
     :::
@@ -1224,7 +1224,7 @@ three bytes as follows:
 
 So U+FFFF would become the sequence `0xEF 0xBF 0xBF`.
 
-<a name="solidus">8</a>: "solidus" is the proper technical name for a
+<a id="solidus">8</a>: "solidus" is the proper technical name for a
 slash that no one ever uses.  Erm, maybe I should rephrase that...
 
 &mdash;Rhodri James, 23rd June 2017
