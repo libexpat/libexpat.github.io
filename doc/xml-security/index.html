@@ -99,7 +99,7 @@
         <div class="row">
 <div id="page-content">
   <blockquote>
-<p>Please note, <strong>this website is work-in-progress</strong>.<br />
+<p>Please note, <strong>this website is work-in-progress</strong>.<br>
 Be encouraged to <a href="../../doc/contribute-website/">join improving this website</a>.
 Thank you!</p>
 </blockquote>
@@ -108,7 +108,7 @@ Thank you!</p>
 <li><a href="#external-entities">External entities (XXE)</a></li>
 <li><a href="#billion-laughs">Billion laughs attack</a></li>
 </ul>
-<h1><a name="external-entities"></a> External entities (XXE)</h1>
+<h1><a id="external-entities"></a> External entities (XXE)</h1>
 <p><a href="https://en.wikipedia.org/wiki/XML_external_entity_attack"><strong>X</strong>ML e<strong>X</strong>ternal <strong>E</strong>ntity (XXE) vulnerabilities</a>
 are a common security problem in applications that parse XML files.</p>
 <p>XXE attacks rely on accessing files via <code>file://</code>, <code>https://</code>, <code>ftp://</code> or relative URLs.
@@ -118,7 +118,7 @@ therefore, not affected by XXE.</p>
 <a href="https://libexpat.github.io/doc/api/latest/#XML_SetExternalEntityRefHandler"><code>XML_SetExternalEntityRefHandler</code></a>.
 Configuring such a handler is therefore risky and should not be done if untrusted XML input is
 expected.</p>
-<h1><a name="billion-laughs"></a> Billion laughs attack</h1>
+<h1><a id="billion-laughs"></a> Billion laughs attack</h1>
 <p>By recursively nesting entities, it is possible to have a relatively small XML input file that generates a
 huge output after processing entities and/or takes a long time to process. In case of high memory
 usage, an XML parser may crash if the out-of-memory situation is not handled gracefully. This is known as a

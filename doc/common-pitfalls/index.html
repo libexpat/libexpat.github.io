@@ -106,7 +106,7 @@
 <li><a href="#free-content-model">Element declaration handlers must free their content models</a></li>
 <li><a href="#xml-version">XML 1.1 and XML 1.0 Fifth Edition are not supported</a></li>
 </ul>
-<h1><a name="split-character-data"></a> Character data may be split across multiple handler calls</h1>
+<h1><a id="split-character-data"></a> Character data may be split across multiple handler calls</h1>
 <p>If you register a character data handler with
 <code>XML_SetCharacterDataHandler()</code>, you might expect that you would be
 called just once for each section of character data.  Unfortunately
@@ -123,7 +123,7 @@ has a good example of this in its <code>CharData</code> structure and support
 functions &mdash; and process the whole thing in one go using start
 and end element handlers.  If you know how your character data will be
 structured, you may well be able to do better than that.</p>
-<h1><a name="nested-parser-creation-time"></a> External entity sub-parsers must be created <em>after</em> parsing has started</h1>
+<h1><a id="nested-parser-creation-time"></a> External entity sub-parsers must be created <em>after</em> parsing has started</h1>
 <p>There is a note in the description of
 <code>XML_ExternalEntityParserCreate()</code> in <code>expat.h</code> that is easy to miss:</p>
 <blockquote>
@@ -141,7 +141,7 @@ serious problems of their own.  The best solution is to do what
 <code>expat.h</code> says and not create a sub-parser until the appropriate
 handler is called.  The test suite has a lot of examples of creating
 and disposing of parsers in the <code>ExternalEntityRefHandler</code> itself.</p>
-<h1><a name="temporary-strings"></a> Strings pass to handlers are only temporary</h1>
+<h1><a id="temporary-strings"></a> Strings pass to handlers are only temporary</h1>
 <p>Most of the handlers that users register are passed strings of one
 form or another.  A start element handler, for instance, is passed the
 name of the element that has started and an array of attribute names
@@ -149,7 +149,7 @@ and values.  All of these strings are allocated in dynamic memory, so
 handlers should not store pointers to them for later use.  If you
 really need one of these string parameters for later, make a copy of
 the string itself (and remember to free that when you're done!).</p>
-<h1><a name="free-content-model"></a> Element declaration handlers must free their content models</h1>
+<h1><a id="free-content-model"></a> Element declaration handlers must free their content models</h1>
 <p>The description of the <code>XML_ElementDeclHandler</code> type in <code>expat.h</code>
 includes the following remark:</p>
 <blockquote>
@@ -164,7 +164,7 @@ used for the model.</p>
 the element declaration handler itself.  If the user wishes to keep
 content models around, for example to validate elements later on, they
 are perfectly at liberty to do so.</p>
-<h1><a name="xml-version"></a> XML 1.1 and XML 1.0 Fifth Edition are not supported</h1>
+<h1><a id="xml-version"></a> XML 1.1 and XML 1.0 Fifth Edition are not supported</h1>
 <p>Expat supports <a href="https://www.w3.org/TR/2006/REC-xml-20060816/">XML 1.0 Fourth Edition</a>.
 It does <em>not</em> support:</p>
 <ul>

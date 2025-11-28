@@ -467,14 +467,14 @@ input that the parser is about to be fed is similar to the one it
 finished with earlier, hopefully we will have the right size of table
 pre-allocated and not have to do the expensive table expansion again.</p>
 <h2>Footnotes</h2>
-<p><a name="C">1</a>: the best description I've heard of C is "it's an
+<p><a id="C">1</a>: the best description I've heard of C is "it's an
 excellent macro-assembler."  C language constructs map to a relatively
 small number of assembler language instructions on most
 microprocessors.  As a result, it's not at all uncommon for embedded C
 programmers to take careful note of the assembly language output of
 their compilers.</p>
-<p><a name="mischance">2</a>: bad luck.</p>
-<p><a name="hashcalc">3</a>: the calculation in <code>SECOND_HASH()</code> is a bit
+<p><a id="mischance">2</a>: bad luck.</p>
+<p><a id="hashcalc">3</a>: the calculation in <code>SECOND_HASH()</code> is a bit
 confusing (I misread it the first time I studied it!), so let's lay it
 out here.  Assume that <code>power</code> is 6 (and <code>mask</code> is therefore
 <code>0b111111</code>), and suppose that our hash is <code>0b1111111111111111</code> to make
@@ -490,7 +490,7 @@ than 16 bits).  Therefore:</p>
 <p>So we use the next three (<code>power-3</code>) bits of the hash, shifted left
 one bit.  The least significant bit will then be set to one by
 <code>PROBE_STEP()</code>, so no information is wasted.</p>
-<p><a name="simples">4</a>: I'm sorry, I appear to have become infested
+<p><a id="simples">4</a>: I'm sorry, I appear to have become infested
 with <a href="https://en.wikipedia.org/wiki/Compare_the_Meerkat">meerkats</a>.</p>
 <p>&mdash;Rhodri James, 29th June 2017</p>
 </div>

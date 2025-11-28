@@ -451,12 +451,12 @@ I wouldn't expect to encounter anything like it in real life.</p>
 <ul>
 <li>We map the bytes 0x00 to 0x7F to the codepoints U+0000 to U+007F
   (i.e. we will leave ASCII alone).</li>
-<li>0x80 is the first byte of a three-byte sequence <code>s</code>:<br/>
+<li>0x80 is the first byte of a three-byte sequence <code>s</code>:<br>
   <code>codepoint = s[1] * 256 + s[2]</code>
-  <br/><code>s[1]</code> is remembered as the <em>page</em> for 0x81 sequences (below).</li>
-<li>0x81 is the first byte of a two-byte sequence <code>s</code>:<br/>
+  <br><code>s[1]</code> is remembered as the <em>page</em> for 0x81 sequences (below).</li>
+<li>0x81 is the first byte of a two-byte sequence <code>s</code>:<br>
   <code>codepoint = page * 256 + s[1]</code>
-  <br/>If no page has yet been set (by an 0x80 sequence), it defaults
+  <br>If no page has yet been set (by an 0x80 sequence), it defaults
   to 0.</li>
 <li>0x82 is the first byte of a two-byte sequence, the codepoint of
   which is the value of the second byte.  This makes codepoints in the
@@ -615,13 +615,13 @@ purposes such as inserting a security translation layer, which is
 probably just as well.</p>
 <hr>
 <h2>Footnotes</h2>
-<p><a name="xmlunicode">1:</a> for simplicity, we are assuming that the
+<p><a id="xmlunicode">1:</a> for simplicity, we are assuming that the
 library has been compiled to use UTF-8 internally.  If it has been
 compiled for UTF-16 (generally on Windows), we would have to use the
 wide string comparison function <code>wcscmp()</code> and a wide string literal.
 A properly paranoid program would use macros defined conditionally on
 <code>XML_UNICODE</code>, but that is more work that I want to do for an example.</p>
-<p><a name="lazy">2:</a> in other words, I can't be bothered to do it.</p>
+<p><a id="lazy">2:</a> in other words, I can't be bothered to do it.</p>
 <p>&mdash; Rhodri James, 30 August 2017</p>
 </div>
         </div>

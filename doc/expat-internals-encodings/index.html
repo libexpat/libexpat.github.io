@@ -756,13 +756,13 @@ the need ever arise, particularly 8-bit encodings; just define a few
 tables and the translation functions to UTF-8 and UTF-16.</p>
 <hr>
 <h2>Footnotes</h2>
-<p><a name="stdvtable">1</a>: <code>STANDARD_VTABLE</code> fills in fields that only
+<p><a id="stdvtable">1</a>: <code>STANDARD_VTABLE</code> fills in fields that only
 exist when the compiler symbol <code>XML_MIN_SIZE</code> is defined.  It is not
 clear to me exactly what this is supposed to do, or even whether the
 library compiles with that symbol defined.  I would have guessed that
 is was for minimising the library's memory footprint, but that doesn't
 appear to be right.</p>
-<p><a name="ns">2</a>: Again, I haven't investigated exactly what
+<p><a id="ns">2</a>: Again, I haven't investigated exactly what
 <code>XML_NS</code> does in any detail yet.  I think it allows you to change the
 character used to mark an XML namespace from a colon to something
 else.  I'm not quite sure why this would be a good idea...</p>
