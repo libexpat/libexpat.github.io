@@ -758,14 +758,14 @@ tables and the translation functions to UTF-8 and UTF-16.
 
 ## Footnotes
 
-<a name="stdvtable">1</a>: `STANDARD_VTABLE` fills in fields that only
+<a id="stdvtable">1</a>: `STANDARD_VTABLE` fills in fields that only
 exist when the compiler symbol `XML_MIN_SIZE` is defined.  It is not
 clear to me exactly what this is supposed to do, or even whether the
 library compiles with that symbol defined.  I would have guessed that
 is was for minimising the library's memory footprint, but that doesn't
 appear to be right.
 
-<a name="ns">2</a>: Again, I haven't investigated exactly what
+<a id="ns">2</a>: Again, I haven't investigated exactly what
 `XML_NS` does in any detail yet.  I think it allows you to change the
 character used to mark an XML namespace from a colon to something
 else.  I'm not quite sure why this would be a good idea...

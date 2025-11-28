@@ -11,7 +11,7 @@ __NOTE__: For [bindings and 3rd-party wrappers](../bindings/), please check
 the [dedicated page](../bindings/).
 
 
-# <a name="softward"></a> Software
+# <a id="softward"></a> Software
 
 To be included in this list, the related piece of software needs to be
 [Open Source](https://opensource.org/osd-annotated)
@@ -330,7 +330,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [ZeroC Ice](https://github.com/zeroc-ice/ice/blob/master/cpp/src/IceXML/Parser.cpp)
 
 
-# <a name="hardware"></a> Hardware
+# <a id="hardware"></a> Hardware
 
 * [Bosch Coach mediaRouter](https://oss.bosch-cm.com/download/coach/2019_08%20Coach%20Media%20Router1162/2019-07-07_FOSS-INF_BCMR-1.1.1162docx.pdf)
 * [Bosch Nyon](https://www.bosch-ebike.com/fileadmin/EBC/eBike-Connect/Nyon_OpenSourceSoftware_MY19_used_licenses.pdf)

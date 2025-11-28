@@ -1255,24 +1255,24 @@ specifically like covered in a future article.
 
 ## Footnotes
 
-<a name="trudge">1</a>: to walk heavily or wearily.  Trudging
+<a id="trudge">1</a>: to walk heavily or wearily.  Trudging
 definitely involves effort.
 
-<a name="horror">2</a>: an expression of dismay or disgust, by
+<a id="horror">2</a>: an expression of dismay or disgust, by
 implication somewhat theatrical.
 
-<a name="roll">3</a>: "roll your own" is a phrase first applied to
+<a id="roll">3</a>: "roll your own" is a phrase first applied to
 cigarettes.  Those who don't like the cigarettes the tobacco companies
 produce can buy paper, filters and tobacco and literally roll a
 cigarette for themselves<sup>[4](#smoking)</sup>.  The phrase has
 become applied to many cases of creating an item for yourself rather
 than buying a pre-made version.
 
-<a name="smoking">4</a>: [smoking is bad for your
+<a id="smoking">4</a>: [smoking is bad for your
 health](https://www.nhs.uk/smokefree/why-quit/smoking-health-problems).
 Seriously.  Trust the medical profession on this one.
 
-<a name="lightbrigade">5</a>:
+<a id="lightbrigade">5</a>:
 
 > Theirs not to make reply,<br>
 Theirs not to reason why,<br>

@@ -13,7 +13,7 @@ Thank you!
 * [Billion laughs attack](#billion-laughs)
 
 
-# <a name="external-entities"></a> External entities (XXE)
+# <a id="external-entities"></a> External entities (XXE)
 
 [**X**ML e**X**ternal **E**ntity (XXE) vulnerabilities](https://en.wikipedia.org/wiki/XML_external_entity_attack)
 are a common security problem in applications that parse XML files.
@@ -28,7 +28,7 @@ Configuring such a handler is therefore risky and should not be done if untruste
 expected.
 
 
-# <a name="billion-laughs"></a> Billion laughs attack
+# <a id="billion-laughs"></a> Billion laughs attack
 
 By recursively nesting entities, it is possible to have a relatively small XML input file that generates a
 huge output after processing entities and/or takes a long time to process. In case of high memory
