@@ -26,7 +26,7 @@ url:
 
 # What is Expat?
 
-Welcome to Expat, a stream-oriented XML parser library written in C.<br/>
+Welcome to Expat, a stream-oriented XML parser library written in C.<br>
 Expat excels with files too large to fit RAM, and
 where performance and flexibility are crucial.
 
