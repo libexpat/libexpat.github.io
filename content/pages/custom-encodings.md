@@ -384,16 +384,16 @@ I wouldn't expect to encounter anything like it in real life.
 
 * We map the bytes 0x00 to 0x7F to the codepoints U+0000 to U+007F
   (i.e. we will leave ASCII alone).
-* 0x80 is the first byte of a three-byte sequence `s`:<br/>
+* 0x80 is the first byte of a three-byte sequence `s`:<br>
   ```
   codepoint = s[1] * 256 + s[2]
   ```
-  <br/>`s[1]` is remembered as the _page_ for 0x81 sequences (below).
-* 0x81 is the first byte of a two-byte sequence `s`:<br/>
+  <br>`s[1]` is remembered as the _page_ for 0x81 sequences (below).
+* 0x81 is the first byte of a two-byte sequence `s`:<br>
   ```
   codepoint = page * 256 + s[1]
   ```
-  <br/>If no page has yet been set (by an 0x80 sequence), it defaults
+  <br>If no page has yet been set (by an 0x80 sequence), it defaults
   to 0.
 * 0x82 is the first byte of a two-byte sequence, the codepoint of
   which is the value of the second byte.  This makes codepoints in the

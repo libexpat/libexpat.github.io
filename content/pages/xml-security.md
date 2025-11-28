@@ -2,7 +2,7 @@ Title: XML Security
 Date: 2025-11-24
 License: MIT
 
-> Please note, **this website is work-in-progress**.<br />
+> Please note, **this website is work-in-progress**.<br>
 Be encouraged to [join improving this website](../../doc/contribute-website/).
 Thank you!
 

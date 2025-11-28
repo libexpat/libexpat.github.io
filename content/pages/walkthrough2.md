@@ -1274,10 +1274,10 @@ Seriously.  Trust the medical profession on this one.
 
 <a name="lightbrigade">5</a>:
 
-> Theirs not to make reply,<br />
-Theirs not to reason why,<br />
-Theirs but to do and die,<br />
-Into the valley of Death<br />
+> Theirs not to make reply,<br>
+Theirs not to reason why,<br>
+Theirs but to do and die,<br>
+Into the valley of Death<br>
 Rode the six hundred.
 
 From _The Charge of the Light Brigade_ by Alfred, Lord Tennyson,

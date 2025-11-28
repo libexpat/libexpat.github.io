@@ -3,7 +3,7 @@ Date: 2018-08-19
 License: MIT
 slug: packages
 
-> Please note, **this website is work-in-progress**.<br />
+> Please note, **this website is work-in-progress**.<br>
 Be encouraged to [join improving this website](../contribute-website/).
 Thank you!
 

@@ -41,7 +41,7 @@ To add new pages, please:
    the "Latest News" section at the front page (`content/pages/welcome.md`).
 
 
-<br/>
+<br>
 We are looking forward to your contribution!
 
 The Expat development team
