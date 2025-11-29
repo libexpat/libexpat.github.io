@@ -60,7 +60,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [captagent](https://sipcapture.org/) — HOMER SIP capture agent
     * [CDuce](https://www.cduce.org/) — programming language adapted to the manipulation of XML data
     * [CEGUI](http://cegui.org.uk/)
-    * [CenterIM](http://www.centerim.org/index.php/Main_Page)
+    * [CenterIM](https://www.centerim.org/)
     * [Ceph / librgw](https://github.com/ceph/ceph/blob/master/src/rgw/rgw_xml.cc) — Ceph RADOS Gateway client library
     * [Chromium / libjingle_xmpp / xmllite](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/libjingle_xmpp/xmllite/xmlparser.h#18)
     * [Citadel](https://www.citadel.org/) — groupware server
@@ -71,7 +71,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [CODA](https://github.com/stcorp/coda/blob/eaa9b49974f80814fe14f485052ce782df7d4ce5/libcoda/coda-xml-parser.c#L35) — Common Data Access toolset
     * [Coin3D](https://bitbucket.org/Coin3D/coin/wiki/Home)
     * [Comet MS/MS search engine](https://sourceforge.net/projects/comet-ms/) — Tandem mass spectrometry (MS/MS) search engine
-    * [C-Pluff](http://www.c-pluff.org/) — Plug-in framework for C
+    * [C-Pluff](https://www.c-pluff.org/) — Plug-in framework for C
     * [CSVfix](https://bitbucket.org/neilb/csvfix)
     * [Cubrid](https://github.com/CUBRID/cubrid/blob/387b846895fc6490cfdbca6b5e967c1719f894c6/src/base/xml_parser.h#L34) — relational database management system for Web Applications
     * [CURL example code](https://github.com/curl/curl/blob/HEAD/docs/examples/xmlstream.c) (not CURL itself)
@@ -90,7 +90,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [EasySoap++](https://easysoap.sourceforge.net/)
     * [eegdev](http://cnbi.epfl.ch/software/eegdev.html) — biosignal acquisition device library
     * [ejabberd / erlang-p1-xml / fast_xml](https://github.com/processone/fast_xml) — XML utilities for Erlang
-    * [EKG2](http://www.ekg2.org)
+    * [EKG2](https://www.ekg2.org/)
     * [Electron](https://electron.atom.io/)
     * [ELinks](http://elinks.or.cz/)
     * [EMBOSS](https://emboss.sourceforge.net/)
@@ -99,7 +99,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Exiv2](https://exiv2.org/)
     * [ezQuake](https://ezquake.github.io/) — modern QuakeWorld client focused on competitive online play
 * __F__
-    * [Far-NetBox](https://github.com/michaellukashov/Far-NetBox) — SFTP/SCP/FTP/FTPS/WebDAV client for [Far Manager](http://farmanager.com/)
+    * [Far-NetBox](https://github.com/michaellukashov/Far-NetBox) — SFTP/SCP/FTP/FTPS/WebDAV client for [Far Manager](https://farmanager.com/)
     * [FBReader](https://fbreader.org/)
     * [FlightGear](https://sourceforge.net/p/flightgear/fgrun/) — Flight Gear Flight Simulator
     * [Firefox](https://www.mozilla.org/en-US/firefox/)
@@ -201,7 +201,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [MapServer](https://mapserver.org/)
     * [matchbox-keyboard](https://git.yoctoproject.org/matchbox-keyboard/) — on-screen 'virtual' or 'software' keyboard, designed for touch-screen devices running X
     * [matchbox-window-manager](https://git.yoctoproject.org/matchbox-window-manager/) — window manager for resource-limited systems
-    * [matchbox-window-manager 2](http://git.yoctoproject.org/cgit/cgit.cgi/matchbox-window-manager-2/) — window manager for resource-limited systems
+    * [matchbox-window-manager 2](https://git.yoctoproject.org/matchbox-window-manager-2/) — window manager for resource-limited systems
     * [Matanza](https://web.archive.org/web/20071226080243/http://bachue.com/matanza/) — real time telnet ASCII multiplayer game
     * [matita](http://matita.cs.unibo.it/) — interactive theorem prover
     * [MediaTomb](http://www.mediatomb.cc/)
