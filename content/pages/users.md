@@ -362,6 +362,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Mercedes-Benz C-Class 205](https://moba.i.daimler.com/bai-cars/ba/foss/content/en/pdfs/FOSS_License_C-Class_205.pdf)
 * [NetApp HCI mNode](https://library.netapp.com/ecm/ecm_download_file/ECMLP2871178)
 * [Onkyo BD-SP809](https://www.onkyo.com/manual/oss/bdsp809.pdf)
+* [Oracle Exadata Database Machine](https://docs.oracle.com/cd/F25229_01/dbmli/licensing-information-users-guide-exadata-database-machine.pdf)
 * [Palm mobile device](https://fastupload.panel.sk/uploads/open%20source%20information.pdf)
 * [Panasonic pro-av](https://eww.pass.panasonic.co.jp/pro-av/support/content/download/EN/user/MIT.pdf)
 * [Ricoh SP 311DN/311DNw](https://support.ricoh.com/bb_v1oi/pub_e/oi/0001048/0001048470/VM15486xx/M1548651_de.pdf)
