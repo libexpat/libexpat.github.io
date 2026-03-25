@@ -383,6 +383,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [TechniSat TECHNINET BS5 Profressional](https://www.technisat.com/assets/medias/docus/76/IMPORTINFO_Lizenztexte_fuer_Open_Source_Licenses_0000+5990.pdf)
 * [Telekom 5G-Empfänger SE](https://www.telekom.de/hilfe/downloads/lizenztexte-5g-empfaenger.pdf)
 * [Telekom Speedport Pro Plus](https://www.telekom.de/hilfe/downloads/lizenztexte-speedport-pro-plus.pdf)
+* [Telekom Speedport Smart](https://www.telekom.de/hilfe/downloads/lizenztexte-speedport-smart-4-typ-a)
 * [Theben IP Schnittstelle KNX](https://www.theben.de/ocsmedia/optimized/full/o4242v42%20Interface%20-%20Handbuch.PDF)
 * [Timemaster Terminal plus7](https://www.timemaster.de/files/download/plus7/Timemaster_Plus7_Open_Source_Lizenzen_V2.0.pdf)
 * [Trend Micro Threat Protection System](https://docs.trendmicro.com/all/tip/tps/v4.2.0/en-us/tps_4.2.0_os_licenses.pdf)
