@@ -370,6 +370,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [R&S® FPC Spectrum Analyzer](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_osa/FPC_OpenSourceAcknowledgment_en_2.pdf)
 * [R&S® TCE901 Series xx9 Transmitter](https://scdn.rohde-schwarz.com/ur/pws/dl_downloads/dl_software/pdf_2/TCE901_Open_Source_Acknowledgment_1910.pdf)
 * [Sangoma Phone](https://www.sangoma.com/wp-content/uploads/P-Series-Phone-EULA.pdf)
+* [Siemens Desigo Optic F200](https://assets.new.siemens.com/siemens/assets/api/uuid:1302567c-4b86-41b1-adb5-fac3fec510fc/readme-oss-desigo-optic-f200-v1-2.pdf)
 * [Siemens SIPROTEC 5](https://cache.industry.siemens.com/dl/files/431/109757431/att_960043/v1/OSS_Info.pdf)
 * [Sharp DX-C200P](https://www.sharp.de/cps/rde/xbcr/documents/documents/om/34_ppc/DXC200P_OM_Software_DE.pdf)
 * [Sharp PN-H701](https://www.sharp.at/cps/rde/xbcr/documents/documents/Marketing/Operational_manuals/pnh701_ex1_manual_de.pdf)
