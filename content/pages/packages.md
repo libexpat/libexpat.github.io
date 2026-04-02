@@ -78,6 +78,7 @@ Wherever you go, Expat is already waiting for you:
     * [NixOS](https://github.com/NixOS/nixpkgs/commits/master/pkgs/development/libraries/expat/default.nix)
     * [NOIR Linux](https://github.com/noirlinux/main/tree/master/extra/expat)
     * [OpenELA](https://github.com/openela-main/expat)
+    * [OpenEmbedded](https://git.openembedded.org/openembedded-core/tree/meta/recipes-core/expat) (including Yocto Project)
     * [OpenEuler](https://gitee.com/src-openeuler/expat/)
     * [openmamba](https://openmamba.org/en/packages/?tag=devel&pkg=expat.source)
     * [OpenMandriva](https://github.com/OpenMandrivaAssociation/expat)
@@ -99,7 +100,6 @@ Wherever you go, Expat is already waiting for you:
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/void-linux/void-packages/blob/master/srcpkgs/expat/template)
     * [yiffOS](https://gitlab.com/yiffos/packaging/packages/-/blob/knot/expat/PKGINFO)
-    * [Yocto Project](https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-core/expat)
 * __macOS__
     * [Fink](https://pdb.finkproject.org/pdb/package.php/expat1)
     * [Gentoo Prefix](https://packages.gentoo.org/packages/dev-libs/expat)
