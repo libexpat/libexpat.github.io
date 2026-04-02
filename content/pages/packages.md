@@ -105,7 +105,7 @@ Wherever you go, Expat is already waiting for you:
     * [Gentoo Prefix](https://packages.gentoo.org/packages/dev-libs/expat)
     * [Homebrew](https://formulae.brew.sh/formula/expat#default)
     * [MacPorts](https://github.com/macports/macports-ports/blob/master/textproc/expat/Portfile)
-    * [Rudix](https://github.com/rudix-mac/rudix/blob/master/Ports/expat/Makefile)
+    * <s>[Rudix](https://github.com/rudix-mac/rudix/blob/master/Ports/expat/Makefile)</s>
 * __Solaris__
     * [OmniOS Community Edition](https://github.com/omniosorg/omnios-build/blob/HEAD/build/expat/build.sh)
     * [OpenCSW](https://www.opencsw.org/package/expat/)
