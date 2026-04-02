@@ -43,7 +43,7 @@ Wherever you go, Expat is already waiting for you:
     * [Adélie Linux](https://git.adelielinux.org/adelie/packages/-/blob/current/system/expat/APKBUILD)
     * [Alpine Linux](https://git.alpinelinux.org/cgit/aports/tree/main/expat)
     * [ALT Linux](https://packages.altlinux.org/en/Sisyphus/srpms/expat)
-    * [AOSC](https://aosc-packages.cth451.me/packages/expat)
+    * [AOSC](https://github.com/AOSC-Dev/aosc-os-abbs/tree/HEAD/runtime-common/expat)
     * [Arch Linux](https://gitlab.archlinux.org/archlinux/packaging/packages/expat)
     * [Arch Linux AUR](https://aur.archlinux.org/packages/?O=0&K=expat)
     * [Ataraxia Linux](https://github.com/ataraxialinux/ataraxia/blob/master/packages/expat/KagamiBuild)
