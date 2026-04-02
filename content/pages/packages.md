@@ -62,7 +62,7 @@ Wherever you go, Expat is already waiting for you:
     * [Funtoo](https://github.com/funtoo/core-kit/tree/master/dev-libs/expat)
     * [Gentoo](https://packages.gentoo.org/packages/dev-libs/expat)
     * [Gobo Linux](https://github.com/gobolinux/Recipes/tree/master/Expat)
-    * [GuixSD](https://www.gnu.org/software/guix/packages/E/page/4/)
+    * [Guix](https://packages.guix.gnu.org/packages/expat/)
     * [Hyperbola](https://www.hyperbola.info/packages/core/x86_64/expat/)
     * IPFire
         [[1]](https://git.ipfire.org/?p=ipfire-2.x.git;a=blob;f=lfs/expat;hb=HEAD)
