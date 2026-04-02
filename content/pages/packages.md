@@ -18,7 +18,7 @@ Wherever you go, Expat is already waiting for you:
     * <s>[Hunter](https://github.com/ruslo/hunter/blob/master/cmake/projects/Expat/hunter.cmake)</s>
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
     * [pkgsrc](https://pkgsrc.se/textproc/expat)
-    * [Spack](https://github.com/spack/spack/blob/develop/var/spack/repos/builtin/packages/expat/package.py)
+    * [Spack](https://github.com/spack/spack-packages/blob/HEAD/repos/spack_repo/builtin/packages/expat/package.py)
     * [sw Software Network](https://software-network.org/org.sw.demo.expat)
     * [vcpkg](https://github.com/microsoft/vcpkg/blob/master/ports/expat/portfile.cmake)
     * [Xmake](https://github.com/xmake-io/xmake-repo/blob/HEAD/packages/e/expat/xmake.lua)
