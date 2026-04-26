@@ -99,6 +99,7 @@ Wherever you go, Expat is already waiting for you:
     * [SliTaz GNU/Linux](https://hg.slitaz.org/wok/file/tip/expat/receipt)
     * [Solus Project](https://github.com/getsolus/packages/blob/main/packages/e/expat/package.yml)
     * [T2 SDE](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
+    * [Termux](https://github.com/termux/termux-packages/blob/master/packages/libexpat/build.sh)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/void-linux/void-packages/blob/master/srcpkgs/expat/template)
     * [yiffOS](https://gitlab.com/yiffos/packaging/packages/-/blob/knot/expat/PKGINFO)
