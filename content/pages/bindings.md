@@ -46,6 +46,7 @@ interfaces to Expat from languages other than C.
 * __Lua__
     * [LuaExpat](https://github.com/LuaDist/luaexpat) is a wrapper around Expat for the [Lua](https://www.lua.org/) programming language. The [LuaSOAP](https://tomasguisasola.github.io/luasoap/) library is a [SOAP](https://xml.coverpages.org/soap.html) implementation built on top of [LuaExpat](https://lunarmodules.github.io/luaexpat/).
     * [luapower/expat](https://github.com/luapower/expat) — expat Lua+ffi binding
+    * [lxml](https://web.tecgraf.puc-rio.br/~lhf/ftp/lua/#lxml)
 * __ML__ (Standard ML)
     * [expat-sml](https://www.enyo.de/fw/notes/sml-expat.html) — Experimental Expat binding for Standard ML
 * __Nim__
