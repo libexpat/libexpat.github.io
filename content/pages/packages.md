@@ -46,6 +46,7 @@ Wherever you go, Expat is already waiting for you:
     * [AOSC](https://github.com/AOSC-Dev/aosc-os-abbs/tree/HEAD/runtime-common/expat)
     * [Arch Linux](https://gitlab.archlinux.org/archlinux/packaging/packages/expat)
     * [Arch Linux AUR](https://aur.archlinux.org/packages/?O=0&K=expat)
+    * [Artix Linux](https://gitea.artixlinux.org/packages/expat)
     * [Ataraxia Linux](https://github.com/ataraxialinux/ataraxia/blob/master/packages/expat/KagamiBuild)
     * [Azure Linux](https://github.com/microsoft/azurelinux/blob/main/SPECS/expat/expat.spec)
     * [Buildroot](https://gitlab.com/buildroot.org/buildroot/-/tree/HEAD/package/expat)
