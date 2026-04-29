@@ -102,6 +102,7 @@ Wherever you go, Expat is already waiting for you:
     * [Termux](https://github.com/termux/termux-packages/blob/master/packages/libexpat/build.sh)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/void-linux/void-packages/blob/master/srcpkgs/expat/template)
+    * [Wind River Linux](https://github.com/WindRiverLinux25/oe-core/tree/HEAD/meta/recipes-core/expat)
     * [yiffOS](https://gitlab.com/yiffos/packaging/packages/-/blob/knot/expat/PKGINFO)
 * __macOS__
     * [Fink](https://pdb.finkproject.org/pdb/package.php/expat1)
