@@ -33,6 +33,7 @@ interfaces to Expat from languages other than C.
     * [expat.dart](https://github.com/jpnurmi/expat.dart) — Dart FFI bindings
 * __Eiffel__
     * [EuExpat](https://github.com/dhodgkin/euexpat)
+    * [eXML](https://sourceforge.net/projects/exml/)
     * The [GOBO project](https://sourceforge.net/projects/gobo-eiffel/) is working on an Eiffel binding for Expat. Development is active and the package is fully supported in GOBO 3.0 and 3.1, though there isn't much status information about the Expat bindings on the website. (Most activity is reportedly on the relevant mailing lists.)
 * __Erlang__
     * [exml](https://github.com/esl/exml) — XML parsing library in Erlang
