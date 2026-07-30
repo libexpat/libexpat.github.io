@@ -35,6 +35,8 @@ Wherever you go, Expat is already waiting for you:
     * [NetBSD](https://github.com/NetBSD/src/tree/trunk/external/mit/expat)
     * [OpenBSD](https://github.com/openbsd/src/tree/master/lib/libexpat)
     * [Ravenports](https://github.com/jrmarino/Ravenports/blob/master/bucket_31/expat)
+* __FreeRTOS__
+    * [ESP-IDF](https://github.com/espressif/idf-extra-components/tree/master/expat)
 * __Haiku__
     * [HaikuPorts](https://github.com/haikuports/haikuports/tree/master/dev-libs/expat)
 * __HP-UX__
