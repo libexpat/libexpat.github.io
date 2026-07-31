@@ -55,7 +55,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __C__
     * [CableSwig](https://itk.org/ITK/resources/CableSwig.html)
     * [cadaver](https://notroj.github.io/cadaver/) (through neon) — command-line WebDAV client for Unix
-    * [cairo tool xml-to-trace](https://cairographics.org/) (not core cairo) (see [`util/xml-to-trace.c`](https://cgit.freedesktop.org/cairo/tree/util/xml-to-trace.c))
+    * [cairo tool xml-to-trace](https://cairographics.org/) (not core cairo) (see [`util/xml-to-trace.c`](https://cgit.freedesktop.org/cairo/tree/util/xml-to-trace.c?id=338eca43428d1956216362eeb8e1715bac99d876))
     * [Calf Studio Gear](https://calf-studio-gear.org/)
     * [captagent](https://sipcapture.org/) — HOMER SIP capture agent
     * [CDuce](https://www.cduce.org/) — programming language adapted to the manipulation of XML data
