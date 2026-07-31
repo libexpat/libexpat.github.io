@@ -29,20 +29,20 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [afflib](https://github.com/sshock/AFFLIBv3/)
     * [Aleph One](https://alephone.lhowon.org/)
     * [AmphetaDesk](https://www.disobey.com/amphetadesk/)
-    * [Android / core-libart](https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java)
-    * [Android Asset Packaging Tool (aapt)](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt/XMLNode.h)
-    * [Android Asset Packaging Tool (aapt2)](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt2/xml/XmlDom.cpp)
+    * [Android / libcore](https://android.googlesource.com/platform/libcore/) (see [`luni/src/main/java/org/apache/harmony/xml/ExpatParser.java`](https://android.googlesource.com/platform/libcore/+/refs/heads/main/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java))
+    * [Android Asset Packaging Tool (aapt)](https://android.googlesource.com/platform/frameworks/base/+/HEAD/tools/aapt/) (see [`XMLNode.h`](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt/XMLNode.h))
+    * [Android Asset Packaging Tool (aapt2)](https://developer.android.com/tools/aapt2) (see [`xml/XmlDom.cpp`](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt2/xml/XmlDom.cpp))
     * [Android Studio](https://developer.android.com/studio/index.html)
     * [Apache httpd / mod_dav](https://httpd.apache.org/) (prior to 2.0.12)
     * [Apache httpd tools](https://httpd.apache.org/)
     * [Apache OpenOffice](https://www.openoffice.org/)
     * [Apache Portable Runtime (apr-util)](https://apr.apache.org/)
     * [Apache Subversion](https://subversion.apache.org/)
-    * [Arabica](https://github.com/jezhiggins/arabica/blob/cd99dba691b99e5401315bf752a3300874060c28/src/SAX/wrappers/saxexpat.cpp#L129) — XML and HTML processing toolkit
+    * [Arabica](https://github.com/jezhiggins/arabica) — XML and HTML processing toolkit (see [`src/SAX/wrappers/saxexpat.cpp`](https://github.com/jezhiggins/arabica/blob/cd99dba691b99e5401315bf752a3300874060c28/src/SAX/wrappers/saxexpat.cpp#L129))
     * [aria2](https://aria2.github.io/)
-    * [asdcplib](https://github.com/cinecert/asdcplib/blob/f9d7fbc33aa571c547d916b145712469efd9f4b8/src/KM_xml.cpp#L561) — AS-DCP and AS-02 File Access Library
+    * [asdcplib](https://github.com/cinecert/asdcplib) — AS-DCP and AS-02 File Access Library (see [`src/KM_xml.cpp`](https://github.com/cinecert/asdcplib/blob/f9d7fbc33aa571c547d916b145712469efd9f4b8/src/KM_xml.cpp#L561))
     * [Astropy](https://www.astropy.org/)
-    * [Attract Mode](https://github.com/mickelson/attract/blob/a348c1f5fa125bfb4133e01ce3b03a17138dbea6/src/scraper_base.cpp#L33) — graphical front-end for command line emulators
+    * [Attract Mode](https://github.com/mickelson/attract) — graphical front-end for command line emulators (see [`src/scraper_base.cpp`](https://github.com/mickelson/attract/blob/a348c1f5fa125bfb4133e01ce3b03a17138dbea6/src/scraper_base.cpp#L33))
     * [Audacity](https://www.audacityteam.org/)
     * [Avahi](https://github.com/lathiat/avahi)
     * [ayttm](https://ayttm.sourceforge.net/) (through libxode) — universal instant messaging client
@@ -51,35 +51,35 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [biboumi](https://lab.louiz.org/louiz/biboumi/) — XMPP to IRC gateway
     * [Bist](https://gna.org/projects/bist/) — chemical drawing tool
     * [boinctui](https://github.com/suleman1971/boinctui) — Fullscreen text mode manager for Boinc client
-    * [BRLTTY](https://github.com/brltty/brltty/blob/884fd06c65995349240bf93f80da8d2c4d0225c7/Programs/cldr.c#L222) — background process providing access to the Linux/Unix console for a blind person using a refreshable braille display
+    * [BRLTTY](https://github.com/brltty/brltty) — background process providing access to the Linux/Unix console for a blind person using a refreshable braille display (see [`Programs/cldr.c`](https://github.com/brltty/brltty/blob/884fd06c65995349240bf93f80da8d2c4d0225c7/Programs/cldr.c#L222))
 * __C__
     * [CableSwig](https://itk.org/ITK/resources/CableSwig.html)
     * [cadaver](https://notroj.github.io/cadaver/) (through neon) — command-line WebDAV client for Unix
-    * [cairo tool xml-to-trace](https://cgit.freedesktop.org/cairo/tree/util/xml-to-trace.c) (not cairo itself)
+    * [cairo tool xml-to-trace](https://cairographics.org/) (not core cairo) (see [`util/xml-to-trace.c`](https://cgit.freedesktop.org/cairo/tree/util/xml-to-trace.c))
     * [Calf Studio Gear](https://calf-studio-gear.org/)
     * [captagent](https://sipcapture.org/) — HOMER SIP capture agent
     * [CDuce](https://www.cduce.org/) — programming language adapted to the manipulation of XML data
     * [CEGUI](http://cegui.org.uk/)
     * [CenterIM](https://www.centerim.org/)
-    * [Ceph / librgw](https://github.com/ceph/ceph/blob/master/src/rgw/rgw_xml.cc) — Ceph RADOS Gateway client library
-    * [Chromium / libjingle_xmpp / xmllite](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/libjingle_xmpp/xmllite/xmlparser.h#18)
+    * [Ceph / librgw](https://github.com/ceph/ceph) — Ceph RADOS Gateway client library (see [`src/rgw/rgw_xml.cc`](https://github.com/ceph/ceph/blob/master/src/rgw/rgw_xml.cc))
+    * [Chromium / libjingle_xmpp / xmllite](https://chromium.googlesource.com/chromium/src/) (see [`third_party/libjingle_xmpp/xmllite/xmlparser.h`](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/libjingle_xmpp/xmllite/xmlparser.h#18))
     * [Citadel](https://www.citadel.org/) — groupware server
     * [clamz](https://code.google.com/archive/p/clamz/) — command-line program to download MP3s from Amazon
     * [claws-mail-feeds-reader](https://www.claws-mail.org/) — feeds (RSS/Atom) reader plugin for Claws Mail
     * [CMake](https://cmake.org/)
     * [cobex](https://cobex.sourceforge.net/)
-    * [CODA](https://github.com/stcorp/coda/blob/eaa9b49974f80814fe14f485052ce782df7d4ce5/libcoda/coda-xml-parser.c#L35) — Common Data Access toolset
+    * [CODA](https://github.com/stcorp/coda) — Common Data Access toolset (see [`libcoda/coda-xml-parser.c`](https://github.com/stcorp/coda/blob/eaa9b49974f80814fe14f485052ce782df7d4ce5/libcoda/coda-xml-parser.c#L35))
     * [Coin3D](https://bitbucket.org/Coin3D/coin/wiki/Home)
     * [Comet MS/MS search engine](https://sourceforge.net/projects/comet-ms/) — Tandem mass spectrometry (MS/MS) search engine
     * [C-Pluff](https://www.c-pluff.org/) — Plug-in framework for C
     * [CSVfix](https://bitbucket.org/neilb/csvfix)
-    * [Cubrid](https://github.com/CUBRID/cubrid/blob/387b846895fc6490cfdbca6b5e967c1719f894c6/src/base/xml_parser.h#L34) — relational database management system for Web Applications
-    * [CURL example code](https://github.com/curl/curl/blob/HEAD/docs/examples/xmlstream.c) (not CURL itself)
+    * [Cubrid](https://github.com/CUBRID/cubrid) — relational database management system for Web Applications (see [`src/base/xml_parser.h`](https://github.com/CUBRID/cubrid/blob/387b846895fc6490cfdbca6b5e967c1719f894c6/src/base/xml_parser.h#L34))
+    * [CURL example code](https://github.com/curl/curl) (not CURL itself) (see [`docs/examples/xmlstream.c`](https://github.com/curl/curl/blob/HEAD/docs/examples/xmlstream.c))
 * __D__
     * [DACS (Distributed access control)](https://dacs.dss.ca/) — single sign-on and rule-based access control system
     * [Dasher](http://www.inference.org.uk/dasher/) — graphical predictive text input system
-    * [D-Bus (dbus)](https://gitlab.freedesktop.org/dbus/dbus/blob/8d8b5eb8a409031e224d088c1e3385bc2874c873/bus/config-loader-expat.c#L199) — message bus system
-    * [dbus-broker](https://github.com/bus1/dbus-broker/blob/47562f3582ba5c2605cb137f60296b6034f4c995/src/launch/config.c#L1274)
+    * [D-Bus (dbus)](https://gitlab.freedesktop.org/dbus/dbus) — message bus system (see [`bus/config-loader-expat.c`](https://gitlab.freedesktop.org/dbus/dbus/blob/8d8b5eb8a409031e224d088c1e3385bc2874c873/bus/config-loader-expat.c#L199))
+    * [dbus-broker](https://github.com/bus1/dbus-broker) (see [`src/launch/config.c`](https://github.com/bus1/dbus-broker/blob/47562f3582ba5c2605cb137f60296b6034f4c995/src/launch/config.c#L1274))
     * [DFXML / tcpflow](https://github.com/simsong/dfxml/blob/master/src/dfxml_reader.cpp) — Digital Forensics XML project and library
     * [digiKam](https://www.digikam.org/)
     * [discover](https://packages.debian.org/sid/discover) — hardware identification system
@@ -104,8 +104,8 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [FlightGear](https://sourceforge.net/p/flightgear/fgrun/) — Flight Gear Flight Simulator
     * [Firefox](https://www.mozilla.org/en-US/firefox/)
     * [Fontconfig](https://fontconfig.org/)
-    * [frag_find](https://github.com/simsong/frag_find/blob/d52334de62ff38b802bf5f24b0e12764ac9b1bd7/src/dfxml.cpp#L172) — hash-based carver tool
-    * [fre:ac CDK / BoCA](https://github.com/enzo1982/BoCA/tree/master/components/playlist/xspf/expat) — Free audio converter and CD ripper
+    * [frag_find](https://github.com/simsong/frag_find) — hash-based carver tool (see [`src/dfxml.cpp`](https://github.com/simsong/frag_find/blob/d52334de62ff38b802bf5f24b0e12764ac9b1bd7/src/dfxml.cpp#L172))
+    * [fre:ac CDK / BoCA](https://github.com/enzo1982/BoCA) — Free audio converter and CD ripper (see [`components/playlist/xspf/expat`](https://github.com/enzo1982/BoCA/tree/master/components/playlist/xspf/expat))
 * __G__
     * [GANGI](http://www.gamgi.org/) — General Atomistic Modelling Graphic Interface
     * [Ganglia](https://ganglia.sourceforge.net/)
@@ -118,7 +118,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [GenomeTools](https://genometools.org/) — versatile genome analysis toolkit
     * [Gerbera](https://github.com/gerbera/gerbera/blob/v1.4.0/src/mxml/parser_expat.cc#L156) — UPnP media server
     * [gettext](https://www.gnu.org/software/gettext/)
-    * [Ghostscript/GhostPDL](https://git.ghostscript.com/?p=ghostpdl.git;a=blob;f=xps/xpsxml.c;h=02cb845a9e90cb63f53c2f5096b6e85796a2df34;hb=HEAD) — Postscript and PDF interpreter and rendering engine
+    * [Ghostscript/GhostPDL](https://www.ghostscript.com/) — Postscript and PDF interpreter and rendering engine (see [`xps/xpsxml.c`](https://git.ghostscript.com/?p=ghostpdl.git;a=blob;f=xps/xpsxml.c;h=02cb845a9e90cb63f53c2f5096b6e85796a2df34;hb=HEAD))
     * [GIFTI / libgiftiio](https://www.nitrc.org/projects/gifti) — Geometry format under the Neuroimaging Informatics Technology Initiative (NIfTI)
     * [Git](https://www.git-scm.com/)
     * [Gnash](https://www.gnu.org/software/gnash/)
@@ -126,7 +126,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [GNU Image-Finding Tool (gift/gnuift)](https://www.gnu.org/software/gift/) — index and search images by content
     * [Godot](https://godotengine.org/)
     * [Goggles Music Manager](https://gogglesmm.github.io/)
-    * [Google Earth Enterprise / libsgl](https://github.com/google/earthenterprise/blob/HEAD/earth_enterprise/src/third_party/sgl/v0_8_6/src/SkXMLParser_expat.cpp)
+    * [Google Earth Enterprise / libsgl](https://github.com/google/earthenterprise) (see [`earth_enterprise/src/third_party/sgl/v0_8_6/src/SkXMLParser_expat.cpp`](https://github.com/google/earthenterprise/blob/HEAD/earth_enterprise/src/third_party/sgl/v0_8_6/src/SkXMLParser_expat.cpp))
     * [Gpick](https://www.gpick.org/) — advanced GTK+ color picker
     * [GPSBabel](https://www.gpsbabel.org/)
     * [gpx2shp](http://gpx2shp.osdn.jp/) — convert GPS or GPX file to ESRI Shape file
@@ -145,7 +145,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Ipsumdump](https://read.seas.harvard.edu/~kohler/ipsumdump/)
 * __J__
     * [jabberd2](https://jabberd2.org/)
-    * [JabberWerxC](https://github.com/cisco/JabberWerxC/blob/5a69904922a534e140ef7edb26190e38885aac90/src/libs/jabberwerx/src/util/parser.c) — C API for XMPP connectivity by Cisco Systems
+    * [JabberWerxC](https://github.com/cisco/JabberWerxC) — C API for XMPP connectivity by Cisco Systems (see [`src/libs/jabberwerx/src/util/parser.c`](https://github.com/cisco/JabberWerxC/blob/5a69904922a534e140ef7edb26190e38885aac90/src/libs/jabberwerx/src/util/parser.c))
     * [JACK Audio Connection Kit](https://jackaudio.org/)
     * [jggtrans](https://github.com/Jajcus/jggtrans) — Jabber to GaduGadu gateway ("transport")
     * [Joe's Window Manager (JWM)](https://joewing.net/projects/jwm/)
@@ -153,36 +153,36 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [K-3D](http://www.k-3d.org/)
     * [Kamailio XMPP gateway](https://www.kamailio.org/w/)
     * [Kodi](https://kodi.tv/)
-    * [Kodi inputstream.adaptive](https://github.com/peak3d/inputstream.adaptive/blob/4cb15f0eaab51082eccd687d3c57a99b8f5d86f9/src/parser/PRProtectionParser.cpp#L115) — Kodi inputstream addon for several manifest types
+    * [Kodi inputstream.adaptive](https://github.com/peak3d/inputstream.adaptive) — Kodi inputstream addon for several manifest types (see [`src/parser/PRProtectionParser.cpp`](https://github.com/peak3d/inputstream.adaptive/blob/4cb15f0eaab51082eccd687d3c57a99b8f5d86f9/src/parser/PRProtectionParser.cpp#L115))
     * [KomodoEdit](https://github.com/Komodo/KomodoEdit)
     * [Kopete](https://userbase.kde.org/Kopete)
 * __L__
     * [ladish](https://ladish.org/) — session management system for JACK applications
     * [LFTP](https://lftp.yar.ru/)
     * [libarchive](https://www.libarchive.org/)
-    * [libcmml](https://sources.debian.org/src/libcmml/0.9.4-1/src/cmml.c/#L205) — handling of documents written in CMML (Continuous Media Markup Language)
-    * [libcomps](https://github.com/rpm-software-management/libcomps/blob/51fc7782472cdfb1905aa48f405c0f192ba6c373/libcomps/src/comps_parse.c#L52) — alternative for yum.comps library
+    * [libcmml](https://sources.debian.org/src/libcmml/) — handling of documents written in CMML (Continuous Media Markup Language) (see [`src/cmml.c`](https://sources.debian.org/src/libcmml/0.9.4-1/src/cmml.c#L205))
+    * [libcomps](https://github.com/rpm-software-management/libcomps) — alternative for yum.comps library (see [`libcomps/src/comps_parse.c`](https://github.com/rpm-software-management/libcomps/blob/51fc7782472cdfb1905aa48f405c0f192ba6c373/libcomps/src/comps_parse.c#L52))
     * [libcutl](https://www.codesynthesis.com/projects/libcutl/)
     * [LibDOM / NetSurf](https://www.netsurf-browser.org/projects/libdom/)
-    * [libfixc](https://github.com/hroptatyr/libfixc/blob/a406c71aad62f8d85dae30ff1c74fc9346c51173/src/fixml-rd.c#L719) — fix&lt;-&gt;fixml&lt;-&gt;memory converter
+    * [libfixc](https://github.com/hroptatyr/libfixc) — fix&lt;-&gt;fixml&lt;-&gt;memory converter (see [`src/fixml-rd.c`](https://github.com/hroptatyr/libfixc/blob/a406c71aad62f8d85dae30ff1c74fc9346c51173/src/fixml-rd.c#L719))
     * [libgadu](https://libgadu.net/)
     * [libisds](http://xpisar.wz.cz/libisds/) — Czech Data Boxes access library
-    * [libkml](https://github.com/google/libkml/blob/8609edf7c8d13ae2ddb6eac2bca7c8e49c67a5f8/src/kml/base/expat_parser.cc)
-    * [liblcf](https://github.com/EasyRPG/liblcf/blob/b76e7391aca2fd41b730812de4cb48038da4d5fb/src/lcf/reader_xml.h#L110) — Library to handle RPG Maker 2000/2003 and EasyRPG projects
+    * [libkml](https://github.com/google/libkml) (see [`src/kml/base/expat_parser.cc`](https://github.com/google/libkml/blob/8609edf7c8d13ae2ddb6eac2bca7c8e49c67a5f8/src/kml/base/expat_parser.cc))
+    * [liblcf](https://github.com/EasyRPG/liblcf) — Library to handle RPG Maker 2000/2003 and EasyRPG projects (see [`src/lcf/reader_xml.h`](https://github.com/EasyRPG/liblcf/blob/b76e7391aca2fd41b730812de4cb48038da4d5fb/src/lcf/reader_xml.h#L110))
     * [libmesode](https://github.com/boothj5/libmesode)
     * [libmetalink](https://launchpad.net/libmetalink)
     * [libnih / nih-dbus-tool](https://launchpad.net/libnih)
-    * [libnpupnp](https://framagit.org/medoc92/npupnp/-/blob/master/src/inc/expatmm.hxx#L80) — C++ interface for upmpdcli and upplay
+    * [libnpupnp](https://framagit.org/medoc92/npupnp) — C++ interface for upmpdcli and upplay (see [`src/inc/expatmm.hxx`](https://framagit.org/medoc92/npupnp/-/blob/master/src/inc/expatmm.hxx#L80))
     * [LibOFA](https://code.google.com/p/musicip-libofa/)
     * [libopkele](https://kin.klever.net/libopkele/) — OpenID support library in C++
     * [libosmium](https://osmcode.org/libosmium/) — C++ framework for working with OSM data files
-    * [libprotobuf-mutator](https://github.com/google/libprotobuf-mutator/blob/HEAD/examples/expat/expat_example.cc)
+    * [libprotobuf-mutator](https://github.com/google/libprotobuf-mutator) (see [`examples/expat/expat_example.cc`](https://github.com/google/libprotobuf-mutator/blob/HEAD/examples/expat/expat_example.cc))
     * [LibreOffice](https://www.libreoffice.org/)
     * [libstrophe](https://github.com/strophe/libstrophe)
     * [libsolv / libzypp](https://doc.opensuse.org/projects/libzypp/HEAD/)
     * [libsynthesis](https://www.synthesis.ch/indefero/index.php/p/libsynthesis/) — library for SyncML-DS (SyncML Data Sync) clients
     * [libupnpp](https://www.lesbonscomptes.com/upmpdcli) — wraps libupnp for use by upmpdcli and upplay
-    * [libvips](https://github.com/libvips/libvips/blob/889ca9664808cd02321b78eb881adf84d156644b/libvips/iofuncs/vips.c#L575) — image processing library
+    * [libvips](https://github.com/libvips/libvips) — image processing library (see [`libvips/iofuncs/vips.c`](https://github.com/libvips/libvips/blob/889ca9664808cd02321b78eb881adf84d156644b/libvips/iofuncs/vips.c#L575))
     * [libwbxml](https://github.com/libwbxml/libwbxml)
     * [libwmf](https://wvware.sourceforge.net/)
     * [libwww](https://www.w3.org/Library/)
@@ -191,12 +191,12 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Liquid War 6](https://www.gnu.org/software/liquidwar6/)
     * [litmus](http://www.webdav.org/neon/litmus/)
     * [log4c](https://log4c.sourceforge.net/) — C library for flexible logging
-    * [lsp-plugins](https://github.com/sadko4u/lsp-plugins/commit/d444686924312c798c65d2a39a8c37c000527c50) (prior to version 1.1.11) — sound processing effect plug-ins
-    * [lwpr](https://sourceforge.net/p/lwpr/code/HEAD/tree/trunk/src/lwpr_xml.c#l894) — Locally Weighted Projection Regression (LWPR)
+    * [lsp-plugins](https://github.com/sadko4u/lsp-plugins) ([prior to version 1.1.11](https://github.com/sadko4u/lsp-plugins/commit/d444686924312c798c65d2a39a8c37c000527c50)) — sound processing effect plug-ins
+    * [lwpr](https://lwpr.sourceforge.net/) — Locally Weighted Projection Regression (LWPR) (see [`src/lwpr_xml.c`](https://sourceforge.net/p/lwpr/code/HEAD/tree/trunk/src/lwpr_xml.c#l894))
 * __M__
     * [Magics++ / libmagplus](https://software.ecmwf.int/wiki/display/MAGP/Magics) — latest generation of the ECMWF's Meteorological plotting software MAGICS
     * [MakeMKV](https://www.makemkv.com/)
-    * [MAME](https://github.com/mamedev/mame/blob/ea75c97d6d91f19f10292a79ffc2cb358555434e/src/lib/util/xmlfile.cpp#L77) — multi-purpose emulation framework
+    * [MAME](https://github.com/mamedev/mame) — multi-purpose emulation framework (see [`src/lib/util/xmlfile.cpp`](https://github.com/mamedev/mame/blob/ea75c97d6d91f19f10292a79ffc2cb358555434e/src/lib/util/xmlfile.cpp#L77))
     * [mamory](https://sourceforge.net/projects/mamory/)
     * [MapServer](https://mapserver.org/)
     * [matchbox-keyboard](https://git.yoctoproject.org/matchbox-keyboard/) — on-screen 'virtual' or 'software' keyboard, designed for touch-screen devices running X
@@ -211,7 +211,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [mod_auth_openid](https://findingscience.com/mod_auth_openid/) — OpenID authentication module for Apache2
     * [mod_dav](http://www.webdav.org/mod_dav/)
     * [Modelica ExternData](https://github.com/modelica-3rdparty/ExternData)
-    * [mstoolkit](https://github.com/mhoopmann/mstoolkit/blob/master/src/mzParser/saxhandler.cpp) — libraries for manipulating mass spectrometry data
+    * [mstoolkit](https://github.com/mhoopmann/mstoolkit) — libraries for manipulating mass spectrometry data (see [`src/mzParser/saxhandler.cpp`](https://github.com/mhoopmann/mstoolkit/blob/master/src/mzParser/saxhandler.cpp))
     * [Music Player Daemon (MPD)](https://www.musicpd.org) — Server-side application for playing music
     * [mu-conference / jabber-muc](https://gna.org/projects/mu-conference/)
 * __N__
@@ -224,16 +224,16 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [OGDI](https://ogdi.sourceforge.net/)
     * [openam](https://www.h323plus.org/) — H.323 answering machine
     * [OpenCOLLADA](http://www.opencollada.org/)
-    * [OpenColorIO](https://github.com/AcademySoftwareFoundation/OpenColorIO/blob/0021372b4dba3444e21a36d846b327efad054f8d/src/OpenColorIO/fileformats/FileFormatIridasLook.cpp#L138) — color management framework
+    * [OpenColorIO](https://github.com/AcademySoftwareFoundation/OpenColorIO) — color management framework (see [`src/OpenColorIO/fileformats/FileFormatIridasLook.cpp`](https://github.com/AcademySoftwareFoundation/OpenColorIO/blob/0021372b4dba3444e21a36d846b327efad054f8d/src/OpenColorIO/fileformats/FileFormatIridasLook.cpp#L138))
     * [OpenSIPS](https://www.opensips.org/) (modules `jabber` and `xmpp`) — very fast and configurable SIP server
-    * [OpenVanilla](https://github.com/openvanilla/openvanilla/commit/bac11c8a818c53e020c903c6f32f220e5c48af91) (prior to version 0.7.1)
+    * [OpenVanilla](https://github.com/openvanilla/openvanilla) ([prior to version 0.7.1](https://github.com/openvanilla/openvanilla/commit/bac11c8a818c53e020c903c6f32f220e5c48af91))
     * [ophcrack](https://ophcrack.sourceforge.io/) — Microsoft Windows password cracker using rainbow tables
-    * [osm2pgrouting](https://github.com/pgRouting/osm2pgrouting/blob/master/src/XMLParser.cpp) — Tool to import OpenStreetMap data into a pgRouting database
+    * [osm2pgrouting](https://github.com/pgRouting/osm2pgrouting) — Tool to import OpenStreetMap data into a pgRouting database (see [`src/XMLParser.cpp`](https://github.com/pgRouting/osm2pgrouting/blob/master/src/XMLParser.cpp))
     * [Osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql)
 * __P__
-    * [ParaGUI](https://github.com/pipelka/paragui/blob/c80f5cb737767d44939e1724d78141f3a4ddcb8e/src/themes/themeloader.cpp#L38) — cross-platform widgetset for SDL
+    * [ParaGUI](https://github.com/pipelka/paragui) — cross-platform widgetset for SDL (see [`src/themes/themeloader.cpp`](https://github.com/pipelka/paragui/blob/c80f5cb737767d44939e1724d78141f3a4ddcb8e/src/themes/themeloader.cpp#L38))
     * [ParaView](https://www.paraview.org/)
-    * [PHP](https://github.com/php/php-src/blob/master/ext/xml/compat.c) — The PHP Interpreter
+    * [PHP](https://github.com/php/php-src) — The PHP Interpreter (see [`ext/xml/compat.c`](https://github.com/php/php-src/blob/master/ext/xml/compat.c))
     * [POCO](https://pocoproject.org/)
     * [Poedit](https://poedit.net)
     * [polkit](https://www.freedesktop.org/wiki/Software/polkit/)
@@ -257,14 +257,14 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [s3backer](https://github.com/archiecobbs/s3backer)
     * [Sablotron](https://sourceforge.net/projects/sablotron/)
     * [sblg](https://kristaps.bsd.lv/sblg/)
-    * [scidb](https://sourceforge.net/p/scidb/code/HEAD/tree/trunk/src/util/u_html.cpp#l603) — chess database application
+    * [scidb](https://scidb.sourceforge.net/) — chess database application (see [`src/util/u_html.cpp`](https://sourceforge.net/p/scidb/code/HEAD/tree/trunk/src/util/u_html.cpp#l603))
     * [Scorched3D](http://www.scorched3d.co.uk/)
     * [SDLmame](https://sdlmame.lngn.net/)
     * [SeaMonkey](https://www.seamonkey-project.org/)
     * [simgear](https://wiki.flightgear.org/SimGear)
     * [sitecopy](https://packages.debian.org/sid/web/sitecopy) (through neon) — program for managing a WWW site via FTP, SFTP, DAV or HTTP
-    * [Skia Graphics Library](https://github.com/google/skia/blob/HEAD/src/ports/SkFontMgr_android_parser.cpp)
-    * [Slic3r](https://github.com/slic3r/Slic3r/blob/master/xs/src/libslic3r/IO/TMF.hpp) — 3D printing toolbox
+    * [Skia Graphics Library](https://github.com/google/skia) (see [`src/ports/SkFontMgr_android_parser.cpp`](https://github.com/google/skia/blob/HEAD/src/ports/SkFontMgr_android_parser.cpp))
+    * [Slic3r](https://github.com/slic3r/Slic3r) — 3D printing toolbox (see [`xs/src/libslic3r/IO/TMF.hpp`](https://github.com/slic3r/Slic3r/blob/master/xs/src/libslic3r/IO/TMF.hpp))
     * [Soulseek](https://www.slsknet.org/)
     * [spatialite-tools](https://www.gaia-gis.it/spatialite)
     * [Speed Dreams](http://www.speed-dreams.org/) (uses modified Expat fork "txml")
@@ -272,7 +272,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Squid](https://www.squid-cache.org/)
     * [StarDict](https://stardict-4.sourceforge.net/)
     * [Stargazer](http://stg.dp.ua/)
-    * [Swift XMPP Client](https://github.com/swift/swift/blob/09d8ac653493a0bd16cb69664ca28fbfe3c61bbb/Swiften/Parser/ExpatParser.cpp) — XMPP client and XMPP library
+    * [Swift XMPP Client](https://github.com/swift/swift) — XMPP client and XMPP library (see [`Swiften/Parser/ExpatParser.cpp`](https://github.com/swift/swift/blob/09d8ac653493a0bd16cb69664ca28fbfe3c61bbb/Swiften/Parser/ExpatParser.cpp))
     * [Swish-e](https://web.archive.org/web/20061223111433/http://swish-e.org/) — system for indexing collections of Web pages or other files
 * __T__
     * [Tandem](https://www.thegpm.org/TANDEM/) — mass spectrometry software for protein identification
@@ -287,10 +287,10 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __U__
     * [UDUNITS](https://www.unidata.ucar.edu/software/udunits/)
     * [uim](https://github.com/uim/uim/)
-    * [ulxmlrpcpp](https://sourceforge.net/p/ulxmlrpcpp/code/HEAD/tree/trunk/ulxmlrpcpp/ulxmlrpcpp/ulxr_expatwrap.cpp#l136) — xml-rpc lib for C++
+    * [ulxmlrpcpp](https://ulxmlrpcpp.sourceforge.net/) — xml-rpc lib for C++ (see [`ulxmlrpcpp/ulxmlrpcpp/ulxr_expatwrap.cpp`](https://sourceforge.net/p/ulxmlrpcpp/code/HEAD/tree/trunk/ulxmlrpcpp/ulxmlrpcpp/ulxr_expatwrap.cpp#l136))
     * [Unbound](https://nlnetlabs.nl/projects/unbound/about/)
     * [urfkill](https://www.freedesktop.org/wiki/Software/urfkill/) — wireless killswitch management daemon for laptops
-    * [uterus](https://github.com/hroptatyr/uterus/blob/76e4781f326186f48b568dc530faee4eaebd37c2/src/ibhist.c#L350) — universal tick encoder library
+    * [uterus](https://github.com/hroptatyr/uterus) — universal tick encoder library (see [`src/ibhist.c`](https://github.com/hroptatyr/uterus/blob/76e4781f326186f48b568dc530faee4eaebd37c2/src/ibhist.c#L350))
     * [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/)
 * __V__
     * [vdr-rssreader](http://www.saunalahti.fi/~rahrenbe/vdr/rssreader/)
@@ -304,30 +304,30 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [VTK](https://vtk.org/)
 * __W__
     * [Wayland](https://wayland.freedesktop.org/)
-    * [WebKit / libwebrtc](https://github.com/WebKit/webkit/blob/master/Source/ThirdParty/libwebrtc/Source/third_party/expat/files/lib)
+    * [WebKit / libwebrtc](https://github.com/WebKit/webkit)
       (prior to [this commit](https://github.com/WebKit/webkit/commit/7c6bc1c04c2c64c95f0adfcdc504d94c5beee927))
     * [white_dune](https://wdune.ourproject.org/) — graphical VRML97/X3D viewer, editor, 3D modeller and animation tool
     * [WinMerge 2](https://winmerge.org/)
     * [WinSCP](https://winscp.net/eng/index.php)
-    * [WinSparkle](https://github.com/vslavik/winsparkle/tree/master/3rdparty)
+    * [WinSparkle](https://github.com/vslavik/winsparkle) (see [`3rdparty/`](https://github.com/vslavik/winsparkle/tree/master/3rdparty))
     * [wvWare / libwv](http://www.abisource.com/projects/) — library which allows access to Microsoft Word files
     * [wxWidgets](https://wxwidgets.org/)
     * [wxSVG](https://wxsvg.sourceforge.io/)
 * __X__
     * [xkbd](http://trac.hackable1.org/trac/wiki/Xkbd)
     * [XML Copy Editor](https://xml-copy-editor.sourceforge.io/) — fast, free, validating XML editor
-    * [xmlppm](https://sourceforge.net/p/xmlppm/code/HEAD/tree/src/EncodeSax.cpp#l387) — XML data compression program
+    * [xmlppm](https://xmlppm.sourceforge.net/) — XML data compression program (see [`src/EncodeSax.cpp`](https://sourceforge.net/p/xmlppm/code/HEAD/tree/src/EncodeSax.cpp#l387))
     * [xmlrpc-c](https://sourceforge.net/projects/xmlrpc-c/) — library for writing an XML-RPC server or client in C/C++
     * [xmlrpc-epi](https://xmlrpc-epi.sourceforge.net/)
-    * [XMP-Toolkit-SDK](https://github.com/adobe/XMP-Toolkit-SDK/blob/main/XMPCore/source/ExpatAdapter.cpp#L83) — Adobe's toolkit offering XMP functionality for appliations
-    * [xmp3](https://github.com/BellerophonMobile/xmp3/blob/426cf7ee0ad4f32bea98cadad93b140d6a4c9760/src/xmpp_parser.c) — XMPP Proxy, small Extensible XMPP Server
+    * [XMP-Toolkit-SDK](https://github.com/adobe/XMP-Toolkit-SDK) — Adobe's toolkit offering XMP functionality for appliations (see [`XMPCore/source/ExpatAdapter.cpp`](https://github.com/adobe/XMP-Toolkit-SDK/blob/main/XMPCore/source/ExpatAdapter.cpp#L83))
+    * [xmp3](https://github.com/BellerophonMobile/xmp3) — XMPP Proxy, small Extensible XMPP Server (see [`src/xmpp_parser.c`](https://github.com/BellerophonMobile/xmp3/blob/426cf7ee0ad4f32bea98cadad93b140d6a4c9760/src/xmpp_parser.c))
     * [XPilot NG](https://xpilot.sourceforge.net/) — Multi-player tactical game for X (NG version)
-    * [XLSX I/O](https://github.com/brechtsanders/xlsxio/blob/cfd9ed517417000f5ffce428f2a4a7da0847c145/lib/xlsxio_read.c#L157) — library for reading and writing `.xlsx` files
+    * [XLSX I/O](https://github.com/brechtsanders/xlsxio) — library for reading and writing `.xlsx` files (see [`lib/xlsxio_read.c`](https://github.com/brechtsanders/xlsxio/blob/cfd9ed517417000f5ffce428f2a4a7da0847c145/lib/xlsxio_read.c#L157))
 * __Y__
-    * [Ymagine](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c)
+    * [Ymagine](https://github.com/yahoo/ygloo-ymagine) (see [`jni/src/graphics/xmp.c`](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c))
 * __Z__
     * [Zebra / idzebra](https://www.indexdata.com/resources/software/zebra/)
-    * [ZeroC Ice](https://github.com/zeroc-ice/ice/blob/master/cpp/src/IceXML/Parser.cpp)
+    * [ZeroC Ice](https://github.com/zeroc-ice/ice) (see [`cpp/src/IceXML/Parser.cpp`](https://github.com/zeroc-ice/ice/blob/master/cpp/src/IceXML/Parser.cpp))
 
 
 # <a id="hardware"></a> Hardware
