@@ -102,7 +102,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Far-NetBox](https://github.com/michaellukashov/Far-NetBox) — SFTP/SCP/FTP/FTPS/WebDAV client for [Far Manager](https://farmanager.com/)
     * [FBReader](https://fbreader.org/)
     * [FlightGear](https://sourceforge.net/p/flightgear/fgrun/) — Flight Gear Flight Simulator
-    * [Firefox](https://www.mozilla.org/en-US/firefox/)
+    * [Firefox](https://www.mozilla.org/en-US/firefox/) (see [`parser/htmlparser/nsExpatDriver.cpp`](https://github.com/mozilla-firefox/firefox/blob/fdd583cd5a10d051053acda8b760c3bd5d800034/parser/htmlparser/nsExpatDriver.cpp#L1612))
     * [Fontconfig](https://fontconfig.org/)
     * [frag_find](https://github.com/simsong/frag_find) — hash-based carver tool (see [`src/dfxml.cpp`](https://github.com/simsong/frag_find/blob/d52334de62ff38b802bf5f24b0e12764ac9b1bd7/src/dfxml.cpp#L172))
     * [fre:ac CDK / BoCA](https://github.com/enzo1982/BoCA) — Free audio converter and CD ripper (see [`components/playlist/xspf/expat`](https://github.com/enzo1982/BoCA/tree/master/components/playlist/xspf/expat))
