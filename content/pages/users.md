@@ -172,7 +172,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [libmesode](https://github.com/boothj5/libmesode)
     * [libmetalink](https://launchpad.net/libmetalink)
     * [libnih / nih-dbus-tool](https://launchpad.net/libnih)
-    * [libnpupnp](https://framagit.org/medoc92/npupnp) — C++ interface for upmpdcli and upplay (see [`src/inc/expatmm.hxx`](https://framagit.org/medoc92/npupnp/-/blob/master/src/inc/expatmm.h#L80))
+    * [libnpupnp](https://framagit.org/medoc92/npupnp) — C++ interface for upmpdcli and upplay (see [`src/inc/expatmm.h`](https://framagit.org/medoc92/npupnp/-/blob/master/src/inc/expatmm.h#L80))
     * [LibOFA](https://code.google.com/p/musicip-libofa/)
     * [libopkele](https://kin.klever.net/libopkele/) — OpenID support library in C++
     * [libosmium](https://osmcode.org/libosmium/) — C++ framework for working with OSM data files
