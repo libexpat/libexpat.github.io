@@ -228,7 +228,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [OpenSIPS](https://www.opensips.org/) (modules `jabber` and `xmpp`) — very fast and configurable SIP server
     * [OpenVanilla](https://github.com/openvanilla/openvanilla) ([prior to version 0.7.1](https://github.com/openvanilla/openvanilla/commit/bac11c8a818c53e020c903c6f32f220e5c48af91))
     * [ophcrack](https://ophcrack.sourceforge.io/) — Microsoft Windows password cracker using rainbow tables
-    * [osm2pgrouting](https://github.com/pgRouting/osm2pgrouting) — Tool to import OpenStreetMap data into a pgRouting database (see [`src/XMLParser.cpp`](https://github.com/pgRouting/osm2pgrouting/blob/master/src/XMLParser.cpp))
+    * [osm2pgrouting](https://github.com/pgRouting/osm2pgrouting) — Tool to import OpenStreetMap data into a pgRouting database (see [`src/parser/XMLParser.cpp`](https://github.com/pgRouting/osm2pgrouting/blob/ecfcb16165d4180af0a4ed5bcd2cd9c62dc60bd7/src/parser/XMLParser.cpp#L55))
     * [Osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql)
 * __P__
     * [ParaGUI](https://github.com/pipelka/paragui) — cross-platform widgetset for SDL (see [`src/themes/themeloader.cpp`](https://github.com/pipelka/paragui/blob/c80f5cb737767d44939e1724d78141f3a4ddcb8e/src/themes/themeloader.cpp#L38))
