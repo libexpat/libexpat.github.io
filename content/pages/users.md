@@ -327,7 +327,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Ymagine](https://github.com/yahoo/ygloo-ymagine) (see [`jni/src/graphics/xmp.c`](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c))
 * __Z__
     * [Zebra / idzebra](https://www.indexdata.com/resources/software/zebra/)
-    * [ZeroC Ice](https://github.com/zeroc-ice/ice) (see [`cpp/src/IceXML/Parser.cpp`](https://github.com/zeroc-ice/ice/blob/master/cpp/src/IceXML/Parser.cpp))
+    * [ZeroC Ice](https://github.com/zeroc-ice/ice) (see [`cpp/src/IceGrid/XMLParser.cpp`](https://github.com/zeroc-ice/ice/blob/cd2f7a99d6b6237bac0dbb4327effe35762fdfa9/cpp/src/IceGrid/XMLParser.cpp#L6))
 
 
 # <a id="hardware"></a> Hardware
