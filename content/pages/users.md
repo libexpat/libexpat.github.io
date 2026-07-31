@@ -278,7 +278,6 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Tandem](https://www.thegpm.org/TANDEM/) — mass spectrometry software for protein identification
     * [TECkit](https://software.sil.org/teckit/)
     * [thin-provisioning-tools](https://github.com/jthornber/thin-provisioning-tools)
-    * [Thunderbird](https://www.mozilla.org/en-US/thunderbird/)
     * [Tivoli Storage Manager](https://www.ibm.com/cloud-computing/products/devops/it-operations-management/)
     * [TORCS](https://torcs.sourceforge.net/) (uses modified Expat fork "txml")
     * [TortoiseSVN](https://tortoisesvn.net/) — Subversion client, implemented as a Windows shell extension
