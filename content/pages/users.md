@@ -305,7 +305,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __W__
     * [Wayland](https://wayland.freedesktop.org/)
     * [WebKit / libwebrtc](https://github.com/WebKit/webkit)
-      (prior to [this commit](https://github.com/WebKit/webkit/commit/7c6bc1c04c2c64c95f0adfcdc504d94c5beee927))
+      (prior to [this commit](https://github.com/WebKit/webkit/commit/72b070fc9a89e13b91cf1c5a3ad5cbaccb21b67b))
     * [white_dune](https://wdune.ourproject.org/) — graphical VRML97/X3D viewer, editor, 3D modeller and animation tool
     * [WinMerge 2](https://winmerge.org/)
     * [WinSCP](https://winscp.net/eng/index.php)
