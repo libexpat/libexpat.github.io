@@ -152,7 +152,6 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __K__
     * [K-3D](http://www.k-3d.org/)
     * [Kamailio XMPP gateway](https://www.kamailio.org/w/)
-    * [Kodi](https://kodi.tv/)
     * [Kodi inputstream.adaptive](https://github.com/peak3d/inputstream.adaptive) — Kodi inputstream addon for several manifest types (see [`src/parser/PRProtectionParser.cpp`](https://github.com/peak3d/inputstream.adaptive/blob/4cb15f0eaab51082eccd687d3c57a99b8f5d86f9/src/parser/PRProtectionParser.cpp#L115))
     * [KomodoEdit](https://github.com/Komodo/KomodoEdit)
     * [Kopete](https://userbase.kde.org/Kopete)
