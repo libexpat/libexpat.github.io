@@ -1,9 +1,12 @@
 Title: Expat News
-Date: 2026-06-25
+Date: 2026-08-10
 License: MIT
 slug: news
 
 
+* 2026-08-10 —
+  [Expat 2.8.**3**](https://github.com/libexpat/libexpat/blob/R_2_8_3/expat/Changes)
+  has been released, includes **security fixes**
 * 2026-06-25 —
   [Expat 2.8.**2**](https://github.com/libexpat/libexpat/blob/R_2_8_2/expat/Changes)
   has been released, includes **security fixes**
