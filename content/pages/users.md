@@ -29,21 +29,21 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [afflib](https://github.com/sshock/AFFLIBv3/)
     * [Aleph One](https://alephone.lhowon.org/)
     * [AmphetaDesk](https://www.disobey.com/amphetadesk/)
-    * [Android / libcore](https://android.googlesource.com/platform/libcore/) (see [`luni/src/main/java/org/apache/harmony/xml/ExpatParser.java`](https://android.googlesource.com/platform/libcore/+/refs/heads/main/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java))
+    * [**Android** / libcore](https://android.googlesource.com/platform/libcore/) (see [`luni/src/main/java/org/apache/harmony/xml/ExpatParser.java`](https://android.googlesource.com/platform/libcore/+/refs/heads/main/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java))
     * [Android Asset Packaging Tool (aapt)](https://android.googlesource.com/platform/frameworks/base/+/HEAD/tools/aapt/) (see [`XMLNode.h`](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt/XMLNode.h))
     * [Android Asset Packaging Tool (aapt2)](https://developer.android.com/tools/aapt2) (see [`xml/XmlDom.cpp`](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt2/xml/XmlDom.cpp))
     * [Android Studio](https://developer.android.com/studio/index.html)
     * [Apache httpd / mod_dav](https://httpd.apache.org/) (prior to 2.0.12)
     * [Apache httpd tools](https://httpd.apache.org/)
-    * [Apache OpenOffice](https://www.openoffice.org/)
+    * [**Apache OpenOffice**](https://www.openoffice.org/)
     * [Apache Portable Runtime (apr-util)](https://apr.apache.org/)
-    * [Apache Subversion](https://subversion.apache.org/)
+    * [**Apache Subversion**](https://subversion.apache.org/)
     * [Arabica](https://github.com/jezhiggins/arabica) — XML and HTML processing toolkit (see [`src/SAX/wrappers/saxexpat.cpp`](https://github.com/jezhiggins/arabica/blob/cd99dba691b99e5401315bf752a3300874060c28/src/SAX/wrappers/saxexpat.cpp#L129))
     * [aria2](https://aria2.github.io/)
     * [asdcplib](https://github.com/cinecert/asdcplib) — AS-DCP and AS-02 File Access Library (see [`src/KM_xml.cpp`](https://github.com/cinecert/asdcplib/blob/f9d7fbc33aa571c547d916b145712469efd9f4b8/src/KM_xml.cpp#L561))
     * [Astropy](https://www.astropy.org/)
     * [Attract Mode](https://github.com/mickelson/attract) — graphical front-end for command line emulators (see [`src/scraper_base.cpp`](https://github.com/mickelson/attract/blob/a348c1f5fa125bfb4133e01ce3b03a17138dbea6/src/scraper_base.cpp#L33))
-    * [Audacity](https://www.audacityteam.org/) (see [`au3/libraries/au3-xml/XMLFileReader.cpp`](https://github.com/audacity/audacity/blob/396259e93bca53a68b9e40f78c122e6f254e4982/au3/libraries/au3-xml/XMLFileReader.cpp#L58))
+    * [**Audacity**](https://www.audacityteam.org/) (see [`au3/libraries/au3-xml/XMLFileReader.cpp`](https://github.com/audacity/audacity/blob/396259e93bca53a68b9e40f78c122e6f254e4982/au3/libraries/au3-xml/XMLFileReader.cpp#L58))
     * [Avahi](https://github.com/lathiat/avahi)
     * [ayttm](https://ayttm.sourceforge.net/) (through libxode) — universal instant messaging client
 * __B__
@@ -61,12 +61,12 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [CDuce](https://www.cduce.org/) — programming language adapted to the manipulation of XML data
     * [CEGUI](http://cegui.org.uk/)
     * [CenterIM](https://www.centerim.org/)
-    * [Ceph / librgw](https://github.com/ceph/ceph) — Ceph RADOS Gateway client library (see [`src/rgw/rgw_xml.cc`](https://github.com/ceph/ceph/blob/master/src/rgw/rgw_xml.cc))
-    * [Chromium / libjingle_xmpp / xmllite](https://chromium.googlesource.com/chromium/src/) (see [`third_party/libjingle_xmpp/xmllite/xmlparser.h`](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/libjingle_xmpp/xmllite/xmlparser.h#18))
+    * [**Ceph** / librgw](https://github.com/ceph/ceph) — Ceph RADOS Gateway client library (see [`src/rgw/rgw_xml.cc`](https://github.com/ceph/ceph/blob/master/src/rgw/rgw_xml.cc))
+    * [**Chromium** / libjingle_xmpp / xmllite](https://chromium.googlesource.com/chromium/src/) (see [`third_party/libjingle_xmpp/xmllite/xmlparser.h`](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/third_party/libjingle_xmpp/xmllite/xmlparser.h#18))
     * [Citadel](https://www.citadel.org/) — groupware server
     * [clamz](https://code.google.com/archive/p/clamz/) — command-line program to download MP3s from Amazon
     * [claws-mail-feeds-reader](https://www.claws-mail.org/) — feeds (RSS/Atom) reader plugin for Claws Mail
-    * [CMake](https://cmake.org/)
+    * [**CMake**](https://cmake.org/)
     * [cobex](https://cobex.sourceforge.net/)
     * [CODA](https://github.com/stcorp/coda) — Common Data Access toolset (see [`libcoda/coda-xml-parser.c`](https://github.com/stcorp/coda/blob/eaa9b49974f80814fe14f485052ce782df7d4ce5/libcoda/coda-xml-parser.c#L35))
     * [Coin3D](https://bitbucket.org/Coin3D/coin/wiki/Home)
@@ -78,7 +78,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __D__
     * [DACS (Distributed access control)](https://dacs.dss.ca/) — single sign-on and rule-based access control system
     * [Dasher](http://www.inference.org.uk/dasher/) — graphical predictive text input system
-    * [D-Bus (dbus)](https://gitlab.freedesktop.org/dbus/dbus) — message bus system (see [`bus/config-loader-expat.c`](https://gitlab.freedesktop.org/dbus/dbus/blob/8d8b5eb8a409031e224d088c1e3385bc2874c873/bus/config-loader-expat.c#L199))
+    * [**D-Bus** (dbus)](https://gitlab.freedesktop.org/dbus/dbus) — message bus system (see [`bus/config-loader-expat.c`](https://gitlab.freedesktop.org/dbus/dbus/blob/8d8b5eb8a409031e224d088c1e3385bc2874c873/bus/config-loader-expat.c#L199))
     * [dbus-broker](https://github.com/bus1/dbus-broker) (see [`src/launch/config.c`](https://github.com/bus1/dbus-broker/blob/47562f3582ba5c2605cb137f60296b6034f4c995/src/launch/config.c#L1274))
     * [DFXML / tcpflow](https://github.com/simsong/dfxml/blob/master/src/dfxml_reader.cpp) — Digital Forensics XML project and library
     * [digiKam](https://www.digikam.org/)
@@ -102,8 +102,8 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Far-NetBox](https://github.com/michaellukashov/Far-NetBox) — SFTP/SCP/FTP/FTPS/WebDAV client for [Far Manager](https://farmanager.com/)
     * [FBReader](https://fbreader.org/)
     * [FlightGear](https://sourceforge.net/p/flightgear/fgrun/) — Flight Gear Flight Simulator
-    * [Firefox](https://www.mozilla.org/en-US/firefox/) (see [`parser/htmlparser/nsExpatDriver.cpp`](https://github.com/mozilla-firefox/firefox/blob/fdd583cd5a10d051053acda8b760c3bd5d800034/parser/htmlparser/nsExpatDriver.cpp#L1612))
-    * [Fontconfig](https://fontconfig.org/)
+    * [**Firefox**](https://www.mozilla.org/en-US/firefox/) (see [`parser/htmlparser/nsExpatDriver.cpp`](https://github.com/mozilla-firefox/firefox/blob/fdd583cd5a10d051053acda8b760c3bd5d800034/parser/htmlparser/nsExpatDriver.cpp#L1612))
+    * [**Fontconfig**](https://fontconfig.org/)
     * [frag_find](https://github.com/simsong/frag_find) — hash-based carver tool (see [`src/dfxml.cpp`](https://github.com/simsong/frag_find/blob/d52334de62ff38b802bf5f24b0e12764ac9b1bd7/src/dfxml.cpp#L172))
     * [fre:ac CDK / BoCA](https://github.com/enzo1982/BoCA) — Free audio converter and CD ripper (see [`components/playlist/xspf/expat`](https://github.com/enzo1982/BoCA/tree/master/components/playlist/xspf/expat))
 * __G__
@@ -111,27 +111,27 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Ganglia](https://ganglia.sourceforge.net/)
     * [gawkextlib (gawk-xml)](https://sourceforge.net/p/gawkextlib/code/ci/master/tree/xml/xml_puller.c) —  extension libraries for GNU AWK
     * [GCDM / gdcmexpat](https://gdcm.sourceforge.net/) — Grassroots DICOM library
-    * [GDAL](https://gdal.org/) (see [`ogr/ogrsf_frmts/kml/kml.cpp`](https://github.com/OSGeo/gdal/blob/829a3171265c0b40b07f47858777736b8ed59123/ogr/ogrsf_frmts/kml/kml.cpp#L88))
-    * [GDB](https://sourceware.org/gdb/)
+    * [**GDAL**](https://gdal.org/) (see [`ogr/ogrsf_frmts/kml/kml.cpp`](https://github.com/OSGeo/gdal/blob/829a3171265c0b40b07f47858777736b8ed59123/ogr/ogrsf_frmts/kml/kml.cpp#L88))
+    * [**GDB**](https://sourceware.org/gdb/)
     * [gdigi](https://desowin.org/gdigi/) — utility to control DigiTech effect pedals
     * [Geant 4](http://geant4.cern.ch/)
     * [GenomeTools](https://genometools.org/) — versatile genome analysis toolkit
     * [Gerbera](https://github.com/gerbera/gerbera/blob/v1.4.0/src/mxml/parser_expat.cc#L156) — UPnP media server
-    * [gettext](https://www.gnu.org/software/gettext/)
-    * [Ghostscript/GhostPDL](https://www.ghostscript.com/) — Postscript and PDF interpreter and rendering engine (see [`xps/xpsxml.c`](https://git.ghostscript.com/?p=ghostpdl.git;a=blob;f=xps/xpsxml.c;h=02cb845a9e90cb63f53c2f5096b6e85796a2df34;hb=HEAD))
+    * [**gettext**](https://www.gnu.org/software/gettext/)
+    * [**Ghostscript**/GhostPDL](https://www.ghostscript.com/) — Postscript and PDF interpreter and rendering engine (see [`xps/xpsxml.c`](https://git.ghostscript.com/?p=ghostpdl.git;a=blob;f=xps/xpsxml.c;h=02cb845a9e90cb63f53c2f5096b6e85796a2df34;hb=HEAD))
     * [GIFTI / libgiftiio](https://www.nitrc.org/projects/gifti) — Geometry format under the Neuroimaging Informatics Technology Initiative (NIfTI)
-    * [Git](https://www.git-scm.com/)
+    * [**Git**](https://www.git-scm.com/)
     * [Gnash](https://www.gnu.org/software/gnash/)
     * [GNU Gatekeeper](https://www.gnugk.org/) — OpenH323 Gatekeeper (IP telephony (VOIP), video conferencing)
     * [GNU Image-Finding Tool (gift/gnuift)](https://www.gnu.org/software/gift/) — index and search images by content
-    * [Godot](https://godotengine.org/)
+    * [**Godot Engine**](https://godotengine.org/)
     * [Goggles Music Manager](https://gogglesmm.github.io/)
     * [Google Earth Enterprise / libsgl](https://github.com/google/earthenterprise) (see [`earth_enterprise/src/third_party/sgl/v0_8_6/src/SkXMLParser_expat.cpp`](https://github.com/google/earthenterprise/blob/HEAD/earth_enterprise/src/third_party/sgl/v0_8_6/src/SkXMLParser_expat.cpp))
     * [Gpick](https://www.gpick.org/) — advanced GTK+ color picker
     * [GPSBabel](https://www.gpsbabel.org/)
     * [gpx2shp](http://gpx2shp.osdn.jp/) — convert GPS or GPX file to ESRI Shape file
     * [graph-tool](https://graph-tool.skewed.de/)
-    * [Graphviz](https://www.graphviz.org/)
+    * [**Graphviz**](https://www.graphviz.org/)
     * [Grive2](https://github.com/vitalif/grive2)
     * [GXMame](https://gxmame.sourceforge.net/)
 * __H__
@@ -176,7 +176,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [libopkele](https://kin.klever.net/libopkele/) — OpenID support library in C++
     * [libosmium](https://osmcode.org/libosmium/) — C++ framework for working with OSM data files
     * [libprotobuf-mutator](https://github.com/google/libprotobuf-mutator) (see [`examples/expat/expat_example.cc`](https://github.com/google/libprotobuf-mutator/blob/HEAD/examples/expat/expat_example.cc))
-    * [LibreOffice](https://www.libreoffice.org/)
+    * [**LibreOffice**](https://www.libreoffice.org/)
     * [libstrophe](https://github.com/strophe/libstrophe)
     * [libsolv / libzypp](https://doc.opensuse.org/projects/libzypp/HEAD/)
     * [libsynthesis](https://www.synthesis.ch/indefero/index.php/p/libsynthesis/) — library for SyncML-DS (SyncML Data Sync) clients
@@ -195,7 +195,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __M__
     * [Magics++ / libmagplus](https://software.ecmwf.int/wiki/display/MAGP/Magics) — latest generation of the ECMWF's Meteorological plotting software MAGICS
     * [MakeMKV](https://www.makemkv.com/)
-    * [MAME](https://github.com/mamedev/mame) — multi-purpose emulation framework (see [`src/lib/util/xmlfile.cpp`](https://github.com/mamedev/mame/blob/ea75c97d6d91f19f10292a79ffc2cb358555434e/src/lib/util/xmlfile.cpp#L77))
+    * [**MAME**](https://github.com/mamedev/mame) — multi-purpose emulation framework (see [`src/lib/util/xmlfile.cpp`](https://github.com/mamedev/mame/blob/ea75c97d6d91f19f10292a79ffc2cb358555434e/src/lib/util/xmlfile.cpp#L77))
     * [mamory](https://sourceforge.net/projects/mamory/)
     * [MapServer](https://mapserver.org/)
     * [matchbox-keyboard](https://git.yoctoproject.org/matchbox-keyboard/) — on-screen 'virtual' or 'software' keyboard, designed for touch-screen devices running X
@@ -242,7 +242,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Python](https://www.python.org/)
     * [pyxml](https://pyxml.sourceforge.net/)
 * __Q__
-    * [QGIS](https://www.qgis.org/) (see [`src/core/qgsgmlschema.cpp`](https://github.com/qgis/QGIS/blob/24439a554fc7352b8805c26faa28b9f60183cc03/src/core/qgsgmlschema.cpp#L358))
+    * [**QGIS**](https://www.qgis.org/) (see [`src/core/qgsgmlschema.cpp`](https://github.com/qgis/QGIS/blob/24439a554fc7352b8805c26faa28b9f60183cc03/src/core/qgsgmlschema.cpp#L358))
     * [QtWebEngine](https://www.qt.io/)
 * __R__
     * [Raptor RDF Syntax Library](https://librdf.org/raptor/) (prior to version 2.0.7)
@@ -293,7 +293,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * __V__
     * [vdr-rssreader](http://www.saunalahti.fi/~rahrenbe/vdr/rssreader/)
     * [Viking](https://sourceforge.net/projects/viking/)
-    * [VirtualBox](https://www.virtualbox.org/)
+    * [**VirtualBox**](https://www.virtualbox.org/)
     * [VMD](https://www.ks.uiuc.edu/Research/vmd/)
     * [VOMS](https://wiki.italiangrid.it/VOMS) — Virtual Organization Membership Service
     * [VOTCA](https://www.votca.org/)
@@ -301,15 +301,15 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Virtuoso Open-Source Edition](https://vos.openlinksw.com/owiki/wiki/VOS/) — high-performance object-relational SQL database
     * [VTK](https://vtk.org/)
 * __W__
-    * [Wayland](https://wayland.freedesktop.org/)
+    * [**Wayland**](https://wayland.freedesktop.org/)
     * [WebKit / libwebrtc](https://github.com/WebKit/webkit)
       (prior to [this commit](https://github.com/WebKit/webkit/commit/72b070fc9a89e13b91cf1c5a3ad5cbaccb21b67b))
     * [white_dune](https://wdune.ourproject.org/) — graphical VRML97/X3D viewer, editor, 3D modeller and animation tool
     * [WinMerge 2](https://winmerge.org/)
-    * [WinSCP](https://winscp.net/eng/index.php)
+    * [**WinSCP**](https://winscp.net/eng/index.php)
     * [WinSparkle](https://github.com/vslavik/winsparkle) (see [`3rdparty/`](https://github.com/vslavik/winsparkle/tree/master/3rdparty))
     * [wvWare / libwv](http://www.abisource.com/projects/) — library which allows access to Microsoft Word files
-    * [wxWidgets](https://wxwidgets.org/)
+    * [**wxWidgets**](https://wxwidgets.org/)
     * [wxSVG](https://wxsvg.sourceforge.io/)
 * __X__
     * [xkbd](http://trac.hackable1.org/trac/wiki/Xkbd)
