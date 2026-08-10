@@ -43,7 +43,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [asdcplib](https://github.com/cinecert/asdcplib) — AS-DCP and AS-02 File Access Library (see [`src/KM_xml.cpp`](https://github.com/cinecert/asdcplib/blob/f9d7fbc33aa571c547d916b145712469efd9f4b8/src/KM_xml.cpp#L561))
     * [Astropy](https://www.astropy.org/)
     * [Attract Mode](https://github.com/mickelson/attract) — graphical front-end for command line emulators (see [`src/scraper_base.cpp`](https://github.com/mickelson/attract/blob/a348c1f5fa125bfb4133e01ce3b03a17138dbea6/src/scraper_base.cpp#L33))
-    * [Audacity](https://www.audacityteam.org/)
+    * [Audacity](https://www.audacityteam.org/) (see [`au3/libraries/au3-xml/XMLFileReader.cpp`](https://github.com/audacity/audacity/blob/396259e93bca53a68b9e40f78c122e6f254e4982/au3/libraries/au3-xml/XMLFileReader.cpp#L58))
     * [Avahi](https://github.com/lathiat/avahi)
     * [ayttm](https://ayttm.sourceforge.net/) (through libxode) — universal instant messaging client
 * __B__
@@ -71,7 +71,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [CODA](https://github.com/stcorp/coda) — Common Data Access toolset (see [`libcoda/coda-xml-parser.c`](https://github.com/stcorp/coda/blob/eaa9b49974f80814fe14f485052ce782df7d4ce5/libcoda/coda-xml-parser.c#L35))
     * [Coin3D](https://bitbucket.org/Coin3D/coin/wiki/Home)
     * [Comet MS/MS search engine](https://sourceforge.net/projects/comet-ms/) — Tandem mass spectrometry (MS/MS) search engine
-    * [C-Pluff](https://www.c-pluff.org/) — Plug-in framework for C
+    * [C-Pluff](https://www.c-pluff.org/) — Plug-in framework for C (see [`libcpluff/pdescriptor.c`](https://github.com/jlehtine/c-pluff/blob/1a26018a1255e9d12d565dcd73a877955390d82f/libcpluff/pdescriptor.c#L1030))
     * [CSVfix](https://bitbucket.org/neilb/csvfix)
     * [Cubrid](https://github.com/CUBRID/cubrid) — relational database management system for Web Applications (see [`src/base/xml_parser.h`](https://github.com/CUBRID/cubrid/blob/387b846895fc6490cfdbca6b5e967c1719f894c6/src/base/xml_parser.h#L34))
     * [CURL example code](https://github.com/curl/curl) (not CURL itself) (see [`docs/examples/xmlstream.c`](https://github.com/curl/curl/blob/HEAD/docs/examples/xmlstream.c))
@@ -111,7 +111,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Ganglia](https://ganglia.sourceforge.net/)
     * [gawkextlib (gawk-xml)](https://sourceforge.net/p/gawkextlib/code/ci/master/tree/xml/xml_puller.c) —  extension libraries for GNU AWK
     * [GCDM / gdcmexpat](https://gdcm.sourceforge.net/) — Grassroots DICOM library
-    * [GDAL](https://gdal.org/)
+    * [GDAL](https://gdal.org/) (see [`ogr/ogrsf_frmts/kml/kml.cpp`](https://github.com/OSGeo/gdal/blob/829a3171265c0b40b07f47858777736b8ed59123/ogr/ogrsf_frmts/kml/kml.cpp#L88))
     * [GDB](https://sourceware.org/gdb/)
     * [gdigi](https://desowin.org/gdigi/) — utility to control DigiTech effect pedals
     * [Geant 4](http://geant4.cern.ch/)
@@ -242,7 +242,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [Python](https://www.python.org/)
     * [pyxml](https://pyxml.sourceforge.net/)
 * __Q__
-    * [QGIS](https://www.qgis.org/)
+    * [QGIS](https://www.qgis.org/) (see [`src/core/qgsgmlschema.cpp`](https://github.com/qgis/QGIS/blob/24439a554fc7352b8805c26faa28b9f60183cc03/src/core/qgsgmlschema.cpp#L358))
     * [QtWebEngine](https://www.qt.io/)
 * __R__
     * [Raptor RDF Syntax Library](https://librdf.org/raptor/) (prior to version 2.0.7)
