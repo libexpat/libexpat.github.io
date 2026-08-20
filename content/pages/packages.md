@@ -81,6 +81,7 @@ Wherever you go, Expat is already waiting for you:
     * [meta-debian](https://github.com/meta-debian/meta-debian/blob/master/recipes-debian/expat/expat_debian.bb)
     * [NixOS](https://github.com/NixOS/nixpkgs/commits/master/pkgs/development/libraries/expat/default.nix)
     * [NOIR Linux](https://github.com/noirlinux/main/tree/master/extra/expat)
+    * [OpenCloudOS Stream](https://gitee.com/opencloudos-stream/expat)
     * [OpenELA](https://github.com/openela-main/expat)
     * [OpenEmbedded](https://git.openembedded.org/openembedded-core/tree/meta/recipes-core/expat) (including Yocto Project)
     * [OpenEuler](https://atomgit.com/src-openeuler/expat)
