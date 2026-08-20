@@ -83,7 +83,7 @@ Wherever you go, Expat is already waiting for you:
     * [NOIR Linux](https://github.com/noirlinux/main/tree/master/extra/expat)
     * [OpenELA](https://github.com/openela-main/expat)
     * [OpenEmbedded](https://git.openembedded.org/openembedded-core/tree/meta/recipes-core/expat) (including Yocto Project)
-    * [OpenEuler](https://gitee.com/src-openeuler/expat/)
+    * [OpenEuler](https://atomgit.com/src-openeuler/expat)
     * [openmamba](https://openmamba.org/en/packages/?tag=devel&pkg=expat.source)
     * [OpenMandriva](https://github.com/OpenMandrivaAssociation/expat)
     * [openSUSE](https://build.opensuse.org/package/show/devel:libraries:c_c++/expat)
