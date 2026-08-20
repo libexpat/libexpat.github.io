@@ -1029,17 +1029,17 @@ to <code>doContent()</code>.</p>
 check that it hasn't closed more tags than it opened.  This could
 happen, for example if an overly-optimistic general entity expanded to
 an end tag.  The XML document</p>
-<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
 <span class="cp">&lt;!DOCTYPE foodoc [</span>
-<span class="cp">  &lt;!ENTITY foo &quot;&lt;b&gt;</span>text<span class="nt">&lt;/b&gt;&lt;/a&gt;</span>&quot;&gt;
+<span class="cp">  &lt;!ENTITY foo "&lt;b&gt;</span>text<span class="nt">&lt;/b&gt;&lt;/a&gt;</span>"&gt;
 ]&gt;
 <span class="nt">&lt;a&gt;</span><span class="ni">&amp;foo;</span>
 </code></pre></div>
 
 <p>trips exactly this test, while</p>
-<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
 <span class="cp">&lt;!DOCTYPE foodoc [</span>
-<span class="cp">  &lt;!ENTITY foo &quot;&lt;b&gt;</span>text<span class="nt">&lt;/b&gt;</span>&quot;&gt;
+<span class="cp">  &lt;!ENTITY foo "&lt;b&gt;</span>text<span class="nt">&lt;/b&gt;</span>"&gt;
 ]&gt;
 <span class="nt">&lt;a&gt;</span><span class="ni">&amp;foo;</span><span class="nt">&lt;/a&gt;</span>
 </code></pre></div>

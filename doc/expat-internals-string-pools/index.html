@@ -203,7 +203,7 @@ information are most of what is needed to control the string pool.</p>
 After the first two letters have been inserted, the pool pointers will
 look like this:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">+---------------------------</span><span class="nt">...</span><span class="nb">-+</span>
-<span class="c">| &#39;e&#39; &#39;l&#39; &#39;t&#39;  0  &#39;a&#39; &#39;t&#39; </span><span class="nt">.</span><span class="c">     |</span>
+<span class="c">| 'e' 'l' 't'  0  'a' 't' </span><span class="nt">.</span><span class="c">     |</span>
 <span class="nb">+---------------------------</span><span class="nt">...</span><span class="nb">-+</span>
 <span class="c">   ^               ^      ^       ^</span>
 <span class="c">   |         start</span><span class="nb">-+</span><span class="c">      </span><span class="nb">+-</span><span class="c">ptr   </span><span class="nb">+-</span><span class="c">end</span>
@@ -295,7 +295,7 @@ five characters short of being full, and we want to add the string
 <p>The characters get added to the pool one at a time until the pool is
 full:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">+-</span><span class="nt">...</span><span class="nb">------------------------------------+</span>
-<span class="c">| </span><span class="k">[</span><span class="c">other contents</span><span class="k">]</span><span class="c"> 0 &#39;A&#39; &#39;B&#39; &#39;C&#39; &#39;D&#39; &#39;E&#39; |</span>
+<span class="c">| </span><span class="k">[</span><span class="c">other contents</span><span class="k">]</span><span class="c"> 0 'A' 'B' 'C' 'D' 'E' |</span>
 <span class="nb">+-</span><span class="nt">...</span><span class="nb">------------------------------------+</span>
 <span class="c">  ^                   ^                    ^</span>
 <span class="c">  </span><span class="nb">+</span><span class="c"> block</span><span class="nb">-</span><span class="nv">&gt;</span><span class="c">s          </span><span class="nb">+</span><span class="c"> start              </span><span class="nb">+</span><span class="c"> end</span>
@@ -321,7 +321,7 @@ pointers; <code>ptr</code> must point <code>end - start</code> characters into
 the new block, then <code>start</code> can be updated to the start of the new
 block and <code>end</code> calculated from <code>start</code> and the block size as before.</p>
 <div class="highlight"><pre><span></span><code><span class="o">+--------------------------</span><span class="p">...</span><span class="o">-+</span>
-<span class="o">|</span><span class="w"> </span><span class="s">&#39;A&#39;</span><span class="w"> </span><span class="s">&#39;B&#39;</span><span class="w"> </span><span class="s">&#39;C&#39;</span><span class="w"> </span><span class="s">&#39;D&#39;</span><span class="w"> </span><span class="s">&#39;E&#39;</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w">    </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="s">'A'</span><span class="w"> </span><span class="s">'B'</span><span class="w"> </span><span class="s">'C'</span><span class="w"> </span><span class="s">'D'</span><span class="w"> </span><span class="s">'E'</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w">    </span><span class="o">|</span>
 <span class="o">+--------------------------</span><span class="p">...</span><span class="o">-+</span>
 <span class="w">   </span><span class="o">^</span><span class="w">                  </span><span class="o">^</span><span class="w">          </span><span class="o">^</span>
 <span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="n">start</span><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">ptr</span><span class="w">      </span><span class="o">+</span><span class="w"> </span><span class="kd">end</span>
@@ -497,7 +497,7 @@ back to <code>start</code>.</p>
 <p>For example, suppose we have added the string "ABCDEF" to the pool but
 not yet finished it:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">+----------------------------------------------</span><span class="nt">...</span><span class="nb">-+</span>
-<span class="c">| </span><span class="k">[</span><span class="c">other contents</span><span class="k">]</span><span class="c"> &#39;A&#39; &#39;B&#39; &#39;C&#39; &#39;D&#39; &#39;E&#39; &#39;F&#39; 0 </span><span class="nt">.</span><span class="c"> </span><span class="nt">...</span><span class="c"> |</span>
+<span class="c">| </span><span class="k">[</span><span class="c">other contents</span><span class="k">]</span><span class="c"> 'A' 'B' 'C' 'D' 'E' 'F' 0 </span><span class="nt">.</span><span class="c"> </span><span class="nt">...</span><span class="c"> |</span>
 <span class="nb">+----------------------------------------------</span><span class="nt">...</span><span class="nb">-+</span>
 <span class="c">                    ^                        ^       ^</span>
 <span class="c">                    </span><span class="nb">+</span><span class="c"> start                  </span><span class="nb">+</span><span class="c"> ptr   </span><span class="nb">+</span><span class="c"> end</span>
@@ -507,7 +507,7 @@ not yet finished it:</p>
 the start of the string "ABCDEF".  After calling <code>poolFinish()</code> we
 have:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">+----------------------------------------------</span><span class="nt">...</span><span class="nb">-+</span>
-<span class="c">| </span><span class="k">[</span><span class="c">other contents</span><span class="k">]</span><span class="c"> &#39;A&#39; &#39;B&#39; &#39;C&#39; &#39;D&#39; &#39;E&#39; &#39;F&#39; 0 </span><span class="nt">.</span><span class="c"> </span><span class="nt">...</span><span class="c"> |</span>
+<span class="c">| </span><span class="k">[</span><span class="c">other contents</span><span class="k">]</span><span class="c"> 'A' 'B' 'C' 'D' 'E' 'F' 0 </span><span class="nt">.</span><span class="c"> </span><span class="nt">...</span><span class="c"> |</span>
 <span class="nb">+----------------------------------------------</span><span class="nt">...</span><span class="nb">-+</span>
 <span class="c">                                             ^       ^</span>
 <span class="c">                                             </span><span class="nb">+</span><span class="c"> ptr   </span><span class="nb">+</span><span class="c"> end</span>
@@ -517,7 +517,7 @@ have:</p>
 <p>leaving the pool ready to build another string.  If instead we had
 called <code>poolDiscard()</code>, we would get:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">+----------------------------------------------</span><span class="nt">...</span><span class="nb">-+</span>
-<span class="c">| </span><span class="k">[</span><span class="c">other contents</span><span class="k">]</span><span class="c"> &#39;A&#39; &#39;B&#39; &#39;C&#39; &#39;D&#39; &#39;E&#39; &#39;F&#39; 0 </span><span class="nt">.</span><span class="c"> </span><span class="nt">...</span><span class="c"> |</span>
+<span class="c">| </span><span class="k">[</span><span class="c">other contents</span><span class="k">]</span><span class="c"> 'A' 'B' 'C' 'D' 'E' 'F' 0 </span><span class="nt">.</span><span class="c"> </span><span class="nt">...</span><span class="c"> |</span>
 <span class="nb">+----------------------------------------------</span><span class="nt">...</span><span class="nb">-+</span>
 <span class="c">                    ^                                ^</span>
 <span class="c">                    </span><span class="nb">+</span><span class="c"> start                          </span><span class="nb">+</span><span class="c"> end</span>
@@ -564,19 +564,19 @@ with <code>poolCopyString()</code>.  In other words, the following code snippets
 are equivalent (assuming <code>XML_Char</code> is the same as <code>char</code> for
 convenience):</p>
 <div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
-<span class="n">strcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ABC&quot;</span><span class="p">);</span>
-<span class="n">strcat</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;DEF&quot;</span><span class="p">);</span>
-<span class="n">strcat</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GHI&quot;</span><span class="p">);</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;string = %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">);</span>
+<span class="n">strcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="s">"ABC"</span><span class="p">);</span>
+<span class="n">strcat</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="s">"DEF"</span><span class="p">);</span>
+<span class="n">strcat</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="s">"GHI"</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"string = %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">);</span>
 
 
 <span class="n">STRING_POOL</span><span class="w"> </span><span class="n">pool</span><span class="p">;</span>
 <span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">string</span><span class="p">;</span>
 <span class="n">poolInit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">);</span>
-<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ABC&quot;</span><span class="p">);</span>
-<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;DEF&quot;</span><span class="p">);</span>
-<span class="n">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">poolCopyString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GHI&quot;</span><span class="p">);</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;string = %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="p">);</span>
+<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span><span class="w"> </span><span class="s">"ABC"</span><span class="p">);</span>
+<span class="n">poolAppendString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span><span class="w"> </span><span class="s">"DEF"</span><span class="p">);</span>
+<span class="n">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">poolCopyString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">,</span><span class="w"> </span><span class="s">"GHI"</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"string = %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="p">);</span>
 </code></pre></div>
 
 <h3>Building Strings From Chars</h3>
@@ -710,7 +710,7 @@ and immediately discarded.</p>
 lifetime of the parse, at least) of converted input strings, when it
 is needed.  A reasonably self-contained example occurs at the start of
 <code>getAttributeId()</code>, though with a twist:</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">poolAppendChar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">,</span><span class="w"> </span><span class="n">XML_T</span><span class="p">(</span><span class="sc">&#39;\0&#39;</span><span class="p">)))</span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">poolAppendChar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">,</span><span class="w"> </span><span class="n">XML_T</span><span class="p">(</span><span class="sc">'\0'</span><span class="p">)))</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">poolStoreString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dtd</span><span class="o">-&gt;</span><span class="n">pool</span><span class="p">,</span><span class="w"> </span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">);</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">name</span><span class="p">)</span>

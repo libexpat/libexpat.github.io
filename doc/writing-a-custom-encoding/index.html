@@ -233,7 +233,7 @@ when it is asked for the encoding named <code>risc-os</code>.</p>
 <span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;risc-os&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="s">"risc-os"</span><span class="p">))</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
 </code></pre></div>
 
@@ -260,7 +260,7 @@ hard way here.</p>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x84</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Close icon, invalid */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x85</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0176</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Ŷ */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x86</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0177</span><span class="p">;</span><span class="w">   </span><span class="cm">/* ŷ */</span>
-<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x87</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* &quot;87&quot; */</span>
+<span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x87</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* "87" */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x88</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Left arrow icon, invalid */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x89</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Right arrow icon, invalid */</span>
 <span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="mh">0x8A</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w">       </span><span class="cm">/* Up arrow icon, invalid */</span>
@@ -396,7 +396,7 @@ complicated only by the fragmentary nature of the table:</p>
 <span class="p">{</span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">table</span><span class="p">;</span>
 
-<span class="w">    </span><span class="cm">/* &#39;s&#39; will always be a two byte string, because that&#39;s</span>
+<span class="w">    </span><span class="cm">/* 's' will always be a two byte string, because that's</span>
 <span class="cm">     * all that is in the map.  s[0] must either lie in the range</span>
 <span class="cm">     * 0x81 to 0x9F or 0xE0 to 0xEF, according to the map.</span>
 <span class="cm">     */</span>
@@ -423,7 +423,7 @@ trivial in comparison:</p>
 <span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;shift-jis&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="s">"shift-jis"</span><span class="p">))</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">128</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
 <span class="w">        </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
@@ -503,7 +503,7 @@ realistic encoding require such a thing.</p>
 time we actually use the <code>data</code> parameter to pass user-level
 information into the encoding handler.  We expect to be given the
 parser structure; I'll explain why in a moment.</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;page-and-offset&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="s">"page-and-offset"</span><span class="p">))</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">XML_STATUS_ERROR</span><span class="p">;</span>
 </code></pre></div>
 

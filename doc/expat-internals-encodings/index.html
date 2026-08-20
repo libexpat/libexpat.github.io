@@ -469,9 +469,9 @@ defined.<sup><a href="#ns">2</a></sup></p>
 <span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">VTABLE1</span><span class="p">,</span><span class="w"> </span><span class="n">utf8_toUtf8</span><span class="p">,</span><span class="w"> </span><span class="n">utf8_toUtf16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="cp">#define BT_COLON BT_NMSTRT</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;asciitab.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"asciitab.h"</span>
 <span class="cp">#undef BT_COLON</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utf8tab.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"utf8tab.h"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="n">STANDARD_VTABLE</span><span class="p">(</span><span class="n">sb_</span><span class="p">)</span><span class="w"> </span><span class="n">NORMAL_VTABLE</span><span class="p">(</span><span class="n">utf8_</span><span class="p">)</span>
 <span class="w">  </span><span class="p">};</span>
@@ -507,9 +507,9 @@ files alone; the byte types really aren't that interesting), we get:</p>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="cp">#define BT_COLON BT_NMSTRT</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;asciitab.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"asciitab.h"</span>
 <span class="cp">#undef BT_COLON</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;utf8tab.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"utf8tab.h"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="n">utf8_isName2</span><span class="p">,</span>
 <span class="w">    </span><span class="n">utf8_isName3</span><span class="p">,</span>
@@ -565,9 +565,9 @@ structure looks like this:</p>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="cp">#define BT_COLON BT_NMSTRT</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;asciitab.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"asciitab.h"</span>
 <span class="cp">#undef BT_COLON</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;latin1tab.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"latin1tab.h"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nb">NULL</span><span class="p">,</span>
 <span class="w">    </span><span class="nb">NULL</span><span class="p">,</span>
@@ -619,7 +619,7 @@ Latin-1:</p>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="cp">#define BT_COLON BT_NMSTRT</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;asciitab.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"asciitab.h"</span>
 <span class="cp">#undef BT_COLON</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nb">NULL</span><span class="p">,</span>
@@ -661,14 +661,14 @@ the same except for reversing the order of the input bytes.</p>
 <span class="w">      </span><span class="n">little2_toUtf8</span><span class="p">,</span><span class="w"> </span><span class="n">little2_toUtf16</span><span class="p">,</span>
 <span class="w">      </span><span class="p">.</span><span class="n">minBytesPerChar</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <span class="w">      </span><span class="p">.</span><span class="n">isUtf8</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="w">      </span><span class="p">.</span><span class="n">isUtf16</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">native</span><span class="w"> </span><span class="n">byte</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="n">little</span><span class="o">-</span><span class="n">endian</span><span class="p">,</span>
+<span class="w">      </span><span class="p">.</span><span class="n">isUtf16</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">native</span><span class="w"> </span><span class="kt">byte</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="n">little</span><span class="o">-</span><span class="n">endian</span><span class="p">,</span>
 <span class="w">              </span><span class="o">=</span><span class="mi">0</span><span class="w"> </span><span class="n">otherwise</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="cp">#define BT_COLON BT_NMSTRT</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;asciitab.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"asciitab.h"</span>
 <span class="cp">#undef BT_COLON</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;latin1tab.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"latin1tab.h"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nb">NULL</span><span class="p">,</span>
 <span class="w">    </span><span class="nb">NULL</span><span class="p">,</span>

@@ -193,11 +193,11 @@ affect any future tests, which will still be run as normal.</p>
 <span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">try_foo</span><span class="p">())</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="n">fail</span><span class="p">(</span><span class="s">&quot;No foo!&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">fail</span><span class="p">(</span><span class="s">"No foo!"</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">try_bar</span><span class="p">())</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="n">fail</span><span class="p">(</span><span class="s">&quot;No bar!&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">fail</span><span class="p">(</span><span class="s">"No bar!"</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 <span class="n">END_TEST</span>
@@ -238,7 +238,7 @@ error message to fail with if the parser does <em>not</em> signal an error.</p>
 <div class="highlight"><pre><span></span><code><span class="n">START_TEST</span><span class="p">(</span><span class="n">my_test</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="n">expect_failure</span><span class="p">(</span><span class="n">duff_text</span><span class="p">,</span><span class="w"> </span><span class="n">xml_error_code</span><span class="p">,</span>
-<span class="w">                   </span><span class="s">&quot;Didn&#39;t fail on duff text&quot;</span><span class="p">);</span>
+<span class="w">                   </span><span class="s">"Didn't fail on duff text"</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="n">END_TEST</span>
 </code></pre></div>
@@ -269,14 +269,14 @@ and write or alter a test to check they gets set appropriately.)</p>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">START_TEST</span><span class="p">(</span><span class="n">check_start_elt_handler</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;doc&gt;Hello world&lt;/doc&gt;&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;doc&gt;Hello world&lt;/doc&gt;"</span><span class="p">;</span>
 <span class="w">    </span><span class="n">dummy_handler_flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="n">XML_SetStartElementHandler</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="n">dummy_start_element</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">_XML_Parse_SINGLE_BYTES</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">text</span><span class="p">),</span>
 <span class="w">                                </span><span class="n">XML_TRUE</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">XML_STATUS_ERROR</span><span class="p">)</span>
 <span class="w">        </span><span class="n">xml_failure</span><span class="p">(</span><span class="n">parsr</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dummy_handler_flags</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">DUMMY_START_ELEMENT_HANDLER_FLAG</span><span class="p">)</span>
-<span class="w">        </span><span class="n">fail</span><span class="p">(</span><span class="s">&quot;Did not invoke start element handler&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">fail</span><span class="p">(</span><span class="s">"Did not invoke start element handler"</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="n">END_TEST</span>
 </code></pre></div>
@@ -311,7 +311,7 @@ test suite defines the following macros:</p>
 </ul>
 <p>So for example an unknown encoding handler (which is passed the name
 of the encoding to use as an XML_Char string) begins with:</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">xcstrcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="n">XCS</span><span class="p">(</span><span class="s">&quot;unsupported-encoding&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">xcstrcmp</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="n">XCS</span><span class="p">(</span><span class="s">"unsupported-encoding"</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="p">...</span>
 </code></pre></div>
 
@@ -350,12 +350,12 @@ parsed, reads as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="n">START_TEST</span><span class="p">(</span><span class="n">test_french_utf8</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">text</span><span class="w"> </span><span class="o">=</span>
-<span class="w">        </span><span class="s">&quot;&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
-<span class="w">        </span><span class="s">&quot;&lt;doc&gt;</span><span class="se">\xC3\xA9</span><span class="s">&lt;/doc&gt;&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="s">"&lt;?xml version='1.0' encoding='utf-8'?&gt;</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">        </span><span class="s">"&lt;doc&gt;</span><span class="se">\xC3\xA9</span><span class="s">&lt;/doc&gt;"</span><span class="p">;</span>
 <span class="cp">#ifdef XML_UNICODE</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XCS</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\x00e9</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XCS</span><span class="p">(</span><span class="s">"</span><span class="se">\x00e9</span><span class="s">"</span><span class="p">);</span>
 <span class="cp">#else</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XCS</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\xC3\xA9</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XCS</span><span class="p">(</span><span class="s">"</span><span class="se">\xC3\xA9</span><span class="s">"</span><span class="p">);</span>
 <span class="cp">#endif</span>
 <span class="w">    </span><span class="n">run_character_check</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span>
 <span class="p">}</span>
@@ -370,8 +370,8 @@ single attributes in each tag, as the order in which attributes are
 presented to the start handler is not guaranteed.</p>
 <div class="highlight"><pre><span></span><code><span class="n">START_TEST</span><span class="p">(</span><span class="n">test_example</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&lt;doc foo=&#39;bar&#39;&gt;Hi&lt;/doc&gt;&quot;</span><span class="p">;</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XCS</span><span class="p">(</span><span class="s">&quot;bar&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;doc foo='bar'&gt;Hi&lt;/doc&gt;"</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">XML_Char</span><span class="w"> </span><span class="o">*</span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XCS</span><span class="p">(</span><span class="s">"bar"</span><span class="p">);</span>
 <span class="w">    </span><span class="n">run_attribute_check</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="n">END_TEST</span>
