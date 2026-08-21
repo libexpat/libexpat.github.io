@@ -12,8 +12,10 @@ Wherever you go, Expat is already waiting for you:
 
 * __Cross-platform__
     * [Anaconda Cloud](https://anaconda.org/anaconda/expat)
+    * [build2](https://github.com/build2-packaging/expat)
     * [conda-forge](https://github.com/conda-forge/expat-feedstock/blob/main/recipe/meta.yaml)
     * [Conan Center](https://github.com/conan-io/conan-center-index/tree/master/recipes/expat)
+    * [cppget](https://cppget.org/libexpat)
     * <s>[cpp.js](https://github.com/bugra9/cpp.js/blob/HEAD/packages/cppjs-package-expat/package.json)</s>
     * <s>[Hunter](https://github.com/ruslo/hunter/blob/master/cmake/projects/Expat/hunter.cmake)</s>
     * [OpenPKG](http://download.openpkg.org/packages/current/source/BASE/)
