@@ -321,6 +321,8 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [xmp3](https://github.com/BellerophonMobile/xmp3) — XMPP Proxy, small Extensible XMPP Server (see [`src/xmpp_parser.c`](https://github.com/BellerophonMobile/xmp3/blob/426cf7ee0ad4f32bea98cadad93b140d6a4c9760/src/xmpp_parser.c))
     * [XPilot NG](https://xpilot.sourceforge.net/) — Multi-player tactical game for X (NG version)
     * [XLSX I/O](https://github.com/brechtsanders/xlsxio) — library for reading and writing `.xlsx` files (see [`lib/xlsxio_read.c`](https://github.com/brechtsanders/xlsxio/blob/cfd9ed517417000f5ffce428f2a4a7da0847c145/lib/xlsxio_read.c#L157))
+    * [xsd](https://github.com/codesynthesis-com/xsd) — XML Schema to C++ data binding compiler (see [`libxsd/xsd/cxx/parser/expat/elements.txx`](https://github.com/codesynthesis-com/xsd/blob/0f598cd8451e4702a09a0b388de4f9d1dc08edab/libxsd/xsd/cxx/parser/expat/elements.txx#L341))
+    * [xsde](https://github.com/codesynthesis-com/xsde) — XML Schema to C++ data binding compiler for mobile and embedded systems (see [`libxsde/xsde/cxx/parser/expat/document.cxx`](https://github.com/codesynthesis-com/xsde/blob/9ba546d26b0ff204799b92ea94cb25d7353cd69c/libxsde/xsde/cxx/parser/expat/document.cxx#L386))
 * __Y__
     * [Ymagine](https://github.com/yahoo/ygloo-ymagine) (see [`jni/src/graphics/xmp.c`](https://github.com/yahoo/ygloo-ymagine/blob/HEAD/jni/src/graphics/xmp.c))
 * __Z__
