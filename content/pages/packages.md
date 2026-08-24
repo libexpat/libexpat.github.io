@@ -96,6 +96,7 @@ Wherever you go, Expat is already waiting for you:
     * [Parabola](https://www.parabola.nu/packages/core/x86_64/expat/)
     * [PCLinuxOS](https://ftp.nluug.nl/pub/os/Linux/distr/pclinuxos/pclinuxos/srpms/SRPMS.pclos/)
     * [Pisi GNU/Linux](https://github.com/pisilinux/core/blob/master/system/base/expat/pspec.xml)
+    * [Pizlix](https://github.com/pizlonator/fil-c/tree/HEAD/pizlix)
     * [PLD Linux](https://git.pld-linux.org/?p=packages/expat.git;a=summary)
     * [PTXdist](https://git.pengutronix.de/cgit/ptxdist/tree/rules/expat.make)
     * [PureOS](https://software.pureos.net/package/src/pureos/landing/expat)
