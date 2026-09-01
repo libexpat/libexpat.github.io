@@ -102,6 +102,7 @@ Wherever you go, Expat is already waiting for you:
     * [PTXdist](https://git.pengutronix.de/cgit/ptxdist/tree/rules/expat.make)
     * [PureOS](https://software.pureos.net/package/src/pureos/landing/expat)
     * [ROSA Linux](https://abf.rosalinux.ru/import/expat)
+    * [Side Linux](https://codeberg.org/side/side/src/branch/HEAD/system/base/expat)
     * [Slackware](https://slackware.osuosl.org/slackware64-current/source/l/expat/)
     * [SliTaz GNU/Linux](https://hg.slitaz.org/wok/file/tip/expat/receipt)
     * [Solus Project](https://github.com/getsolus/packages/blob/main/packages/e/expat/package.yml)
