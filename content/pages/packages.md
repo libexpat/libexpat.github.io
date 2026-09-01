@@ -45,6 +45,7 @@ Wherever you go, Expat is already waiting for you:
     * [HP-UX Porting and Archive Centre](http://hpux.connect.org.uk/hppd/cgi-bin/search?package=&term=/expat-)
 * __Linux__
     * [Adélie Linux](https://git.adelielinux.org/adelie/packages/-/blob/current/system/expat/APKBUILD)
+    * [aerynOS](https://github.com/aerynOS/recipes/tree/HEAD/e/expat)
     * [Alpine Linux](https://git.alpinelinux.org/cgit/aports/tree/main/expat)
     * [ALT Linux](https://packages.altlinux.org/en/Sisyphus/srpms/expat)
     * [AOSC](https://github.com/AOSC-Dev/aosc-os-abbs/tree/HEAD/runtime-common/expat)
