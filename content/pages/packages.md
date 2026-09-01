@@ -26,6 +26,7 @@ Wherever you go, Expat is already waiting for you:
     * [Xmake](https://github.com/xmake-io/xmake-repo/blob/HEAD/packages/e/expat/xmake.lua)
 * __AIX__
     * [AIX Open Source Packages](http://www.oss4aix.org/download/SRPMS/expat/)
+    * [AIX Toolbox](https://public.dhe.ibm.com/aix/freeSoftware/aixtoolbox/SPECS/)
 * __BSD__
     * [DragonFlyBSD](https://github.com/DragonFlyBSD/DPorts/tree/master/textproc/expat2)
     * [FreeBSD](https://cgit.freebsd.org/ports/tree/textproc/expat2/Makefile)
@@ -49,6 +50,7 @@ Wherever you go, Expat is already waiting for you:
     * [Alpine Linux](https://git.alpinelinux.org/cgit/aports/tree/main/expat)
     * [ALT Linux](https://packages.altlinux.org/en/Sisyphus/srpms/expat)
     * [AOSC](https://github.com/AOSC-Dev/aosc-os-abbs/tree/HEAD/runtime-common/expat)
+    * [Apertis](https://gitlab.apertis.org/pkg/expat)
     * [Arch Linux](https://gitlab.archlinux.org/archlinux/packaging/packages/expat)
     * [Arch Linux AUR](https://aur.archlinux.org/packages/?O=0&K=expat)
     * [Artix Linux](https://gitea.artixlinux.org/packages/expat)
@@ -62,17 +64,20 @@ Wherever you go, Expat is already waiting for you:
     * [Clear Linux](https://github.com/clearlinux-pkgs/expat/blob/main/expat.spec)
     * [CRUX](https://git.crux.nu/ports/compat-32/src/branch/3.7/expat-32)
     * [Debian](https://packages.debian.org/source/sid/expat)
+    * [deepin](https://github.com/deepin-community/expat)
     * [Entware](https://github.com/Entware/entware-packages/blob/master/libs/expat/Makefile)
     * [Exherbo](https://gitlab.exherbo.org/exherbo/arbor/-/tree/master/packages/dev-libs/expat)
     * [Fedora](https://src.fedoraproject.org/rpms/expat)
     * [Funtoo](https://github.com/funtoo/core-kit/tree/master/dev-libs/expat)
     * [Gentoo](https://packages.gentoo.org/packages/dev-libs/expat)
+    * [glaucus Linux](https://github.com/glaucuslinux/core/tree/HEAD/expat)
     * [Gobo Linux](https://github.com/gobolinux/Recipes/tree/master/Expat)
     * [Guix](https://packages.guix.gnu.org/packages/expat/)
     * [Hyperbola](https://www.hyperbola.info/packages/core/x86_64/expat/)
     * IPFire
         [[1]](https://git.ipfire.org/?p=ipfire-2.x.git;a=blob;f=lfs/expat;hb=HEAD)
         [[2]](https://git.ipfire.org/?p=ipfire-3.x.git;a=blob;f=expat/expat.nm;hb=HEAD)
+    * [Kali Linux](https://pkg.kali.org/pkg/expat)
     * [KaOSx](https://github.com/KaOSx/core/blob/master/expat)
     * [KISS Linux](https://github.com/kisslinux/repo/tree/master/extra/expat)
     * [LEDE](https://github.com/lede-project/source/blob/master/tools/expat/Makefile)
@@ -130,6 +135,8 @@ Wherever you go, Expat is already waiting for you:
     * [OpenIndiana](https://github.com/OpenIndiana/oi-userland/tree/oi/hipster/components/library/libexpat)
     * [Oracle Solaris](http://pkg.oracle.com/solaris/release/en/search.shtml?token=expat&action=Search)
     * [Tribblix](https://github.com/tribblix/build/blob/master/TRIBlib-expat/build.sh)
+* __System i__
+    * [IBM i](https://public.dhe.ibm.com/software/ibmi/products/pase/rpms/)
 * __Windows__
     * [Cygwin](https://cygwin.com/packages/x86_64/expat/)
     * [EWPI](https://github.com/vtorri/ewpi/tree/HEAD/packages/expat)
