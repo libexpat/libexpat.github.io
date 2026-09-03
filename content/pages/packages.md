@@ -93,6 +93,7 @@ Wherever you go, Expat is already waiting for you:
     * [OpenELA](https://github.com/openela-main/expat)
     * [OpenEmbedded](https://git.openembedded.org/openembedded-core/tree/meta/recipes-core/expat) (including Yocto Project)
     * [OpenEuler](https://atomgit.com/src-openeuler/expat)
+    * [openKylin](https://build.openkylin.top/openkylin/+source/expat)
     * [openmamba](https://openmamba.org/en/packages/?tag=devel&pkg=expat.source)
     * [OpenMandriva](https://github.com/OpenMandrivaAssociation/expat)
     * [openSUSE](https://build.opensuse.org/package/show/devel:libraries:c_c++/expat)
