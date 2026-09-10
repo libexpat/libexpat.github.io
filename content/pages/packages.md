@@ -120,6 +120,7 @@ Wherever you go, Expat is already waiting for you:
     * [Trisquel](https://packages.trisquel.org/source/aramo/expat)
     * [Ubuntu](https://launchpad.net/ubuntu/+source/expat)
     * [Void Linux](https://github.com/void-linux/void-packages/blob/master/srcpkgs/expat/template)
+    * [Vylen Linux](https://gitlab.com/vylen/ports/core/-/tree/main/expat)
     * [Wind River Linux](https://github.com/WindRiverLinux25/oe-core/tree/HEAD/meta/recipes-core/expat)
     * [yiffOS](https://gitlab.com/yiffos/packaging/packages/-/blob/knot/expat/PKGINFO)
 * __macOS__
