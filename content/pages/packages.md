@@ -87,7 +87,7 @@ Wherever you go, Expat is already waiting for you:
     * [Lunar Linux](https://github.com/lunar-linux/moonbase-core/tree/master/libs/expat)
     * [Mageia](https://madb.mageialinux-online.org/rpmshow?rpm=expat&repo=9-x86_64-core-updates&distribution=9&architecture=x86_64&graphical=0)
     * [meta-debian](https://github.com/meta-debian/meta-debian/blob/master/recipes-debian/expat/expat_debian.bb)
-    * [NixOS](https://github.com/NixOS/nixpkgs/commits/master/pkgs/development/libraries/expat/default.nix)
+    * [NixOS](https://github.com/NixOS/nixpkgs/blob/HEAD/pkgs/by-name/ex/expat/package.nix)
     * [NOIR Linux](https://github.com/noirlinux/main/tree/master/extra/expat)
     * [OpenCloudOS Stream](https://gitee.com/opencloudos-stream/expat)
     * [OpenELA](https://github.com/openela-main/expat)
