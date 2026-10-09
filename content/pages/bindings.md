@@ -77,7 +77,7 @@ interfaces to Expat from languages other than C.
 * __R__
     * [rdyncall demo for Expat](https://rdrr.io/rforge/rdyncall/src/demo/expat.R)
 * __Ruby__
-    * [Ruby interface to Expat](http://www.yoshidam.net/Ruby.html#xmlparser)
+    * [Ruby interface to Expat](https://rubygems.org/gems/xmlparser)
     * [ffi-expat](https://rubygems.org/gems/ffi-expat/) — Very thin wrapper around expat using the Ruby FFI library
 * __Rust__
     * [expat-sys CARGO package](https://crates.io/crates/expat-sys/versions)
