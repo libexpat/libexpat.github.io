@@ -357,7 +357,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
 * [Lantronix EDS1100/EDS2100/MatchPort AR/XPort Pro](ftp://ftp.lantronix.com/pub/Linux_SDK/SDK2_0_0_3/Linux_SDK_License_List_2_0_0_3.pdf)
 * [LG HelloVision UCE4027LGH (Vantiva)](https://www.vantiva.com/app/uploads/2024/04/UCE4027LGH_1.04.02_COSP-2033_external.pdf)
 * [LG Wireless Sound Bar](https://partner.lge.com/us/portal/download/download/mobileExternalFileDownload.lge?fileId=AvBysHiYIZLxI1CV0Yxog&content=manual)
-* [marantz NA6006](https://www.marantz.de/DocumentMaster/DE/NA6006_Bedienungsanleitung_22082018.pdf)
+* [marantz NA6006](https://www.marantz.com/on/demandware.static/-/Library-Sites-marantz_apac_shared/default/dw302b3289/archive-downloads/na6006u_eng_pdf_ug_v00a.pdf)
 * [Mazda NB1](https://download.tomtom.com/open/manuals/Mazda_Navigation_System_NB1/Mazda_NB1_getting_started/refman/Mazda-NB1-6G-Guide-en-gb.pdf)
 * [Mercedes-Benz C-Class 205](https://moba.i.daimler.com/bai-cars/ba/foss/content/en/pdfs/FOSS_License_C-Class_205.pdf)
 * [NetApp HCI mNode](https://library.netapp.com/ecm/ecm_download_file/ECMLP2871178)
