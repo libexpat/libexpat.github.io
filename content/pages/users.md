@@ -29,6 +29,7 @@ notable, e.g. be packaged in multiple (unrelated) distributions of GNU/Linux.
     * [afflib](https://github.com/sshock/AFFLIBv3/)
     * [Aleph One](https://alephone.lhowon.org/)
     * [AmphetaDesk](https://www.disobey.com/amphetadesk/)
+    * [**Android**](https://android.googlesource.com/platform/external/expat/+/refs/heads/main/expat/)
     * [**Android** / libcore](https://android.googlesource.com/platform/libcore/) (see [`luni/src/main/java/org/apache/harmony/xml/ExpatParser.java`](https://android.googlesource.com/platform/libcore/+/refs/heads/main/luni/src/main/java/org/apache/harmony/xml/ExpatParser.java))
     * [Android Asset Packaging Tool (aapt)](https://android.googlesource.com/platform/frameworks/base/+/HEAD/tools/aapt/) (see [`XMLNode.h`](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt/XMLNode.h))
     * [Android Asset Packaging Tool (aapt2)](https://developer.android.com/tools/aapt2) (see [`xml/XmlDom.cpp`](https://android.googlesource.com/platform/frameworks/base/+/master/tools/aapt2/xml/XmlDom.cpp))
