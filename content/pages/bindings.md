@@ -76,6 +76,7 @@ interfaces to Expat from languages other than C.
     * [Documentation for the Python interface to Expat](https://docs.python.org/3/library/pyexpat.html), part of the standard documentation for Python.
 * __R__
     * [rdyncall demo for Expat](https://rdrr.io/rforge/rdyncall/src/demo/expat.R)
+    * [zuxml](https://github.com/pedrobtz/zuxml)
 * __Ruby__
     * [Ruby interface to Expat](https://rubygems.org/gems/xmlparser)
     * [ffi-expat](https://rubygems.org/gems/ffi-expat/) — Very thin wrapper around expat using the Ruby FFI library
