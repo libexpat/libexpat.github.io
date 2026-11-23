@@ -114,6 +114,7 @@ Wherever you go, Expat is already waiting for you:
     * [SliTaz GNU/Linux](https://hg.slitaz.org/wok/file/tip/expat/receipt)
     * [Solus Project](https://github.com/getsolus/packages/blob/main/packages/e/expat/package.yml)
     * [stal/IX](https://github.com/stal-ix/ix/tree/HEAD/pkgs/lib/expat)
+    * [starkOS](https://codeberg.org/stark-OS/main/src/branch/main/expat/sbuild)
     * [T2 SDE](https://svn.exactcode.de/t2/trunk/package/base/expat/expat.desc)
     * [Termux](https://github.com/termux/termux-packages/blob/master/packages/libexpat/build.sh)
     * [Tin Can Linux](https://github.com/tincan-linux/repo-extra/tree/HEAD/expat)
