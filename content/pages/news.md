@@ -4,6 +4,9 @@ License: MIT
 slug: news
 
 
+* 2026-11-23 —
+  [Expat 2.**11**.0](https://github.com/libexpat/libexpat/blob/R_2_11_0/expat/Changes)
+  has been released, includes **security fixes**
 * 2026-11-02 —
   [Expat 2.**10**.0](https://github.com/libexpat/libexpat/blob/R_2_10_0/expat/Changes)
   has been released, includes **security fixes**
